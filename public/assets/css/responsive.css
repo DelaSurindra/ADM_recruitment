@@ -1,0 +1,36 @@
+/* Responsive styles
+================================================== */
+
+/* Large Devices, Wide Screens */
+@media (min-width : 1200px) {
+
+}
+
+
+/* Medium Devices, Desktops */
+@media (min-width : 992px) {
+    .layar280{
+        display: none;
+    }
+}
+
+/* Small Devices, Tablets */
+@media (min-width : 768px) and (max-width: 991px) {
+	
+}
+
+
+/* Custom, iPhone Retina */ 
+@media (min-width : 320px) and (max-width : 767px)  {
+    .margin-top{
+        margin-top:20vh;
+    }
+    .content{
+        width: 80%;
+        right:17%;
+    }
+
+    .nama{
+        transform: translateX(-5vw);
+    }
+}

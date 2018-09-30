@@ -1,0 +1,111 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Validator;
+use App\Model\Vacancy;
+use App\Model\Pelamar;
+
+
+class FormContoller extends Controller
+{
+    //
+    private $vacancy;
+
+    public function __construct(){
+    	$this->vacancy = new Vacancy;
+    }
+
+    public function sliderIndex(Request $request)
+    {
+    	# code...
+    	$vacancies = $this->vacancy->where('is_available',true)->get();
+    	return view('slider')->with('positions',$vacancies);
+
+    }
+
+    public function form(Request $request, $job=null)
+    {
+    	if($job==null){
+    		return redirect()->route('slider')->with('error_msg','Ops! Sepertinya posisi yang Kamu cari belum ada. Silakan pilih pekerjaan yang ada di bawah ini.');
+    	}
+
+    	$selectedJob = $this->vacancy->find($job);
+
+    	if(empty($selectedJob)){
+    		return redirect()->route('slider')->with('error_msg','Ops! Sepertinya posisi yang Kamu cari belum ada. Silakan pilih pekerjaan yang ada di bawah ini.');
+    	}
+
+    	$title = $selectedJob->job_title;
+
+    	$request->session()->put('selectedJob', $selectedJob->job_id);
+
+    	return view('form')->with('jobTitle',$title);
+    }
+
+    public function submitLamaran(Request $request)
+    {
+    	if(!$request->session()->has('selectedJob')){
+    		return redirect()->route('slider')->with('error_msg','Ops! Kamu terlalu lama mengisi formulir sehingga sesi kamu telah berakhir, silakan ulangi proses dari awal.');
+    	}
+    	$validator = Validator::make($request->all(), [
+    		'firstname' => 'required',
+			'lastname' => 'required',
+			'tanggal_lahir' => 'required',
+			'tempat_lahir' => 'required',
+			'alamat' => 'required',
+			'no_hp' => 'required',
+			'email' => 'required|email|unique:pelamar',
+			'kampus' => 'required',
+			'jurusan' => 'required',
+			'file_cv' => 'max:3000|mimes:pdf'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+            			->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        if($request->hasFile('file_cv')){
+
+        	if(!$request->file('file_cv')->isValid()){
+        		return redirect()->back()
+        					->withInput()
+        					->with('error_msg','Please upload valid file');
+			}
+
+			$filename = 'cv_'.$request->firstname.'_'.str_replace('-', '', $request->tanggal_lahir).'_'.date('Ymdhis').'.'.'pdf';
+			$destination = 'public/';
+
+			$cvPath = $request->file_cv->storeAs($destination,$filename);
+        }
+
+        $pelamar = new Pelamar;
+        $pelamar->firstname = strip_tags($request->firstname);
+		$pelamar->job_id = $request->session()->get('selectedJob');
+        $pelamar->lastname = strip_tags($request->lastname);
+        $pelamar->tanggal_lahir = strip_tags($request->tanggal_lahir);
+        $pelamar->tempat_lahir = strip_tags($request->tempat_lahir);
+        $pelamar->alamat = strip_tags($request->alamat);
+        $pelamar->no_hp = strip_tags($request->no_hp);
+        $pelamar->email = strip_tags($request->email);
+        $pelamar->kampus = strip_tags($request->kampus);
+        $pelamar->jurusan = strip_tags($request->jurusan);
+        $pelamar->file_cv =  isset($cvPath) ? $cvPath : null;
+
+        try {
+	        $pelamar->save();
+
+	        return redirect()->route('slider')
+	        				->with('success_msg','Selamat, lamaran Kamu berhasil disimpan. Kami akan menghubungimu jika Kamu adalah orang yang kami cari');
+        } catch (Exception $e) {
+        	return redirect()->back()
+	        				->with('error_msg','Oh Tidak! Sepertinya sistem sedang mengalami gangguan. Silaka laporkan gangguan dan coba beberapa saat lagi. Err: '.$e->getMessage());
+        }
+
+        
+    }
+}
