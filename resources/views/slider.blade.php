@@ -38,7 +38,7 @@
   <input type="checkbox" id="checkbox">
   <label for="checkbox">Autoplay Slider</label>
 </div> -->
-    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
 
 

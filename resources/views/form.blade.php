@@ -19,7 +19,7 @@
 
   <!-- Fonts and Icons -->
   <link href="{{asset('assets/css/font-awesome.css')}}" rel="stylesheet">
-  <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+  <link href="https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
   <link href="{{asset('assets/css/themify-icons.css')}}" rel="stylesheet">
 </head>
