@@ -19,7 +19,7 @@
 
   <!-- Fonts and Icons -->
   <link href="{{asset('assets/css/font-awesome.css')}}" rel="stylesheet">
-  <link href="https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
   <link href="{{asset('assets/css/themify-icons.css')}}" rel="stylesheet">
 </head>
@@ -98,7 +98,7 @@
                 <div class="tab-content">
                   <div class="tab-pane" id="about">
                     <div class="row">
-                      <h5 class="info-text"> Hallo NuComers, apa kamu sudah siap menjadi {{$jobTitle}} ?</h5>
+                      <h5 class="info-text"> Hallo NuCommers, apa kamu sudah siap menjadi {{$jobTitle}} ?</h5>
                       <div class="col-sm-3 col-sm-offset-1">
                         <div class="form-group">
                           <label>Nama Panggilan</label>
@@ -108,7 +108,7 @@
                       <div class="col-sm-7">
                         <div class="form-group">
                           <label>Nama Panjang</label>
-                          <input name="lastname" type="text" class="form-control" placeholder="Smith..." value="{{old('lastname')}}">
+                          <input name="lastname" type="text" class="form-control" placeholder="Jhon Smith..." value="{{old('lastname')}}">
                         </div>
                       </div>
                       <div class="col-sm-5 col-sm-offset-1">
@@ -137,13 +137,13 @@
                       <div class="col-sm-5 col-sm-offset-1">
                         <div class="form-group">
                           <label>No Handphone</label>
-                          <input name="no_hp" type="number" class="form-control" placeholder="Smith..." value="{{old('no_hp')}}" required="">
+                          <input name="no_hp" type="number" class="form-control" placeholder="081231xxxxx" value="{{old('no_hp')}}" required="">
                         </div>
                       </div>
                       <div class="col-sm-5">
                         <div class="form-group">
                           <label>email</label>
-                          <input name="email" type="email" class="form-control" placeholder="andrew@creative-tim.com" value="{{old('email')}}">
+                          <input name="email" type="email" class="form-control" placeholder="jhon@gmail.com" value="{{old('email')}}">
                         </div>
                       </div>
                       <div class="col-sm-5 col-sm-offset-1">

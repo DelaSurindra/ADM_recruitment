@@ -3,34 +3,44 @@
 
 /* Large Devices, Wide Screens */
 @media (min-width : 1200px) {
-
+	
 }
 
 
 /* Medium Devices, Desktops */
 @media (min-width : 992px) {
-    .layar280{
-        display: none;
-    }
+
 }
 
 /* Small Devices, Tablets */
 @media (min-width : 768px) and (max-width: 991px) {
-	
+    #slider{
+        width: 100% !important;
+		height:700px !important;
+    }
 }
 
 
 /* Custom, iPhone Retina */ 
 @media (min-width : 320px) and (max-width : 767px)  {
-    .margin-top{
-        margin-top:20vh;
+	#slider{
+        width: 100% !important;
+		height:700px !important;
     }
-    .content{
-        width: 80%;
-        right:17%;
+    a.control_prev, a.control_next{
+        top:60%;
     }
-
-    .nama{
-        transform: translateX(-5vw);
+        .body-mobile{
+            font-size: 40px;
+        }
+        .item{
+            width: 130%;
+        }
+        .button{
+            min-width: 400px;
+            font-size: 70px;
+        }
+    .android{
+        height: 700px;
     }
 }
