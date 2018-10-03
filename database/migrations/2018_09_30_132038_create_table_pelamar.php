@@ -18,7 +18,7 @@ class CreateTablePelamar extends Migration
             $table->increments('id');
             $table->string('job_id');
             $table->string('firstname');
-            $table->string('latname');
+            $table->string('lastname');
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->text('alamat');
