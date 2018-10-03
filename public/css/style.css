@@ -6,7 +6,9 @@ body {
   font-size: 24px;
   font-weight: 300;
   overflow: auto;
+  font-family: 'Muli', 'Helvetica', Arial, sans-serif;
 }
+
 
 .title-slider{
   font-size: 1rem;
@@ -36,7 +38,6 @@ body {
 
 #slider ul li {
   position: relative;
-  display: block;
   float: left;
   margin: 0;
   padding: 0;
@@ -102,3 +103,34 @@ a.control_next {
   background-size: contain;
   position: relative;
 }
+
+.mobile-image {
+  display: none;
+}
+
+.desktop-image {
+  display: block;
+}
+
+.apply-btn{
+  position: absolute;
+  bottom: 100px;
+}
+
+.apply-btn a{
+  border-color: white;
+}
+@media only screen and (max-width: 600px) {
+        .desktop-image {
+            display: none !important;
+        }
+
+        .mobile-image {
+            display: block !important;
+        }
+
+        .apply-btn{
+            bottom: -51px;
+        }
+    } 
+
