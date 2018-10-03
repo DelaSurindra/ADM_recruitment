@@ -34,6 +34,11 @@ transparent = true;
         		      required: true,
         		      minlength: 3
         		    },
+                    tanggal_lahir: {
+                      required: false,
+                      dateFormat:true
+                    },
+
         		    email: {
         		      required: true
         		    }
