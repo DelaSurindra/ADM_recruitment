@@ -37,24 +37,22 @@
             <a href="#" class="control_prev"><</a> 
             <ul>
                 @foreach($positions as $key=>$_pos)
-                    <li class="desktop-image">
-                        <div class="android">
+                    <li class="">
+                        <div class="android desktop-image">
                             <img  src="{{asset('desktop/'.$_pos->job_poster)}}">
                             <div class="apply-btn btn-block">
                                 <a href="{{route('form',$_pos->job_id)}}" class="btn btn-primary"> Apply Now
                                 </a>
                             </div>
                         </div>
-                    </li>
-                     <li class="mobile-image">
-                        <div class="android">
+                        <div class="android mobile-image">
                             <img  src="{{asset('mobile/'.$_pos->job_poster)}}">
                             <div class="apply-btn btn-block">
                                 <a href="{{route('form',$_pos->job_id)}}" class="btn btn-primary"> Apply Now
                                 </a>
                             </div>
                         </div>
-                    </li> 
+                    </li>
                 @endforeach
             </ul>
         </div>
