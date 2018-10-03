@@ -39,14 +39,8 @@
             <ul>
                 @foreach($positions as $key=>$_pos)
                     <li class="">
-                        <div class="android desktop-image">
-                            <img  src="{{asset('desktop/'.$_pos->job_poster)}}">
-                            <div class="apply-btn btn-block">
-                                <a href="{{route('form',$_pos->job_id)}}" class="btn btn-primary"> Apply Now
-                                </a>
-                            </div>
-                        </div>
-                        <div class="android mobile-image">
+                        
+                        <div class="android">
                             <img  src="{{asset('mobile/'.$_pos->job_poster)}}">
                             <div class="apply-btn btn-block">
                                 <a href="{{route('form',$_pos->job_id)}}" class="btn btn-primary"> Apply Now

@@ -21,11 +21,11 @@ $(document).ready(function(){
 		})
 	}
 
-	if($('input[name=tanggal_lahir]').length){
-		$('input[name=tanggal_lahir]').datepicker({
-			format:'dd-mm-yyyy'
-		})
-	}
+	// if($('input[name=tanggal_lahir]').length){
+	// 	$('input[name=tanggal_lahir]').datepicker({
+	// 		format:'dd-mm-yyyy'
+	// 	})
+	// }
 
     jQuery.validator.addMethod("dateFormat",function(value,element){
 			return this.optional(element) || /^\d{1,2}\-\d{1,2}\-\d{4}$/.test(value);

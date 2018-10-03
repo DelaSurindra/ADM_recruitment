@@ -115,7 +115,7 @@
                       <div class="col-sm-5 col-sm-offset-1">
                         <div class="form-group">
                           <label>Tanggal Lahir </label>
-                          <input name="tanggal_lahir" type="text" class="form-control" placeholder="E.g. 20-02-1994" value="{{old('tanggal_lahir')}}" required="" dateFormat="true">
+                          <input name="tanggal_lahir" type="date" class="form-control" placeholder="E.g. 20-02-1994" value="{{old('tanggal_lahir')}}" required="" >
                         </div>
                       </div>
                       <div class="col-sm-5">
@@ -170,7 +170,7 @@
                         <div class="picture-container">
                           <div class="picture">
                             <img src="{{asset('assets/img/default-avatar.jpg')}}" class="picture-src" id="wizardPicturePreview" title="" />
-                            <input type="file" id="wizard-picture" name="file_cv" required="" extension="pdf">
+                            <input type="file" id="wizard-picture" name="file_cv" extension="pdf">
                           </div>
                           <h6>Pilih CV mu</h6>
                         </div>
