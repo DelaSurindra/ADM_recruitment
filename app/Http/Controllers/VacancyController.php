@@ -54,7 +54,8 @@ class VacancyController extends Controller
         $isi = Vacancy::find($id);
         if (!$isi) abort(404);
 
-        Storage::disk('poster')->delete($isi->job_poster);
+        Storage::disk('poster')->delete('mobile/'.$isi->job_poster);
+        Storage::disk('poster')->delete('desktop/'.$isi->job_poster);
         $isi->delete();
 
         return redirect('vacancy')->with('success', 'Success Deleted Job');
@@ -67,7 +68,8 @@ class VacancyController extends Controller
     		'job_id' => 'required',
 			'job_title' => 'required',
 			'available' => 'required',
-			'poster' => 'required|max:3000|mimes:png,jpeg'
+            'posterDesktop' => 'required|max:3000|mimes:png,jpeg',
+            'posterMobile' => 'required|max:3000|mimes:png,jpeg'
         ]);
 
         if ($validator->fails()) {
@@ -77,9 +79,9 @@ class VacancyController extends Controller
                         ->withInput();
         }
 
-        if($req->hasFile('poster')){
+        if($req->hasFile('posterMobile') && $req->hasFile('posterDesktop')){
 
-        	if(!$req->file('poster')->isValid()){
+        	if(!($req->file('posterMobile')->isValid() && $req->file('posterDesktop')->isValid())){
         		return redirect()->back()
         					->withInput()
         					->with('error_msg','Please upload valid file');
@@ -88,7 +90,10 @@ class VacancyController extends Controller
 			$filename = $req->job_id.'.png';
 			$destination = 'recruitment/';
 
-			$posterPath = $req->poster->storeAs($destination, $filename, 'poster');
+            $posterPath = $req->posterMobile->storeAs('mobile/'.$destination, $filename, 'poster');
+            $posterPath = $req->posterDesktop->storeAs('desktop/'.$destination, $filename, 'poster');
+
+            $posterPath = $destination.$filename;
         }
 
         $vacancy = new Vacancy;
@@ -141,7 +146,10 @@ class VacancyController extends Controller
 			$filename = $req->job_id.'.png';
 			$destination = 'recruitment/';
 
-			$posterPath = $req->poster->storeAs($destination, $filename, 'poster');
+			$posterPath = $req->posterMobile->storeAs('mobile/'.$destination, $filename, 'poster');
+            $posterPath = $req->posterDesktop->storeAs('desktop/'.$destination, $filename, 'poster');
+
+            $posterPath = $destination.$filename;
         }
 
         if (isset($posterPath)) {

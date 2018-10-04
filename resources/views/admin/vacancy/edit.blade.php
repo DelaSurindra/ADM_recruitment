@@ -32,10 +32,6 @@
                         <textarea name="job_des" class="form-control" rows="3">{{ $vacancy->job_description }}</textarea>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label>Poster</label>
-                            <input name="poster" type="file" class="form-control">
-                        </div>
                         <div class="form-group col-md-3">
                             <label>Available</label>
                             <select name="available" class="form-control">
@@ -47,6 +43,17 @@
                         <div class="form-group col-md-3">
                             <label>End Date</label>
                             <input name="end" type="date" class="form-control" value="{{$vacancy->end_date}}">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Poster Desktop</label>
+                            <input name="posterMobile" type="file" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Poster Mobile</label>
+                            <input name="posterDesktop" type="file" class="form-control">
                         </div>
                     </div>
                     

@@ -20,7 +20,14 @@
 
                 <div class="row">
                     <div class="col">
-                        <img src="{{asset($vacancy->job_poster)}}" alt="{{ $vacancy->job_title }}" class="img-thumbnail">
+                        <div class="row">
+                            <div class="col-6">
+                            <img src="{{asset('mobile/'.$vacancy->job_poster)}}" alt="{{ $vacancy->job_title }}" class="img-thumbnail">
+                            </div>
+                            <div class="col-6">
+                            <img src="{{asset('desktop/'.$vacancy->job_poster)}}" alt="{{ $vacancy->job_title }}" class="img-thumbnail">
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="col">
