@@ -5,6 +5,13 @@
     <div class="col-12 mt-5">
         <div class="card">
             <div class="card-body">
+                <div class="row">
+                    <div class="form-inline col-10">
+                        <h4><strong>List of Applicants</strong></h4>
+                    </div>
+                </div>
+
+                <hr>
                 <form action="{{ route('pelamar') }}" method="GET">
                     <div class="form-row  mb-3">
                         <div class="form-inline col">

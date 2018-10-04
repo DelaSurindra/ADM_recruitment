@@ -27,13 +27,28 @@ Route::get('email/verify', 'Auth\VerificationController@show')->name('verificati
 Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
 Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
-
-
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Route admin pelamar
 Route::get('/pelamar', 'PelamarController@getIndex')->name('pelamar');
 Route::get('/pelamar/{id}', 'PelamarController@getDetailPelamar')->name('detailPelamar');
 Route::get('/pelamar/download/{id}', 'PelamarController@getDownload')->name('download');
+
+// Route admin Vacancy
+Route::get('/vacancy', 'VacancyController@getIndex')->name('vacancy');
+
+Route::get('/vacancy/add', 'VacancyController@getInput')->name('formAdd');
+Route::post('/vacancy/add', 'VacancyController@postInput')->name('submitJob');
+
+Route::get('/vacancy/{id}', 'VacancyController@getDetail');
+
+Route::get('/vacancy/edit/{id}', 'VacancyController@getEdit')->name('formEdit');
+Route::post('/vacancy/edit/{id}', 'VacancyController@postEdit');
+
+Route::get('/vacancy/delete/{id}', 'VacancyController@getDelete')->name('vacancyDelete');
+
+
+
 
 
 Route::get('/', 'FormContoller@sliderIndex')->name('slider');

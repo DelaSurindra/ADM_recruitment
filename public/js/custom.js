@@ -11,3 +11,19 @@ $(document).ready(function(){
 		alert(msg);
 	}
 })
+
+function deleteJob(id) {
+    if (confirm("Anda yakin menghapus Lowongan ini?") == true) {
+        window.location.href = "delete/"+id;
+    } else {
+		console.log('gagal');
+	}
+}
+
+function deleteJobList(id) {
+    if (confirm("Anda yakin menghapus Lowongan ini?") == true) {
+        window.location.href = "vacancy/delete/"+id;
+    } else {
+		console.log('gagal');
+	}
+}

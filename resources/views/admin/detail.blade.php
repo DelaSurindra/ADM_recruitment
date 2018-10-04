@@ -10,7 +10,7 @@
                         <h4><strong>{{ $pelamar->lastname }}</strong> ({{ $job }})</h4>
                     </div>
                     <div class="form-inline col justify-content-end">
-                        <a href="{{ route('pelamar')}}" class="btn btn-outline-primary"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</a>
+                        <a href="{{ route('pelamar')}}" class="btn btn-outline-primary">Back</a>
                     </div>
                 </div>
 
