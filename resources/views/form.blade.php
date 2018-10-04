@@ -9,6 +9,7 @@
 
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
   <meta name="viewport" content="width=device-width" />
+    <met http-equiv="CACHE-CONTROL" content="NO-CACHE">
 
   <!-- CSS Files -->
   <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" />
@@ -22,7 +23,7 @@
   <link href="https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
   <link href="{{asset('assets/css/themify-icons.css')}}" rel="stylesheet">
-</head>
+  <link href="{{asset('assets/css/datepicker.min.css')}}" rel="stylesheet">
 
 <body>
   @if(Session::has("error_msg"))
@@ -56,7 +57,7 @@
           <div class="wizard-container">
 
             <div class="card wizard-card" data-color="blue" id="wizardProfile">
-              <form action="{{route('submitLamaran')}}" method="post" enctype="multipart/form-data">
+              <form action="{{route('submitLamaran')}}" method="post" enctype="multipart/form-data" class="">
                 <!--        You can switch " data-color="blue" "  with one of the next bright colors: "blue", "green", "blue", "red", "azure"          -->
 
                 <div class="wizard-header text-center">
@@ -98,7 +99,7 @@
                 <div class="tab-content">
                   <div class="tab-pane" id="about">
                     <div class="row">
-                      <h5 class="info-text"> Hallo NuComers, apa kamu sudah siap menjadi {{$jobTitle}} ?</h5>
+                      <h5 class="info-text"> Hallo NuCommers, apa kamu sudah siap menjadi {{$jobTitle}} ?</h5>
                       <div class="col-sm-3 col-sm-offset-1">
                         <div class="form-group">
                           <label>Nama Panggilan</label>
@@ -108,13 +109,13 @@
                       <div class="col-sm-7">
                         <div class="form-group">
                           <label>Nama Panjang</label>
-                          <input name="lastname" type="text" class="form-control" placeholder="Smith..." value="{{old('lastname')}}">
+                          <input name="lastname" type="text" class="form-control" placeholder="Jhon Smith..." value="{{old('lastname')}}">
                         </div>
                       </div>
                       <div class="col-sm-5 col-sm-offset-1">
                         <div class="form-group">
                           <label>Tanggal Lahir </label>
-                          <input name="tanggal_lahir" type="date" class="form-control" placeholder="E.g. andrew@creative-tim.com" value="{{old('email')}}" required="">
+                          <input name="tanggal_lahir" type="date" class="form-control" placeholder="E.g. 20-02-1994" value="{{old('tanggal_lahir')}}" required="" >
                         </div>
                       </div>
                       <div class="col-sm-5">
@@ -137,13 +138,13 @@
                       <div class="col-sm-5 col-sm-offset-1">
                         <div class="form-group">
                           <label>No Handphone</label>
-                          <input name="no_hp" type="number" class="form-control" placeholder="Smith..." value="{{old('no_hp')}}" required="">
+                          <input name="no_hp" type="number" class="form-control" placeholder="081231xxxxx" value="{{old('no_hp')}}" required="">
                         </div>
                       </div>
                       <div class="col-sm-5">
                         <div class="form-group">
                           <label>email</label>
-                          <input name="email" type="email" class="form-control" placeholder="andrew@creative-tim.com" value="{{old('email')}}">
+                          <input name="email" type="email" class="form-control" placeholder="jhon@gmail.com" value="{{old('email')}}">
                         </div>
                       </div>
                       <div class="col-sm-5 col-sm-offset-1">
@@ -169,7 +170,7 @@
                         <div class="picture-container">
                           <div class="picture">
                             <img src="{{asset('assets/img/default-avatar.jpg')}}" class="picture-src" id="wizardPicturePreview" title="" />
-                            <input type="file" id="wizard-picture" name="file_cv">
+                            <input type="file" id="wizard-picture" name="file_cv" extension="pdf">
                           </div>
                           <h6>Pilih CV mu</h6>
                         </div>
@@ -201,18 +202,23 @@
   </div>
 
 </body>
-
+<script type="text/javascript">
+  
+</script>
 <!--   Core JS Files   -->
 <script src="{{asset('assets/js/jquery-2.2.4.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/js/bootstrap.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/js/jquery.bootstrap.wizard.js')}}" type="text/javascript"></script>
 
-<!--  Plugin for the Wizard -->
-<script src="{{asset('assets/js/paper-bootstrap-wizard.js')}}" type="text/javascript"></script>
-
 <!--  More information about jquery.validate here: http://jqueryvalidation.org/  -->
 <script src="{{asset('assets/js/jquery.validate.min.js')}}" type="text/javascript"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.4/dist/sweetalert2.all.min.js"></script>
+<!--  Plugin for the Wizard -->
 <script src="{{asset('js/custom.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/js/paper-bootstrap-wizard.js')}}" type="text/javascript"></script>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script> -->
+
+<script src="{{asset('js/datepicker.min.js')}}" type="text/javascript"></script>
 
 </html>

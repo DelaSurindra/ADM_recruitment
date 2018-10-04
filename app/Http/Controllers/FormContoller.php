@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Model\Vacancy;
 use App\Model\Pelamar;
+use Exception;
 
 
 class FormContoller extends Controller
@@ -65,6 +66,7 @@ class FormContoller extends Controller
         if ($validator->fails()) {
             return redirect()
             			->back()
+                        ->with('error_msg',implode('<br>', ($validator->errors()->all())))
                         ->withErrors($validator)
                         ->withInput();
         }
@@ -77,7 +79,7 @@ class FormContoller extends Controller
         					->with('error_msg','Please upload valid file');
 			}
 
-			$filename = 'cv_'.$request->firstname.'_'.str_replace('-', '', $request->tanggal_lahir).'_'.date('Ymdhis').'.'.'pdf';
+			$filename = 'cv_'.$request->session()->get('selectedJob').'_'.$request->firstname.'_'.str_replace('-', '', $request->tanggal_lahir).'_'.date('Ymdhis').'.'.'pdf';
 			$destination = 'public/';
 
 			$cvPath = $request->file_cv->storeAs($destination,$filename);
@@ -87,7 +89,7 @@ class FormContoller extends Controller
         $pelamar->firstname = strip_tags($request->firstname);
 		$pelamar->job_id = $request->session()->get('selectedJob');
         $pelamar->lastname = strip_tags($request->lastname);
-        $pelamar->tanggal_lahir = strip_tags($request->tanggal_lahir);
+        $pelamar->tanggal_lahir = strip_tags(date('Y-m-d',strtotime($request->tanggal_lahir)));
         $pelamar->tempat_lahir = strip_tags($request->tempat_lahir);
         $pelamar->alamat = strip_tags($request->alamat);
         $pelamar->no_hp = strip_tags($request->no_hp);
@@ -95,14 +97,15 @@ class FormContoller extends Controller
         $pelamar->kampus = strip_tags($request->kampus);
         $pelamar->jurusan = strip_tags($request->jurusan);
         $pelamar->file_cv =  isset($cvPath) ? $cvPath : null;
-
         try {
-	        $pelamar->save();
+            $pelamar->save();
 
+            $request->session()->forget('selectedJob');
 	        return redirect()->route('slider')
-	        				->with('success_msg','Selamat, lamaran Kamu berhasil disimpan. Kami akan menghubungimu jika Kamu adalah orang yang kami cari');
+	        				->with('success_msg','Terimakasih sudah submit CV terbaikmu di Vascomm. We’ll update you soon.');
         } catch (Exception $e) {
         	return redirect()->back()
+                            ->withInput()
 	        				->with('error_msg','Oh Tidak! Sepertinya sistem sedang mengalami gangguan. Silaka laporkan gangguan dan coba beberapa saat lagi. Err: '.$e->getMessage());
         }
 
