@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Model\Pelamar;
+use App\Model\Vacancy;
+
 class HomeController extends Controller
 {
     /**
@@ -23,6 +26,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.home');
+        $jumlahPelamar = Pelamar::count();
+        $lamaranTerakhir = Pelamar::max('created_at');
+
+        $jumlahLowongan = Vacancy::count();
+        return view('admin.home')->with(['jumlahLamaran'=>$jumlahPelamar, 'last' => $lamaranTerakhir,'jumlahLowongan'=>$jumlahLowongan]);
     }
 }

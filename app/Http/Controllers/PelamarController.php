@@ -40,10 +40,12 @@ class PelamarController extends Controller
     public function getDetailPelamar($id)
     {
         $isi = Pelamar::find($id);
-        if (!$isi) abort(404);
+        if (empty($isi)) abort(404);
 
         $job = Vacancy::find($isi->job_id);
 
+        if (empty($job)) abort(404);
+       
         $data = [
             "pelamar" => $isi,
             "job" => $job->job_title

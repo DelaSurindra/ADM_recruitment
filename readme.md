@@ -18,6 +18,12 @@
 - Copy all text form .env.example to those .env file
 - Congratulation, you have successfully deployed this project.
 
+## HOW TO LOGIN
+
+- Make sure you have successfully deployed this project.
+- Run command ``php artisan user:admin {your_email}`` to create new admin. Replace '{your_email}' with your email address. The console will show username and password for administrator access.
+- Access url /login and input email and password from the process above to login.
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
