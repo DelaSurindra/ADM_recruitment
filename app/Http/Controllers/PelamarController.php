@@ -8,10 +8,7 @@ use App\Model\Vacancy;
 
 class PelamarController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
 
     public function getIndex(Request $req)
     {
@@ -66,5 +63,16 @@ class PelamarController extends Controller
                 );
 
         return response()->download($file);
+    }
+
+    public function changeStatus(Request $req, $id)
+    {
+        $isi = Pelamar::find($id);
+        if (!$isi) abort(404);
+
+        $isi->status = $req->status;
+        $isi->save();
+
+        return redirect()->back()->with('success','Success to Change the Status');
     }
 }

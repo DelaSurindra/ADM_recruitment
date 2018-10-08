@@ -34,6 +34,8 @@
                                 <th scope="col">No</th>
                                 <th scope="col">Job ID</th>
                                 <th scope="col">Job Title</th>
+                                <th scope="col">Total Applicant</th>
+                                <th scope="col">Target Hire</th>
                                 <th scope="col">Avaliable</th>
                                 <th scope="col">End Date</th>
                                 <th scope="col">Action</th>
@@ -45,18 +47,20 @@
                                     <th scope="row">{{ ($vacancy->currentpage()-1) * $vacancy->perpage() + $d + 1 }}</th>
                                     <td>{{ $key->job_id }}</td>
                                     <td>{{ $key->job_title }}</td>
+                                    <td>{{ $key->total }}</td>
+                                    <td class="text-center">{{ $key->job_target }}</td>
                                     <td>
                                         @if($key->is_available)
                                             <h5><span class="badge badge-pill badge-success">Available</span></h5>
                                         @else
-                                            <h5><span class="badge badge-pill badge-danger">Not Available</span></h5>
+                                            <h5><span class="badge badge-pill badge-danger">Closed</span></h5>
                                         @endif
                                     </td>
                                     <td>{{ $key->end_date }}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href="{{url('vacancy/'.$key->job_id)}}" type="button" class="btn btn-outline-primary">Detail</a>
-                                            <a href="{{url('vacancy/edit/'.$key->job_id)}}" type="button" class="btn btn-primary">Edit</a>
+                                            <a href="{{url('admin/vacancy/'.$key->job_id)}}" type="button" class="btn btn-outline-primary">Detail</a>
+                                            <a href="{{url('admin/vacancy/edit/'.$key->job_id)}}" type="button" class="btn btn-primary">Edit</a>
                                             <a href="#" onclick="deleteJobList('{{$key->job_id}}')" type="button" class="btn btn-danger">Delete</a>
                                         </div>
                                     </td>

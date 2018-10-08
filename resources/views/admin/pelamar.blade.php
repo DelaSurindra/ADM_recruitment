@@ -17,7 +17,7 @@
                         <div class="form-inline col">
                             <div class="form-group">
                                 <select name="job" class="form-control mr-2" id="exampleFormControlSelect1">
-                                    <option value="">Job Title</option>
+                                    <option value="">All Job Vacancy</option>
                                     @foreach($vacancy as $d)
                                         <option value="{{ $d->job_id }}">{{ $d->job_title }}</option>
                                     @endforeach
@@ -54,6 +54,7 @@
                                 <th scope="col">Email</th>
                                 <th scope="col">No HP</th>
                                 <th scope="col">Divisi</th>
+                                <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -66,12 +67,23 @@
                                     <td>{{ $key->no_hp }}</td>
                                     <td>{{ $key->job_id }}</td>
                                     <td>
+                                        @if($key->status == 'APLY')
+                                            <h5><span class="badge badge-pill badge-warning">Applied</span></h5>
+                                        @elseif($key->status == 'INTV')
+                                            <h5><span class="badge badge-pill badge-info">Interview</span></h5>
+                                        @elseif($key->status == 'ACPT')
+                                            <h5><span class="badge badge-pill badge-info">Accepted</span></h5>
+                                        @elseif($key->status == 'RJCT')
+                                            <h5><span class="badge badge-pill badge-info">Rejected</span></h5>
+                                        @endif
+                                    </td>
+                                    <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href="{{url('pelamar/'.$key->id)}}" type="button" class="btn btn-secondary">Detail</a>
+                                            <a href="{{url('admin/pelamar/'.$key->id)}}" type="button" class="btn btn-secondary">Detail</a>
                                             @if($key->file_cv)
-                                                <a href="{{ url('pelamar/download/'.$key->id) }}" type="button" class="btn btn-secondary" target="_blank">Download CV</a>
+                                                <a href="{{ url('admin/pelamar/download/'.$key->id) }}" type="button" class="btn btn-secondary" target="_blank">Download CV</a>
                                             @else
-                                                <a href="{{ url('pelamar/download/'.$key->id) }}" type="button" class="btn btn-secondary disabled" >Download CV</a>
+                                                <a href="{{ url('admin/pelamar/download/'.$key->id) }}" type="button" class="btn btn-secondary disabled" >Download CV</a>
                                             @endif
                                         </div>
                                     </td>

@@ -16,52 +16,82 @@
 
                 <hr>
 
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                        <div class="alert alert-danger">
-                            {{ $error }}
-                        </div>
-                    @endforeach
+                @if(session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
                 @endif
+
 
                 <form action="{{ route('submitJob') }}" method="post" enctype="multipart/form-data">
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Job ID</label>
-                            <input name="job_id" type="text" class="form-control" placeholder="ID">
+                            <input name="job_id" type="text" class="form-control {{ $errors->has('job_id') ? ' is-invalid' : '' }}" placeholder="ID">
+                            @if ($errors->has('job_id'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('job_id') }}
+                                </div>
+                            @endif
                         </div>
                         <div class="form-group col-md-6">
                             <label>Title</label>
-                            <input name="job_title" type="test" class="form-control" placeholder="Job Title">
+                            <input name="job_title" type="test" class="form-control {{ $errors->has('job_title') ? ' is-invalid' : '' }}" placeholder="Job Title">
+                            @if ($errors->has('job_title'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('job_title') }}
+                                </div>
+                            @endif
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea name="job_des" class="form-control" rows="3"></textarea>
-                    </div>
+                    
                     <div class="form-row">
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                             <label>Available</label>
-                            <select name="available" class="form-control">
+                            <select name="available" class="form-control ">
                                 <option value="">Choose...</option>
                                 <option value="1">Available</option>
-                                <option value="0">Full</option>
+                                <option value="0">Closed</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                             <label>End Date</label>
                             <input name="end" type="date" class="form-control">
                         </div>
+                        <div class="form-group col-md-4">
+                            <label>Target Hire</label>
+                            <input name="target" type="text" class="form-control {{ $errors->has('target') ? ' is-invalid' : '' }}" placeholder="Target Hire for Job">
+                            @if ($errors->has('target'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('target') }}
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea name="job_des" class="form-control" rows="3"></textarea>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Poster Desktop</label>
-                            <input name="posterMobile" type="file" class="form-control">
+                            <input name="posterMobile" type="file" class="form-control {{ $errors->has('posterMobile') ? ' is-invalid' : '' }}">
+                            @if ($errors->has('posterMobile'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('posterMobile') }}
+                                </div>
+                            @endif
                         </div>
                         <div class="form-group col-md-6">
                             <label>Poster Mobile</label>
-                            <input name="posterDesktop" type="file" class="form-control">
+                            <input name="posterDesktop" type="file" class="form-control {{ $errors->has('posterDesktop') ? ' is-invalid' : '' }}">
+                            @if ($errors->has('posterDesktop'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('posterDesktop') }}
+                                </div>
+                            @endif
                         </div>
                     </div>
                     

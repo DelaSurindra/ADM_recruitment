@@ -2,7 +2,14 @@
 
 @section('content')
 <div class="row">
-    <div class="col-12 main-content">
+    <div class="col-12 main-content mt-5">
+
+		@if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+		
         <div class="card">
             <h5 class="card-header">Welcome</h5>
             <div class="card-body">

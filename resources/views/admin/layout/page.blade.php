@@ -21,20 +21,30 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item {{ Request::path() == 'home' ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('/home') }}">Home</a>
+                    <li class="nav-item {{ Request::path() == 'admin/home' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('home') }}">Home</a>
                     </li>
-                    <li class="nav-item {{ Request::path() == 'pelamar' ? 'active' : '' }}">
+                    <li class="nav-item {{ Request::path() == 'admin/pelamar' ? 'active' : '' }}">
                         <a class="nav-link" href="{{route('pelamar')}}">Pelamar</a>
                     </li>
-                    <li class="nav-item {{ Request::path() == 'vacancy' ? 'active' : '' }}">
+                    <li class="nav-item {{ Request::path() == 'admin/vacancy' ? 'active' : '' }}">
                         <a class="nav-link" href="{{route('vacancy')}}">Vacancies</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0" action="{{ route('logout') }}" method="POST">
-                    <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Logout</button>
-                    @csrf
-                </form>
+                <div class="dropdown form-inline my-2 my-lg-0">
+                    <button class="btn btn-outline-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Option
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{{route('profile')}}">Edit Profile</a>
+                        <a class="dropdown-item" href="{{route('listUser')}}">Manage User Admin</a>
+                        <div class="dropdown-divider"></div>
+                        <form action="{{ route('logout') }}" method="POST">
+                            <button class="dropdown-item" type="submit">Logout</button>
+                            @csrf
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>

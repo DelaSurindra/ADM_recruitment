@@ -27,6 +27,7 @@ class CreateTablePelamar extends Migration
             $table->string('kampus');
             $table->string('jurusan');
             $table->text('file_cv')->nullable();
+            $table->char('status', 4)->default('APLY');
             $table->timestamps();
             $table->index('job_id');
             $table->index('firstname');
