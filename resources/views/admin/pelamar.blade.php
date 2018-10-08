@@ -91,7 +91,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{$pelamar->links()}}
+                    {{$pelamar->appends(request()->except('page'))->links()}}
                 @endif
             </div>
         </div>
