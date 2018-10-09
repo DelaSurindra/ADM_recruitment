@@ -22,7 +22,6 @@ class CreateTableVacancies extends Migration
             $table->text('job_description')->nullable();
             $table->boolean('is_available')->default(true);
             $table->date('end_date')->nullable();
-            $table->integer('job_target')->default(0);
             $table->timestamps();
             $table->index('job_title');
             //
