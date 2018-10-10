@@ -14,7 +14,6 @@ class AddPelamarStatus extends Migration
     public function up()
     {
         Schema::table('pelamar', function($table) {
-            $table->renameColumn('latname', 'lastname');
             $table->char('status', 4)->default('APLY');
         });    
     }
