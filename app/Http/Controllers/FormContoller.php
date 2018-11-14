@@ -44,6 +44,24 @@ class FormContoller extends Controller
 
     	return view('form')->with('jobTitle',$title);
     }
+    public function detail(Request $request, $job=null)
+    {
+        if($job==null){
+            return redirect()->route('slider')->with('error_msg','Ops! Sepertinya posisi yang Kamu cari belum ada. Silakan pilih pekerjaan yang ada di bawah ini.');
+        }
+
+        $selectedJob = $this->vacancy->find($job);
+
+        if(empty($selectedJob)){
+            return redirect()->route('slider')->with('error_msg','Ops! Sepertinya posisi yang Kamu cari belum ada. Silakan pilih pekerjaan yang ada di bawah ini.');
+        }
+
+        $title = $selectedJob->job_title;
+
+        $request->session()->put('selectedJob', $selectedJob->job_id);
+
+        return view('detail')->with('data',$selectedJob);
+    }
 
     public function submitLamaran(Request $request)
     {
@@ -78,13 +96,12 @@ class FormContoller extends Controller
         					->withInput()
         					->with('error_msg','Please upload valid file');
 			}
-
 			$filename = 'cv_'.$request->session()->get('selectedJob').'_'.$request->firstname.'_'.str_replace('-', '', $request->tanggal_lahir).'_'.date('Ymdhis').'.'.'pdf';
-			$destination = 'public/';
-
+			$destination = 'public/cv';
 			$cvPath = $request->file_cv->storeAs($destination,$filename);
-        }
+            $request->file('file_cv')->move($destination,$filename);
 
+        }
         $pelamar = new Pelamar;
         $pelamar->firstname = strip_tags($request->firstname);
 		$pelamar->job_id = $request->session()->get('selectedJob');
@@ -97,6 +114,7 @@ class FormContoller extends Controller
         $pelamar->kampus = strip_tags($request->kampus);
         $pelamar->jurusan = strip_tags($request->jurusan);
         $pelamar->file_cv =  isset($cvPath) ? $cvPath : null;
+        
         try {
             $pelamar->save();
 

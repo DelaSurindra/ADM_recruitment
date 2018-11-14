@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Admin Page</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
 </head>
 
 <body>
@@ -55,7 +56,12 @@
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+    <script>
+    $(document).ready(function() {
+  $('#summernote').summernote();
+});
+</script>
 </body>
 
 </html>

@@ -21,14 +21,14 @@
                 <div class="row">
                     <div class="col">
                         <div class="row">
-                            <div class="col-6">
-                                <h6>Poster for Mobile</h6>
-                                <img src="{{asset('mobile/'.$vacancy->job_poster)}}" alt="{{ $vacancy->job_title }}" class="img-thumbnail">
+                            <div class="col-12">
+                                <h6>Poster</h6>
+                                <img src="{{asset('/'.$vacancy->job_poster)}}" alt="{{ $vacancy->job_title }}" class="img-thumbnail">
                             </div>
-                            <div class="col-6">
+                            <!-- <div class="col-6">
                                 <h6>Poster for Desktop</h6>
                                 <img src="{{asset('desktop/'.$vacancy->job_poster)}}" alt="{{ $vacancy->job_title }}" class="img-thumbnail">
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     

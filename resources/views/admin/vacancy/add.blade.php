@@ -73,25 +73,16 @@
                         <label>Description</label>
                         <textarea name="job_des" class="form-control" rows="3"></textarea>
                     </div>
+                    <div class="form-group">
+                        <label>Requirement</label>
+                        <textarea name="job_des" class="form-control" rows="3"></textarea>
+                    </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label>Poster Desktop</label>
-                            <input name="posterMobile" type="file" class="form-control {{ $errors->has('posterMobile') ? ' is-invalid' : '' }}">
-                            @if ($errors->has('posterMobile'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('posterMobile') }}
-                                </div>
-                            @endif
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Poster Mobile</label>
-                            <input name="posterDesktop" type="file" class="form-control {{ $errors->has('posterDesktop') ? ' is-invalid' : '' }}">
-                            @if ($errors->has('posterDesktop'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('posterDesktop') }}
-                                </div>
-                            @endif
+                            <label>Poster </label>
+                            <input name="poster" type="file" class="form-control ">
+                            
                         </div>
                     </div>
                     

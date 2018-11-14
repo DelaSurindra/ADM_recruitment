@@ -80,8 +80,9 @@ Route::middleware(['web'])->group(function () {
 
     //Halaman Apply
     Route::get('/', 'FormContoller@sliderIndex')->name('slider');
-    Route::get('/{job}','FormContoller@form')->name('form');
+    Route::get('/{job}','FormContoller@detail')->name('detail');
     Route::post('submit','FormContoller@submitLamaran')->name('submitLamaran');
+    Route::get('form/{job}','FormContoller@form')->name('form');
 
 });
 

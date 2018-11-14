@@ -32,8 +32,8 @@ body {
 
 .responsive{
   width: 100%;
-    max-width: 400px;
-    height: auto;;
+  max-width: 400px;
+  height: auto;;
 }
 
 #slider ul li {
@@ -120,17 +120,122 @@ a.control_next {
 .apply-btn a{
   border-color: white;
 }
+
+
+/*Home*/
+.btnVisit{
+  text-decoration: none; 
+  color: black;
+  margin-right: 20px;
+}
+.btnVisit:hover{
+  text-decoration: none;
+  color: black;
+}
+.masonry{
+  column-count: 3;
+  column-gap: 3%;
+  column-width: 30%;
+}
+.poster{
+  width: 100%;
+}
+
+/*Detail*/
+.spaceDetail{
+  margin-top:2%;
+}
+.buttonBack{
+  float: left; 
+  left: 10%;
+  position: absolute;
+}
+.buttonBack a {
+  color:#fff;
+}
+.buttonBack a:hover{
+  text-decoration: none;
+}
+.detail{
+  overflow-x: hidden;
+
+}
+.wizard-container{
+  display: grid;
+  grid-template-columns: 40% 60%;
+  clear: both;
+}
+#imageid{
+  width: 100%;
+  position: relative;top: 50%;
+  transform: translateY(-50%);
+}
+.detail-right{
+  padding:20px 25px;
+}
+.detail-right hr{
+  border-top: 2px solid #0078D7; 
+  width:100px;
+}
+.detailTitle{
+  text-align: center; 
+  color:#0078D7; 
+  font-weight: bold;
+}
+.jobDes{
+  text-align: justify;
+}
+.detail-right ul{
+  font-size: 16px;
+}
+.detail-right ul li{
+  text-align: justify;
+}
+.btnSubmit{
+  width:300px; 
+  margin: 10px auto;
+}
+.btnSubmit p{
+  text-align: center; 
+  color:#0078D7; 
+  font-size:15px; 
+  padding: 0%
+}
+.btnSubmit a{
+  display:inherit;
+}
+
+@media screen and (max-width: 864px) {
+  .masonry{
+    column-count: 1;
+    column-gap: 3%;
+    column-width: 30%;
+  }
+  .wizard-container{
+    display: grid;
+    grid-template-columns: 1fr;
+    clear: both;
+  }
+  .title-slider{
+    font-size: 18px;
+  }
+}
+
+
+
+
+
 @media only screen and (max-width: 600px) {
-        .desktop-image {
-            display: none !important;
-        }
+  .desktop-image {
+    display: none !important;
+  }
 
-        .mobile-image {
-            display: block !important;
-        }
+  .mobile-image {
+    display: block !important;
+  }
 
-        .apply-btn{
-            bottom: -51px;
-        }
-    } 
+  .apply-btn{
+    bottom: -51px;
+  }
+} 
 

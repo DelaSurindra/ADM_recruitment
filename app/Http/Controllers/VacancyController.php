@@ -50,6 +50,7 @@ class VacancyController extends Controller
         $data = [
             "vacancy" => $isi
         ];
+        // dd($data);
 
         return view('admin.vacancy.edit', $data);
     }
