@@ -75,18 +75,12 @@
                     </div>
                     <div class="form-group">
                         <label>Requirement</label>
-                        <textarea name="job_des" class="form-control" rows="3">{{ $vacancy->job_Req }}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Req</label>
-                          <div id="summernote"></div>
-                    </div>
-                          
-
+                        <textarea id="summernote" name="job_req" class="form-control" rows="3">{{ $vacancy->job_Req }}</textarea>
+                    </div>                        
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Poster</label>
-                            <input name="posterMobile" type="file" class="">
+                            <input name="poster" type="file" class="">
                         </div>
                     </div>
                     

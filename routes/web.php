@@ -85,7 +85,7 @@ Route::middleware(['web'])->group(function () {
     Route::get('form/{job}','FormContoller@form')->name('form');
 
 });
-
+Route::view('/summernote','summernote');
 Route::get("token",'RequestController@getToken');
 Route::get("decrypt",'RequestController@testDecrypt');
 

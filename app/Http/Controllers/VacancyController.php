@@ -21,9 +21,9 @@ class VacancyController extends Controller
     {
         $data = [
             "vacancy" => Vacancy::leftJoin('pelamar', 'pelamar.job_id', '=', 'vacancies.job_id')
-                                ->select('vacancies.job_id', 'vacancies.job_title', 'vacancies.is_available', 'vacancies.end_date', 'vacancies.job_target', DB::raw('count(pelamar.job_id) as total'))
-                                ->groupBy('vacancies.job_id', 'vacancies.job_title', 'vacancies.is_available', 'vacancies.end_date', 'vacancies.job_target')
-                                ->paginate(20)
+            ->select('vacancies.job_id', 'vacancies.job_title', 'vacancies.is_available', 'vacancies.end_date', 'vacancies.job_target', DB::raw('count(pelamar.job_id) as total'))
+            ->groupBy('vacancies.job_id', 'vacancies.job_title', 'vacancies.is_available', 'vacancies.end_date', 'vacancies.job_target')
+            ->paginate(20)
         ];
         return view('admin.vacancy.home', $data);
     }
@@ -59,9 +59,7 @@ class VacancyController extends Controller
     {
         $isi = Vacancy::find($id);
         if (!$isi) abort(404);
-
-        Storage::disk('poster')->delete('mobile/'.$isi->job_poster);
-        Storage::disk('poster')->delete('desktop/'.$isi->job_poster);
+        Storage::disk('poster')->delete('/'.$isi->job_poster);
         $isi->delete();
 
         return redirect('vacancy')->with('success', 'Success Deleted Job');
@@ -69,133 +67,131 @@ class VacancyController extends Controller
 
     public function postInput(Request $req)
     {
-        
+
         $validator = Validator::make($req->all(), [
-    		'job_id' => 'required|unique:vacancies,job_id|regex:/^\S*$/u',
-			'job_title' => 'required',
-            'target' => 'numeric',
-            'posterDesktop' => 'required|max:3000|mimes:png,jpeg',
-            'posterMobile' => 'required|max:3000|mimes:png,jpeg'
-        ]);
+          'job_id' => 'required|unique:vacancies,job_id|regex:/^\S*$/u',
+          'job_title' => 'required',
+          'target' => 'numeric',
+          'poster' => 'required|max:3000|mimes:png,jpeg',
+      ]);
 
         if ($validator->fails()) {
             return redirect()
-            			->back()
-                        ->withErrors($validator)
-                        ->withInput();
+            ->back()
+            ->withErrors($validator)
+            ->withInput();
         }
 
-        if($req->hasFile('posterMobile') && $req->hasFile('posterDesktop')){
+   //      if($req->hasFile('posterMobile') && $req->hasFile('posterDesktop')){
 
-        	if(!($req->file('posterMobile')->isValid() && $req->file('posterDesktop')->isValid())){
-        		return redirect()->back()
-        					->withInput()
-        					->with('error_msg','Please upload valid file');
-			}
+   //      	if(!($req->file('posterMobile')->isValid() && $req->file('posterDesktop')->isValid())){
+   //      		return redirect()->back()
+   //      					->withInput()
+   //      					->with('error_msg','Please upload valid file');
+			// }
 
-			$filename = $req->job_id.'.png';
-			$destination = 'recruitment/';
+			// $filename = $req->job_id.'.png';
+			// $destination = 'recruitment/posisi/';
 
-            $posterPath = $req->posterMobile->storeAs('mobile/'.$destination, $filename, 'poster');
-            $posterPath = $req->posterDesktop->storeAs('desktop/'.$destination, $filename, 'poster');
+   //          $posterPath = $req->posterMobile->storeAs('mobile/'.$destination, $filename, 'poster');
+   //          $posterPath = $req->posterDesktop->storeAs('desktop/'.$destination, $filename, 'poster');
 
-            $posterPath = $destination.$filename;
-        }
+   //          $posterPath = $destination.$filename;
+   //      }
+        $filename = $req->job_id.'.png';
+        $destination = 'recruitment/posisi';
+        $posterPath = $req->poster->storeAs('/'.$destination, $filename, 'poster');
 
         $vacancy = new Vacancy;
         $vacancy->job_id = $req->job_id;
         $vacancy->job_title = $req->job_title;
         $vacancy->job_description = $req->job_des;
+        $vacancy->job_Req = $req->job_res;
         $vacancy->job_poster = $posterPath;
         $vacancy->is_available = $req->available;
         $vacancy->job_target = $req->target;
         $vacancy->end_date = $req->end;
-
+        // dd($vacancy);
         try {
-	        $vacancy->save();
+           $vacancy->save();
 
-	        return redirect()->route('vacancy')
-	        				->with('success','Job Vacancy Success Added');
-        } catch (Exception $e) {
-        	return redirect()->back()
-	        				->with('error','Gagal Menyimpan Job Vacancy. Err: '.$e->getMessage());
-        }
+           return redirect()->route('vacancy')
+           ->with('success','Job Vacancy Success Added');
+       } catch (Exception $e) {
+           return redirect()->back()
+           ->with('error','Gagal Menyimpan Job Vacancy. Err: '.$e->getMessage());
+       }
+   }
+
+   public function postEdit(Request $req, $id)
+   {
+
+    $vacancy = Vacancy::find($id);
+    if (!$vacancy) abort(404);
+
+    $validator = Validator::make($req->all(), [
+      'job_id' => 'required|regex:/^\S*$/u',
+      'job_title' => 'required',
+      'target' => 'numeric',
+      'posterDesktop' => 'max:3000|mimes:png,jpeg',
+      'posterMobile' => 'max:3000|mimes:png,jpeg'
+  ]);
+    if ($validator->fails()) {
+        return redirect()
+        ->back()
+        ->withErrors($validator)
+        ->withInput();
     }
 
-    public function postEdit(Request $req, $id)
-    {
+    if($req->hasFile('poster')){
 
-        $vacancy = Vacancy::find($id);
-        if (!$vacancy) abort(404);
+       if(!$req->file('poster')->isValid()){
+          return redirect()->back()
+          ->withInput()
+          ->with('error_msg','Please upload valid file');
+      }
+    $filename = $req->job_id.'.png';
+    $destination = 'recruitment/posisi';
+    $posterPath = $req->poster->storeAs('/'.$destination, $filename, 'poster');
 
-        $validator = Validator::make($req->all(), [
-    		'job_id' => 'required|regex:/^\S*$/u',
-			'job_title' => 'required',
-            'target' => 'numeric',
-			'posterDesktop' => 'max:3000|mimes:png,jpeg',
-            'posterMobile' => 'max:3000|mimes:png,jpeg'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()
-            			->back()
-                        ->withErrors($validator)
-                        ->withInput();
-        }
-
-        if($req->hasFile('poster')){
-
-        	if(!$req->file('poster')->isValid()){
-        		return redirect()->back()
-        					->withInput()
-        					->with('error_msg','Please upload valid file');
-			}
-
-			$filename = $req->job_id.'.png';
-			$destination = 'recruitment/';
-
-			$posterPath = $req->posterMobile->storeAs('mobile/'.$destination, $filename, 'poster');
-            $posterPath = $req->posterDesktop->storeAs('desktop/'.$destination, $filename, 'poster');
-
-            if ($id != $req->job_id) {
-                Storage::disk('poster')->delete('mobile/'.$vacancy->job_poster);
-                Storage::disk('poster')->delete('desktop/'.$vacancy->job_poster);
-            }
-
-            $posterPath = $destination.$filename;
-        }
-
-        if (isset($posterPath)) {
-            $vacancy->job_poster = $posterPath;
-        }
-
-        $this->changeJobId($vacancy->job_id, $req->job_id);
-        
-        $vacancy->job_id = $req->job_id;
-        $vacancy->job_title = $req->job_title;
-        $vacancy->job_description = $req->job_des;
-        $vacancy->is_available = $req->available;
-        $vacancy->job_target = $req->target;
-        $vacancy->end_date = $req->end;
-
-        try {
-	        $vacancy->save();
-
-	        return redirect()->route('vacancy')
-	        				->with('success','Job Vacancy Success Edited');
-        } catch (Exception $e) {
-        	return redirect()->back()
-	        				->with('error','Gagal Menyimpan Job Vacancy. Err: '.$e->getMessage());
-        }
+      if ($id != $req->job_id) {
+        Storage::disk('poster')->delete('/'.$vacancy->job_poster);
     }
+    
+}
 
-    function changeJobId($id, $new_job_id)
-    {
-        $pelamar = Pelamar::where('job_id', $id)->get();
+if (isset($posterPath)) {
+    $vacancy->job_poster = $posterPath;
+}
 
-        foreach ($pelamar as $key) {
-            $key->job_id = $new_job_id;
-            $key->save();
-        }
+$this->changeJobId($vacancy->job_id, $req->job_id);
+
+$vacancy->job_id = $req->job_id;
+$vacancy->job_title = $req->job_title;
+$vacancy->job_description = $req->job_des;
+$vacancy->job_Req = $req->job_req;
+$vacancy->is_available = $req->available;
+$vacancy->job_target = $req->target;
+$vacancy->end_date = $req->end;
+        // dd($vacancy);
+try {
+   $vacancy->save();
+
+   return redirect()->route('vacancy')
+   ->with('success','Job Vacancy Success Edited');
+} catch (Exception $e) {
+   return redirect()->back()
+   ->with('error','Gagal Menyimpan Job Vacancy. Err: '.$e->getMessage());
+}
+}
+
+function changeJobId($id, $new_job_id)
+{
+    $pelamar = Pelamar::where('job_id', $id)->get();
+
+    foreach ($pelamar as $key) {
+        $key->job_id = $new_job_id;
+        $key->save();
     }
+}
 }

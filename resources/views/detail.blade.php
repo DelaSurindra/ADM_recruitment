@@ -50,9 +50,9 @@
             <p class="jobDes">{{$data->job_description}}</p>
             <p class="detailTitle">Requirement</p>
             <hr>
-            <ul>
+            
               {!! $data->job_Req !!}
-            </ul>
+            
             <div class="btnSubmit">
               <p style="">If you feel like you are the talented
               that could work with our team apply now!</p>

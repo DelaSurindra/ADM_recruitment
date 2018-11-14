@@ -75,7 +75,7 @@
                     </div>
                     <div class="form-group">
                         <label>Requirement</label>
-                        <textarea name="job_des" class="form-control" rows="3"></textarea>
+                        <textarea name="job_res" class="form-control" rows="3"></textarea>
                     </div>
 
                     <div class="form-row">

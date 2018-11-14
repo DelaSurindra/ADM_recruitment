@@ -100,7 +100,6 @@ class FormContoller extends Controller
 			$destination = 'public/cv';
 			$cvPath = $request->file_cv->storeAs($destination,$filename);
             $request->file('file_cv')->move($destination,$filename);
-
         }
         $pelamar = new Pelamar;
         $pelamar->firstname = strip_tags($request->firstname);
