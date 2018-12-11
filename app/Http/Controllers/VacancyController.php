@@ -123,7 +123,7 @@ class VacancyController extends Controller
         $vacancy->job_id = $req->job_id;
         $vacancy->job_title = $req->job_title;
         $vacancy->job_description = $req->job_des;
-        $vacancy->job_Req = $req->job_res;
+        $vacancy->job_Req = $req->job_req;
         $vacancy->job_poster = $posterPath;
         $vacancy->is_available = $req->available;
         $vacancy->job_target = $req->target;
