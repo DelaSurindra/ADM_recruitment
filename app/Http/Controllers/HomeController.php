@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Model\Pelamar;
 use App\Model\Vacancy;
+use App\Model\Setting;
 use Auth;
 
 class HomeController extends Controller
@@ -26,8 +27,11 @@ class HomeController extends Controller
     {
         $jumlahPelamar = Pelamar::count();
         $lamaranTerakhir = Pelamar::max('created_at');
-
+        $setting = Setting:: select()->first();
+        
         $jumlahLowongan = Vacancy::count();
-        return view('admin.home')->with(['jumlahLamaran'=>$jumlahPelamar, 'last' => $lamaranTerakhir,'jumlahLowongan'=>$jumlahLowongan]);
+        $dump= $setting->value;
+        // dd($dump);
+        return view('admin.home')->with(['jumlahLamaran'=>$jumlahPelamar, 'last' => $lamaranTerakhir,'jumlahLowongan'=>$jumlahLowongan, 'setting'=>$dump]);
     }
 }

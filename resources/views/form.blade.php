@@ -36,7 +36,7 @@
       <div class="image-container set-full-height" style="background-image: url('{{asset("assets/img/paper-1.jpeg")}}')">
 
         <!--   Creative Tim Branding   -->
-        <a href="#">
+        <a href="/">
           <div class="logo-container">
             <div class="logo">
               <img src="{{asset('assets/img/vascomm_logo.png')}}">
@@ -164,13 +164,14 @@
                       <div class="tab-pane" id="address">
                         <div class="row">
                           <div class="col-sm-12">
-                            <h5 class="info-text">Submit CV terbaik kamu.</h5>
+                            <h5 id="titleCV" class="info-text"></h5>
+                            <input id="roleCV" type="hidden" value="{{$role}}" name="roleCV">
                           </div>
                           <div class="col-sm-4 col-sm-offset-4">
                             <div class="picture-container">
                               <div class="picture">
                                 <img src="{{asset('assets/img/default-avatar.jpg')}}" class="picture-src" id="wizardPicturePreview" title="" />
-                                <input type="file" id="wizard-picture" name="file_cv" extension="pdf" required>
+                                <input type="file" id="wizard-picture" name="file_cv" extension="pdf">
                               </div>
                               <h6>Pilih CV mu</h                        
                               </div>

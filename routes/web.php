@@ -70,7 +70,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/vacancy/edit/{id}', 'VacancyController@getEdit')->name('formEdit');
         Route::post('/vacancy/edit/{id}', 'VacancyController@postEdit');
         Route::get('/vacancy/delete/{id}', 'VacancyController@getDelete')->name('vacancyDelete');
-
+        Route::get('/vacancy/role/{id}', 'VacancyController@updateRole')->name('updateRole');
     });
 
 });

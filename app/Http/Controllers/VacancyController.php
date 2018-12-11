@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Model\Vacancy;
 use App\Model\Pelamar;
+use App\Model\Setting;
 use Validator;
 
 class VacancyController extends Controller
@@ -40,6 +41,22 @@ class VacancyController extends Controller
     public function getInput()
     {
         return view('admin.vacancy.add');
+    }
+
+    public function updateRole($value)
+    {
+        if ($value==1) {
+          // dd('sama');
+          DB::table('setting')
+                ->where('id', 1)
+                ->update(['value' => 0]);
+        }else{
+          // dd('beda');
+          DB::table('setting')
+                ->where('id', 1)
+                ->update(['value' => 1]);
+        }
+        return redirect()->route('home')->with('success', 'Success update role CV');
     }
 
     public function getEdit($id)

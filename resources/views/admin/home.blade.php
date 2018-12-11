@@ -41,6 +41,17 @@
 				        <h5 class="card-title">Lowongan Kerja</h5>
 				        <p class="card-text">Berikut adalah info sekilas tentang lowongan kerja pada sistem ini.</p>
 				        <ul class="list-group">
+				        	<li class="list-group-item d-flex justify-content-between align-items-center">
+				        		Wajib upload CV
+				        		<?php if ($setting==1) { ?>
+				        		<span class="badge badge-success badge-pill">Active</span>			
+				        		<?php } else{ ?>
+								<span class="badge badge-danger badge-pill">Non Active</span>		
+				        		<?php }
+				        		?>
+				        							        		
+				        		 <a href="#" onclick="editRole('{{$setting}}')" type="button" class="btn btn-danger">Ubah</a>
+				        	</li>
 							<li class="list-group-item d-flex justify-content-between align-items-center">
 							    Jumlah Lowongan Kerja Aktif
 							    <span class="badge badge-primary badge-pill">{{$jumlahLowongan}}</span>
@@ -56,4 +67,5 @@
         </div>
     </div>
 </div>
+<script src="{{asset('js/custom.js')}}" type="text/javascript"></script>
 @endsection

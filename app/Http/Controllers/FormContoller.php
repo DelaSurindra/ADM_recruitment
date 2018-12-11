@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Model\Vacancy;
 use App\Model\Pelamar;
+use App\Model\Setting;
 use Exception;
 
 
@@ -39,10 +40,11 @@ class FormContoller extends Controller
     	}
 
     	$title = $selectedJob->job_title;
-
     	$request->session()->put('selectedJob', $selectedJob->job_id);
+        $setting = Setting:: select()->first();
+        $role= $setting->value;
 
-    	return view('form')->with('jobTitle',$title);
+    	return view('form')->with(['jobTitle'=>$title,'role' => $role]);
     }
     public function detail(Request $request, $job=null)
     {

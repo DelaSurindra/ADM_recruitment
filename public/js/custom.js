@@ -30,7 +30,18 @@ $(document).ready(function(){
     jQuery.validator.addMethod("dateFormat",function(value,element){
 			return this.optional(element) || /^\d{1,2}\-\d{1,2}\-\d{4}$/.test(value);
 		},"The date formati must be DD-MM-YYYY, e.g: 17-08-1945");
+
+    var x = document.getElementById("roleCV").value;
+    if (x==1) {
+    	$("#titleCV").html("Submit CV terbaik kamu.");
+    	$("#wizard-picture").prop('required',true);
+    }else{
+    	$("#titleCV").html("Kalo mau submit CV kamu bisa disini bisa secara hardcopy di basecamp PT Vascomm ya.");
+    	$("#wizard-picture").prop('required',false);
+    }
 })
+
+
 
 function deleteJob(id) {
     if (confirm("Anda yakin menghapus Lowongan ini?") == true) {
@@ -48,6 +59,13 @@ function deleteJobList(id) {
 	}
 }
 
+function editRole(id) {
+    if (confirm("Anda yakin mengubah role input CV?") == true) {
+        window.location.href = "vacancy/role/"+id;
+    } else {
+		console.log('gagal');
+	}
+}
 // function deletePelamar(id) {
 // 	// console.log($id);
 //     if (confirm("Anda yakin menghapus Lamaran ini?") == true) {
