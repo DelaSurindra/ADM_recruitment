@@ -48,3 +48,11 @@ function deleteJobList(id) {
 	}
 }
 
+// function deletePelamar(id) {
+// 	// console.log($id);
+//     if (confirm("Anda yakin menghapus Lamaran ini?") == true) {
+//         window.location.href = "/delete/"+id;
+//     } else {
+// 		console.log('gagal');
+// 	}
+// }

@@ -219,11 +219,13 @@ a.control_next {
   .title-slider{
     font-size: 18px;
   }
+  .tbl-pelamar{
+    min-width: 900px;
+    width: 900px;
+    max-width: 900px;
+  }
+ 
 }
-
-
-
-
 
 @media only screen and (max-width: 600px) {
   .desktop-image {

@@ -59,6 +59,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/pelamar/{id}', 'PelamarController@getDetailPelamar')->name('detailPelamar');
         Route::post('/pelamar/status/{id}', 'PelamarController@changeStatus');
         Route::get('/pelamar/download/{id}', 'PelamarController@getDownload')->name('download');
+        Route::get('/pelamar/delete/{id}', 'PelamarController@pelamarDelete')->name('pelamarDelete');
+
 
         // Route admin Vacancy
         Route::get('/vacancy', 'VacancyController@getIndex')->name('vacancy');

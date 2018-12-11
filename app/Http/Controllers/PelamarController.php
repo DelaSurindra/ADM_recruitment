@@ -65,6 +65,16 @@ class PelamarController extends Controller
         return response()->download($file);
     }
 
+    public function pelamarDelete($id)
+    {
+        $isi = Pelamar::find($id);
+        if (!$isi) abort(404);
+        // Storage::disk('poster')->delete('/'.$isi->job_poster);
+        $isi->delete();
+
+        return redirect()->back()->with('success','Success to Delete the Applicant');
+    }
+
     public function changeStatus(Request $req, $id)
     {
         $isi = Pelamar::find($id);
