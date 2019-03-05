@@ -26,12 +26,22 @@ class HomeController extends Controller
     public function index()
     {
         $jumlahPelamar = Pelamar::count();
+        $jumlahPelamarActiv = Pelamar::where('status','=','APLY')->count();
+        $jumlahPelamarIntv = Pelamar::where('status','=','INTV')->count();
+        $jumlahPelamarAcpt = Pelamar::where('status','=','ACPT')->count();
+        $jumlahPelamarRjct = Pelamar::where('status','=','RJCT')->count();
         $lamaranTerakhir = Pelamar::max('created_at');
         $setting = Setting:: select()->first();
-        
-        $jumlahLowongan = Vacancy::count();
+        $jumlahAvail = Vacancy::where('is_available','=','1')->count();
+        $jumlahClose = Vacancy::where('is_available','=','0')->count();
         $dump= $setting->value;
-        // dd($dump);
-        return view('admin.home')->with(['jumlahLamaran'=>$jumlahPelamar, 'last' => $lamaranTerakhir,'jumlahLowongan'=>$jumlahLowongan, 'setting'=>$dump]);
-    }
+        $data= array(
+            "PelamarActiv" => $jumlahPelamarActiv,
+            "PelamarIntv" => $jumlahPelamarIntv,
+            "PelamarAcpt" => $jumlahPelamarAcpt,
+            "PelamarRjct" => $jumlahPelamarRjct
+        );
+        // dd($data);
+        return view('admin.home')->with(['jumlahLamaran'=>$jumlahPelamar, 'last' => $lamaranTerakhir,'jumlahAvail'=>$jumlahAvail,'jumlahClose'=>$jumlahClose,'setting'=>$dump, 'data'=>$data ]);
+    } 
 }
