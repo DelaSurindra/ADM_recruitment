@@ -18,11 +18,11 @@ class PelamarController extends Controller
                                 ->where(function($query) use($req){
                                     $query->where('firstname', 'like', '%'.$req->q.'%')
                                         ->orWhere('lastname', 'like', '%'.$req->q.'%');
-                                })
+                                })->orderBy('id', 'desc')
                                 ->paginate(20);
             $option = Vacancy::find($req->job);
         } else {
-            $pelamar = Pelamar::paginate(20);
+            $pelamar = Pelamar::orderBy('id', 'desc')->paginate(20);
             $option = "";
         }
 

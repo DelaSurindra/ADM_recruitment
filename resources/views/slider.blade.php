@@ -29,7 +29,7 @@
     <div class="container">
       <div class="row margin-top">
         <div class="col-md-12">
-          <p class="text-center title-slider">Hallo NuCommers! <br> Silahkan pilih salah satu posisi yang ingin kamu lamar.</p>
+          <p class="text-center title-slider">Hello, NuCommers! <br> Please choose position you would like to apply.</p>
         </div>
       </div>
       <div class="masonry">

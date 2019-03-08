@@ -80,9 +80,10 @@ class FormContoller extends Controller
 			'email' => 'required|email|unique:pelamar',
 			'kampus' => 'required',
 			'jurusan' => 'required',
-			'file_cv' => 'max:3000|mimes:pdf'
+            'info'=>'required',
+			'file_cv' => 'max:5000|mimes:pdf'
         ]);
-
+        // dd($request);
         if ($validator->fails()) {
             return redirect()
             			->back()
@@ -114,8 +115,10 @@ class FormContoller extends Controller
         $pelamar->email = strip_tags($request->email);
         $pelamar->kampus = strip_tags($request->kampus);
         $pelamar->jurusan = strip_tags($request->jurusan);
+        $pelamar->info = strip_tags($request->info);
         $pelamar->file_cv =  isset($cvPath) ? $cvPath : null;
         
+        // dd($pelamar);
         try {
             $pelamar->save();
 

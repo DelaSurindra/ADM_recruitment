@@ -81,7 +81,6 @@ class VacancyController extends Controller
     if (!$isi) abort(404);
     Storage::disk('poster')->delete('/'.$isi->job_poster);
     $isi->delete();
-
     return redirect('vacancy')->with('success', 'Success Deleted Job');
   }
 
@@ -177,7 +176,7 @@ class VacancyController extends Controller
   if ($id != $req->job_id) {
     Storage::disk('poster')->delete('/'.$vacancy->job_poster);
   }
-  
+
 }
 
 if (isset($posterPath)) {

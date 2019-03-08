@@ -49,7 +49,7 @@
                         <div class="form-group col-md-4">
                             <label>Available</label>
                             <select name="available" class="form-control " required>
-                                <option value="">Choose...</option>
+                                <option value="" disabled selected>Choose...</option>
                                 <option value="1">Available</option>
                                 <option value="0">Closed</option>
                             </select>
@@ -71,11 +71,11 @@
 
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea name="job_des" class="form-control" rows="3"  required></textarea>
+                        <textarea name="job_des" class="form-control summernote" rows="3"  required></textarea>
                     </div>
                     <div class="form-group">
                         <label>Requirement</label>
-                        <textarea id="summernote" name="job_req" class="form-control" rows="3" required></textarea>
+                        <textarea id="summernote" name="job_req" class="form-control summernote" rows="3" required></textarea>
                     </div>
 
                     <div class="form-row">

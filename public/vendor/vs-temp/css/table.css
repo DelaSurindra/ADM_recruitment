@@ -1,0 +1,185 @@
+.datatable-default .row{
+	display: contents ;
+}
+.datatable-default .header-table{
+	margin-bottom: 10px;
+	display: flex;
+}
+.datatable-default .header-table .tbl-logo-offset{
+	width: 50px ;
+	height: 50px;
+	border-radius: 10px;
+	background-color: #E74C3C;
+	line-height: 50px;
+	text-align: center;
+	font-size: 20px;
+	display: block;
+	width: 50px;
+	color: #fff;
+	margin-top: -20px;
+	float: left;
+
+}
+.datatable-default .header-table h5{
+	float: left;
+	margin-left: 10px;
+}
+
+.datatable-default .dataTables_length {
+	font-size: 10px;
+}
+
+.datatable-default .dataTables_length .form-control{
+	padding: 5px;
+	font-size: 10px;
+	height: auto;
+	width: auto;
+	margin: 0px 5px;
+}
+
+.datatable-default .dataTables_length select{
+	-webkit-appearance: none;
+	-moz-appearance: none;      
+	appearance: none;
+	padding: 2px 30px 2px 2px;
+	/*border: none; - if you want the border removed*/
+}
+
+.datatable-default .dataTables_length select::-ms-expand{
+	display: none;
+}
+
+.datatable-default .dataTables_filter{
+	font-size: 10px;
+}
+
+.datatable-default .dataTables_filter .form-control{
+	font-size: 10px;
+	padding: 5px;
+	height: auto;
+	border-radius: 0px;
+	border: none;
+	border-bottom: 1px solid #CED4DA;
+	background: transparent;
+}
+
+.dataTables_info{
+	font-size: 10px;
+}
+.dataTables_paginate{
+	font-size: 10px;	
+}
+.dataTables_paginate ul li{
+	padding: 0px !important;
+	font-size: 10px !important;
+}
+.dataTables_wrapper ul .active a{
+	background: #0051EF !important;
+    border-radius: 10px !important;
+    min-width: 30px !important;
+    min-height: 30px !important;
+    color: #fff !important;	
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+	background: transparent !important;
+	border: 1px solid transparent !important;
+
+}
+
+/*main table css*/
+table.dataTable.no-footer{
+	border: none !important;
+}
+.table-plain th{
+	border: none !important;
+}
+.table-plain tr{
+	border: none !important;
+	background: transparent !important;
+}
+.table-plain tbody tr:hover{
+	border: none !important;
+	background: rgba(196,196,196,0.2) !important;
+}
+.table-plain td{
+	border: none !important;
+	vertical-align: inherit !important;
+	text-align: center;
+}
+
+.sorting_desc:after{
+	display: none !important;
+}
+.sorting_asc:after{
+	display: none !important;
+}
+
+/*strip*/
+
+.table-strip th{
+	border: none !important;
+}
+table.dataTable.stripe tbody tr.odd{
+	background: #D4E2FF !important;
+}
+table.dataTable.stripe tbody tr.even{
+	background: transparent; !important;	
+}
+/*.table-strip tr {
+	border: none !important;
+	background: transparent !important;
+}*/
+.table-strip tbody tr:hover{
+	border: none !important;
+	background: rgba(196,196,196,0.2) !important;
+}
+.table-strip td{
+	border: none !important;
+	vertical-align: inherit !important;
+	text-align: center;
+}
+
+/*table with bar*/
+.table-bar .status{
+	padding: 5px 5px;
+	border-radius: 5px;
+	text-align: center;
+	font-size: 10px;
+}
+.progress{
+	background-color: #80A9FF;
+}
+.progress .progress-bar{
+	background-color: #FFF;
+}
+.status-discount{
+	background-color: #236EFF;
+    color: #fff;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 10px;
+    text-align: center;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.status-success{
+	background: #3EC096;
+	color: #fff;
+
+}
+.status-waiting{
+	background: #FFD015;
+	color: #fff;
+
+}
+.status-delete{
+	background: #E91D1D;
+	color: #fff;
+}
+.status-approved{
+	background: #236EFF ;
+	color: #fff;
+}

@@ -27,7 +27,7 @@
 
     <body>
       @if(Session::has("error_msg"))
-      <input type="hidden" name="error_msg" value="{{Session::get('error_msg')}}">
+          <input type="hidden" name="error_msg" value="{{Session::get('error_msg')}}">
       @endif
 
       @if(Session::has('success_msg'))
@@ -54,15 +54,15 @@
             <div class="col-sm-8 col-sm-offset-2">
 
               <!--      Wizard container        -->
-              <div class="wizard-container">
+              <div class="wizard-container" style="margin-top: -20px">
 
                 <div class="card wizard-card" data-color="blue" id="wizardProfile">
                   <form action="{{route('submitLamaran')}}" method="post" enctype="multipart/form-data" class="">
                     <!--        You can switch " data-color="blue" "  with one of the next bright colors: "blue", "green", "blue", "red", "azure"          -->
 
                     <div class="wizard-header text-center">
-                      <h3 class="wizard-title">Perkenalkan siapa kamu</h3>
-                      <p class="category">Isi data dibawah ini ya kak</p>
+                      <h4 class="wizard-title">In order to apply for jobs on this site you must first register</h4>
+                      <p class="category">Please complete the detail below.</p>
                     </div>
 
                     <div class="wizard-navigation">
@@ -99,45 +99,44 @@
                     <div class="tab-content">
                       <div class="tab-pane" id="about">
                         <div class="row">
-                          <h5 class="info-text"> Hallo NuCommers, apa kamu sudah siap menjadi {{$jobTitle}} ?</h5>
+                          <h5 class="info-text"> Hello NuCommers, are you ready to be {{$jobTitle}} ?</h5>
                           <div class="col-sm-3 col-sm-offset-1">
                             <div class="form-group">
-                              <label>Nama Panggilan</label>
+                              <label>Nick Name</label>
                               <input name="firstname" type="text" class="form-control" placeholder="John..." value="{{old('firstname')}}">
                             </div>
                           </div>
                           <div class="col-sm-7">
                             <div class="form-group">
-                              <label>Nama Panjang</label>
+                              <label>Full Name</label>
                               <input name="lastname" type="text" class="form-control" placeholder="Jhon Smith..." value="{{old('lastname')}}">
                             </div>
                           </div>
                           <div class="col-sm-5 col-sm-offset-1">
                             <div class="form-group">
-                              <label>Tanggal Lahir </label>
+                              <label>Date of Birth</label>
                               <input name="tanggal_lahir" type="date" class="form-control" placeholder="E.g. 20-02-1994" value="{{old('tanggal_lahir')}}" required="" >
                             </div>
                           </div>
                           <div class="col-sm-5">
                             <div class="form-group">
-                              <label>Tempat Lahir </label>
+                              <label>Place of Birth</label>
                               <input name="tempat_lahir" type="text" class="form-control" placeholder="E.g. Kota Surabaya" value="{{old('tempat_lahir')}}" required>
                             </div>
                           </div>
                         </div>
                       </div>
                       <div class="tab-pane" id="account">
-                        <h5 class="info-text"> Sedikit lagi nih kak </h5>
                         <div class="row">
                           <div class="col-sm-10 col-sm-offset-1">
                             <div class="form-group">
-                              <label>Alamat</label>
+                              <label>Address</label>
                               <input name="alamat" type="text" class="form-control" placeholder="Jl. Raya..." value="{{old('alamat')}}">
                             </div>
                           </div>
                           <div class="col-sm-5 col-sm-offset-1">
                             <div class="form-group">
-                              <label>No Handphone</label>
+                              <label>Phone Number</label>
                               <input name="no_hp" type="number" class="form-control" placeholder="081231xxxxx" value="{{old('no_hp')}}" required="">
                             </div>
                           </div>
@@ -149,14 +148,20 @@
                           </div>
                           <div class="col-sm-5 col-sm-offset-1">
                             <div class="form-group">
-                              <label>Kampus </label>
+                              <label>Campus</label>
                               <input name="kampus" type="text" class="form-control" placeholder="E.g. ITS" value="{{old('kampus')}}" required="">
                             </div>
                           </div>
                           <div class="col-sm-5">
                             <div class="form-group">
-                              <label>Jurusan </label>
+                              <label>Major</label>
                               <input name="jurusan" type="text" class="form-control" placeholder="E.g. Sistem Informasi" value="{{old('jurusan')}}" required="">
+                            </div>
+                          </div>
+                          <div class="col-sm-5 col-sm-offset-1">
+                            <div class="form-group">
+                              <label>Where did you get our recruitment info?</label>
+                              <input name="info" type="text" class="form-control" placeholder="E.g. Job Fair" value="{{old('info')}}" required="">
                             </div>
                           </div>
                         </div>
@@ -171,9 +176,10 @@
                             <div class="picture-container">
                               <div class="picture">
                                 <img src="{{asset('assets/img/default-avatar.jpg')}}" class="picture-src" id="wizardPicturePreview" title="" />
-                                <input type="file" id="wizard-picture" name="file_cv" extension="pdf">
+                                <input type="file" id="wizard-picture" name="file_cv" extension="pdf" accept=".pdf">
                               </div>
-                              <h6>Pilih CV mu</h                        
+                              <h6>Choose your file :)</h6>
+                              <p>Document PDF size should be less than 5MB! </p>
                               </div>
                               </div>
                             </div>
@@ -182,7 +188,7 @@
                         <div class="wizard-footer">
                           <div class="pull-right">
                             <input type='button' class='btn btn-next btn-fill btn-primary btn-wd' name='next' value='Next' />
-                            <input type='submit' class='btn btn-finish btn-fill btn-primary btn-wd' name='finish' value='Finish' />
+                            <input type='submit' id="finish" class='btn btn-finish btn-fill btn-primary btn-wd' name='finish' value='Finish' />
                           </div>
 
                           <div class="pull-left">

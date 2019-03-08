@@ -33,15 +33,18 @@ $(document).ready(function(){
 
     var x = document.getElementById("roleCV").value;
     if (x==1) {
-    	$("#titleCV").html("Submit CV terbaik kamu.");
+    	$("#titleCV").html("Submit you CV, resume or Portfolio below.");
     	$("#wizard-picture").prop('required',true);
+    	$("#finish").prop('disabled', true);
     }else{
-    	$("#titleCV").html("Kalo mau submit CV kamu bisa disini bisa secara hardcopy di basecamp PT Vascomm ya.");
+    	$("#titleCV").html("Submit you CV, resume or Portfolio below.</br> You can skip if you have submit them to our recruitment staff.");
     	$("#wizard-picture").prop('required',false);
     }
 })
 
-
+$( "#wizard-picture" ).change(function() {
+    $("#finish").prop('disabled', false);
+});
 
 function deleteJob(id) {
     if (confirm("Anda yakin menghapus Lowongan ini?") == true) {

@@ -62,7 +62,7 @@
     <script src="{{ asset('vendor/summernote-lite.js') }}"></script>
     <script>
     $(document).ready(function() {
-  $('#summernote').summernote();
+    $('.summernote').summernote();
 });
 </script>
 </body>
