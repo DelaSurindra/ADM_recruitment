@@ -179,7 +179,7 @@
                                 <input type="file" id="wizard-picture" name="file_cv" extension="pdf" accept=".pdf">
                               </div>
                               <h6>Choose your file :)</h6>
-                              <p>Document PDF size should be less than 5MB! </p>
+                              <p>Document PDF size should be less than 2MB! </p>
                               </div>
                               </div>
                             </div>

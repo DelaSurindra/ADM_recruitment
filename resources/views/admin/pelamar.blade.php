@@ -16,12 +16,12 @@
                     <div class="form-row  mb-3">
                         <div class="form-inline col">
                             <div class="form-group">
-                                <select name="job" class="form-control mr-2" id="exampleFormControlSelect1">
+                                <select name="job" class="form-control mr-2" id="exampleFormControlSelect1 js-example-basic-single">
                                     <option value="">All Job Vacancy</option>
                                     @foreach($vacancy as $d)
                                         <option value="{{ $d->job_id }}">{{ $d->job_title }}</option>
                                     @endforeach
-                                </select>
+                               </select>
                                 <button type="submit" class="btn btn-primary">Filter</button>
                             </div>
                         </div>

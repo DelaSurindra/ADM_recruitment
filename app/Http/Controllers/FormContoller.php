@@ -94,11 +94,11 @@ class FormContoller extends Controller
 
         if($request->hasFile('file_cv')){
 
-        	if(!$request->file('file_cv')->isValid()){
-        		return redirect()->back()
-        					->withInput()
-        					->with('error_msg','Please upload valid file');
-			}
+   //      	if(!$request->file('file_cv')->isValid()){
+   //      		return redirect()->back()
+   //      					->withInput()
+   //      					->with('error_msg','Please upload valid file');
+			// }
 			$filename = 'cv_'.$request->session()->get('selectedJob').'_'.$request->firstname.'_'.str_replace('-', '', $request->tanggal_lahir).'_'.date('Ymdhis').'.'.'pdf';
 			$destination = 'public/cv';
 			$cvPath = $request->file_cv->storeAs($destination,$filename);

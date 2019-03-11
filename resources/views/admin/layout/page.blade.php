@@ -10,6 +10,7 @@
     <title>Admin Page</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{asset('vendor/summernote-lite.css')}}  " >
+    <link rel="stylesheet" href="{{asset('vendor/select2/css/select2.css')}}">
 </head>
 
 <body>
@@ -60,11 +61,13 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/summernote-lite.js') }}"></script>
+    <script src="{{ asset('vendor/select2/js/select2.js') }}"></script>
     <script>
     $(document).ready(function() {
-    $('.summernote').summernote();
-});
-</script>
+        $('.summernote').summernote();
+        $('.js-example-basic-single').select2();
+    });
+    </script>
 </body>
 
 </html>

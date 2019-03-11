@@ -28,9 +28,10 @@ class PelamarController extends Controller
 
         $data = [
             "pelamar" => $pelamar,
-            "vacancy" => Vacancy::all(),
+            "vacancy" => Vacancy::orderBy('job_title','asc')->get(),
             "option" => $option
         ];
+        // dd($data);
         return view('admin.pelamar', $data);
     }
 
