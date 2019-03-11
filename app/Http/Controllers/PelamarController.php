@@ -18,19 +18,20 @@ class PelamarController extends Controller
                                 ->where(function($query) use($req){
                                     $query->where('firstname', 'like', '%'.$req->q.'%')
                                         ->orWhere('lastname', 'like', '%'.$req->q.'%');
-                                })
+                                })->orderBy('id', 'desc')
                                 ->paginate(20);
             $option = Vacancy::find($req->job);
         } else {
-            $pelamar = Pelamar::paginate(20);
+            $pelamar = Pelamar::orderBy('id', 'desc')->paginate(20);
             $option = "";
         }
 
         $data = [
             "pelamar" => $pelamar,
-            "vacancy" => Vacancy::all(),
+            "vacancy" => Vacancy::orderBy('job_title','asc')->get(),
             "option" => $option
         ];
+        // dd($data);
         return view('admin.pelamar', $data);
     }
 
@@ -63,6 +64,16 @@ class PelamarController extends Controller
                 );
 
         return response()->download($file);
+    }
+
+    public function pelamarDelete($id)
+    {
+        $isi = Pelamar::find($id);
+        if (!$isi) abort(404);
+        // Storage::disk('poster')->delete('/'.$isi->job_poster);
+        $isi->delete();
+
+        return redirect()->back()->with('success','Success to Delete the Applicant');
     }
 
     public function changeStatus(Request $req, $id)

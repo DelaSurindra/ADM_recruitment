@@ -1,45 +1,29 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta charset="UTF-8">
+  <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+  <title>NuComers Online Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="img/favicon.png" />
-  <title>Form Recruitment</title>
-
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-  <meta name="viewport" content="width=device-width" />
-  <met http-equiv="CACHE-CONTROL" content="NO-CACHE">
-
-    <!-- CSS Files -->
-    <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" />
-    <link href="{{asset('assets/css/paper-bootstrap-wizard.css')}}" rel="stylesheet" />
-
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="{{asset('assets/css/demo.css')}}" rel="stylesheet" />
-
-    <!-- Fonts and Icons -->
-    <link href="{{asset('assets/css/font-awesome.css')}}" rel="stylesheet">
-    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
-    <link href="{{asset('assets/css/themify-icons.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/css/datepicker.min.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
-  </met>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{asset('css/style.css')}}">
+  <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
+  <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
 </head>
 <body>
   <div class="detail">
-    <div class="row margin-top">
-      <div class="col-sm-6 col-sm-offset-3">
-        <p class="text-center title-slider">Berikut requirement untuk posisi yang kamu pilih,</p>
-                  <p class="text-center title-slider">Tekan apply untuk memilih posisi {{$data->job_title}} :)</p>
-        </div>
-      </div>
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand" href="">
+        <img src="/assets/img/logo.png" height="40" class="d-inline-block align-top" alt=""> </a>
+      <a href="https://vascomm.co.id/" class="btnVisit">Visit us</a>
+    </nav>
       <div class="spaceDetail">
         <div class="buttonBack">
           <a href="{{route('slider')}}"><i class="fa fa-angle-left" ></i> Back</a>
         </div>
-        
         <div class="col-sm-8 col-sm-offset-2 card wizard-container">
           <div class="detail-left">
             <img id="imageid" src="{{$data->job_poster}}">
@@ -54,9 +38,7 @@
               {!! $data->job_Req !!}
             
             <div class="btnSubmit">
-              <p style="">If you feel like you are the talented
-              that could work with our team apply now!</p>
-              <a href="{{route('form',$data->job_id)}}" class="btn btn-primary"> Apply Now
+              <a href="{{route('form',$data->job_id)}}" class="btn-daftar"> Apply Now
               </a>
 
             </div>

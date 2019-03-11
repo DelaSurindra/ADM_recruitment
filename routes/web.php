@@ -59,6 +59,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/pelamar/{id}', 'PelamarController@getDetailPelamar')->name('detailPelamar');
         Route::post('/pelamar/status/{id}', 'PelamarController@changeStatus');
         Route::get('/pelamar/download/{id}', 'PelamarController@getDownload')->name('download');
+        Route::get('/pelamar/delete/{id}', 'PelamarController@pelamarDelete')->name('pelamarDelete');
+
 
         // Route admin Vacancy
         Route::get('/vacancy', 'VacancyController@getIndex')->name('vacancy');
@@ -68,7 +70,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/vacancy/edit/{id}', 'VacancyController@getEdit')->name('formEdit');
         Route::post('/vacancy/edit/{id}', 'VacancyController@postEdit');
         Route::get('/vacancy/delete/{id}', 'VacancyController@getDelete')->name('vacancyDelete');
-
+        Route::get('/vacancy/role/{id}', 'VacancyController@updateRole')->name('updateRole');
     });
 
 });

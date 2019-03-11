@@ -27,7 +27,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Job ID</label>
-                            <input name="job_id" type="text" class="form-control {{ $errors->has('job_id') ? ' is-invalid' : '' }}" placeholder="ID">
+                            <input name="job_id" type="text" class="form-control {{ $errors->has('job_id') ? ' is-invalid' : '' }}" placeholder="ID" required>
                             @if ($errors->has('job_id'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('job_id') }}
@@ -36,7 +36,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label>Title</label>
-                            <input name="job_title" type="test" class="form-control {{ $errors->has('job_title') ? ' is-invalid' : '' }}" placeholder="Job Title">
+                            <input name="job_title" type="test" class="form-control {{ $errors->has('job_title') ? ' is-invalid' : '' }}" placeholder="Job Title" required>
                             @if ($errors->has('job_title'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('job_title') }}
@@ -48,19 +48,19 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label>Available</label>
-                            <select name="available" class="form-control ">
-                                <option value="">Choose...</option>
+                            <select name="available" class="form-control " required>
+                                <option value="" disabled selected>Choose...</option>
                                 <option value="1">Available</option>
                                 <option value="0">Closed</option>
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label>End Date</label>
-                            <input name="end" type="date" class="form-control">
+                            <input name="end" type="date" class="form-control" required>
                         </div>
                         <div class="form-group col-md-4">
                             <label>Target Hire</label>
-                            <input name="target" type="text" class="form-control {{ $errors->has('target') ? ' is-invalid' : '' }}" placeholder="Target Hire for Job">
+                            <input name="target" type="text" class="form-control {{ $errors->has('target') ? ' is-invalid' : '' }}" placeholder="Target Hire for Job" required>
                             @if ($errors->has('target'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('target') }}
@@ -71,17 +71,17 @@
 
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea name="job_des" class="form-control" rows="3"></textarea>
+                        <textarea name="job_des" class="form-control summernote" rows="3"  required></textarea>
                     </div>
                     <div class="form-group">
                         <label>Requirement</label>
-                        <textarea name="job_res" class="form-control" rows="3"></textarea>
+                        <textarea id="summernote" name="job_req" class="form-control summernote" rows="3" required></textarea>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Poster </label>
-                            <input name="poster" type="file" class="form-control ">
+                            <input name="poster" type="file" class="form-control " required>
                             
                         </div>
                     </div>

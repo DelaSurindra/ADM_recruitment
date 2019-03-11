@@ -27,33 +27,33 @@ class CreateTableVacancies extends Migration
             //
         });
 
-        $positions = [
-            "android"=>["src"=>"recruitment/android.png","title"=>"Android Developer"],
-            "web"=>["src"=>"recruitment/web.png","title"=>"Web Developer"],
-            "bisdev"=>["src"=>"recruitment/bisdev.png","title"=>"Manger Business Development"],
-            "bisnis"=>["src"=>"recruitment/bisnis.png","title"=>"Junior Business Analyst"],
-            "core"=>["src"=>"recruitment/core.png","title"=>"Core Developer"],
-            "core"=>["src"=>"recruitment/dba.png","title"=>"Database Administrator"],
-            "core"=>["src"=>"recruitment/devop.png","title"=>"Development Operation"],
-            "legal"=>["src"=>"recruitment/legal.png","title"=>"Legal Officer"],
-            "opr"=>["src"=>"recruitment/opr.png","title"=>"Operation & Maintenance Officer"],
-            "prodser"=>["src"=>"recruitment/prodser.png","title"=>"Supervisor Product & Services Management"],
-            "recon"=>["src"=>"recruitment/recon.png","title"=>"Reconcilitaion Officer"],
-            "recrut"=>["src"=>"recruitment/recrut.png","title"=>"Recruitment Officer"],
-            "system"=>["src"=>"recruitment/system.png","title"=>"System Administrator"],
-            "testing"=>["src"=>"recruitment/testing.png","title"=>"Application Tester"],
-        ];
+        // $positions = [
+        //     "android"=>["src"=>"recruitment/android.png","title"=>"Android Developer"],
+        //     "web"=>["src"=>"recruitment/web.png","title"=>"Web Developer"],
+        //     "bisdev"=>["src"=>"recruitment/bisdev.png","title"=>"Manger Business Development"],
+        //     "bisnis"=>["src"=>"recruitment/bisnis.png","title"=>"Junior Business Analyst"],
+        //     "core"=>["src"=>"recruitment/core.png","title"=>"Core Developer"],
+        //     "core"=>["src"=>"recruitment/dba.png","title"=>"Database Administrator"],
+        //     "core"=>["src"=>"recruitment/devop.png","title"=>"Development Operation"],
+        //     "legal"=>["src"=>"recruitment/legal.png","title"=>"Legal Officer"],
+        //     "opr"=>["src"=>"recruitment/opr.png","title"=>"Operation & Maintenance Officer"],
+        //     "prodser"=>["src"=>"recruitment/prodser.png","title"=>"Supervisor Product & Services Management"],
+        //     "recon"=>["src"=>"recruitment/recon.png","title"=>"Reconcilitaion Officer"],
+        //     "recrut"=>["src"=>"recruitment/recrut.png","title"=>"Recruitment Officer"],
+        //     "system"=>["src"=>"recruitment/system.png","title"=>"System Administrator"],
+        //     "testing"=>["src"=>"recruitment/testing.png","title"=>"Application Tester"],
+        // ];
 
-        echo "Populating default vacancies. Please wait. \n";
+        // echo "Populating default vacancies. Please wait. \n";
 
-        foreach ($positions as $key => $_pos) {
-            # code...
-             DB::table('vacancies')->insert([
-                    'job_id' => $key,
-                    'job_title' => $_pos['title'],
-                    'job_poster' => $_pos['src']
-                ]);
-        }
+        // foreach ($positions as $key => $_pos) {
+        //     # code...
+        //      DB::table('vacancies')->insert([
+        //             'job_id' => $key,
+        //             'job_title' => $_pos['title'],
+        //             'job_poster' => $_pos['src']
+        //         ]);
+        // }
     }
 
     /**

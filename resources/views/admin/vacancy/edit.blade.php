@@ -27,7 +27,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Job ID</label>
-                            <input name="job_id" type="text" class="form-control {{ $errors->has('job_id') ? ' is-invalid' : '' }}" placeholder="ID"value="{{$vacancy->job_id}}">
+                            <input name="job_id" type="text" class="form-control {{ $errors->has('job_id') ? ' is-invalid' : '' }}" placeholder="ID"value="{{$vacancy->job_id}}" readonly>
                             @if ($errors->has('job_id'))
                             <div class="invalid-feedback">
                                 {{ $errors->first('job_id') }}
@@ -36,7 +36,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label>Title</label>
-                            <input name="job_title" type="test" class="form-control {{ $errors->has('job_title') ? ' is-invalid' : '' }}" placeholder="Job Title"value="{{$vacancy->job_title}}">
+                            <input name="job_title" type="test" class="form-control {{ $errors->has('job_title') ? ' is-invalid' : '' }}" placeholder="Job Title"value="{{$vacancy->job_title}}" required>
                             @if ($errors->has('job_title'))
                             <div class="invalid-feedback">
                                 {{ $errors->first('job_title') }}
@@ -48,8 +48,8 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label>Available</label>
-                            <select name="available" class="form-control ">
-                                <option value="">Choose...</option>
+                            <select name="available" class="form-control " required>
+                                <option value="" disabled>Choose...</option>
                                 <option value="1"{{ $vacancy->is_available == 1 ? 'selected' : '' }}>Available</option>
                                 <option value="0"{{ $vacancy->is_available == 2 ? 'selected' : '' }}>Closed</option>
                             </select>
@@ -60,7 +60,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label>Target Hire</label>
-                            <input name="target" type="text" class="form-control {{ $errors->has('target') ? ' is-invalid' : '' }}" placeholder="Target Hire for Job"value="{{$vacancy->job_target}}">
+                            <input name="target" type="text" class="form-control {{ $errors->has('target') ? ' is-invalid' : '' }}" placeholder="Target Hire for Job"value="{{$vacancy->job_target}}" required>
                             @if ($errors->has('target'))
                             <div class="invalid-feedback">
                                 {{ $errors->first('target') }}
@@ -71,11 +71,11 @@
 
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea name="job_des" class="form-control" rows="3">{{ $vacancy->job_description }}</textarea>
+                        <textarea name="job_des" class="form-control summernote" rows="3" required>{{ $vacancy->job_description }}</textarea>
                     </div>
                     <div class="form-group">
                         <label>Requirement</label>
-                        <textarea id="summernote" name="job_req" class="form-control" rows="3">{{ $vacancy->job_Req }}</textarea>
+                        <textarea name="job_req" class="form-control summernote" rows="3" required>{{ $vacancy->job_Req }}</textarea>
                     </div>                        
                     <div class="form-row">
                         <div class="form-group col-md-6">

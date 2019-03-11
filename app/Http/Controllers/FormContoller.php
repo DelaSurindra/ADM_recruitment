@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Model\Vacancy;
 use App\Model\Pelamar;
+use App\Model\Setting;
 use Exception;
 
 
@@ -39,10 +40,11 @@ class FormContoller extends Controller
     	}
 
     	$title = $selectedJob->job_title;
-
     	$request->session()->put('selectedJob', $selectedJob->job_id);
+        $setting = Setting:: select()->first();
+        $role= $setting->value;
 
-    	return view('form')->with('jobTitle',$title);
+    	return view('form')->with(['jobTitle'=>$title,'role' => $role]);
     }
     public function detail(Request $request, $job=null)
     {
@@ -78,9 +80,10 @@ class FormContoller extends Controller
 			'email' => 'required|email|unique:pelamar',
 			'kampus' => 'required',
 			'jurusan' => 'required',
-			'file_cv' => 'max:3000|mimes:pdf'
+            'info'=>'required',
+			'file_cv' => 'max:5000|mimes:pdf'
         ]);
-
+        // dd($request);
         if ($validator->fails()) {
             return redirect()
             			->back()
@@ -91,11 +94,11 @@ class FormContoller extends Controller
 
         if($request->hasFile('file_cv')){
 
-        	if(!$request->file('file_cv')->isValid()){
-        		return redirect()->back()
-        					->withInput()
-        					->with('error_msg','Please upload valid file');
-			}
+   //      	if(!$request->file('file_cv')->isValid()){
+   //      		return redirect()->back()
+   //      					->withInput()
+   //      					->with('error_msg','Please upload valid file');
+			// }
 			$filename = 'cv_'.$request->session()->get('selectedJob').'_'.$request->firstname.'_'.str_replace('-', '', $request->tanggal_lahir).'_'.date('Ymdhis').'.'.'pdf';
 			$destination = 'public/cv';
 			$cvPath = $request->file_cv->storeAs($destination,$filename);
@@ -112,8 +115,10 @@ class FormContoller extends Controller
         $pelamar->email = strip_tags($request->email);
         $pelamar->kampus = strip_tags($request->kampus);
         $pelamar->jurusan = strip_tags($request->jurusan);
+        $pelamar->info = strip_tags($request->info);
         $pelamar->file_cv =  isset($cvPath) ? $cvPath : null;
         
+        // dd($pelamar);
         try {
             $pelamar->save();
 

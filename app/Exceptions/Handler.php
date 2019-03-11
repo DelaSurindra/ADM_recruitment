@@ -46,6 +46,24 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof \Symfony\Component\HttpFoundation\File\Exception\FileException) {
+        // create a validator and validate to throw a new ValidationException
+        return Validator::make($request->all(), [
+            'your_file_input' => 'required|file|size:5000',
+        ])->validate();
+    }
+        
+        if ($exception instanceof ModelNotFoundException) {
+        return response()->view('error.500error', [], 404);
+        }
+        if ($exception instanceof \ErrorException) {
+            return response()->view('error.500error', [], 500);
+        }
+        else
+        {
+            return parent::render($request, $exception);
+        }
         return parent::render($request, $exception);
+
     }
 }

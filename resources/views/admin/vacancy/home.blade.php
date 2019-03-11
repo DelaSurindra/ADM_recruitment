@@ -59,9 +59,9 @@
                                     <td>{{ $key->end_date }}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href="{{url('admin/vacancy/'.$key->job_id)}}" type="button" class="btn btn-outline-primary">Detail</a>
-                                            <a href="{{url('admin/vacancy/edit/'.$key->job_id)}}" type="button" class="btn btn-primary">Edit</a>
-                                            <a href="#" onclick="deleteJobList('{{$key->job_id}}')" type="button" class="btn btn-danger">Delete</a>
+                                            <a href="{{url('admin/vacancy/'.str_replace('/', '_', $key->job_id))}}" type="button" class="btn btn-outline-primary">Detail</a>
+                                            <a href="{{url('admin/vacancy/edit/'.str_replace('/', '_', $key->job_id))}}" type="button" class="btn btn-primary">Edit</a>
+                                            <a href="#" onclick="deleteJobList('{{str_replace('/', '_', $key->job_id)}}')" type="button" class="btn btn-danger">Delete</a>
                                         </div>
                                     </td>
                                 </tr>
