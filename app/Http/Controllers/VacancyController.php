@@ -81,7 +81,8 @@ class VacancyController extends Controller
     if (!$isi) abort(404);
     Storage::disk('poster')->delete('/'.$isi->job_poster);
     $isi->delete();
-    return redirect('vacancy')->with('success', 'Success Deleted Job');
+    return redirect()->route('vacancy')
+     ->with('success','Success Delete Vacancy');
   }
 
   public function postInput(Request $req)
