@@ -6,7 +6,7 @@ $(document).ready(function(){
 		  title: 'Error!',
 		  type: 'error',
 		  html:msg,
-		  confirmButtonText: 'Baiklah'
+		  confirmButtonText: 'OK'
 		})
 	}
 
@@ -14,7 +14,7 @@ $(document).ready(function(){
 	if($('input[name=success_msg]').length){
 		var msg = $('input[name=success_msg]').val();
 		swal({
-		  title: 'Selamat',
+		  title: 'Congratulations',
 		  text: msg,
 		  type: 'success',
 		  confirmButtonText: 'OK'

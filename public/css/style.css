@@ -144,10 +144,11 @@ a.control_next {
 /*Detail*/
 .spaceDetail{
   margin-top:2%;
+  color: black;
 }
 .buttonBack{
   float: left; 
-  left: 10%;
+  left: 9%;
   position: absolute;
 }
 .buttonBack a {
@@ -170,8 +171,10 @@ a.control_next {
 }
 #imageid{
   width: 100%;
-  position: relative;top: 50%;
-  transform: translateY(-50%);
+  position: relative;
+  /* top: 50%;
+  transform: translateY(-50%); */
+  padding-top: 60px;
 }
 .detail-right{
   padding:20px 25px;

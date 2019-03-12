@@ -31,11 +31,12 @@
           <div class="detail-right">
             <p class="detailTitle">{{$data->job_title}}</p>
             <hr>
-            <p class="jobDes">{{$data->job_description}}</p>
+            {!! $data->job_description !!}
+            <hr>
             <p class="detailTitle">Requirement</p>
             <hr>
             
-              {!! $data->job_Req !!}
+            {!! $data->job_Req !!}
             
             <div class="btnSubmit">
               <a href="{{route('form',$data->job_id)}}" class="btn-daftar"> Apply Now
