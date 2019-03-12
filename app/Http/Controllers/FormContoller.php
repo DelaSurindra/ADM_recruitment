@@ -124,11 +124,11 @@ class FormContoller extends Controller
 
             $request->session()->forget('selectedJob');
 	        return redirect()->route('slider')
-	        				->with('success_msg','Terimakasih sudah submit CV terbaikmu di Vascomm. We’ll update you soon.');
+	        				->with('success_msg','Thank you for submitting your resume to Vascomm. We will update to you soon.');
         } catch (Exception $e) {
         	return redirect()->back()
                             ->withInput()
-	        				->with('error_msg','Oh Tidak! Sepertinya sistem sedang mengalami gangguan. Silaka laporkan gangguan dan coba beberapa saat lagi. Err: '.$e->getMessage());
+	        				->with('error_msg','Oh no! seem like there is problem with the system. Please try again later Err: '.$e->getMessage());
         }
 
         
