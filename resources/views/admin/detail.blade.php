@@ -56,6 +56,10 @@
                                     <td>: {{ $pelamar->jurusan }}, {{ $pelamar->kampus }}</td>
                                 </tr>
                                 <tr>
+                                    <th class="text-right" style="width: 30%">Metode Rekrutmen</th>
+                                    <td>: {{ $pelamar->info}}</td>
+                                </tr>
+                                <tr>
                                     <th class="text-right" style="width: 30%">CV</th>
                                     <td>: 
                                         @if($pelamar->file_cv)
