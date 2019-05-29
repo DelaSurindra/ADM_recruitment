@@ -50,4 +50,5 @@
 <script src="{{asset('js/index.js')}}"></script>
 <script src="{{asset('js/custom.js')}}"></script>
 </body>
+
 </html>
