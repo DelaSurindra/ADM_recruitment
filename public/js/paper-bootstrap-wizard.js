@@ -26,6 +26,10 @@ transparent = true;
             // Code for the Validator
             var $validator = $('.wizard-card form').validate({
         		  rules: {
+                    placement: {
+                      required: true,
+                      minlength: 3
+                    },
         		    firstname: {
         		      required: true,
         		      minlength: 3

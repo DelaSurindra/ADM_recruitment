@@ -56,9 +56,9 @@ class Handler extends ExceptionHandler
         if ($exception instanceof ModelNotFoundException) {
         return response()->view('error.500error', [], 404);
         }
-        if ($exception instanceof \ErrorException) {
-            return response()->view('error.500error', [], 500);
-        }
+        // if ($exception instanceof \ErrorException) {
+        //     return response()->view('error.500error', [], 500);
+        // }
         else
         {
             return parent::render($request, $exception);

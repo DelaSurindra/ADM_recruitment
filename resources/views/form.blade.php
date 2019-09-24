@@ -100,6 +100,19 @@
                       <div class="tab-pane" id="about">
                         <div class="row">
                           <h5 class="info-text"> Hello NuCommers, are you ready to be {{$jobTitle}} ?</h5>
+                          @if($location!=null)
+                          <div class="col-sm-10 col-sm-offset-1">
+                            <div class="form-group">
+                              <label>Placement</label>
+                              <select name="placement" required="" class="form-control">
+                                <option value="">Select Your Job Palcement Location</option>
+                                @foreach($location as $loc)
+                                <option value="{{$loc}}" {{old('placement')==$loc?'selected=""':''}}>{{$loc}}</option>
+                                @endforeach
+                              </select>
+                            </div>
+                          </div>
+                          @endif
                           <div class="col-sm-3 col-sm-offset-1">
                             <div class="form-group">
                               <label>Nick Name</label>
