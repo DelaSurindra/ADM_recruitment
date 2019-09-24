@@ -34,6 +34,7 @@ class FormContoller extends Controller
     	}
 
     	$selectedJob = $this->vacancy->find($job);
+        $location = $selectedJob->placement != null ? json_decode($selectedJob->placement,true) : null;
 
     	if(empty($selectedJob)){
     		return redirect()->route('slider')->with('error_msg','Ops! Sepertinya posisi yang Kamu cari belum ada. Silakan pilih pekerjaan yang ada di bawah ini.');
@@ -44,7 +45,7 @@ class FormContoller extends Controller
         $setting = Setting:: select()->first();
         $role= $setting->value;
 
-    	return view('form')->with(['jobTitle'=>$title,'role' => $role]);
+    	return view('form')->with(['jobTitle'=>$title,'role' => $role,'location'=>$location]);
     }
     public function detail(Request $request, $job=null)
     {
@@ -72,6 +73,7 @@ class FormContoller extends Controller
     	}
     	$validator = Validator::make($request->all(), [
     		'firstname' => 'required',
+            'placement' => 'required',
 			'lastname' => 'required',
 			'tanggal_lahir' => 'required',
 			'tempat_lahir' => 'required',
@@ -117,6 +119,7 @@ class FormContoller extends Controller
         $pelamar->jurusan = strip_tags($request->jurusan);
         $pelamar->info = strip_tags($request->info);
         $pelamar->file_cv =  isset($cvPath) ? $cvPath : null;
+        $pelamar->placement = strip_tags($request->placement);
         
         // dd($pelamar);
         try {

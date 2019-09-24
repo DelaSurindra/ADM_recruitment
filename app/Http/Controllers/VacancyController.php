@@ -22,8 +22,8 @@ class VacancyController extends Controller
   {
     $data = [
       "vacancy" => Vacancy::leftJoin('pelamar', 'pelamar.job_id', '=', 'vacancies.job_id')
-      ->select('vacancies.job_id', 'vacancies.job_title', 'vacancies.is_available', 'vacancies.end_date', 'vacancies.job_target', DB::raw('count(pelamar.job_id) as total'))
-      ->groupBy('vacancies.job_id', 'vacancies.job_title', 'vacancies.is_available', 'vacancies.end_date', 'vacancies.job_target')
+      ->select('vacancies.job_id', 'vacancies.job_title', 'vacancies.is_available', 'vacancies.end_date', 'vacancies.job_target','vacancies.placement', DB::raw('count(pelamar.job_id) as total'))
+      ->groupBy('vacancies.job_id', 'vacancies.job_title', 'vacancies.is_available', 'vacancies.end_date', 'vacancies.job_target','vacancies.placement')
       ->paginate(20)
     ];
     return view('admin.vacancy.home', $data);
@@ -131,7 +131,8 @@ class VacancyController extends Controller
     $vacancy->is_available = $req->available;
     $vacancy->job_target = $req->target;
     $vacancy->end_date = $req->end;
-        // dd($vacancy);
+    $vacancy->placement = $req->has('placement') ? json_encode($req->placement) : null;
+
     try {
      $vacancy->save();
 
@@ -145,7 +146,6 @@ class VacancyController extends Controller
 
  public function postEdit(Request $req, $id)
  {
-
   $vacancy = Vacancy::find($id);
   if (!$vacancy) abort(404);
 
@@ -154,8 +154,9 @@ class VacancyController extends Controller
     'job_title' => 'required',
     'target' => 'numeric',
     'posterDesktop' => 'max:3000|mimes:png,jpeg',
-    'posterMobile' => 'max:3000|mimes:png,jpeg'
+    'posterMobile' => 'max:3000|mimes:png,jpeg',
   ]);
+
   if ($validator->fails()) {
     return redirect()
     ->back()
@@ -193,6 +194,7 @@ $vacancy->job_Req = $req->job_req;
 $vacancy->is_available = $req->available;
 $vacancy->job_target = $req->target;
 $vacancy->end_date = $req->end;
+$vacancy->placement = $req->has('placement')? json_encode($req->placement):null;
         // dd($vacancy);
 try {
  $vacancy->save();

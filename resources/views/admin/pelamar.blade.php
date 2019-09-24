@@ -25,6 +25,24 @@
                                 <button type="submit" class="btn btn-primary">Filter</button>
                             </div>
                         </div>
+                        <!-- <div class="form-inline">
+                            <div class="form-group">
+                                <?php
+                                    $location = [
+                                            "Sidoarjo",
+                                            "Malang",
+                                            "Yogyakarta",
+                                            "Jakarta"
+                                        ];
+                                ?>
+                                <select name="placement" class="form-control mr-2">
+                                @foreach($location as $loc)
+                                      <option value="{{$loc}}">{{$loc}}</option>
+                                @endforeach
+                                </select>
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                            </div>
+                        </div> -->
                         <div class="form-inline col justify-content-end">
                             <div class="form-group mr-0 ">
                                 <input name="q" type="text" class="form-control mr-2" placeholder="Find Applicants">
@@ -56,6 +74,7 @@
                                 <th scope="col">No HP</th>
                                 <th scope="col">Divisi</th>
                                 <th scope="col">Status</th>
+                                <th scope="col">Placement</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -78,6 +97,7 @@
                                             <h5><span class="badge badge-pill badge-info">Rejected</span></h5>
                                         @endif
                                     </td>
+                                    <td>{{ $key->placement }}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
                                             <a href="{{url('admin/pelamar/'.$key->id)}}" type="button" class="btn btn-secondary">Detail</a>
