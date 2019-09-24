@@ -46,7 +46,7 @@
                     </div>
                     
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label>Available</label>
                             <select name="available" class="form-control " required>
                                 <option value="" disabled>Choose...</option>
@@ -54,11 +54,11 @@
                                 <option value="0"{{ $vacancy->is_available == 2 ? 'selected' : '' }}>Closed</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label>End Date</label>
                             <input name="end" type="date" class="form-control"value="{{$vacancy->end_date}}">
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label>Target Hire</label>
                             <input name="target" type="text" class="form-control {{ $errors->has('target') ? ' is-invalid' : '' }}" placeholder="Target Hire for Job"value="{{$vacancy->job_target}}" required>
                             @if ($errors->has('target'))
@@ -66,6 +66,24 @@
                                 {{ $errors->first('target') }}
                             </div>
                             @endif
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label>Placement</label>
+                            <?php
+                                $location = [
+                                        "Sidoarjo",
+                                        "Malang",
+                                        "Yogyakarta",
+                                        "Jakarta"
+                                    ];
+                            ?>
+                            @foreach($location as $loc)
+                            <div class="custom-control custom-checkbox">
+                                  <input name="placement[]" value="{{$loc}}" type="checkbox" {{old('placement')==$loc?'checked=""':''}} class="custom-control-input" id="check_box_{{$loc}}">
+                                  <label class="custom-control-label" for="check_box_{{$loc}}">{{$loc}}</label>
+                            </div>
+                            @endforeach
                         </div>
                     </div>
 

@@ -30,6 +30,11 @@
                                 <img src="{{asset('desktop/'.$vacancy->job_poster)}}" alt="{{ $vacancy->job_title }}" class="img-thumbnail">
                             </div> -->
                         </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h6>Placements</h6>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="col">
@@ -38,7 +43,7 @@
                         <cite title="Source Title">Target Hire : <span class="badge badge-info">{{ $vacancy->job_target }}</span></cite>
                         <hr>
                         <p class="lead">
-                            {{ $vacancy->job_description }}
+                            {!! $vacancy->job_description !!}
                         </p>
                     </div>
 

@@ -56,6 +56,7 @@
                                 <th scope="col">No HP</th>
                                 <th scope="col">Divisi</th>
                                 <th scope="col">Status</th>
+                                <th scope="col">Placement</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -78,6 +79,7 @@
                                             <h5><span class="badge badge-pill badge-info">Rejected</span></h5>
                                         @endif
                                     </td>
+                                    <td>{{ $key->placement }}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
                                             <a href="{{url('admin/pelamar/'.$key->id)}}" type="button" class="btn btn-secondary">Detail</a>
