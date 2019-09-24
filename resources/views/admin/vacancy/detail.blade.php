@@ -33,6 +33,14 @@
                         <div class="row">
                             <div class="col-12">
                                 <h6>Placements</h6>
+                                <?php
+                                    $placements =$vacancy->placement != null ? json_decode($vacancy->placement,true) : [];
+                                ?>
+                                <ul>
+                                    @foreach($placements as $place)
+                                    <li>{{$place}}</li>
+                                    @endforeach
+                                </ul>
                             </div>
                         </div>
                     </div>

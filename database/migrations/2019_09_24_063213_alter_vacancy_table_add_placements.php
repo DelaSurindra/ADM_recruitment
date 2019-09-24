@@ -14,6 +14,9 @@ class AlterVacancyTableAddPlacements extends Migration
     public function up()
     {
         //
+        Schema::table('vacancies', function($table) {
+            $table->string('placement')->nullable();
+        }); 
     }
 
     /**

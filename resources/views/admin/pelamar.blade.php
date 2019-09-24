@@ -25,6 +25,24 @@
                                 <button type="submit" class="btn btn-primary">Filter</button>
                             </div>
                         </div>
+                        <!-- <div class="form-inline">
+                            <div class="form-group">
+                                <?php
+                                    $location = [
+                                            "Sidoarjo",
+                                            "Malang",
+                                            "Yogyakarta",
+                                            "Jakarta"
+                                        ];
+                                ?>
+                                <select name="placement" class="form-control mr-2">
+                                @foreach($location as $loc)
+                                      <option value="{{$loc}}">{{$loc}}</option>
+                                @endforeach
+                                </select>
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                            </div>
+                        </div> -->
                         <div class="form-inline col justify-content-end">
                             <div class="form-group mr-0 ">
                                 <input name="q" type="text" class="form-control mr-2" placeholder="Find Applicants">

@@ -38,6 +38,7 @@
                                 <th scope="col">Target Hire</th>
                                 <th scope="col">Avaliable</th>
                                 <th scope="col">End Date</th>
+                                <th scope="col">Placement</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -57,6 +58,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $key->end_date }}</td>
+                                    <td>{!! $key->placement != null ? implode(',<br>',json_decode($key->placement,true)) : '-' !!}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
                                             <a href="{{url('admin/vacancy/'.str_replace('/', '_', $key->job_id))}}" type="button" class="btn btn-outline-primary">Detail</a>

@@ -34,12 +34,7 @@ class FormContoller extends Controller
     	}
 
     	$selectedJob = $this->vacancy->find($job);
-        $location = [
-            "Sidoarjo",
-            "Malang",
-            "Yogyakarta",
-            "Jakarta"
-        ];
+        $location = $selectedJob->placement != null ? json_decode($selectedJob->placement,true) : null;
 
     	if(empty($selectedJob)){
     		return redirect()->route('slider')->with('error_msg','Ops! Sepertinya posisi yang Kamu cari belum ada. Silakan pilih pekerjaan yang ada di bawah ini.');

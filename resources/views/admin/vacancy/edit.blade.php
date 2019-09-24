@@ -68,7 +68,7 @@
                             @endif
                         </div>
 
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-3 ">
                             <label>Placement</label>
                             <?php
                                 $location = [
@@ -77,13 +77,22 @@
                                         "Yogyakarta",
                                         "Jakarta"
                                     ];
+
+                                $placement = $vacancy->placement != null ? json_decode($vacancy->placement,true):[];
                             ?>
                             @foreach($location as $loc)
                             <div class="custom-control custom-checkbox">
-                                  <input name="placement[]" value="{{$loc}}" type="checkbox" {{old('placement')==$loc?'checked=""':''}} class="custom-control-input" id="check_box_{{$loc}}">
+                                  <input name="placement[]" value="{{$loc}}" type="checkbox" {{in_array($loc,$placement)?'checked=""':''}} class="custom-control-input  " id="check_box_{{$loc}}">
                                   <label class="custom-control-label" for="check_box_{{$loc}}">{{$loc}}</label>
                             </div>
                             @endforeach
+
+                            @if ($errors->has('placement'))
+                            <input type="hidden" name="" class="form-control {{ $errors->has('placement') ? ' is-invalid' : '' }}">
+                            <div class="invalid-feedback">
+                                {{ $errors->first('placement') }}
+                            </div>
+                            @endif
                         </div>
                     </div>
 

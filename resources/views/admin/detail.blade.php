@@ -28,6 +28,10 @@
                         <table class="table">
                             <tbody>
                                 <tr>
+                                    <th class="text-right" style="width: 30%">Tanggal/Waktu Lamaran</th>
+                                    <td>: {{ date('D, d-m-Y / h:i:s',strtotime($pelamar->created_at)) }}</td>
+                                </tr>
+                                <tr>
                                     <th class="text-right" style="width: 30%">Nama</th>
                                     <td scope="col">: {{ $pelamar->lastname }}</td>
                                 </tr>
@@ -58,6 +62,10 @@
                                 <tr>
                                     <th class="text-right" style="width: 30%">Metode Rekrutmen</th>
                                     <td>: {{ $pelamar->info}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-right" style="width: 30%">Penempatan Kerja</th>
+                                    <td>: {{ $pelamar->placement != null ? $pelamar->placement : '-'}}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-right" style="width: 30%">CV</th>
