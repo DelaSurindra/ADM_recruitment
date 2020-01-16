@@ -1,19 +1,37 @@
+@font-face {
+  font-family: 'sf_pro_displayregular';
+  src: url('../font/1Regular/sf-pro-display-regular-webfont.woff2') format('woff2'),
+       url('../font/1Regular/sf-pro-display-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 html,
 body {
-  background: #0078D7;
+  /* background: #0472B9; */
   color: #FFF;
-  font-family: 'Helvetica', sans-serif;
+  font-family: 'sf_pro_displayregular', sans-serif;
   font-size: 24px;
   font-weight: 300;
   overflow: auto;
-  font-family: 'Muli', 'Helvetica', Arial, sans-serif;
+  /* font-family: 'Muli', 'Helvetica', Arial, sans-serif; */
 }
 
+.header-vascomm{
+  height: 100px;
+  background: #FFFFFF;
+  box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.1);
+}
+
+.header-vascomm .logo-vascomm{
+  width: 170px;
+}
 
 .title-slider{
   font-size: 1rem;
 }
-
+ 
 #slider {
   position: relative;
   overflow: hidden;
@@ -33,7 +51,7 @@ body {
 .responsive{
   width: 100%;
   max-width: 400px;
-  height: auto;;
+  height: auto;
 }
 
 #slider ul li {
@@ -43,7 +61,7 @@ body {
   padding: 0;
   width: 100%;
   height: auto;
-  background: #0078D7;
+  background: #0472B9;
   text-align: center;
   line-height: 300px;
 }
@@ -92,11 +110,12 @@ a.control_next {
 }
 
 .margin-top{
-  margin-top:5%
+  margin-top:7%;
+  margin-bottom:5%;
 }
 
 .android{
-  background-color: #0078d7;
+  background-color: #0472B9;
   height: 800px;
   background-position: center;
   background-repeat: no-repeat;
@@ -125,12 +144,37 @@ a.control_next {
 /*Home*/
 .btnVisit{
   text-decoration: none; 
-  color: black;
+  color: white;
   margin-right: 20px;
+  padding: 10px 45px;
+  background-color: #0472B9;
+  border-radius: 21px;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
 }
 .btnVisit:hover{
   text-decoration: none;
-  color: black;
+  color: white;
+}
+.title-slide-home{
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  color: #8F8F8F;
+  margin-bottom: 0px;
+}
+
+.subtitle-slide-home{
+  font-style: normal;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 26px;
+  text-align: center;
+  color: #000000;
 }
 .masonry{
   column-count: 3;
@@ -146,20 +190,36 @@ a.control_next {
   margin-top:2%;
   color: black;
 }
-.buttonBack{
-  float: left; 
-  left: 9%;
+/* .buttonBack{
   position: absolute;
-}
+} */
 .buttonBack a {
-  color:#fff;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  color:#8F8F8F;
 }
+.buttonBack .arrow {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  color:#8F8F8F;
+}
+
 .buttonBack a:hover{
   text-decoration: none;
 }
 .detail{
   overflow-x: hidden;
 
+}
+.card-detail{
+  border: none;
+  background: none;
 }
 .wizard-container{
   display: grid;
@@ -181,12 +241,12 @@ a.control_next {
   font-size: 14px;
 }
 .detail-right hr{
-  border-top: 2px solid #0078D7; 
+  border-top: 2px solid #0472B9; 
   width:100px;
 }
 .detailTitle{
   text-align: center; 
-  color:#0078D7; 
+  color:#0472B9; 
   font-weight: bold;
   font-size: 16px;
 }
@@ -205,7 +265,7 @@ a.control_next {
 }
 .btnSubmit p{
   text-align: center; 
-  color:#0078D7; 
+  color:#0472B9; 
   font-size:15px; 
   padding: 0%
 }
@@ -260,15 +320,54 @@ a.control_next {
   .desktop-image {
     display: none !important;
   }
-
   .mobile-image {
     display: block !important;
   }
+  .buttonBack{
+    margin-top: 20px !important;
+    cursor:pointer;
+  }
+  .header-vascomm{
+    height: 80px;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.2);
+  }
+  .logo-vascomm{
+    width: 120px !important;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  .btnVisit{
+    text-decoration: none; 
+    color: white;
+    margin-right: 0px;
+    padding: 5px 20px;
+    background-color: #0472B9;
+    border-radius: 21px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+
 
   .apply-btn{
     bottom: -51px;
   }
-  .card{
-    margin: 
+  .margin-top{
+    margin-top:10%;
+    margin-bottom:8%;
   }
+  .buttonBack a {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    color: #8F8F8F;
+}
 } 

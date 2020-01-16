@@ -14,39 +14,52 @@
   <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
 </head>
 <body>
-  <div class="detail">
-    <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand" href="">
-        <img src="/assets/img/logo.png" height="40" class="d-inline-block align-top" alt=""> </a>
+  <div class="detail"> 
+  <nav class="navbar navbar-light bg-light header-vascomm">
+    <div class="container">
+      <a class="navbar-brand" href="https://career.vascomm.co.id/">
+        <img src="/assets/img/logo.png"  class="d-inline-block align-top logo-vascomm" alt="">
+      </a>
       <a href="https://vascomm.co.id/" class="btnVisit">Visit us</a>
-    </nav>
-      <div class="spaceDetail">
+    </div>
+    </nav>  
+    <div class="spaceDetail">
+      <div class="container">
         <div class="buttonBack">
-          <a href="{{route('slider')}}"><i class="fa fa-angle-left" ></i> Back</a>
+          <a href="{{route('slider')}}">
+            <i class="fa fa-angle-left arrow" ></i> Back
+          </a>
         </div>
-        <div class="col-sm-8 col-sm-offset-2 card wizard-container">
-          <div class="detail-left">
-            <img id="imageid" src="{{$data->job_poster}}">
-          </div>
-          <div class="detail-right">
-            <p class="detailTitle">{{$data->job_title}}</p>
-            <hr>
-            {!! $data->job_description !!}
-            <hr>
-            <p class="detailTitle">Requirement</p>
-            <hr>
-            
-            {!! $data->job_Req !!}
-            
-            <div class="btnSubmit">
-              <a href="{{route('form',$data->job_id)}}" class="btn-daftar"> Apply Now
-              </a>
-
+        <div class="col-sm-10 col-sm-offset-1 card  card-detail">
+          <div class="row">
+            <div class="col-md-4 col-sm-12">
+              <div class="detail-left">
+                <img id="imageid" src="{{$data->job_poster}}">
+              </div>
             </div>
-
+            <div class="col-md-8 col-sm-12">
+              <div class="detail-right">
+                <p class="detailTitle">{{$data->job_title}}</p>
+                <hr>
+                {!! $data->job_description !!}
+                <hr>
+                <p class="detailTitle">Requirement</p>
+                <hr>
+                
+                {!! $data->job_Req !!}
+      
+              </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="btnSubmit">
+                  <a href="{{route('form',$data->job_id)}}" class="btn-daftar"> Apply Now
+                  </a>
+                </div>
+              </div>            
           </div>
         </div>
         
+      </div>
       </div>
     </div>
   </body>

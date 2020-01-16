@@ -21,15 +21,19 @@
   @if(Session::has('success_msg'))
   <input type="hidden" name="success_msg" value="{{Session::get('success_msg')}}">
   @endif
-  <nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand" href="">
-      <img src="/assets/img/logo.png" height="40" class="d-inline-block align-top" alt=""> </a>
+  <nav class="navbar navbar-light bg-light header-vascomm">
+    <div class="container">
+      <a class="navbar-brand" href="https://career.vascomm.co.id/">
+        <img src="/assets/img/logo.png"  class="d-inline-block align-top logo-vascomm" alt="">
+      </a>
       <a href="https://vascomm.co.id/" class="btnVisit">Visit us</a>
-    </nav>
+    </div>
+  </nav>
     <div class="container">
       <div class="row margin-top">
         <div class="col-md-12">
-          <p class="text-center title-slider">Hello, NuCommers! <br> Please choose position you would like to apply.</p>
+          <p class="text-center title-slide-home">Hello, NuCommers!</p>
+          <p class="text-center subtitle-slide-home">Please choose position you would like to apply.</p>
         </div>
       </div>
       <div class="masonry">
