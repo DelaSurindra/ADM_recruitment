@@ -33,12 +33,12 @@ class FormContoller extends Controller
     		return redirect()->route('slider')->with('error_msg','Ops! Sepertinya posisi yang Kamu cari belum ada. Silakan pilih pekerjaan yang ada di bawah ini.');
     	}
 
-    	$selectedJob = $this->vacancy->find($job);
-        $location = $selectedJob->placement != null ? json_decode($selectedJob->placement,true) : null;
+    	$selectedJob = $this->vacancy->where('is_available',true)->find($job);
 
     	if(empty($selectedJob)){
     		return redirect()->route('slider')->with('error_msg','Ops! Sepertinya posisi yang Kamu cari belum ada. Silakan pilih pekerjaan yang ada di bawah ini.');
     	}
+        $location = $selectedJob->placement != null ? json_decode($selectedJob->placement,true) : null;
 
     	$title = $selectedJob->job_title;
     	$request->session()->put('selectedJob', $selectedJob->job_id);
