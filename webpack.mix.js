@@ -1,4 +1,4 @@
-let mix = require('laravel-mix');
+const mix = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,5 +11,17 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+mix.babel([
+    'resources/assets/js/app.js',
+    'resources/assets/js/other.js',
+    'resources/assets/js/ajax.js',
+    'resources/assets/js/form.js',
+    'resources/assets/js/table.js',
+    'resources/assets/js/ui.js',
+    'resources/assets/js/validation.js'
+    ], 'public/js/all.js')
+    .styles([
+	    'resources/assets/css/compiler.css',
+	    'resources/assets/css/table.css',
+	    'resources/assets/css/style.css',
+	], 'public/css/all.css');
