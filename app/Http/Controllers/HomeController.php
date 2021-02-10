@@ -13,14 +13,18 @@ class HomeController extends Controller
 {
     public function homeView() {
         // dd(Session::get('session_id'));
-        $user = User::get();
-        $id = $user[0]->name;
-        dd($id);
-        if(Session::get('session_id.priviledge_id') == "1") {
-            return view('welcome-admin')->with(['pageTitle' => 'Dashboard', 'title' => 'Dashboard', 'sidebar' => 'dashboard']);
-        } else {
-            return view('welcome')->with(['pageTitle' => 'Dashboard', 'title' => 'Dashboard', 'sidebar' => 'dashboard']);
-        }
+        // $user = User::get();
+        // $id = $user[0]->name;
+        // dd($id);
+        $add = User::insert([
+            'name' => 'ran',
+            'email' => 'ran@gmail.com',
+            'password' => '123',
+            'name' => 'ran',
+        ]);
+        dd($add);
+        return view('welcome')->with(['pageTitle' => 'Dashboard', 'title' => 'Dashboard', 'sidebar' => 'dashboard']);
+        
     }
 
     public function getTransaksiBaruDashboard() {
