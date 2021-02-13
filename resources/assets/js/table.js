@@ -1,85 +1,63 @@
 var table = {
 	init:function(){
-		var imageDetail = '../image/icon/main/eye-solid.png';
-		var imageEdit = '../image/icon/main/pen-square-solid.png';
-		var imageDeactive = '../image/icon/main/deactive.png';
-		var imageActive = '../image/icon/main/activae.png';
-		var ops ={};
 
-		// contoh 1 tabel
-		if ($('#tableCabang').length) {
-			var value = $('#filterCabang').serialize();
+		if ($('#tableNewsEvent').length) {
 			var column = [
-				{'data':'kode_cabang'},
-				{'data':'nama_cabang'},
-				{'data':'alamat'},
-				{'data':'kota'},
-				{'data':'provinsi'},
-				{'data':'no_telp'},
-				{'data':null},
+				{'data':'created_at'},
+				{'data':'title'},
+				{'data':'start_date'},
+				{'data':'end_date'},
 			];
 
 			columnDefs = [
 				{
-					"targets": 6,
+					"targets": 4,
 					"data": "status",
 					"render": function(data, type, full, meta){
 						var data = ''
-		            	if (full.status == 'Deactive') {
-			               data = '<span class="badge-table badge-grey">Deactive</span>';
-		            	}else if (full.status == 'Active') {
-			               data = '<span class="badge-table badge-blue">Active</span>';
+		            	if (full.type == 1) {
+		            	    data = 'News';
+		            	} else {
+		            	    data = 'Event';
+		            	}
+		               	return data;
+					}
+				},
+                {
+					"targets": 5,
+					"data": "status",
+					"render": function(data, type, full, meta){
+						var data = ''
+		            	if (full.status == 1) {
+		            	    data = '<span class="status status-success">Aktif</span>';
+		            	} else {
+		            	    data = '<span class="status status-delete">Deaktif</span>';
 		            	}
 		               	return data;
 					}
 				},
 				{
-					"targets": 7,
+					"targets": 6,
 					"data": "id",
 					"render": function(data, type, full, meta){
 						var id = encodeURIComponent(window.btoa(full.id));
-						if (full.status == "Active") {
-							var link_item = '<a class="dropdown-item deactiveCabang" href="#">'+
-												'<div class="icon-dropdown-menu d-inline-block">'+
-													'<img src="'+imageDeactive+'" />'+
-												'</div>'+
-												'<span class="ml-2 d-inline-block">Deactive</span>'+
-											'</a>'
-						}else{
-							var link_item = '<a class="dropdown-item activeCabang" href="#">'+
-												'<div class="icon-dropdown-menu d-inline-block">'+
-													'<img src="'+imageActive+'" />'+
-												'</div>'+
-												'<span class="ml-2 d-inline-block">Active</span>'+
-											'</a>'
+						var konfirm = '';
+						var data = '<button type="button" class="btn btn-table btn-transparent"><a href="/news_event/detail-news-event/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/lingkarEdit_icon.svg" title="Edit News/Event"></a></button>';
+						if (full.status == '1') {
+							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmNewsEvent"><img style="margin-right: 1px;" src="/image/icon/main/lingkarHapus_icon.svg" title="Deaktif News/Event"></button>';
+							
+						} else {
+							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmNewsEvent"><img style="margin-right: 1px;" src="/image/icon/main/lingkarAktif_icon.svg" title="Aktifkan News/Event"></button>';
 						}
-						var data = '<div class="dropleft">'+
-										'<button type="button" class="dropdown-toggle table-dropdown-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
-											'<i class="fa fa-ellipsis-v"></i>'+
-										'</button>'+
-										'<div class="dropdown-menu dropdown-menu-table py-2">'+
-											'<a class="dropdown-item detailCabang" href="#" type="button">'+
-												'<div class="icon-dropdown-menu d-inline-block">'+
-													'<img src="'+imageDetail+'" />'+
-												'</div>'+
-												'<span class="ml-2 d-inline-block">Detail</span>'+
-											'</a>'+
-											'<a class="dropdown-item" href="/cabang/edit-cabang/'+id+'">'+
-												'<div class="icon-dropdown-menu d-inline-block">'+
-													'<img src="'+imageEdit+'" />'+
-												'</div>'+
-												'<span class="ml-2 d-inline-block">Edit</span>'+
-											'</a>'+
-											link_item+
-										'</div>'+
-					  				'</div>';
-		               	return data;
+		               	return data+konfirm;
 					}
 				}
 			];
 
-		 	table.serverSide('tableCabang',column,'cabang/get-cabang',value,columnDefs)
-		}
+		 	table.serverSide('tableNewsEvent',column,'news_event/list-news-event',null,columnDefs)
+        }
+
+
 	},
 	filter:function(id,value){
 		var imageDetail = '../image/icon/main/eye-solid.png';
@@ -283,4 +261,30 @@ var table = {
 	    .draw();
 	}
 }
+
+$('#tableNewsEvent tbody').on( 'click', 'button.konfirmNewsEvent', function (e) {
+	var table = $('#tableNewsEvent').DataTable();
+	var dataRow = table.row($(this).closest('tr')).data();
+
+	if (dataRow.status == '1') {
+		$('#titleKonfirmasiEventNews').html('Apakah Anda yakin akan menonaktifkan News/Event "'+dataRow.title+ '" ?');
+		$('#tipeDeleteNewsEvent').val('0');
+		$('#titleModalKonfirmEventNews').html('Nonaktifkan News/Event');
+		$('#btnKonfirmasiNewsEvent').html('Nonaktifkan');
+		document.getElementById("btnKonfirmasiNewsEvent").classList.remove('btn-submit-modal');
+		document.getElementById("btnKonfirmasiNewsEvent").classList.add('btn-hapus-modal');
+	}else if(dataRow.status == '0'){
+		$('#titleKonfirmasiEventNews').html('Apakah Anda yakin akan mengaktifkan News/Event "'+dataRow.title+ '" ?');
+		$('#tipeDeleteNewsEvent').val('1');
+		$('#titleModalKonfirmEventNews').html('Aktifkan News/Event');
+		$('#btnKonfirmasiNewsEvent').html('Aktifkan');
+		document.getElementById("btnKonfirmasiNewsEvent").classList.remove('btn-hapus-modal');
+		document.getElementById("btnKonfirmasiNewsEvent").classList.add('btn-submit-modal');
+	}
+
+	$('#idDeleteNewsEvent').val(dataRow.id);
+
+	$('#modalKonfirmEventNews').modal('show');
+	
+});
 

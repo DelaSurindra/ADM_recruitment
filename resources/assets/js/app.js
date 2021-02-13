@@ -42,7 +42,14 @@ $(document).ready(function () {
         }
     }
 
-    ui.popup.show('error','Harap cek isian','Form Tidak Valid');
+    if ($('#notif').length) {
+        const status = $('#notif').data('status')
+        const message = $('#notif').data('message')
+        const url = $('#notif').data('url')
+
+        ui.popup.show(status, message, url)
+    }
+
 })
 
 window.onload = function () {

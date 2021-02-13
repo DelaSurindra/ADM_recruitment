@@ -1,6 +1,34 @@
 var form = {
 	init:function(){
 		$('form').attr('autocomplete', 'off');
+		if ($('.select2').length) {
+			$('.select2').select2();
+		}
+		$('input').focus(function(){
+			$(this).parents('.form-group').addClass('focused');
+		});
+		
+		$('textarea').focus(function(){
+			$(this).parents('.form-group').addClass('focused');
+		});
+		$('input').blur(function(){
+			var inputValue = $(this).val();
+			if ( inputValue == "" ) {
+				$(this).removeClass('filled');
+				$(this).parents('.form-group').removeClass('focused');
+			} else {
+				$(this).addClass('filled');
+			}
+		})
+		$('textarea').blur(function(){
+			var inputValue = $(this).val();
+			if ( inputValue == "" ) {
+				$(this).removeClass('filled');
+				$(this).parents('.form-group').removeClass('focused');
+			} else {
+				$(this).addClass('filled');
+			}
+		})
 		$.validator.addMethod("lettersonly", function(value, element) {
 		 	return this.optional(element) || /^[a-z]+$/i.test(value);
 		}, "Letters only please");
@@ -125,107 +153,6 @@ var form = {
 	}
 }
 
-// Select untuk get data wilayah
-if ($('.select-provinsi').length) {
-    $('.select-provinsi').empty();
-	$('.select-provinsi').append('<label class="form-label">Provinsi</label>'+
-								'<div class="input-form-select">'+
-									'<select name="provinsi" id="provinsi" class="form-control select2 input-form-select">'+
-										'<option></option>'+
-									'</select>'+
-								'</div>')
-
-    $('.select-kota').empty();
-	$('.select-kota').append('<label class="form-label">Kota/Kabupaten</label>'+
-								'<div class="input-form-select">'+
-									'<select name="kota" id="kota" class="form-control select2 input-form-select">'+
-										'<option></option>'+
-									'</select>'+
-								'</div>')
-
-    ajax.getData('wilayah/search-provinsi', 'post', null, function(data){
-    	var dataProvinsi = [];
-        for (var i = 0; i < data.length; i++) {
-	      	var option = '<option value="'+data[i].propinsi+'">'+data[i].propinsi+'</option>'
-		    dataProvinsi.push(option);
-	    }
-
-	    $("#provinsi").append(dataProvinsi);
-
-	    $("#provinsi").select2({
-	     	placeholder: 'Pilih Provinsi'
-	    });
-
-	    $("#kota").select2({
-	     	placeholder: 'Pilih Kota'
-	    });
-
-	    $('#provinsi').change(function(){
-
-	    	var provinsi = $('#provinsi').val();
-
-	    	ajax.getData('wilayah/search-kota', 'post', {provinsi:provinsi}, function(data){
-			    var dataKota = [];
-
-            	$('.select-kota').empty();
-			    $('.select-kota').append('<label class="form-label">Kota/Kabupaten</label>'+
-											'<div class="input-form-select">'+
-												'<select name="kota" id="kota" class="form-control select2 input-form-select">'+
-													'<option></option>'+
-												'</select>'+
-											'</div>'
-			    );
-
-
-            	$("#kota").select2({
-			     	placeholder: 'Pilih Kota'
-			    });
-
-
-			    for (var i = 0; i < data.length; i++) {
-				      var option = '<option value="'+data[i].kabupaten+'">'+data[i].kabupaten+'</option>'
-
-				      dataKota.push(option);
-			    }
-
-			    $("#kota").append(dataKota).val("").trigger("change");
-    		});
-		});
-    });
-
-}
-
-if ($('.select-provinsi-edit').length) {
-	$('#provinsiEdit').change(function(){
-
-    	var provinsi = $('#provinsiEdit').val();
-
-    	ajax.getData('wilayah/search-kota', 'post', {provinsi:provinsi}, function(data){
-		    var dataKota = [];
-
-        	$('.select-kota-edit').empty();
-		    $('.select-kota-edit').append('<label>Kota/Kabupaten</label>'+
-		                            '<select name="kotaEdit" id="kotaEdit" class="form-control upgrade-input">'+
-		                                '<option></option>'+
-		                            '</select>'
-		    );
-
-
-        	$("#kotaEdit").select2({
-		     	placeholder: 'Pilih Kota'
-		    });
-
-		    for (var i = 0; i < data.length; i++) {
-			      var option = '<option value="'+data[i].kabupaten+'">'+data[i].kabupaten+'</option>'
-
-			      dataKota.push(option);
-		    }
-
-		    $("#kotaEdit").append(dataKota).val("").trigger("change");
-
-		});
-	});
-}
 
 // Fungsi Format rupiah untuk form
 function formatRupiahRp(angka) {
@@ -254,3 +181,75 @@ if ($('#formAddVa').length) {
 	});
 }
 ////////
+
+if ($("#formAddEventNews").length) {
+	$('#tglMulaiNewsEvent').datetimepicker({
+		format: 'DD-MM-YYYY',
+	});
+
+	$('#tglSelesaiNewsEvent').datetimepicker({
+		format: 'DD-MM-YYYY',
+	});
+
+	$('#descriptionNewsEvent').summernote({
+        height: 200, //set editable area's height
+    });
+
+	$('#descriptionNewsEvent').each(function () {
+        var summernote = $(this);
+        $('form').on('submit', function () {
+            if (summernote.summernote('isEmpty')) {
+                summernote.val('');
+            } else if (summernote.val() == '<br>') {
+                summernote.val('');
+            }
+        });
+    });
+}
+
+function readFile(input) {
+    console.log(input.files, input.files[0])
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            var htmlPreview = '<img width="300px" src="' + e.target.result + '" />'+'<p>' + input.files[0].name + '</p>';
+            var wrapperZone = $(input).parent();
+            var previewZone = $(input).parent().parent().find('.preview-zone');
+            var boxZone = $(input).parent().parent().find('.preview-zone').find('.box').find('.box-body');
+
+            wrapperZone.removeClass('dragover');
+            previewZone.removeClass('hidden');
+            boxZone.empty();
+            boxZone.append(htmlPreview);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+function reset(e) {
+    e.wrap('<form>').closest('form').get(0).reset();
+    e.unwrap();
+}
+
+$(".dropzone").change(function(){
+    readFile(this);
+});
+$('.dropzone-wrapper').on('dragover', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $(this).addClass('dragover');
+});
+$('.dropzone-wrapper').on('dragleave', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $(this).removeClass('dragover');
+});
+$('.remove-preview').on('click', function() {
+    var boxZone = $(this).parents('.preview-zone').find('.box-body');
+    var previewZone = $(this).parents('.preview-zone');
+    var dropzone = $(this).parents('.form-group').find('.dropzone');
+    boxZone.empty();
+    previewZone.addClass('hidden');
+    reset(dropzone);
+});

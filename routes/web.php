@@ -17,6 +17,20 @@ Route::post('/login-admin', 'LoginController@loginAdmin')->name('post.login-admi
 Route::post('/process-reset-password-admin', 'Admin\LoginAdminController@resetPassAdmin')->name('post.reset-password-vascomm');
 Route::get('/reset-password-admin', 'Admin\LoginAdminController@resetPassAdminView')->name('get.reset-password-vascomm.view');
 
+Route::prefix('s')->group(function () {
+	Route::post('/', 'Security\EncryptController@getPass')->name('s');
+});
+
+Route::prefix('news_event')->group(function () {
+	Route::get('/', 'NewsEventController@viewNewsEvent')->name('get.news.event');
+	Route::get('/add-news-event', 'NewsEventController@viewNewsEventAdd')->name('get.news.event.add');
+	Route::post('/list-news-event','NewsEventController@listNewsEvent')->name('post.news.event.list');
+	Route::post('/post-news-event','NewsEventController@addNewsEvent')->name('post.news.event.add');
+	Route::get('/detail-news-event/{id}', 'NewsEventController@viewNewsEventDetail')->name('get.news.event.detail');
+	Route::post('/edit-news-event','NewsEventController@editNewsEvent')->name('post.news.event.edit');
+	Route::post('/delete-news-event','NewsEventController@deleteNewsEvent')->name('post.news.event.delete');
+});
+
 Route::prefix('logout')->group(function () {
 	Route::get('/', 'LoginController@logout')->name('get.logout');
 });

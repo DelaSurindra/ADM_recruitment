@@ -16,13 +16,13 @@ class HomeController extends Controller
         // $user = User::get();
         // $id = $user[0]->name;
         // dd($id);
-        $add = User::insert([
-            'name' => 'ran',
-            'email' => 'ran@gmail.com',
-            'password' => '123',
-            'name' => 'ran',
-        ]);
-        dd($add);
+        // $add = User::insert([
+        //     'name' => 'ran',
+        //     'email' => 'ran@gmail.com',
+        //     'password' => '123',
+        //     'name' => 'ran',
+        // ]);
+        // dd($add);
         return view('welcome')->with(['pageTitle' => 'Dashboard', 'title' => 'Dashboard', 'sidebar' => 'dashboard']);
         
     }
