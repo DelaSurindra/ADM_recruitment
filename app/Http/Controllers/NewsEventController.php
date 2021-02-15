@@ -87,8 +87,7 @@ class NewsEventController extends Controller
             'image'         => $dataImage,
             'start_date'    => date('Y-m-d', strtotime($data['tglMulaiNewsEvent'])),
             'end_date'      => date('Y-m-d', strtotime($data['tglSelesaiNewsEvent'])),
-            'type'          => $data['tipeNewsEvent'],
-            'created_at'    => date('Y-m-d')
+            'type'          => $data['tipeNewsEvent']
         ]);
         
         if ($addNewsEvent) {
