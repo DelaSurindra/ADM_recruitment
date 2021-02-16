@@ -65,7 +65,7 @@ class NewsEventController extends Controller
     public function addNewsEvent(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
-
+        
         if (Request::has('imageNewsEvent')) {
             $image = Request::file('imageNewsEvent');
             $ext = $image->getClientOriginalExtension();
