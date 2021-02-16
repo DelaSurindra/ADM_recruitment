@@ -33,10 +33,10 @@
                 </a>
             </li>
             <li class="tree-menu custom-height-menu-sidebar">
-                <a href="{{ route('get.news.event') }}" class="menu {{($sidebar== 'manajemen_news_event'?'active':'')}}">
+                <a href="{{ route('get.vacancy') }}" class="menu {{($sidebar== 'manajemen_vacancy'?'active':'')}}">
                     <div class="row">
                         <div class="col-md-2">
-                            <img src="{{asset('image/icon/sidebar/icon_menu_news_event.svg')}}" alt="" width="25px" class="right-icon-sidebar icon-sidebar-mobile">
+                            <img src="{{asset('image/icon/sidebar/icon_menu_vacancy.svg')}}" alt="" width="25px" class="right-icon-sidebar icon-sidebar-mobile">
                         </div>
                         <div class="col-md-10">
                             <span class="font-color-sidebar"><strong>Manajemen Vacancy</strong></span>
