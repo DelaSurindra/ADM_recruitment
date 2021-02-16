@@ -59,25 +59,39 @@ var table = {
 
 		if ($('#tableVacancy').length) {
 			var column = [
-				
+				{
+					'data': null
+				}, {
+					'data': null
+				}, {
+					'data': null
+				},
 			];
 
 			columnDefs = [
 				{
 					"targets": 0,
 					"orderable": false,
+					"className": "img-poster-news",
 					"data": "job_poster",
 					"render": function(data, type, full, meta){
-						var data = full.job_poster;
+						var img = full.job_poster;
+						var data = '<img src="/image/icon/main/logo-astra.svg" alt="img" style="width:95%;height:auto" />'
 		            	
 		               	return data;
 					}
 				},
 				{
 					"targets": 1,
-					"data": "status",
+					"data": "job_title",
+					"className": "title-poster-news",
 					"render": function(data, type, full, meta){
-						var data = full.job_title;
+						// var data = full.job_title;
+						var data = '<h5 style="font-style: normal;font-weight: bold;font-size: 20px;line-height: 130%;letter-spacing: -0.02em;color: #282A2C;margin-bottom: 1px;">Database Administrator</h5>'+
+                        			'<p style="font-style: normal;font-weight: 200;font-size: 16px;line-height: 130%;letter-spacing: -0.02em;color: #282A2C;">Banten, Indonesia</p>'+
+									'<p style="font-style: normal;font-weight: 500;font-size: 16px;line-height: 130%;letter-spacing: -0.02em;color: #EF4A3C;margin-bottom: 1px;">IDR 8,000,000 - 12,000,000</p>'+
+									'<p style="font-style: normal;font-weight: 500;font-size: 14px;line-height: 130%;letter-spacing: -0.02em;color: #333333;">Diploma, Bachelors Degree in Engineering</p>'+
+									'<p style="font-style: normal;font-weight: 400;font-size: 14px;line-height: 130%;letter-spacing: -0.02em;color: #333333;">DevOps & Cloud Management Software, Enterprise Resource Planning</p>';
 		            	
 		               	return data;
 					}
@@ -85,17 +99,21 @@ var table = {
 				{
 					"targets": 2,
 					"data": "id",
+					"className": "action-poster-news",
 					"render": function(data, type, full, meta){
 						var id = encodeURIComponent(window.btoa(full.job_id));
 						var konfirm = '';
-						var data = '<button type="button" class="btn btn-table btn-transparent"><a href="/vacancy/detail-vacancy/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/lingkarEdit_icon.svg" title="Edit News/Event"></a></button>';
+						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a href="/vacancy/detail-vacancy/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit News/Event"></a></button>';
 						if (full.status == '1') {
-							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmNewsEvent"><img style="margin-right: 1px;" src="/image/icon/main/lingkarHapus_icon.svg" title="Deaktif News/Event"></button>';
-							
+							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmNewsEvent"><img style="margin-right: 1px;" src="/image/icon/main/delete.svg" title="Deaktif News/Event"></button>';
 						} else {
-							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmNewsEvent"><img style="margin-right: 1px;" src="/image/icon/main/lingkarAktif_icon.svg" title="Aktifkan News/Event"></button>';
+							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmNewsEvent"><img style="margin-right: 1px;" src="/image/icon/main/delete.svg" title="Aktifkan News/Event"></button>';
 						}
-		               	return data+konfirm;
+						var hasil = '<div style="position:absolute;top:20px;right:5px">'+
+										data+konfirm+
+									'</div>';
+
+		               	return hasil;
 					}
 				}
 			];
@@ -205,14 +223,22 @@ var table = {
 	},
 	serverSide:function(id,columns,url,custParam=null,columnDefs=null){
 		var urutan = [0, 'asc'];
+		var ordering = true;
 		
 		if (id == "tableVacancy") {
 			urutan = false;
+			ordering = false;
 		}
 
 		var search = true;
 
 		var svrTable = $("#"+id).DataTable({
+			"drawCallback": function( settings ) {
+				if (id == "tableVacancy") {
+					$('.dataTables_scrollHead').remove()
+					$('.dataTables_scrollBody table thead').hide()
+				}
+			},
 			// processing:true,
 			serverSide:true,
 			columnDefs:columnDefs,
@@ -242,7 +268,7 @@ var table = {
 			bDestroy: true,
 			searching:search,
 			order:urutan,
-			ordering:true,
+			ordering:ordering,
 		})
 
 		$('div.dataTables_filter input').unbind();

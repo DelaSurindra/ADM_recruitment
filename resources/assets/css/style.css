@@ -1901,6 +1901,17 @@ n.otif-modal .notify-drop-title{
     overflow: hidden;
 }
 
+.img-poster-news {
+    width: 20%;
+}
+.title-poster-news {
+    width: 70%;
+}
+.action-poster-news {
+    width: 10%;
+    position: relative;
+}
+
 @media only screen
 and (min-device-width: 320px)
 and (max-device-width: 425px)  {

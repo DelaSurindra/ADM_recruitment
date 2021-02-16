@@ -223,6 +223,9 @@ table#tableMerchantQRIS .merch-alamat {
 	min-width: 160px;
 }
 
+.dataTables_scroll {
+	margin-top: 15px;
+}
 .dataTables_scrollBody::-webkit-scrollbar-track {
     background: #F6F6F6;
 }

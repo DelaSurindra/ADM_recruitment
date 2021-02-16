@@ -3,29 +3,24 @@
 @section('title',$title)
 @section('content')
 
-<div class="card clear margin-right-20">
-    <div class="row">
-        <div class="col-md-6">
-            <p>List Vacancy</p>
+<div class="card clear">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p>List Vacancy</p>
+            </div>
+            <div class="col-md-6">
+                <a href="{{route('get.vacancy.add')}}"><button type="button" class="btn btn-primary btn-with-icon btn-rounded margin-top-btn right"><span><i class="fas fa-plus"></i></span> Tambah Vacancy</button></a>
+            </div>
         </div>
-        <div class="col-md-6">
-            <a href="{{route('get.vacancy.add')}}"><button type="button" class="btn btn-primary btn-with-icon btn-rounded margin-top-btn right"><span><i class="fas fa-plus"></i></span> Tambah Vacancy</button></a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <table id="tableVacancy" class="table table-strip stripe hover tbl-custom-margin">
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Description</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-            </table>
+        <div class="row">
+            <div class="col-md-12">
+                <table id="tableVacancy" class="table w-100">
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
