@@ -57,6 +57,52 @@ var table = {
 		 	table.serverSide('tableNewsEvent',column,'news_event/list-news-event',null,columnDefs)
         }
 
+		if ($('#tableVacancy').length) {
+			var column = [
+				
+			];
+
+			columnDefs = [
+				{
+					"targets": 0,
+					"orderable": false,
+					"data": "job_poster",
+					"render": function(data, type, full, meta){
+						var data = full.job_poster;
+		            	
+		               	return data;
+					}
+				},
+				{
+					"targets": 1,
+					"data": "status",
+					"render": function(data, type, full, meta){
+						var data = full.job_title;
+		            	
+		               	return data;
+					}
+				},
+				{
+					"targets": 2,
+					"data": "id",
+					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.job_id));
+						var konfirm = '';
+						var data = '<button type="button" class="btn btn-table btn-transparent"><a href="/vacancy/detail-vacancy/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/lingkarEdit_icon.svg" title="Edit News/Event"></a></button>';
+						if (full.status == '1') {
+							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmNewsEvent"><img style="margin-right: 1px;" src="/image/icon/main/lingkarHapus_icon.svg" title="Deaktif News/Event"></button>';
+							
+						} else {
+							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmNewsEvent"><img style="margin-right: 1px;" src="/image/icon/main/lingkarAktif_icon.svg" title="Aktifkan News/Event"></button>';
+						}
+		               	return data+konfirm;
+					}
+				}
+			];
+
+		 	table.serverSide('tableVacancy',column,'vacancy/list-vacancy',null,columnDefs)
+        }
+
 
 	},
 	filter:function(id,value){
@@ -159,12 +205,12 @@ var table = {
 	},
 	serverSide:function(id,columns,url,custParam=null,columnDefs=null){
 		var urutan = [0, 'asc'];
+		
+		if (id == "tableVacancy") {
+			urutan = false;
+		}
 
 		var search = true;
-		// if unutk non aktif fitur search datatable
-		if (id == 'tableRekapPoint' || id == 'tableRekapSaldo' || id == 'tableSlider') {
-			search = false;
-		}
 
 		var svrTable = $("#"+id).DataTable({
 			// processing:true,
