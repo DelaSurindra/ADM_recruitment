@@ -1,3 +1,12 @@
+.img-detail{
+    width: 100% !important;
+    height: auto;
+}
+
+.top-0{
+    top: 0px !important;
+}
+
 .note-insert{
     display: none !important;
 }
