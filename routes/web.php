@@ -31,6 +31,16 @@ Route::prefix('news_event')->group(function () {
 	Route::post('/delete-news-event','NewsEventController@deleteNewsEvent')->name('post.news.event.delete');
 });
 
+Route::prefix('vacancy')->group(function () {
+	Route::get('/', 'VacancyController@viewvacancy')->name('get.vacancy');
+	Route::get('/add-vacancy', 'VacancyController@viewvacancyAdd')->name('get.vacancy.add');
+	Route::post('/list-vacancy','VacancyController@listvacancy')->name('post.vacancy.list');
+	Route::post('/post-vacancy','VacancyController@addvacancy')->name('post.vacancy.add');
+	Route::get('/detail-vacancy/{id}', 'VacancyController@viewvacancyDetail')->name('get.vacancy.detail');
+	Route::post('/edit-vacancy','VacancyController@editvacancy')->name('post.vacancy.edit');
+	Route::post('/delete-vacancy','VacancyController@deletevacancy')->name('post.vacancy.delete');
+});
+
 Route::prefix('logout')->group(function () {
 	Route::get('/', 'LoginController@logout')->name('get.logout');
 });
