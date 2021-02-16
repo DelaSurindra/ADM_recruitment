@@ -697,7 +697,7 @@ body {
 }
 
 .btn {
-  padding: 5px 20px;
+  padding: 7px 20px;
   margin-bottom: 0;
   margin: 2px;
   font-size: 12px;
@@ -2007,10 +2007,10 @@ body {
   transition: box-shadow 150ms ease-out;
 }
 .stacked .form-input:focus {
-  box-shadow: 0 2px 0 0 #299643;
+  box-shadow: 0 2px 0 0 #E0E0E0;
 }
 .stacked .form-input.filled {
-  box-shadow: 0 2px 0 0 lightgreen;
+  box-shadow: 0 2px 0 0 #E0E0E0;
 }
 .stacked .form-group-with-logo .icon {
   position: absolute;

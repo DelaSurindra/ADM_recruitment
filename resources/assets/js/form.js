@@ -213,14 +213,16 @@ function readFile(input) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
-            var htmlPreview = '<img width="300px" src="' + e.target.result + '" />'+'<p>' + input.files[0].name + '</p>';
+            var htmlPreview = '<img src="' + e.target.result + '" style="width:100%;height:auto" />';
             var wrapperZone = $(input).parent();
             var previewZone = $(input).parent().parent().find('.preview-zone');
-            var boxZone = $(input).parent().parent().find('.preview-zone').find('.box').find('.box-body');
+            var boxZone = $(input).parent().find('.dropzone-desc');
+			var top = Math.floor(150/2);
 
             wrapperZone.removeClass('dragover');
             previewZone.removeClass('hidden');
             boxZone.empty();
+			boxZone.css('top', '0');
             boxZone.append(htmlPreview);
         };
 
