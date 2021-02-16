@@ -1,6 +1,57 @@
 const formrules = {
 	// contoh validasi id form
-	
+	'formAddEventNews':{
+        ignore: null,
+		rules:{
+			'imageNewsEvent':{
+                required:true
+            },
+			'titleNewsEvent':{
+                required:true
+            },
+            'tipeNewsEvent':{
+                required:true
+            },
+            'tglMulaiNewsEvent':{
+                required:true
+            },
+			'tglSelesaiNewsEvent':{
+                required:true
+            },
+			'descriptionNewsEvent':{
+				required:true
+			}
+		},
+		submitHandler:false,
+		messages: {
+			imageNewsEvent: {
+				required: 'Mohon isi Image',
+			},
+			titleNewsEvent: {
+				required:'Mohon isi Title'
+            },
+            tipeNewsEvent: {
+				required:'Mohon pilih Tipe'
+            },
+            tglMulaiNewsEvent: {
+				required:'Mohon isi Start Date'
+            },
+			tglSelesaiNewsEvent: {
+				required:'Mohon isi Start Date'
+            },
+			descriptionNewsEvent: {
+				required:'Mohon isi Description'
+            }
+        },
+        errorPlacement: function (error, element) {
+			if (element.is("#tipeNewsEvent")) {
+				error.appendTo(element.parents('#tipeNewsEventDiv'));
+			}
+			else { // This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+    },
 
 }
 

@@ -16,41 +16,34 @@
                 @csrf
                 <input type="hidden" name="idNewsEvent" value="{{$data['id']}}">
                 <div class="row">
-                    <div class="col-11">
+                    <div class="col-12">
                         <div class="form-group">
-                            <div class="preview-zone">
-                                <div class="box box-solid">
-                                    <div class="box-header with-border">
-                                        <div><b>Preview</b></div>
-                                        <div class="box-tools pull-right">
-                                            <button type="button" class="btn btn-danger btn-sm remove-preview d-none">
-                                                <i class="fa fa-trash-alt"></i>
-                                            </button>
+                            <div class="row">
+                                <div class="col-xl-2 col-md-3">
+                                    <div class="dropzone-wrapper">
+                                        <div class="dropzone-desc top-0">
+                                            @if($data['image'] == '' || $data['image'] == null)
+                                            <img src="{{ asset('image/icon/main/add-image.png') }}" alt="icon">
+                                            <p>Upload Image</p>
+                                            @else
+                                            <img src="{{ asset('storage/').'/'.$data['image'] }}" class="img-detail" alt="Image News/Event" width="100%">
+                                            @endif
+                                        </div>
+                                        <input type="file" name="imageNewsEvent" class="dropzone" id="imageNewsEvent">
+                                        <input type="hidden" name="oldImage" value="{{$data['image']}}">
+                                    </div>
+                                    <small>*Jpeg(.jpg or .jpeg) max 2mb</small>
+                                </div>
+                                <div class="col-xl-10 col-md-9">
+                                    <div class="input-title-news">
+                                        <h4 class="mb-4">Title</h4>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <img src="{{ asset('image/icon/main/add-circle.svg') }}" alt="icon">
+                                            </div>
+                                            <input type="text" class="form-control" name="titleNewsEvent" id="titleNewsEvent" placeholder="Add a News & Event titles..." value="{{$data['title']}}">
                                         </div>
                                     </div>
-                                    <div class="box-body">
-                                       <img src="{{ asset('storage/').'/'.$data['image'] }}" alt="Image Event/News" width="300px">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="dropzone-wrapper">
-                                <div class="dropzone-desc">
-                                    <i class="fas fa-file-image"></i>
-                                    <p>Choose an image file or drag it here.</p>
-                                </div>
-                                <input type="file" name="imageNewsEvent" class="dropzone" id="imageNewsEvent">
-                                <input type="hidden" name="oldImage" value="{{$data['image']}}">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-11">
-                        <div class="form-group focused">
-                            <label class="form-label font-color-label" for="titleNewsEvent">Title News/Event</label>
-                            <div class="row">
-                                <div class="col-md-12 col-10">
-                                    <input id="titleNewsEvent" name="titleNewsEvent" class="form-input" type="text" value="{{$data['title']}}">
                                 </div>
                             </div>
                         </div>
