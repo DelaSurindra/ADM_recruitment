@@ -33,8 +33,8 @@ Route::prefix('news_event')->group(function () {
 
 Route::prefix('vacancy')->group(function () {
 	Route::get('/', 'VacancyController@viewVacancy')->name('get.vacancy');
-	Route::get('/add-vacancy', 'VacancyController@viewvacancyAdd')->name('get.vacancy.add');
 	Route::post('/list-vacancy','VacancyController@listvacancy')->name('post.vacancy.list');
+	Route::get('/add-vacancy', 'VacancyController@viewVacancyAdd')->name('get.vacancy.add');
 	Route::post('/post-vacancy','VacancyController@addvacancy')->name('post.vacancy.add');
 	Route::get('/detail-vacancy/{id}', 'VacancyController@viewvacancyDetail')->name('get.vacancy.detail');
 	Route::post('/edit-vacancy','VacancyController@editvacancy')->name('post.vacancy.edit');

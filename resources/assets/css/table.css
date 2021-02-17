@@ -73,6 +73,9 @@
 	padding: 0px !important;
 	font-size: 10px !important;
 }
+.dataTables_wrapper {
+	margin-top: 20px;
+}
 .dataTables_wrapper ul .active a{
 	background: #0051EF !important;
     border-radius: 10px !important;
