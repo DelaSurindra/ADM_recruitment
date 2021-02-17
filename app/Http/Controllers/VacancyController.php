@@ -74,4 +74,113 @@ class VacancyController extends Controller
     public function viewVacancyAdd(){
         return view('vacancy.vacancy-add')->with(['pageTitle' => 'Manajemen vacancy', 'title' => 'Manajemen vacancy', 'sidebar' => 'manajemen_vacancy']);
     }
+
+    public function addvacancy(){
+        $encrypt = new EncryptController;
+        $data = $encrypt->fnDecrypt(Request::input('data'),true);
+        // dd($data);
+        $addVacancy = Vacancy::insert([
+            'job_title' => $data['titleVacancy'],
+            'placement' => $data['locationVacancy'],
+            'salary' => str_replace(",", "", $data['minSalaryVacancy']),
+            'major' => json_encode($data['majorVacancy']),
+            'work_time' => $data['workingTimeVacancy'],
+            'start_date' => date('Y-m-d', strtotime($data['activatedDate'])),
+            'job_description' => $data['descriptionVacancy']
+        ]);
+        
+        if ($addVacancy) {
+            $messages = [
+                'status' => 'success',
+                'message' => 'Berhasil Membuat Vacancy',
+                'url' => '/vacancy',
+                'callback' => 'redirect'
+            ];
+
+            return response()->json($messages);
+        } else {
+            $messages = [
+                'status' => 'error',
+                'message' => 'Gagal Membuat Vacancy',
+            ];
+
+            return response()->json($messages);
+        }   
+    }
+
+    public function viewvacancyDetail($id){
+        $idVacancy = base64_decode(urldecode($id));
+
+        $dataVacancy = Vacancy::where('id', $idVacancy)->get()->toArray();
+        
+        if ($dataVacancy) {
+            return view('news_event.news_event-edit')->with([
+                'pageTitle' => 'Manajemen vacancy', 
+                'title' => 'Manajemen vacancy', 
+                'sidebar' => 'manajemen_vacancy', 
+                'data' => $dataVacancy[0]
+            ]);
+        } else {
+            $messages = [
+                'status' => 'error',
+                'message' => 'Data tidak ditemukan',
+                'url' => 'close'
+            ];
+
+            return back()->with('notif', $messages);
+        }
+    }
+
+    public function editvacancy(){
+        $encrypt = new EncryptController;
+        $data = $encrypt->fnDecrypt(Request::input('data'),true);
+        
+        $editVacancy = Vacancy::where('id', $data['idNewsEvent'])->update([
+            'job_title' => $data['titleVacancy'],
+            'placement' => $data['locationVacancy'],
+            'salary' => str_replace(",", "", $data['minSalaryVacancy']),
+            'major' => json_encode($data['majorVacancy']),
+            'work_time' => $data['workingTimeVacancy'],
+            'start_date' => date('Y-m-d', strtotime($data['activatedDate'])),
+            'job_description' => $data['descriptionVacancy']
+        ]);
+        
+        if ($editVacancy) {
+            $messages = [
+                'status' => 'success',
+                'message' => 'Berhasil Update Vacancy',
+                'url' => '/vacancy',
+                'callback' => 'redirect'
+            ];
+
+            return response()->json($messages);
+        } else {
+            $messages = [
+                'status' => 'error',
+                'message' => 'Gagal Update Vacancy',
+            ];
+
+            return response()->json($messages);
+        } 
+    }
+
+    public function deleteNewsEvent($id){
+        $idVacancy = base64_decode(urldecode($id));
+
+        $deleteVacancy = Vacancy::where('id', $idVacancy)->delete();
+        
+        if ($deleteVacancy) {
+            return [
+                'status'   => 'success',
+                'message'  => 'Berhasil Hapus Vacancy',
+                'url'      => '/vacancy',
+                'callback' => 'redirect'
+            ];
+        } else {
+            return [
+                'status'   => 'error',
+                'message'  => 'Gagal Hapus Vacancy',
+            ];
+        }
+    }
 }

@@ -182,6 +182,23 @@ if ($('#formAddVa').length) {
 }
 ////////
 
+function formatRupiahKoma(angka) {
+    var number_string = angka.replace(/[^.\d]/g, "").toString(),
+    split = number_string.split("."),
+    sisa = split[0].length % 3,
+    rupiah = split[0].substr(0, sisa),
+    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+    // tambahkan titik jika yang di input sudah menjadi angka ribuan
+    if (ribuan) {
+        separator = sisa ? "," : "";
+        rupiah += separator + ribuan.join(",");
+    }
+
+    rupiah = split[1] != undefined ? rupiah + split[1] : rupiah;
+    return rupiah
+}
+
 if ($("#formAddEventNews").length) {
 	$('#tglMulaiNewsEvent').datetimepicker({
 		format: 'DD-MM-YYYY',
@@ -221,6 +238,68 @@ if ($("#formEditEventNews").length) {
     });
 
 	$('#descriptionNewsEvent').each(function () {
+        var summernote = $(this);
+        $('form').on('submit', function () {
+            if (summernote.summernote('isEmpty')) {
+                summernote.val('');
+            } else if (summernote.val() == '<br>') {
+                summernote.val('');
+            }
+        });
+    });
+}
+
+if ($("#formAddVacancy").length) {
+	var minSalary = document.getElementById('minSalaryVacancy');
+	minSalary.addEventListener("keyup", function (e) {
+		minSalary.value = formatRupiahKoma(this.value);
+	});
+
+	var maxSalary = document.getElementById('maxSalaryVacancy');
+	maxSalary.addEventListener("keyup", function (e) {
+		maxSalary.value = formatRupiahKoma(this.value);
+	});
+
+	$('#activatedDate').datetimepicker({
+		format: 'DD-MM-YYYY',
+	});
+
+	$('#descriptionVacancy').summernote({
+        height: 200, //set editable area's height
+    });
+
+	$('#descriptionVacancy').each(function () {
+        var summernote = $(this);
+        $('form').on('submit', function () {
+            if (summernote.summernote('isEmpty')) {
+                summernote.val('');
+            } else if (summernote.val() == '<br>') {
+                summernote.val('');
+            }
+        });
+    });
+}
+
+if ($("#formEditVacancy").length) {
+	var minSalary = document.getElementById('minSalaryVacancy');
+	minSalary.addEventListener("keyup", function (e) {
+		minSalary.value = formatRupiahKoma(this.value);
+	});
+
+	var maxSalary = document.getElementById('maxSalaryVacancy');
+	maxSalary.addEventListener("keyup", function (e) {
+		maxSalary.value = formatRupiahKoma(this.value);
+	});
+
+	$('#activatedDate').datetimepicker({
+		format: 'DD-MM-YYYY',
+	});
+
+	$('#descriptionVacancy').summernote({
+        height: 200, //set editable area's height
+    });
+
+	$('#descriptionVacancy').each(function () {
         var summernote = $(this);
         $('form').on('submit', function () {
             if (summernote.summernote('isEmpty')) {

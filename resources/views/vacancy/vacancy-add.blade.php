@@ -4,15 +4,10 @@
 @section('content')
 
 <div class="card clear">
-    <!-- <div class="row">
-        <div class="col-lg-6 col-md-6 margin-left-20">
-            <p><a href="{{route('get.news.event')}}"><img src="{{asset('image/icon/main/iconBack.svg')}}" class="margin-right-20" title="Kembali"></a>Tambah News/Event</p>
-        </div>
-    </div> -->
     <div class="card-body">
         <div class="row">
             <div class="col-md-12">
-                <form action="{{ route('post.news.event.add') }}" class="form stacked" method="POST" id="formAddEventNews" enctype="multipart/form-data">
+                <form action="{{ route('post.vacancy.add') }}" class="form stacked" method="POST" id="formAddVacancy" ajax="true">
                     @csrf
                     <div class="row">
                         <div class="col-12">
@@ -35,7 +30,7 @@
                                                 <div class="input-group-prepend">
                                                     <img src="{{ asset('image/icon/main/add-circle.svg') }}" alt="icon">
                                                 </div>
-                                                <input type="text" class="form-control" name="titleNewsEvent" id="titleNewsEvent" placeholder="Add a News & Event titles...">
+                                                <input type="text" class="form-control" name="titleVacancy" id="titleVacancy" placeholder="Add a vacancy titles...">
                                             </div>
                                         </div>
                                     </div>
@@ -44,56 +39,106 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6" id="tipeNewsEventDiv">
-                            <div class="form-group" >
-                                <div class="row">
-                                    <div class="col-10">
-                                        <label>Type News/Event</label>
-                                        <select class="select2 tex-center" id="tipeNewsEvent" name="tipeNewsEvent">
-                                            <option value="">-- Pilih Tipe --</option>
-                                            <option value="1">News</option>
-                                            <option value="2">Event</option>
-                                        </select>
+                        <div class="col-xl-10 col-md-12">
+                            <div class="row">
+                                <div class="col-xl-4 col-md-6 col-sm-12">
+                                    <div class="form-group" >
+                                        <div class="row">
+                                            <div class="col-xl-11 col-md-12">
+                                                <label>Location</label>
+                                                <select class="select2 tex-center" id="locationVacancy" name="locationVacancy">
+                                                    <option value="">Location</option>
+                                                    <option value="1">Surabaya</option>
+                                                    <option value="2">Sidoarjo</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12">
+                                    <div class="form-group" >
+                                        <div class="row">
+                                            <div class="col-xl-11 col-md-12">
+                                                <label>Min Salary</label>
+                                                <input id="minSalaryVacancy" name="minSalaryVacancy" class="form-control" type="text" placeholder="Min Salary">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12">
+                                    <div class="form-group" >
+                                        <div class="row">
+                                            <div class="col-xl-11 col-md-12">
+                                                <label>Max Salary</label>
+                                                <input id="maxSalaryVacancy" name="maxSalaryVacancy" class="form-control" type="text" placeholder="Max Salary">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12">
+                                    <div class="form-group" >
+                                        <div class="row">
+                                            <div class="col-xl-11 col-md-12">
+                                                <label>Degree</label>
+                                                <select class="select2 tex-center" id="degreeVacancy" name="degreeVacancy">
+                                                    <option value="">Degree</option>
+                                                    <option value="1">News</option>
+                                                    <option value="2">Event</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12">
+                                    <div class="form-group" >
+                                        <div class="row">
+                                            <div class="col-xl-11 col-md-12">
+                                                <label>Major</label>
+                                                <select class="select2" multiple="multiple" id="majorVacancy" name="majorVacancy[]">
+                                                    <option value="1">Major 1</option>
+                                                    <option value="2">Major 2</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12">
+                                    <div class="form-group" >
+                                        <div class="row">
+                                            <div class="col-xl-11 col-md-12">
+                                                <label>Working Time</label>
+                                                <input id="workingTimeVacancy" name="workingTimeVacancy" class="form-control" type="text" placeholder="Working Time">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-sm-12">
+                                    <div class="form-group" >
+                                        <div class="row">
+                                            <div class="col-xl-11 col-md-12">
+                                                <label>Activated Date</label>
+                                                <input id="activatedDate" name="activatedDate" class="form-control" type="text" placeholder="Activated Date">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
                     <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label font-color-label" for="tglMulaiNewsEvent">Start Date News/Event</label>
-                                <div class="row">
-                                    <div class="col-md-10 col-10">
-                                        <input id="tglMulaiNewsEvent" name="tglMulaiNewsEvent" class="form-input datepicker" type="text">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label font-color-label" for="tglSelesaiNewsEvent">End Date News/Event</label>
-                                <div class="row">
-                                    <div class="col-md-10 col-10">
-                                    <input id="tglSelesaiNewsEvent" name="tglSelesaiNewsEvent" class="form-input datepicker" type="text">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-11">
+                        <div class="col-12">
                             <div class="form-group">
                                 <label>Description News/Event</label>
                                 <div class="summernote-news-wrapper">
-                                    <textarea name="descriptionNewsEvent" id="descriptionNewsEvent" class="form-control" placeholder="Input Description"></textarea>
+                                    <textarea name="descriptionVacancy" id="descriptionVacancy" class="form-control" placeholder="Input Description"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-xl-11 col-lg-11 col-md-12 d-flex justify-content-end">
+                        <div class="col-xl-12 col-md-12 d-flex justify-content-end">
                             <button type="submit" class="btn btn-danger">Save</button>
                         </div>
                     </div>
