@@ -12,7 +12,7 @@
     
     <div class="row">
         <div class="col-md-12 margin-left-20">
-            <form action="{{ route('post.news.event.edit') }}" class="form stacked" method="POST" id="formAddEventNews" enctype="multipart/form-data">
+            <form action="{{ route('post.news.event.edit') }}" class="form stacked" method="POST" id="formEditEventNews" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="idNewsEvent" value="{{$data['id']}}">
                 <div class="row">
@@ -61,13 +61,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row {{$data['type'] == '1' ? 'hidden':''}}" id="divDateNewsEvent">
                     <div class="col-6">
                         <div class="form-group focused">
                             <label class="form-label font-color-label" for="tglMulaiNewsEvent">Start Date News/Event</label>
                             <div class="row">
                                 <div class="col-md-10 col-10">
-                                <input id="tglMulaiNewsEvent" name="tglMulaiNewsEvent" class="form-input datepicker" type="text" value="{{$data['start_date']}}">
+                                <input id="tglMulaiNewsEvent" name="tglMulaiNewsEvent" class="form-input datepicker dateNewsEvent" type="text" value="{{$data['start_date']}}" {{$data['type'] == '1' ? 'disabled':''}}>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                             <label class="form-label font-color-label" for="tglSelesaiNewsEvent">End Date News/Event</label>
                             <div class="row">
                                 <div class="col-md-10 col-10">
-                                <input id="tglSelesaiNewsEvent" name="tglSelesaiNewsEvent" class="form-input datepicker" type="text" value="{{$data['end_date']}}">
+                                <input id="tglSelesaiNewsEvent" name="tglSelesaiNewsEvent" class="form-input datepicker dateNewsEvent" type="text" value="{{$data['end_date']}}" {{$data['type'] == '1' ? 'disabled':''}}>
                                 </div>
                             </div>
                         </div>

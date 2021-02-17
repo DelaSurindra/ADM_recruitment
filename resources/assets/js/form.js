@@ -207,6 +207,31 @@ if ($("#formAddEventNews").length) {
     });
 }
 
+if ($("#formEditEventNews").length) {
+	$('#tglMulaiNewsEvent').datetimepicker({
+		format: 'DD-MM-YYYY',
+	});
+
+	$('#tglSelesaiNewsEvent').datetimepicker({
+		format: 'DD-MM-YYYY',
+	});
+
+	$('#descriptionNewsEvent').summernote({
+        height: 200, //set editable area's height
+    });
+
+	$('#descriptionNewsEvent').each(function () {
+        var summernote = $(this);
+        $('form').on('submit', function () {
+            if (summernote.summernote('isEmpty')) {
+                summernote.val('');
+            } else if (summernote.val() == '<br>') {
+                summernote.val('');
+            }
+        });
+    });
+}
+
 function readFile(input) {
     console.log(input.files, input.files[0])
     if (input.files && input.files[0]) {
@@ -255,3 +280,15 @@ $('.remove-preview').on('click', function() {
     previewZone.addClass('hidden');
     reset(dropzone);
 });
+
+$("#tipeNewsEvent").change(function(){
+	var valueTipe = $("#tipeNewsEvent").val();
+	
+	if (valueTipe == "1") {
+		$("#divDateNewsEvent").addClass('hidden');
+		$(".dateNewsEvent").attr('disabled', true);
+	} else {
+		$("#divDateNewsEvent").removeClass('hidden');
+		$(".dateNewsEvent").attr('disabled', false);
+	}
+})

@@ -65,7 +65,6 @@ class NewsEventController extends Controller
     public function addNewsEvent(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
-        
         if (Request::has('imageNewsEvent')) {
             $image = Request::file('imageNewsEvent');
             $ext = $image->getClientOriginalExtension();
@@ -81,14 +80,24 @@ class NewsEventController extends Controller
             $dataImage = '';
         }
 
-        $addNewsEvent = NewsEvent::insert([
-            'title'         => $data['titleNewsEvent'],
-            'content'       => $data['descriptionNewsEvent'],
-            'image'         => $dataImage,
-            'start_date'    => date('Y-m-d', strtotime($data['tglMulaiNewsEvent'])),
-            'end_date'      => date('Y-m-d', strtotime($data['tglSelesaiNewsEvent'])),
-            'type'          => $data['tipeNewsEvent']
-        ]);
+        if ($data['tipeNewsEvent'] == "1") {
+            $addNewsEvent = NewsEvent::insert([
+                'title'         => $data['titleNewsEvent'],
+                'content'       => $data['descriptionNewsEvent'],
+                'image'         => $dataImage,
+                'start_date'    => date('Y-m-d'),
+                'type'          => $data['tipeNewsEvent']
+            ]);
+        } else {
+            $addNewsEvent = NewsEvent::insert([
+                'title'         => $data['titleNewsEvent'],
+                'content'       => $data['descriptionNewsEvent'],
+                'image'         => $dataImage,
+                'start_date'    => date('Y-m-d', strtotime($data['tglMulaiNewsEvent'])),
+                'end_date'      => date('Y-m-d', strtotime($data['tglSelesaiNewsEvent'])),
+                'type'          => $data['tipeNewsEvent']
+            ]);
+        }
         
         if ($addNewsEvent) {
             $messages = [
@@ -146,14 +155,25 @@ class NewsEventController extends Controller
             $dataImage = $data['oldImage'];
         }
 
-        $editNewsEvent = NewsEvent::where('id', $data['idNewsEvent'])->update([
-            'title'         => $data['titleNewsEvent'],
-            'content'       => $data['descriptionNewsEvent'],
-            'image'         => $dataImage,
-            'start_date'    => date('Y-m-d', strtotime($data['tglMulaiNewsEvent'])),
-            'end_date'      => date('Y-m-d', strtotime($data['tglSelesaiNewsEvent'])),
-            'type'          => $data['tipeNewsEvent']
-        ]);
+        if ($data['tipeNewsEvent'] == "1") {
+            $editNewsEvent = NewsEvent::where('id', $data['idNewsEvent'])->update([
+                'title'         => $data['titleNewsEvent'],
+                'content'       => $data['descriptionNewsEvent'],
+                'image'         => $dataImage,
+                'type'          => $data['tipeNewsEvent']
+            ]);
+        } else {
+            $editNewsEvent = NewsEvent::where('id', $data['idNewsEvent'])->update([
+                'title'         => $data['titleNewsEvent'],
+                'content'       => $data['descriptionNewsEvent'],
+                'image'         => $dataImage,
+                'start_date'    => date('Y-m-d', strtotime($data['tglMulaiNewsEvent'])),
+                'end_date'      => date('Y-m-d', strtotime($data['tglSelesaiNewsEvent'])),
+                'type'          => $data['tipeNewsEvent']
+            ]);
+        }
+        
+
         
         if ($editNewsEvent) {
             $messages = [

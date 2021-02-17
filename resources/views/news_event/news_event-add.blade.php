@@ -59,13 +59,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row hidden" id="divDateNewsEvent">
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="form-label font-color-label" for="tglMulaiNewsEvent">Start Date News/Event</label>
                                 <div class="row">
                                     <div class="col-md-10 col-10">
-                                        <input id="tglMulaiNewsEvent" name="tglMulaiNewsEvent" class="form-input datepicker" type="text">
+                                        <input id="tglMulaiNewsEvent" name="tglMulaiNewsEvent" class="form-input datepicker dateNewsEvent" type="text" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                                 <label class="form-label font-color-label" for="tglSelesaiNewsEvent">End Date News/Event</label>
                                 <div class="row">
                                     <div class="col-md-10 col-10">
-                                    <input id="tglSelesaiNewsEvent" name="tglSelesaiNewsEvent" class="form-input datepicker" type="text">
+                                    <input id="tglSelesaiNewsEvent" name="tglSelesaiNewsEvent" class="form-input datepicker dateNewsEvent" type="text" disabled>
                                     </div>
                                 </div>
                             </div>
