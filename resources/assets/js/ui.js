@@ -109,7 +109,6 @@ var ui = {
 			nextItem.toggle({'slide':{
 				direction:'right'
 			}})
-			
 		},
 		prev:function(item){
 			var prevItem = item.prev();

@@ -52,27 +52,27 @@ $(document).ready(function () {
 
 })
 
-window.onload = function () {
-    if ("performance" in window) {
-        if ("timing" in window.performance) {
-            var time = window.performance.timing.loadEventStart - window.performance.timing.domLoading;
+// window.onload = function () {
+//     if ("performance" in window) {
+//         if ("timing" in window.performance) {
+//             var time = window.performance.timing.loadEventStart - window.performance.timing.domLoading;
 
-            var seconds = time / 1000;
-            // 2- Extract hours:
-            var hours = parseInt(seconds / 3600); // 3,600 seconds in 1 hour
-            seconds = seconds % 3600; // seconds remaining after extracting hours
-            // 3- Extract minutes:
-            var minutes = parseInt(seconds / 60); // 60 seconds in 1 minute
-            // 4- Keep only seconds not extracted to minutes:
-            seconds = seconds % 60;
-            document.getElementById("total_render_time").innerHTML = "Load Time: " + (seconds) + " seconds";
-        } else {
-            document.getElementById("result").innerHTML = "Page Timing API not supported";
-        }
-    } else {
-        document.getElementById("result").innerHTML = "Page Performance API not supported";
-    }
-}
+//             var seconds = time / 1000;
+//             // 2- Extract hours:
+//             var hours = parseInt(seconds / 3600); // 3,600 seconds in 1 hour
+//             seconds = seconds % 3600; // seconds remaining after extracting hours
+//             // 3- Extract minutes:
+//             var minutes = parseInt(seconds / 60); // 60 seconds in 1 minute
+//             // 4- Keep only seconds not extracted to minutes:
+//             seconds = seconds % 60;
+//             document.getElementById("total_render_time").innerHTML = "Load Time: " + (seconds) + " seconds";
+//         } else {
+//             document.getElementById("result").innerHTML = "Page Timing API not supported";
+//         }
+//     } else {
+//         document.getElementById("result").innerHTML = "Page Performance API not supported";
+//     }
+// }
 
 $('.modal').on('hidden.bs.modal', function (e) {
     $(this).find('form')[0].reset();
