@@ -234,4 +234,12 @@ class LoginController extends Controller
         return view('otp-new-password');
     }
 
+    public function viewLoginCandidate(){
+    	if (Session()->get('session_id') != null) {
+            return redirect()->back();
+        }else{
+	    	return view('first-login-candidate');
+        }
+    }
+
 }

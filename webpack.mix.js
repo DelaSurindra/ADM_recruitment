@@ -21,6 +21,9 @@ mix.babel([
     'resources/assets/js/validation.js'
     ], 'public/js/all.js')
     .styles([
+	    'resources/assets/css/candidate-style.css',
+	], 'public/css/candidate-style.min.css')
+    .styles([
 	    'resources/assets/css/compiler.css',
 	    'resources/assets/css/table.css',
 	    'resources/assets/css/style.css',

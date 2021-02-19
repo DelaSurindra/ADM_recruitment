@@ -46,4 +46,5 @@ Route::prefix('logout')->group(function () {
 });
 
 
-
+// Candidate View Preparation
+Route::get('/first-login', 'LoginController@viewLoginCandidate')->name('get.login-candidate');

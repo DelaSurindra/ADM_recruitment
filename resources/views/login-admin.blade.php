@@ -40,7 +40,7 @@
                 <h6 class="font-color"><span>halaman admin hasanah lifestyle</span></h6>
             </header>
             <section>
-                <form class="form-login form stacked" id="formLoginAdmin" ajax="true" action="{{route('post.login-admin')}}" method="post">
+                <form class="form-login form stacked" id="formLoginAdmin" ajax="true" action="" method="post">
                     <div class="form-group">
                         <label class="form-label font-color-label" for="username">Username</label>
                         <div class="row">
@@ -60,7 +60,7 @@
                     <p>
                         <div class="row">
                             <div class="col-md-6">
-                                <a class="font-color" href="{{route('get.forgot.password.view')}}">Forgot Password ? </a>
+                                <a class="font-color" href="#">Forgot Password ? </a>
                             </div>
                         </div>
                     </p>
