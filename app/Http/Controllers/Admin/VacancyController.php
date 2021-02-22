@@ -122,9 +122,10 @@ class VacancyController extends Controller
 
     public function viewvacancyDetail($id){
         $idVacancy = base64_decode(urldecode($id));
-
-        $dataVacancy = Vacancy::where('id', $idVacancy)->get()->toArray();
         
+        $dataVacancy = Vacancy::where('job_id', $idVacancy)->get()->toArray();
+        $salary = substr($dataVacancy[0]['salary'], 3);
+        dd($salary);
         if ($dataVacancy) {
             return view('news_event.news_event-edit')->with([
                 'pageTitle' => 'Manajemen vacancy', 

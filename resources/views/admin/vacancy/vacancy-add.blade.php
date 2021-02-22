@@ -122,7 +122,7 @@
                             <div class="row">
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group" id="majorVacancyDiv">
-                                        <label>Syarat (ID)</label>
+                                        <label>Major</label>
                                         <div id="fieldMajorDiv1">
                                             <select class="select2 min-width" id="field-syarat1" name="majorVacancy">
                                                 <option value="">Major</option>
