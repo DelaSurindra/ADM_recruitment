@@ -121,6 +121,25 @@ body {
     box-shadow: inset 0 -1px 0 #ddd;
     background: #BDBDBD;
 }
+.form-candidate-view .select2 {
+    width: 100% !important;
+}
+.form-candidate-view .select2-selection.select2-selection--single {
+    background-color: #E8F7EE;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #333333;
+    height: 40px;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+.form-candidate-view .select2-selection.select2-selection--single .select2-selection__arrow {
+    top: 7px;
+}
 .locate-me {
     font-style: normal;
     font-weight: bold;
@@ -249,7 +268,18 @@ body {
     color: #DF0E2C;
 }
 
+.display-none {
+    display: none;
+}
 
+.tabs-edit-profile {
+    background: #FFFFFF;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+}
+.tabs-edit-profile .nav-link.active {
+    background-color: #DF0E2C;
+}
 @media (min-width: 992px) {
     .margin-right-2rem {
         margin-right: 2rem;

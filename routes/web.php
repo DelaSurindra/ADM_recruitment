@@ -47,3 +47,4 @@ Route::prefix('logout')->group(function () {
 
 // Candidate View Preparation
 Route::get('/first-login', 'Candidate\LoginController@viewLoginCandidate')->name('get.login-candidate');
+Route::get('/profile', 'Candidate\ProfileController@viewProfile')->name('get.profile.view');

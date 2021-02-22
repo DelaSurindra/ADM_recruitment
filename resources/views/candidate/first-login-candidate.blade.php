@@ -8,7 +8,7 @@
         <div class="col-xl-6 col-lg-6 col-md-12">
             <div class="tracking-form-first-login">
                 <div class="tracking-line">
-                    <div class="red-line"></div>
+                    <div class="gray-line"></div>
                     <div class="gray-line"></div>
                 </div>
                 <div class="icon-tracking-wrapper personal-information">
@@ -175,100 +175,128 @@
         </div>
 
         <div data-speed="100" id="page-2" class="item">
-            <div class="row">
-                <div class="col-lg-6 col-md-12">
-                    <div class="form-group">
-                        <label for="">School/University<span class="required-sign">*</span></label>
-                        <div class="row">
-                            <div class="col-lg-11 col-md-12">
-                                <input type="text" class="form-control" placeholder="School/University">
+            <div id="listEducationCandidate">
+                <div class="listStudy">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <label for="">School/University<span class="required-sign">*</span></label>
+                                <div class="row">
+                                    <div class="col-lg-11 col-md-12">
+                                        <input type="text" class="form-control" placeholder="School/University">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <label for="">Degree<span class="required-sign">*</span></label>
+                                <div class="row">
+                                    <div class="col-lg-11 col-md-12">
+                                        <select name="" id="" class="select2 form-control">
+                                            <option value="">Choose your degree</option>
+                                            <option value="">Opt 1</option>
+                                            <option value="">Opt 1</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-6 col-md-12">
-                    <div class="form-group">
-                        <label for="">Degree<span class="required-sign">*</span></label>
-                        <div class="row">
-                            <div class="col-lg-11 col-md-12">
-                                <select name="" id="">
-                                    <option value="">Choose your degree</option>
-                                    <option value="">Opt 1</option>
-                                    <option value="">Opt 1</option>
-                                </select>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <label for="">Faculty<span class="required-sign">*</span></label>
+                                <div class="row">
+                                    <div class="col-lg-11 col-md-12">
+                                        <input type="text" class="form-control" placeholder="Faculty">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <label for="">Major<span class="required-sign">*</span></label>
+                                <div class="row">
+                                    <div class="col-lg-11 col-md-12">
+                                        <input type="text" class="form-control" placeholder="Major">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <label for="">Start Date<span class="required-sign">*</span></label>
+                                <div class="row">
+                                    <div class="col-lg-11 col-md-12 with-icon">
+                                        <input type="text" class="form-control" placeholder="Choose date" id="startDateEdication" name="startDateEdication">
+                                        <img src="{{ asset('image/icon/homepage/icon-calender-input.svg') }}" class="this-icon" alt="icon">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <label for="">End Date<span class="required-sign">*</span></label>
+                                <div class="row">
+                                    <div class="col-lg-11 col-md-12 with-icon">
+                                        <input type="text" class="form-control" placeholder="Choose date" id="endDateEdication" name="endDateEdication">
+                                        <img src="{{ asset('image/icon/homepage/icon-calender-input.svg') }}" class="this-icon" alt="icon">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <label for="">Certificate of Study<span class="required-sign">*</span></label>
+                                <div class="row">
+                                    <div class="col-lg-11 col-md-12">
+                                        <input type="text" class="form-control" placeholder="Format jpg/png maximum 2MB file">
+                                        <p id="filenameCertificateStudy" class="m-1"></p>
+                                        <span class="btn btn-file pl-1 mb-2">
+                                            Upload File <input type="file">
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-6 col-md-12">
-                    <div class="form-group">
-                        <label for="">Faculty<span class="required-sign">*</span></label>
-                        <div class="row">
-                            <div class="col-lg-11 col-md-12">
-                                <input type="text" class="form-control" placeholder="Faculty">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-12">
-                    <div class="form-group">
-                        <label for="">Major<span class="required-sign">*</span></label>
-                        <div class="row">
-                            <div class="col-lg-11 col-md-12">
-                                <input type="text" class="form-control" placeholder="Major">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6 col-md-12">
-                    <div class="form-group">
-                        <label for="">Start Date<span class="required-sign">*</span></label>
-                        <div class="row">
-                            <div class="col-lg-11 col-md-12 with-icon">
-                                <input type="text" class="form-control" placeholder="Choose date">
-                                <img src="{{ asset('image/icon/homepage/icon-calender-input.svg') }}" class="this-icon" alt="icon">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-12">
-                    <div class="form-group">
-                        <label for="">End Date<span class="required-sign">*</span></label>
-                        <div class="row">
-                            <div class="col-lg-11 col-md-12 with-icon">
-                                <input type="text" class="form-control" placeholder="Choose date">
-                                <img src="{{ asset('image/icon/homepage/icon-calender-input.svg') }}" class="this-icon" alt="icon">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6 col-md-12">
-                    <div class="form-group">
-                        <label for="">Certificate of Study<span class="required-sign">*</span></label>
-                        <div class="row">
-                            <div class="col-lg-11 col-md-12">
-                                <input type="text" class="form-control" placeholder="Format jpg/png maximum 2MB file">
-                                <p id="filenameCertificateStudy" class="m-1"></p>
-                                <span class="btn btn-file pl-1 mb-2">
-                                    Upload File <input type="file">
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-4 margin-right-2rem">
-                <div class="col-lg-12 col-md-12">
-                    <button class="btn btn-white btn-block">
+            <div class="row mb-4 margin-right-2rem firstBtnListEducation">
+                <div class="col-lg-12 col-md-12 firstBtnEducation">
+                    <button type="button" class="btn btn-white btn-block large btnAddListEdication">
                         <i class="fas fa-plus mr-2" style="font-size:18px"></i> 
                         Add Another Education
                     </button>
+                </div>
+                <div class="col-lg-6 col-md-12 display-none removeThisEducation">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-11 col-md-12">
+                                <button type="button" class="btn btn-white btn-block btnAddListEdication">
+                                    <i class="fas fa-trash mr-2" style="font-size:18px"></i> 
+                                    Delete the Education Data Above 
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 display-none secondBtnEducation">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-11 col-md-12">
+                                <button type="button" class="btn btn-white btn-block btnAddListEdication">
+                                    <i class="fas fa-plus mr-2" style="font-size:18px"></i> 
+                                    Add Another Education
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
