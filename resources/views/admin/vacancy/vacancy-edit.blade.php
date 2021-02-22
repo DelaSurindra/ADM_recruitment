@@ -9,7 +9,7 @@
             <div class="col-md-12">
                 <form action="{{ route('post.vacancy.edit') }}" class="form stacked" method="POST" id="formEditVacancy" ajax="true">
                     @csrf
-                    <input type="hidden" name="idVacancy" value="">
+                    <input type="hidden" name="idVacancy" value="{{$data['job_id']}}">
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
@@ -21,7 +21,7 @@
                                                 <div class="input-group-prepend">
                                                     <img src="{{ asset('image/icon/main/add-circle.svg') }}" alt="icon">
                                                 </div>
-                                                <input type="text" class="form-control" name="titleVacancy" id="titleVacancy" placeholder="Add a vacancy titles...">
+                                                <input type="text" class="form-control" name="titleVacancy" id="titleVacancy" placeholder="Add a vacancy titles..." value="{{$data['job_title']}}">
                                             </div>
                                         </div>
                                     </div>
@@ -51,7 +51,7 @@
                                         <div class="row">
                                             <div class="col-xl-11 col-md-12">
                                                 <label>Min Salary</label>
-                                                <input id="minSalaryVacancy" name="minSalaryVacancy" class="form-control" type="text" placeholder="Min Salary">
+                                                <input id="minSalaryVacancy" name="minSalaryVacancy" class="form-control" type="text" placeholder="Min Salary" value="{{$data['minSalary']}}">
                                             </div>
                                         </div>
                                     </div>
@@ -61,7 +61,7 @@
                                         <div class="row">
                                             <div class="col-xl-11 col-md-12">
                                                 <label>Max Salary</label>
-                                                <input id="maxSalaryVacancy" name="maxSalaryVacancy" class="form-control" type="text" placeholder="Max Salary">
+                                                <input id="maxSalaryVacancy" name="maxSalaryVacancy" class="form-control" type="text" placeholder="Max Salary" value="{{$data['maxSalary']}}">
                                             </div>
                                         </div>
                                     </div>
@@ -73,9 +73,9 @@
                                                 <label>Degree</label>
                                                 <select class="select2 tex-center select2-width" id="degreeVacancy" name="degreeVacancy">
                                                     <option value="">Degree</option>
-                                                    <option value="D3">D3</option>
-                                                    <option value="S1">S1</option>
-                                                    <option value="S2">S2</option>
+                                                    <option {{$data['degree'] == 'D3' ? 'selected':''}} value="D3">D3</option>
+                                                    <option {{$data['degree'] == 'D3' ? 'selected':''}} value="S1">S1</option>
+                                                    <option {{$data['degree'] == 'D3' ? 'selected':''}} value="S2">S2</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -88,8 +88,8 @@
                                                 <label>Type</label>
                                                 <select class="select2 tex-center select2-width" id="typeVacancy" name="typeVacancy">
                                                     <option value="">Type</option>
-                                                    <option value="1">Full Time</option>
-                                                    <option value="2">Intership</option>
+                                                    <option {{$data['type'] == '1' ? 'selected':''}} value="1">Full Time</option>
+                                                    <option {{$data['type'] == '2' ? 'selected':''}} value="2">Intership</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -100,7 +100,7 @@
                                         <div class="row">
                                             <div class="col-xl-11 col-md-12">
                                                 <label>Working Time</label>
-                                                <input id="workingTimeVacancy" name="workingTimeVacancy" class="form-control" type="text" placeholder="Working Time">
+                                                <input id="workingTimeVacancy" name="workingTimeVacancy" class="form-control" type="text" placeholder="Working Time" value="{{$data['work_time']}}">
                                             </div>
                                         </div>
                                     </div>
@@ -110,7 +110,7 @@
                                         <div class="row">
                                             <div class="col-xl-11 col-md-12">
                                                 <label>Activated Date</label>
-                                                <input id="activatedDate" name="activatedDate" class="form-control" type="text" placeholder="Activated Date">
+                                                <input id="activatedDate" name="activatedDate" class="form-control" type="text" placeholder="Activated Date" value="{{$data['active_date']}}">
                                             </div>
                                         </div>
                                     </div>
@@ -142,7 +142,7 @@
                             <div class="form-group">
                                 <label>Description News/Event</label>
                                 <div class="summernote-news-wrapper">
-                                    <textarea name="descriptionVacancy" id="descriptionVacancy" class="form-control" placeholder="Input Description"></textarea>
+                                    <textarea name="descriptionVacancy" id="descriptionVacancy" class="form-control" placeholder="Input Description">{{$data['job_requirement']}}</textarea>
                                 </div>
                             </div>
                         </div>

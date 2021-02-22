@@ -124,10 +124,29 @@ class VacancyController extends Controller
         $idVacancy = base64_decode(urldecode($id));
         
         $dataVacancy = Vacancy::where('job_id', $idVacancy)->get()->toArray();
-        $salary = substr($dataVacancy[0]['salary'], 3);
-        dd($salary);
+        // dd($dataVacancy);
         if ($dataVacancy) {
-            return view('news_event.news_event-edit')->with([
+            if ($dataVacancy[0]['salary'] != "") {
+                $salary = substr($dataVacancy[0]['salary'], 0,3);
+                if ($salary == "min") {
+                    $exp = explode(' ', $dataVacancy[0]['salary']);
+                    $dataVacancy[0]['minSalary'] = $exp[1];
+                    $dataVacancy[0]['maxSalary'] = "";
+                }else if ($salary == "max") {
+                    $exp = explode(' ', $dataVacancy[0]['salary']);
+                    $dataVacancy[0]['maxSalary'] = $exp[1];
+                    $dataVacancy[0]['minSalary'] = "";
+                }else{
+                    $exp = explode('-', $dataVacancy[0]['salary']);
+                    $dataVacancy[0]['maxSalary'] = $exp[0];
+                    $dataVacancy[0]['minSalary'] = $exp[1];
+                }
+            }else{
+                $dataVacancy[0]['maxSalary'] = "";
+                $dataVacancy[0]['minSalary'] = "";
+            }
+            // dd($dataVacancy);
+            return view('admin.vacancy.vacancy-edit')->with([
                 'pageTitle' => 'Manajemen vacancy', 
                 'title' => 'Manajemen vacancy', 
                 'sidebar' => 'manajemen_vacancy', 
@@ -147,15 +166,27 @@ class VacancyController extends Controller
     public function editvacancy(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
+        // dd($data);
+        if ($data['minSalaryVacancy'] != "" && $data['maxSalaryVacancy'] != "") {
+            $salary = $data['minSalaryVacancy'].' - '.$data['maxSalaryVacancy'];
+        }else if ($data['minSalaryVacancy'] != "") {
+            $salary = "min ".$data['minSalaryVacancy'];
+        }else if ($data['maxSalaryVacancy'] != "") {
+            $salary = "max ".$data['maxSalaryVacancy'];
+        } else {
+            $salary = "";
+        }
         
-        $editVacancy = Vacancy::where('id', $data['idNewsEvent'])->update([
+        $editVacancy = Vacancy::where('job_id', $data['idVacancy'])->update([
             'job_title' => $data['titleVacancy'],
-            'placement' => $data['locationVacancy'],
-            'salary' => str_replace(",", "", $data['minSalaryVacancy']),
-            'major' => json_encode($data['majorVacancy']),
+            'lokasi' => $data['locationVacancy'],
+            'salary' => $salary,
+            'major' => $data['majorVacancy'],
+            'degree' => $data['degreeVacancy'],
             'work_time' => $data['workingTimeVacancy'],
-            'start_date' => date('Y-m-d', strtotime($data['activatedDate'])),
-            'job_description' => $data['descriptionVacancy']
+            'type' => $data['typeVacancy'],
+            'active_date' => date('Y-m-d', strtotime($data['activatedDate'])),
+            'job_requirement' => $data['descriptionVacancy']
         ]);
         
         if ($editVacancy) {
