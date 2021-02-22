@@ -1,4 +1,4 @@
-@extends('main.main')
+@extends('admin.main.main')
 @section('pageTitle',$pageTitle)
 @section('title',$title)
 @section('content')
@@ -49,7 +49,7 @@
                                 <div class="row">
                                     <div class="col-10">
                                         <label>Type News/Event</label>
-                                        <select class="select2 tex-center" id="tipeNewsEvent" name="tipeNewsEvent">
+                                        <select class="select2 tex-center select2-width" id="tipeNewsEvent" name="tipeNewsEvent">
                                             <option value="">-- Pilih Tipe --</option>
                                             <option value="1">News</option>
                                             <option value="2">Event</option>

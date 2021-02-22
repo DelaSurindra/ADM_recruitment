@@ -100,6 +100,76 @@ const formrules = {
 		}
     },
 
+	'formAddVacancy':{
+        ignore: null,
+		rules:{
+			'titleVacancy':{
+                required:true
+            },
+			'locationVacancy':{
+                required:true
+            },
+            'degreeVacancy':{
+                required:true
+            },
+            'typeVacancy':{
+                required:true
+            },
+			'workingTimeVacancy':{
+                required:true
+            },
+			'activatedDate':{
+				required:true
+			},
+			'majorVacancy':{
+				required:true
+			},
+			'descriptionVacancy':{
+				required:true
+			},
+		},
+		submitHandler:false,
+		messages: {
+			titleVacancy: {
+				required: 'Mohon isi Title',
+			},
+			locationVacancy: {
+				required:'Mohon Pilih Lokasi'
+            },
+            degreeVacancy: {
+				required:'Mohon pilih Degree'
+            },
+            typeVacancy: {
+				required:'Mohon pilih Tipe'
+            },
+			workingTimeVacancy: {
+				required:'Mohon isi Working Time'
+            },
+			activatedDate: {
+				required:'Mohon isi Active Date'
+            },
+			majorVacancy: {
+				required:'Mohon pilih Major'
+            },
+			descriptionVacancy: {
+				required:'Mohon isi Description'
+            },
+        },
+        errorPlacement: function (error, element) {
+			if (element.is("#locationVacancy")) {
+				error.appendTo(element.parents('#locationVacancyDiv'));
+			}else if(element.is("#degreeVacancy")) {
+				error.appendTo(element.parents('#degreeVacancyDiv'));
+			}else if(element.is("#typeVacancy")) {
+				error.appendTo(element.parents('#typeVacancyDiv'));
+			}else if(element.is("#majorVacancy")) {
+				error.appendTo(element.parents('#majorVacancyDiv'));
+			}else { // This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+    },
+
 }
 
 var validation = {
