@@ -290,31 +290,39 @@ if ($("#formAddVacancy").length) {
     });
 
 	var next2 = 1;
-$(".add-more-syarat").click(function(e){
-    e.preventDefault();
-	var childDivs = document.querySelectorAll('#fieldMajorDiv'+next2+' span')
-	console.log(childDivs);
-    var addto = "#field-syarat" + next2;
-    var addRemove = "#field-syarat" + (next2);
-    next2 = next2 + 1;
-    // var newIn = '<label>Syarat</label><input autocomplete="off" class="form-input bg-input form-control" id="field-syarat' + next2 + '" name="syarat[]" type="text" style="width: 93%; float: left;">';
-	var newIn = '<select class="select2 min-width" id="field-syarat' + next2 + '" name="majorVacancy"><option value="">Major</option><option value="Sistem Informasi">Sistem Informasi</option><option value="Akuntansi">Akuntansi</option></select>';
-	$("#field-syarat"+next2).select2();
-    var newInput = $(newIn);
-    var removeBtn = '<button id="remove-syarat' + (next2 - 1) + '" class="btn remove-me-syarat btn-min" style="margin-top: 10px;">-</button></><div id="field-syarat">';
-    var removeButton = $(removeBtn);
-    $(addto).after(newInput);
-    $(addRemove).after(removeButton);
-    $("#field-syarat" + next2).attr('data-source',$(addto).attr('data-source'));
-    $("#count").val(next2);  
-        $('.remove-me-syarat').click(function(e){
-            e.preventDefault();
-            var fieldNum = this.id.charAt(this.id.length-1);
-            var fieldID = "#field-syarat" + fieldNum;
-            $(this).remove();
-            $(fieldID).remove();
-        });
-});
+	$(".add-more-syarat").click(function(e){
+		e.preventDefault();
+		var childDivs = document.querySelectorAll('#fieldMajorDiv'+next2+' span')
+		console.log(childDivs);
+		var addto = "#field-syarat" + next2;
+		var addRemove = "#field-syarat" + (next2);
+		next2 = next2 + 1;
+		// var newIn = '<label>Syarat</label><input autocomplete="off" class="form-input bg-input form-control" id="field-syarat' + next2 + '" name="syarat[]" type="text" style="width: 93%; float: left;">';
+		var newIn = '<select class="select2 min-width" id="field-syarat' + next2 + '" name="majorVacancy">'+
+						'<option value="">Major</option>'+
+						'<option value="Sistem Informasi">Sistem Informasi</option>'+
+						'<option value="Akuntansi">Akuntansi</option>'+
+					'</select>';
+		$("#field-syarat"+next2).select2();
+		var newInput = $(newIn);
+		var removeBtn = '<button id="remove-syarat' + (next2 - 1) + '" class="btn remove-me-syarat btn-min">-</button></><div id="field-syarat">';
+		var removeButton = $(removeBtn);
+		$(addto).after(newInput);
+		$(addRemove).after(removeButton);
+
+		$("#field-syarat" + next2).attr('data-source',$(addto).attr('data-source'));
+		$("#count").val(next2);  
+		$('.remove-me-syarat').click(function(e){
+			e.preventDefault();
+			var fieldNum = 'field'+this.id.toString().replace('remove','');
+			console.log(fieldNum)
+			$('#'+fieldNum).remove();
+			$(this).prev().remove();
+			$(this).remove();
+		});
+
+		$('select[name="majorVacancy"]').select2()
+	});
 
 }
 

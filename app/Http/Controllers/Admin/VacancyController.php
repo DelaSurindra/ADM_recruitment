@@ -79,6 +79,7 @@ class VacancyController extends Controller
     public function addvacancy(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
+        // dd($data);
         if ($data['minSalaryVacancy'] != "" && $data['maxSalaryVacancy'] != "") {
             $salary = $data['minSalaryVacancy'].' - '.$data['maxSalaryVacancy'];
         }else if ($data['minSalaryVacancy'] != "") {
@@ -88,12 +89,21 @@ class VacancyController extends Controller
         } else {
             $salary = "";
         }
+
+        if (is_array($data['majorVacancy'])) {
+            $major = $data['majorVacancy'][0];
+            for ($i=1; $i < count($data['majorVacancy']); $i++) { 
+                $major = $major.','.$data['majorVacancy'][$i];
+            }
+        } else {
+            $major = $data['majorVacancy'];
+        }
         
         $addVacancy = Vacancy::insert([
             'job_title' => $data['titleVacancy'],
             'lokasi' => $data['locationVacancy'],
             'salary' => $salary,
-            'major' => $data['majorVacancy'],
+            'major' => $major,
             'degree' => $data['degreeVacancy'],
             'work_time' => $data['workingTimeVacancy'],
             'type' => $data['typeVacancy'],
