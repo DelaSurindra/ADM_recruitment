@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\Security\EncryptController;
 use App\Http\Controllers\Security\ValidatorController;
 use App\Http\Controllers\RequestController;
@@ -15,7 +16,7 @@ use Session;
 class VacancyController extends Controller
 {
     public function viewVacancy(){
-        return view('vacancy.vacancy-list')->with(['pageTitle' => 'Manajemen vacancy', 'title' => 'Manajemen vacancy', 'sidebar' => 'manajemen_vacancy']);
+        return view('admin.vacancy.vacancy-list')->with(['pageTitle' => 'Manajemen vacancy', 'title' => 'Manajemen vacancy', 'sidebar' => 'manajemen_vacancy']);
     }
 
     public function listvacancy(){
@@ -72,7 +73,7 @@ class VacancyController extends Controller
     }
 
     public function viewVacancyAdd(){
-        return view('vacancy.vacancy-add')->with(['pageTitle' => 'Manajemen vacancy', 'title' => 'Manajemen vacancy', 'sidebar' => 'manajemen_vacancy']);
+        return view('admin.vacancy.vacancy-add')->with(['pageTitle' => 'Manajemen vacancy', 'title' => 'Manajemen vacancy', 'sidebar' => 'manajemen_vacancy']);
     }
 
     public function addvacancy(){

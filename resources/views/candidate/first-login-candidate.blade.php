@@ -1,4 +1,4 @@
-@extends('main-homepage.main')
+@extends('candidate.main-homepage.main')
 @section('content')
 <div class="container">
     <div class="row">

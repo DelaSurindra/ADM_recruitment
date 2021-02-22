@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\Security\EncryptController;
 use App\Http\Controllers\Security\ValidatorController;
 use App\Http\Controllers\RequestController;

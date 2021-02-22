@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\Security\EncryptController;
 use App\Http\Controllers\Security\ValidatorController;
 use App\Http\Controllers\RequestController;
@@ -15,7 +15,7 @@ use Session;
 class NewsEventController extends Controller
 {
     public function viewNewsEvent(){
-        return view('news_event.news_event-list')->with(['pageTitle' => 'Manajemen News/Event', 'title' => 'Manajemen News/Event', 'sidebar' => 'manajemen_news_event']);
+        return view('admin.news_event.news_event-list')->with(['pageTitle' => 'Manajemen News/Event', 'title' => 'Manajemen News/Event', 'sidebar' => 'manajemen_news_event']);
     }
 
     public function listNewsEvent(){
@@ -59,7 +59,7 @@ class NewsEventController extends Controller
     }
 
     public function viewNewsEventAdd(){
-        return view('news_event.news_event-add')->with(['pageTitle' => 'Manajemen News/Event', 'title' => 'Manajemen News/Event', 'sidebar' => 'manajemen_news_event']);
+        return view('admin.news_event.news_event-add')->with(['pageTitle' => 'Manajemen News/Event', 'title' => 'Manajemen News/Event', 'sidebar' => 'manajemen_news_event']);
     }
 
     public function addNewsEvent(){
@@ -125,7 +125,7 @@ class NewsEventController extends Controller
         $dataNewsEvent = NewsEvent::where('id', $idNewsEvent)->get()->toArray();
         
         if ($dataNewsEvent) {
-            return view('news_event.news_event-edit')->with(['pageTitle' => 'Manajemen News/Event', 'title' => 'Manajemen News/Event', 'sidebar' => 'manajemen_news_event', 'data'=>$dataNewsEvent[0]]);
+            return view('admin.news_event.news_event-edit')->with(['pageTitle' => 'Manajemen News/Event', 'title' => 'Manajemen News/Event', 'sidebar' => 'manajemen_news_event', 'data'=>$dataNewsEvent[0]]);
         } else {
             $messages = [
                 'status' => 'error',

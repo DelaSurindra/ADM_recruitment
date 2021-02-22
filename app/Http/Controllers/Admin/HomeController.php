@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Security\EncryptController;
+use App\Http\Controllers\Controller;
 use App\Model\User;
 
 use Request;
@@ -23,7 +24,7 @@ class HomeController extends Controller
         //     'name' => 'ran',
         // ]);
         // dd($add);
-        return view('welcome')->with(['pageTitle' => 'Dashboard', 'title' => 'Dashboard', 'sidebar' => 'dashboard']);
+        return view('admin.welcome')->with(['pageTitle' => 'Dashboard', 'title' => 'Dashboard', 'sidebar' => 'dashboard']);
         
     }
 

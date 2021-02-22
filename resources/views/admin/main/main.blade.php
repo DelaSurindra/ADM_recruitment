@@ -34,13 +34,13 @@
         <div id="notif" data-status="{!! $notif['status'] !!}" data-message="{!! $notif['message'] !!}" data-url="{!! $notif['url'] !!}">
         </div>
         @endif
-        @include('main.navbar')
-        @include('main.sidebar')
+        @include('admin.main.navbar')
+        @include('admin.main.sidebar')
         <div class="content-wrapper">
             @yield('content')
         </div>
         <div class="content-footer main-header content-footer-tab">
-            @include('main.footer')
+            @include('admin.main.footer')
         </div>
     </div>
     <div id="modalSession" class="modal fade" role="dialog">
