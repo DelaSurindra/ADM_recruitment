@@ -172,14 +172,7 @@ function formatRupiahRp(angka) {
 	// return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
 	return 'Rp '+rupiah
 }
-if ($('#formAddVa').length) {
-	var billing_amount = document.getElementById('billing_amount');
-  	billing_amount.addEventListener("keyup", function(e) {
-	    // tambahkan 'Rp.' pada saat form di ketik
-	    // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-		billing_amount.value = formatRupiahRp(this.value);
-	});
-}
+
 ////////
 
 function formatRupiahKoma(angka) {
@@ -193,6 +186,23 @@ function formatRupiahKoma(angka) {
     if (ribuan) {
         separator = sisa ? "," : "";
         rupiah += separator + ribuan.join(",");
+    }
+
+    rupiah = split[1] != undefined ? rupiah + split[1] : rupiah;
+    return rupiah
+}
+
+function formatRupiah(angka) {
+    var number_string = angka.replace(/[^,\d]/g, "").toString(),
+    split = number_string.split(","),
+    sisa = split[0].length % 3,
+    rupiah = split[0].substr(0, sisa),
+    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+    // tambahkan titik jika yang di input sudah menjadi angka ribuan
+    if (ribuan) {
+        separator = sisa ? "." : "";
+        rupiah += separator + ribuan.join(".");
     }
 
     rupiah = split[1] != undefined ? rupiah + split[1] : rupiah;
@@ -252,12 +262,12 @@ if ($("#formEditEventNews").length) {
 if ($("#formAddVacancy").length) {
 	var minSalary = document.getElementById('minSalaryVacancy');
 	minSalary.addEventListener("keyup", function (e) {
-		minSalary.value = formatRupiahKoma(this.value);
+		minSalary.value = formatRupiah(this.value);
 	});
 
 	var maxSalary = document.getElementById('maxSalaryVacancy');
 	maxSalary.addEventListener("keyup", function (e) {
-		maxSalary.value = formatRupiahKoma(this.value);
+		maxSalary.value = formatRupiah(this.value);
 	});
 
 	$('#activatedDate').datetimepicker({
@@ -278,17 +288,45 @@ if ($("#formAddVacancy").length) {
             }
         });
     });
+
+	var next2 = 1;
+$(".add-more-syarat").click(function(e){
+    e.preventDefault();
+	var childDivs = document.querySelectorAll('#fieldMajorDiv'+next2+' span')
+	console.log(childDivs);
+    var addto = "#field-syarat" + next2;
+    var addRemove = "#field-syarat" + (next2);
+    next2 = next2 + 1;
+    // var newIn = '<label>Syarat</label><input autocomplete="off" class="form-input bg-input form-control" id="field-syarat' + next2 + '" name="syarat[]" type="text" style="width: 93%; float: left;">';
+	var newIn = '<select class="select2 min-width" id="field-syarat' + next2 + '" name="majorVacancy"><option value="">Major</option><option value="Sistem Informasi">Sistem Informasi</option><option value="Akuntansi">Akuntansi</option></select>';
+	$("#field-syarat"+next2).select2();
+    var newInput = $(newIn);
+    var removeBtn = '<button id="remove-syarat' + (next2 - 1) + '" class="btn remove-me-syarat btn-min" style="margin-top: 10px;">-</button></><div id="field-syarat">';
+    var removeButton = $(removeBtn);
+    $(addto).after(newInput);
+    $(addRemove).after(removeButton);
+    $("#field-syarat" + next2).attr('data-source',$(addto).attr('data-source'));
+    $("#count").val(next2);  
+        $('.remove-me-syarat').click(function(e){
+            e.preventDefault();
+            var fieldNum = this.id.charAt(this.id.length-1);
+            var fieldID = "#field-syarat" + fieldNum;
+            $(this).remove();
+            $(fieldID).remove();
+        });
+});
+
 }
 
 if ($("#formEditVacancy").length) {
 	var minSalary = document.getElementById('minSalaryVacancy');
 	minSalary.addEventListener("keyup", function (e) {
-		minSalary.value = formatRupiahKoma(this.value);
+		minSalary.value = formatRupiah(this.value);
 	});
 
 	var maxSalary = document.getElementById('maxSalaryVacancy');
 	maxSalary.addEventListener("keyup", function (e) {
-		maxSalary.value = formatRupiahKoma(this.value);
+		maxSalary.value = formatRupiah(this.value);
 	});
 
 	$('#activatedDate').datetimepicker({

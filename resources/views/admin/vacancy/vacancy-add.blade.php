@@ -13,16 +13,6 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <div class="row">
-                                    <!-- <div class="col-xl-2 col-md-3">
-                                        <div class="dropzone-wrapper">
-                                            <div class="dropzone-desc">
-                                                <img src="{{ asset('image/icon/main/add-image.png') }}" alt="icon">
-                                                <p>Upload Image</p>
-                                            </div>
-                                            <input type="file" name="imageNewsEvent" class="dropzone" id="imageNewsEvent">
-                                        </div>
-                                        <small>*Jpeg(.jpg or .jpeg) max 2mb</small>
-                                    </div> -->
                                     <div class="col-xl-6 col-md-12">
                                         <div class="input-title-news">
                                             <h4 class="mb-4">Title</h4>
@@ -42,14 +32,14 @@
                         <div class="col-xl-10 col-md-12">
                             <div class="row">
                                 <div class="col-xl-4 col-md-6 col-sm-12">
-                                    <div class="form-group" >
+                                    <div class="form-group" id="locationVacancyDiv">
                                         <div class="row">
                                             <div class="col-xl-11 col-md-12">
                                                 <label>Location</label>
-                                                <select class="select2 tex-center" id="locationVacancy" name="locationVacancy">
+                                                <select class="select2 tex-center select2-width" id="locationVacancy" name="locationVacancy">
                                                     <option value="">Location</option>
-                                                    <option value="1">Surabaya</option>
-                                                    <option value="2">Sidoarjo</option>
+                                                    <option value="Surabaya">Surabaya</option>
+                                                    <option value="Sidoarjo">Sidoarjo</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -76,27 +66,29 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-md-6 col-sm-12">
-                                    <div class="form-group" >
+                                    <div class="form-group" id="degreeVacancyDiv">
                                         <div class="row">
                                             <div class="col-xl-11 col-md-12">
                                                 <label>Degree</label>
-                                                <select class="select2 tex-center" id="degreeVacancy" name="degreeVacancy">
+                                                <select class="select2 tex-center select2-width" id="degreeVacancy" name="degreeVacancy">
                                                     <option value="">Degree</option>
-                                                    <option value="1">News</option>
-                                                    <option value="2">Event</option>
+                                                    <option value="D3">D3</option>
+                                                    <option value="S1">S1</option>
+                                                    <option value="S2">S2</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-md-6 col-sm-12">
-                                    <div class="form-group" >
+                                    <div class="form-group" id="typeVacancyDiv">
                                         <div class="row">
                                             <div class="col-xl-11 col-md-12">
-                                                <label>Major</label>
-                                                <select class="select2" multiple="multiple" id="majorVacancy" name="majorVacancy[]">
-                                                    <option value="1">Major 1</option>
-                                                    <option value="2">Major 2</option>
+                                                <label>Type</label>
+                                                <select class="select2 tex-center select2-width" id="typeVacancy" name="typeVacancy">
+                                                    <option value="">Type</option>
+                                                    <option value="1">Full Time</option>
+                                                    <option value="2">Intership</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -125,11 +117,29 @@
                             </div>
                         </div>
                     </div>
-                    
+                    <div class="row">
+                        <div class="col-xl-11 col-md-12">
+                            <div class="row">
+                                <div class="col-xl-6 col-md-6 col-sm-12">
+                                    <div class="form-group" id="majorVacancyDiv">
+                                        <label>Syarat (ID)</label>
+                                        <div id="fieldMajorDiv1">
+                                            <select class="select2 min-width" id="field-syarat1" name="majorVacancy">
+                                                <option value="">Major</option>
+                                                <option value="Sistem Informasi">Sistem Informasi</option>
+                                                <option value="Akuntansi">Akuntansi</option>
+                                            </select>
+                                            <button id="b2" class="btn add-more-syarat btn-plus margin-top-btn" type="button">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label>Description News/Event</label>
+                                <label>Description Vacancy</label>
                                 <div class="summernote-news-wrapper">
                                     <textarea name="descriptionVacancy" id="descriptionVacancy" class="form-control" placeholder="Input Description"></textarea>
                                 </div>

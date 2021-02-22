@@ -53,7 +53,7 @@
                     <div class="col-md-6" id="tipeNewsEventDiv">
                         <div class="form-group" >
                             <label>Type News/Event</label>
-                            <select class="select2 tex-center" id="tipeNewsEvent" name="tipeNewsEvent">
+                            <select class="select2 tex-center select2-width" id="tipeNewsEvent" name="tipeNewsEvent">
                                 <option value="">-- Pilih Tipe --</option>
                                 <option {{$data['type'] == '1' ? 'selected' : ''}} value="1">News</option>
                                 <option {{$data['type'] == '2' ? 'selected' : ''}} value="2">Event</option>

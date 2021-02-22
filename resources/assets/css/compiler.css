@@ -2313,9 +2313,17 @@ input[switch]:checked + .c-switch-label:after {
   }
 }
 .select2 {
-  width: 100% !important;
+  /* width: 100% !important; */
   /* border: 1px solid #A0BDFF !important; */
   border-radius: 5px !important;
+}
+
+.select2-width{
+  width: 100% !important;
+}
+
+.min-width{
+  width: 85% !important;
 }
 
 .select2-selection--single {

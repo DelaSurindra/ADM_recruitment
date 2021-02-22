@@ -79,15 +79,26 @@ class VacancyController extends Controller
     public function addvacancy(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
-        // dd($data);
+        if ($data['minSalaryVacancy'] != "" && $data['maxSalaryVacancy'] != "") {
+            $salary = $data['minSalaryVacancy'].' - '.$data['maxSalaryVacancy'];
+        }else if ($data['minSalaryVacancy'] != "") {
+            $salary = "min ".$data['minSalaryVacancy'];
+        }else if ($data['maxSalaryVacancy'] != "") {
+            $salary = "max ".$data['maxSalaryVacancy'];
+        } else {
+            $salary = "";
+        }
+        
         $addVacancy = Vacancy::insert([
             'job_title' => $data['titleVacancy'],
-            'placement' => $data['locationVacancy'],
-            'salary' => str_replace(",", "", $data['minSalaryVacancy']),
-            'major' => json_encode($data['majorVacancy']),
+            'lokasi' => $data['locationVacancy'],
+            'salary' => $salary,
+            'major' => $data['majorVacancy'],
+            'degree' => $data['degreeVacancy'],
             'work_time' => $data['workingTimeVacancy'],
-            'start_date' => date('Y-m-d', strtotime($data['activatedDate'])),
-            'job_description' => $data['descriptionVacancy']
+            'type' => $data['typeVacancy'],
+            'active_date' => date('Y-m-d', strtotime($data['activatedDate'])),
+            'job_requirement' => $data['descriptionVacancy']
         ]);
         
         if ($addVacancy) {
