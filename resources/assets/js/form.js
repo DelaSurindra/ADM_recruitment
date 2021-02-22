@@ -355,6 +355,38 @@ if ($("#formEditVacancy").length) {
             }
         });
     });
+
+	$(".add-more-syarat").click(function(e){
+		e.preventDefault();
+		this.remove();
+		var btnAdd = this;
+		var jml = $('#fieldMajorDiv1 select').length
+		var next = jml+1
+
+		//change btn to minus
+		var removeBtn = '<button type="button" id="remove-syarat' + jml + '" class="btn remove-me-syarat btn-min">-</button>';
+		var after = $('#field-syarat'+jml).next()
+		after.after(removeBtn)
+		
+		var newIn = '<select class="select2 min-width" id="field-syarat' + next + '" name="majorVacancy">'+
+						'<option value="">Major</option>'+
+						'<option value="Sistem Informasi">Sistem Informasi</option>'+
+						'<option value="Akuntansi">Akuntansi</option>'+
+					'</select>';
+		$('#fieldMajorDiv1').append(newIn)
+		$('#fieldMajorDiv1').append(btnAdd)
+
+		$('select[name="majorVacancy"]').select2()
+	});
+
+	$('.remove-me-syarat').click(function(e){
+		e.preventDefault();
+		var fieldNum = 'field'+this.id.toString().replace('remove','');
+		console.log(fieldNum)
+		$('#'+fieldNum).remove();
+		$(this).prev().remove();
+		$(this).remove();
+	});
 }
 
 function readFile(input) {

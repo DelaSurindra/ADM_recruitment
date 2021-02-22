@@ -125,11 +125,16 @@
                                     <div class="form-group" id="majorVacancyDiv">
                                         <label>Major</label>
                                         <div id="fieldMajorDiv1">
-                                            <select class="select2 min-width" id="field-syarat1" name="majorVacancy">
+                                            @for ($i = 0; $i < count($data['major']); $i++)
+                                            <select class="select2 min-width" id="field-syarat{{ $i+1 }}" name="majorVacancy">
                                                 <option value="">Major</option>
-                                                <option value="Sistem Informasi">Sistem Informasi</option>
-                                                <option value="Akuntansi">Akuntansi</option>
+                                                <option value="Sistem Informasi" {{ $data['major'][$i] == 'Sistem Informasi' ? 'selected' : '' }}>Sistem Informasi</option>
+                                                <option value="Akuntansi" {{ $data['major'][$i] == 'Akuntansi' ? 'selected' : '' }}>Akuntansi</option>
                                             </select>
+                                            @if(count($data['major']) > 1 && count($data['major']) != $i+1 )
+                                            <button type="button" id="remove-syarat{{ $i+1 }}" class="btn remove-me-syarat btn-min">-</button>
+                                            @endif
+                                            @endfor
                                             <button id="b2" class="btn add-more-syarat btn-plus margin-top-btn" type="button">+</button>
                                         </div>
                                     </div>

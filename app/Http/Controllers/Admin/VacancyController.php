@@ -155,6 +155,9 @@ class VacancyController extends Controller
                 $dataVacancy[0]['maxSalary'] = "";
                 $dataVacancy[0]['minSalary'] = "";
             }
+
+            $dataVacancy[0]['major'] = explode(',', $dataVacancy[0]['major']);
+            
             // dd($dataVacancy);
             return view('admin.vacancy.vacancy-edit')->with([
                 'pageTitle' => 'Manajemen vacancy', 
@@ -186,12 +189,21 @@ class VacancyController extends Controller
         } else {
             $salary = "";
         }
+
+        if (is_array($data['majorVacancy'])) {
+            $major = $data['majorVacancy'][0];
+            for ($i=1; $i < count($data['majorVacancy']); $i++) { 
+                $major = $major.','.$data['majorVacancy'][$i];
+            }
+        } else {
+            $major = $data['majorVacancy'];
+        }
         
         $editVacancy = Vacancy::where('job_id', $data['idVacancy'])->update([
             'job_title' => $data['titleVacancy'],
             'lokasi' => $data['locationVacancy'],
             'salary' => $salary,
-            'major' => $data['majorVacancy'],
+            'major' => $major,
             'degree' => $data['degreeVacancy'],
             'work_time' => $data['workingTimeVacancy'],
             'type' => $data['typeVacancy'],
