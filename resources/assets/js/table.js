@@ -11,6 +11,19 @@ var table = {
 
 			columnDefs = [
 				{
+					"targets": 2,
+					"data": "type",
+					"render": function(data, type, full, meta){
+						var data = ''
+		            	if (full.type == 1) {
+		            	    data = '-';
+		            	} else {
+		            	    data = full.start_date;
+		            	}
+		               	return data;
+					}
+				},
+				{
 					"targets": 3,
 					"data": "type",
 					"render": function(data, type, full, meta){

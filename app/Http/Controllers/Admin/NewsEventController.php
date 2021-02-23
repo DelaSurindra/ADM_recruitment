@@ -85,7 +85,6 @@ class NewsEventController extends Controller
                 'title'         => $data['titleNewsEvent'],
                 'content'       => $data['descriptionNewsEvent'],
                 'image'         => $dataImage,
-                'start_date'    => date('Y-m-d'),
                 'type'          => $data['tipeNewsEvent']
             ]);
         } else {
