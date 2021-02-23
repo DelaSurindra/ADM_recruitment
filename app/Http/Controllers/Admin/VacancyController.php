@@ -7,6 +7,7 @@ use App\Http\Controllers\Security\EncryptController;
 use App\Http\Controllers\Security\ValidatorController;
 use App\Http\Controllers\RequestController;
 use App\Model\Vacancy;
+use App\Model\Wilayah;
 use App\AdminSession;
 
 use Hash;
@@ -19,7 +20,7 @@ class VacancyController extends Controller
         return view('admin.vacancy.vacancy-list')->with(['pageTitle' => 'Manajemen vacancy', 'title' => 'Manajemen vacancy', 'sidebar' => 'manajemen_vacancy']);
     }
 
-    public function listvacancy(){
+    public function listVacancy(){
         $dataSend = array(
             "search"     => Request::input('search')['value'],
             "offset"     => Request::input('start'),
@@ -73,10 +74,11 @@ class VacancyController extends Controller
     }
 
     public function viewVacancyAdd(){
-        return view('admin.vacancy.vacancy-add')->with(['pageTitle' => 'Manajemen vacancy', 'title' => 'Manajemen vacancy', 'sidebar' => 'manajemen_vacancy']);
+        $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
+        return view('admin.vacancy.vacancy-add')->with(['pageTitle' => 'Manajemen vacancy', 'title' => 'Manajemen vacancy', 'sidebar' => 'manajemen_vacancy', 'wilayah'=>$wilayah]);
     }
 
-    public function addvacancy(){
+    public function addVacancy(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
         // dd($data);
@@ -130,10 +132,10 @@ class VacancyController extends Controller
         }   
     }
 
-    public function viewvacancyDetail($id){
+    public function viewVacancyDetail($id){
         $idVacancy = base64_decode(urldecode($id));
-        
         $dataVacancy = Vacancy::where('job_id', $idVacancy)->get()->toArray();
+        $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
         // dd($dataVacancy);
         if ($dataVacancy) {
             if ($dataVacancy[0]['salary'] != "") {
@@ -163,7 +165,8 @@ class VacancyController extends Controller
                 'pageTitle' => 'Manajemen vacancy', 
                 'title' => 'Manajemen vacancy', 
                 'sidebar' => 'manajemen_vacancy', 
-                'data' => $dataVacancy[0]
+                'data' => $dataVacancy[0],
+                'wilayah' => $wilayah
             ]);
         } else {
             $messages = [
@@ -176,7 +179,7 @@ class VacancyController extends Controller
         }
     }
 
-    public function editvacancy(){
+    public function editVacancy(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
         // dd($data);
@@ -230,22 +233,31 @@ class VacancyController extends Controller
         } 
     }
 
-    public function deleteNewsEvent($id){
-        $idVacancy = base64_decode(urldecode($id));
+    public function deleteVacancy(){
+        $encrypt = new EncryptController;
+        $data = $encrypt->fnDecrypt(Request::input('data'),true);
 
-        $deleteVacancy = Vacancy::where('id', $idVacancy)->delete();
+        if ($data['tipeDeleteVacancy'] == '0') {
+            $message = 'Berhasil menonaktifkan Vacancy';
+        }else{
+            $message = 'Berhasil mengaktifkan Vacancy';
+        }
+        
+        $deleteVacancy = Vacancy::where('job_id', $data['idDeleteVacancy'])->update([
+            'status' => $data['tipeDeleteVacancy']
+        ]);
         
         if ($deleteVacancy) {
             return [
                 'status'   => 'success',
-                'message'  => 'Berhasil Hapus Vacancy',
+                'message'  => $message,
                 'url'      => '/vacancy',
                 'callback' => 'redirect'
             ];
         } else {
             return [
                 'status'   => 'error',
-                'message'  => 'Gagal Hapus Vacancy',
+                'message'  => 'Gagal Mengubah Status Vacancy',
             ];
         }
     }

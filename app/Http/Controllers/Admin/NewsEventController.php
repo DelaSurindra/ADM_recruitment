@@ -215,8 +215,6 @@ class NewsEventController extends Controller
                 'url'      => '/news_event',
                 'callback' => 'redirect'
             ];
-
-            return redirect('/news_event')->with('notif', $messages);
         } else {
             return [
                 'status'   => 'error',
