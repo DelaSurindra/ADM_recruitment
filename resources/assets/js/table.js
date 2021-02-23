@@ -55,7 +55,7 @@ var table = {
 					"render": function(data, type, full, meta){
 						var id = encodeURIComponent(window.btoa(full.id));
 						var konfirm = '';
-						var data = '<button type="button" class="btn btn-table btn-transparent"><a href="/news_event/detail-news-event/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/lingkarEdit_icon.svg" title="Edit News/Event"></a></button>';
+						var data = '<button type="button" class="btn btn-table btn-transparent"><a href="/HR/news_event/detail-news-event/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/lingkarEdit_icon.svg" title="Edit News/Event"></a></button>';
 						if (full.status == '1') {
 							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmNewsEvent"><img style="margin-right: 1px;" src="/image/icon/main/lingkarHapus_icon.svg" title="Deaktif News/Event"></button>';
 							
@@ -67,7 +67,7 @@ var table = {
 				}
 			];
 
-		 	table.serverSide('tableNewsEvent',column,'news_event/list-news-event',null,columnDefs)
+		 	table.serverSide('tableNewsEvent',column,'/HR/news_event/list-news-event',null,columnDefs)
         }
 
 		if ($('#tableVacancy').length) {
@@ -115,7 +115,7 @@ var table = {
 					"render": function(data, type, full, meta){
 						var id = encodeURIComponent(window.btoa(full.job_id));
 						var konfirm = '';
-						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a href="/vacancy/detail-vacancy/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Vacancy"></a></button>';
+						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a href="/HR/vacancy/detail-vacancy/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Vacancy"></a></button>';
 						if (full.status == '1') {
 							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy"><img style="margin-right: 1px;" src="/image/icon/main/delete.svg" title="Deaktif Vacancy"></button>';
 						} else {
@@ -130,7 +130,7 @@ var table = {
 				}
 			];
 
-		 	table.serverSide('tableVacancy',column,'vacancy/list-vacancy',null,columnDefs)
+		 	table.serverSide('tableVacancy',column,'HR/vacancy/list-vacancy',null,columnDefs)
         }
 
 

@@ -10,38 +10,43 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'Admin\HomeController@HomeView')->name('home');
 
 Route::prefix('s')->group(function () {
 	Route::post('/', 'Security\EncryptController@getPass')->name('s');
 });
 
-Route::get('/login', 'Admin\LoginController@loginAdminView')->name('get.login.view');
-Route::post('/login-admin', 'Admin\LoginController@loginAdmin')->name('post.login-admin-vascomm');
+Route::get('/', 'Admin\HomeController@HomeView')->name('home');
 
-
-Route::prefix('news_event')->group(function () {
-	Route::get('/', 'Admin\NewsEventController@viewNewsEvent')->name('get.news.event');
-	Route::get('/add-news-event', 'Admin\NewsEventController@viewNewsEventAdd')->name('get.news.event.add');
-	Route::post('/list-news-event','Admin\NewsEventController@listNewsEvent')->name('post.news.event.list');
-	Route::post('/post-news-event','Admin\NewsEventController@addNewsEvent')->name('post.news.event.add');
-	Route::get('/detail-news-event/{id}', 'Admin\NewsEventController@viewNewsEventDetail')->name('get.news.event.detail');
-	Route::post('/edit-news-event','Admin\NewsEventController@editNewsEvent')->name('post.news.event.edit');
-	Route::post('/delete-news-event','Admin\NewsEventController@deleteNewsEvent')->name('post.news.event.delete');
-});
-
-Route::prefix('vacancy')->group(function () {
-	Route::get('/', 'Admin\VacancyController@viewVacancy')->name('get.vacancy');
-	Route::post('/list-vacancy','Admin\VacancyController@listVacancy')->name('post.vacancy.list');
-	Route::get('/add-vacancy', 'Admin\VacancyController@viewVacancyAdd')->name('get.vacancy.add');
-	Route::post('/post-vacancy','Admin\VacancyController@addVacancy')->name('post.vacancy.add');
-	Route::get('/detail-vacancy/{id}', 'Admin\VacancyController@viewVacancyDetail')->name('get.vacancy.detail');
-	Route::post('/edit-vacancy','Admin\VacancyController@editVacancy')->name('post.vacancy.edit');
-	Route::post('/delete-vacancy','Admin\VacancyController@deleteVacancy')->name('post.vacancy.delete');
-});
-
-Route::prefix('logout')->group(function () {
-	Route::get('/', 'LoginController@logout')->name('get.logout');
+Route::prefix('HR')->group(function(){
+	Route::prefix('logout')->group(function () {
+		Route::get('/', 'Admin\LoginController@logout')->name('get.logout');
+	});
+	Route::prefix('login')->group(function () {
+		Route::get('/', 'Admin\LoginController@loginAdminView')->name('get.login.view');
+		Route::post('/login-admin', 'Admin\LoginController@loginAdmin')->name('post.login-admin');
+	});
+	Route::middleware('authuser')->group(function(){
+		Route::get('/', 'Admin\HomeController@HomeView')->name('home.admin');
+		Route::prefix('news_event')->group(function () {
+			Route::get('/', 'Admin\NewsEventController@viewNewsEvent')->name('get.news.event');
+			Route::get('/add-news-event', 'Admin\NewsEventController@viewNewsEventAdd')->name('get.news.event.add');
+			Route::post('/list-news-event','Admin\NewsEventController@listNewsEvent')->name('post.news.event.list');
+			Route::post('/post-news-event','Admin\NewsEventController@addNewsEvent')->name('post.news.event.add');
+			Route::get('/detail-news-event/{id}', 'Admin\NewsEventController@viewNewsEventDetail')->name('get.news.event.detail');
+			Route::post('/edit-news-event','Admin\NewsEventController@editNewsEvent')->name('post.news.event.edit');
+			Route::post('/delete-news-event','Admin\NewsEventController@deleteNewsEvent')->name('post.news.event.delete');
+		});
+		
+		Route::prefix('vacancy')->group(function () {
+			Route::get('/', 'Admin\VacancyController@viewVacancy')->name('get.vacancy');
+			Route::post('/list-vacancy','Admin\VacancyController@listVacancy')->name('post.vacancy.list');
+			Route::get('/add-vacancy', 'Admin\VacancyController@viewVacancyAdd')->name('get.vacancy.add');
+			Route::post('/post-vacancy','Admin\VacancyController@addVacancy')->name('post.vacancy.add');
+			Route::get('/detail-vacancy/{id}', 'Admin\VacancyController@viewVacancyDetail')->name('get.vacancy.detail');
+			Route::post('/edit-vacancy','Admin\VacancyController@editVacancy')->name('post.vacancy.edit');
+			Route::post('/delete-vacancy','Admin\VacancyController@deleteVacancy')->name('post.vacancy.delete');
+		});
+	});
 });
 
 

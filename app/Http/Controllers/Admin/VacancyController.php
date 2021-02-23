@@ -117,7 +117,7 @@ class VacancyController extends Controller
             $messages = [
                 'status' => 'success',
                 'message' => 'Berhasil Membuat Vacancy',
-                'url' => '/vacancy',
+                'url' => '/HR/vacancy',
                 'callback' => 'redirect'
             ];
 
@@ -218,7 +218,7 @@ class VacancyController extends Controller
             $messages = [
                 'status' => 'success',
                 'message' => 'Berhasil Update Vacancy',
-                'url' => '/vacancy',
+                'url' => '/HR/vacancy',
                 'callback' => 'redirect'
             ];
 
@@ -251,7 +251,7 @@ class VacancyController extends Controller
             return [
                 'status'   => 'success',
                 'message'  => $message,
-                'url'      => '/vacancy',
+                'url'      => '/HR/vacancy',
                 'callback' => 'redirect'
             ];
         } else {

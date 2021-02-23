@@ -106,7 +106,7 @@ class NewsEventController extends Controller
                 'url' => 'close'
             ];
 
-            return redirect('/news_event')->with('notif', $messages);
+            return redirect('/HR/news_event')->with('notif', $messages);
         } else {
             $messages = [
                 'status' => 'error',
@@ -182,7 +182,7 @@ class NewsEventController extends Controller
                 'url' => 'close'
             ];
 
-            return redirect('/news_event')->with('notif', $messages);
+            return redirect('/HR/news_event')->with('notif', $messages);
         } else {
             $messages = [
                 'status' => 'error',
@@ -212,7 +212,7 @@ class NewsEventController extends Controller
             return [
                 'status'   => 'success',
                 'message'  => $message,
-                'url'      => '/news_event',
+                'url'      => '/HR/news_event',
                 'callback' => 'redirect'
             ];
         } else {
