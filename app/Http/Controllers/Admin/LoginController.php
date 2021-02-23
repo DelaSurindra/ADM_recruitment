@@ -20,7 +20,7 @@ class LoginController extends Controller
     	if (Session()->get('session_id') != null) {
             return redirect()->back();
         }else{
-	    	return view('login-admin');
+	    	return view('admin.login-admin');
         }
     }
 

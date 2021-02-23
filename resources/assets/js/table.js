@@ -115,11 +115,11 @@ var table = {
 					"render": function(data, type, full, meta){
 						var id = encodeURIComponent(window.btoa(full.job_id));
 						var konfirm = '';
-						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a href="/vacancy/detail-vacancy/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit News/Event"></a></button>';
+						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a href="/vacancy/detail-vacancy/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Vacancy"></a></button>';
 						if (full.status == '1') {
-							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmNewsEvent"><img style="margin-right: 1px;" src="/image/icon/main/delete.svg" title="Deaktif News/Event"></button>';
+							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy"><img style="margin-right: 1px;" src="/image/icon/main/delete.svg" title="Deaktif Vacancy"></button>';
 						} else {
-							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmNewsEvent"><img style="margin-right: 1px;" src="/image/icon/main/delete.svg" title="Aktifkan News/Event"></button>';
+							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy"><img style="margin-right: 1px;" src="/image/icon/main/delete.svg" title="Aktifkan Vacancy"></button>';
 						}
 						var hasil = '<div style="position:absolute;top:20px;right:5px">'+
 										data+konfirm+
@@ -369,6 +369,32 @@ $('#tableNewsEvent tbody').on( 'click', 'button.konfirmNewsEvent', function (e) 
 	$('#idDeleteNewsEvent').val(dataRow.id);
 
 	$('#modalKonfirmEventNews').modal('show');
+	
+});
+
+$('#tableVacancy tbody').on( 'click', 'button.konfirmVacancy', function (e) {
+	var table = $('#tableVacancy').DataTable();
+	var dataRow = table.row($(this).closest('tr')).data();
+
+	if (dataRow.status == '1') {
+		$('#titleKonfirmasiVacancy').html('Apakah Anda yakin akan menonaktifkan Vacancy "'+dataRow.job_title+ '" ?');
+		$('#tipeDeleteVacancy').val('0');
+		$('#titleModalKonfirmVacancy').html('Nonaktifkan Vacancy');
+		$('#btnKonfirmasiVacancy').html('Nonaktifkan');
+		document.getElementById("btnKonfirmasiVacancy").classList.remove('btn-submit-modal');
+		document.getElementById("btnKonfirmasiVacancy").classList.add('btn-hapus-modal');
+	}else if(dataRow.status == '0'){
+		$('#titleKonfirmasiVacancy').html('Apakah Anda yakin akan mengaktifkan Vacancy "'+dataRow.job_title+ '" ?');
+		$('#tipeDeleteVacancy').val('1');
+		$('#titleModalKonfirmVacancy').html('Aktifkan Vacancy');
+		$('#btnKonfirmasiVacancy').html('Aktifkan');
+		document.getElementById("btnKonfirmasiVacancy").classList.remove('btn-hapus-modal');
+		document.getElementById("btnKonfirmasiVacancy").classList.add('btn-submit-modal');
+	}
+
+	$('#idDeleteVacancy').val(dataRow.job_id);
+
+	$('#modalKonfirmVacancy').modal('show');
 	
 });
 

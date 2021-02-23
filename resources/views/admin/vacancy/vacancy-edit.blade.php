@@ -39,8 +39,9 @@
                                                 <label>Location</label>
                                                 <select class="select2 tex-center select2-width" id="locationVacancy" name="locationVacancy">
                                                     <option value="">Location</option>
-                                                    <option value="Surabaya">Surabaya</option>
-                                                    <option value="Sidoarjo">Sidoarjo</option>
+                                                    @foreach($wilayah as $dataWilayah)
+                                                        <option {{$data['lokasi'] == $dataWilayah['kabupaten'] ? 'selected' : ''}} value="{{$dataWilayah['kabupaten']}}">{{$dataWilayah['kabupaten']}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
