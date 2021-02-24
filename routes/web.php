@@ -56,3 +56,6 @@ Route::get('/profile', 'Candidate\ProfileController@viewProfile')->name('get.pro
 Route::get('/personal-information', 'Candidate\ProfileController@editPersonalInformation')->name('get.profile.personal-information');
 Route::get('/other-information', 'Candidate\ProfileController@editOtherInformation')->name('get.profile.other-information');
 Route::get('/education-information', 'Candidate\ProfileController@editEducationInformation')->name('get.profile.education-information');
+Route::get('/my-app-detail', 'Candidate\ProfileController@myAppDetail')->name('get.profile.my-app-detail');
+Route::get('/test-reschedule', 'Candidate\ProfileController@testReschedule')->name('get.profile.test-reschedule');
+Route::get('/interview-reschedule', 'Candidate\ProfileController@interviewReschedule')->name('get.profile.interview-reschedule');

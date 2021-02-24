@@ -501,6 +501,204 @@ body {
     letter-spacing: -0.02em;
     color: #4F4F4F;
 }
+
+.applican-detail {
+    margin-bottom: .6rem;
+}
+.applican-detail .icon-wrapper {
+    width: 22px;
+    text-align: center;
+}
+.applican-detail p {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #333333;
+    margin-bottom: 0px;
+    margin-left: .5rem;
+}
+.applican-detail h6 {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #333333;
+    margin-bottom: 0px;
+    margin-left: .5rem;
+}
+.last-update-detail {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #909090;
+    margin-bottom: 0px;
+}
+.last-update-detail span {
+    color: #333333;
+}
+
+.accordion-applican-detail .card-accordion-head {
+    margin: 1rem 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.accordion-applican-detail .card-accordion-head i {
+    font-size: 22px;
+    color: #DF0E2C;
+}
+.track-applican {
+    position: relative;
+}
+.track-applican-line {
+    z-index: -1;
+    position: absolute;
+    /* margin-top: 10px;
+    margin-bottom: 10px; */
+    margin-left: 21px;
+}
+.track-applican-line .green-line {
+    height: 124px;
+    width: 4px;
+    background-color: #0CA035;
+}
+.track-applican-line .gray-line {
+    height: 82px;
+    width: 4px;
+    background-color: #E0E0E0;
+}
+.track-applican-line .gray-line.long {
+    height: 124px;
+}
+
+.track-item {
+    display: flex;
+    align-items: flex-start;
+}
+.track-item .track-text {
+    margin-left: 1rem;
+    padding-bottom: 2.5rem;
+}
+.track-item .track-text .title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #333333;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+.track-item.active .track-text .title {
+    margin-top: 0px;
+}
+.track-item .track-text .subtitle {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #333333;
+}
+.track-item .track-text .track-status {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    border-radius: 10px;
+    width: fit-content;
+    padding: 3px 8px;
+}
+.track-item .track-text .track-status.red {
+    color: #DF0E2C;
+    background-color: #fde7ea;
+}
+.track-item .track-text .track-status.yellow {
+    color: #E4A83B;
+    background-color: #fcf5e9;
+}
+
+.modal-online-test {
+    max-width: 320px;
+}
+.modal-online-test .modal-content {
+    background: #FFFFFF;
+    box-shadow: 50px 50px 100px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+.modal-online-test .modal-content .modal-body {
+    padding: 2.1rem 1.8rem;
+}
+.modal-up {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+}
+.modal-up img {
+    margin-top: 6px;
+}
+.modal-card {
+    background: #E8F7EE;
+    border-radius: 4px;
+    padding: 1.1rem 1.2rem;
+}
+.modal-card h6 {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #050401;
+    margin-bottom: 0.6rem;
+}
+.modal-card p {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #333333;
+    margin-bottom: 0px;
+}
+.modal-fill label {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #828282;
+}
+.modal-fill p {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #4F4F4F;
+}
+.modal-fill h6 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #4F4F4F;
+}
+.image-copy {
+    cursor: pointer;
+}
+
+
+.margin-top-6rem {
+    margin-top: 6rem;
+}
 @media (min-width: 992px) {
     .margin-right-1rem {
         margin-right: 1rem;

@@ -22,4 +22,16 @@ class ProfileController extends Controller
     public function editEducationInformation(){
         return view('candidate.education-information');
     }
+
+    public function myAppDetail(){
+        return view('candidate.my-app-detail');
+    }
+
+    public function testReschedule(){
+        return view('candidate.test-reschedule');
+    }
+
+    public function interviewReschedule(){
+        return view('candidate.interview-reschedule');
+    }
 }
