@@ -15,10 +15,6 @@
     src: url('../font/Inter/static/Inter-Bold.ttf') format('ttf');
 }
 
-html, body {
-    height: 100%;
-}
-
 body {
     font-family: 'inter_regular', sans-serif !important;
     font-weight: 400;
@@ -46,6 +42,15 @@ body {
     line-height: 130%;
     letter-spacing: -0.02em;
     color: #050401;
+}
+.candidate-page-subtitle {
+    font-family: 'inter_bold', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #333333;
 }
 
 .tracking-form-first-login {
@@ -99,6 +104,9 @@ body {
     position: absolute;
     top: 9px;
     right: 33px;
+}
+.form-candidate-view .with-icon .this-icon.click {
+    cursor: pointer;
 }
 .form-candidate-view .form-group {
     margin-bottom: 1.2rem;
@@ -276,11 +284,227 @@ body {
     background: #FFFFFF;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
+    overflow: hidden;
+}
+.tabs-edit-profile .nav-link {
+    display: flex;
+    align-items: center;
+    padding: .85rem 1rem;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 113.2%;
+    color: #333333;
 }
 .tabs-edit-profile .nav-link.active {
     background-color: #DF0E2C;
+    border-radius: 0px;
+    color: #E8F7EE;
+}
+.tabs-edit-profile .nav-link img {
+    width: 26px;
+    height: auto;
+    margin-right: 8px;
+}
+.divider-nav-link {
+    height: .1px;
+    width: 100%;
+    background-color: #BDBDBD;
+}
+
+.wrapper-card-edit-profile .edit-text {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 17px;
+    color: #DF0E2C;
+    text-decoration: none;
+}
+.wrapper-card-edit-profile .edit-text img {
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.card-profile {
+    background: #FFFFFF;
+    border: 1px solid #BDBDBD;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.wrapper-header-card-personal .img-profile {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    margin-bottom: .7rem;
+}
+.wrapper-header-card-personal h6 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #050401;
+}
+.wrapper-header-card-personal .gender-badge {
+    background: rgba(12, 84, 160, 0.75);
+    border: 2px solid #DF0E2C;
+    box-sizing: border-box;
+    border-radius: 13.5px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #E8F7EE;
+    padding: 3px 7px;
+}
+.wrapper-header-card-personal .email-text {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #4F4F4F;
+}
+.wrapper-content-card-personal {
+    margin-top: 2.4rem;
+}
+.wrapper-content-card-personal label {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #828282;
+}
+.wrapper-content-card-personal .value-profile {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #4F4F4F;
+}
+
+.breadcrumb-candidate {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+.breadcrumb-candidate .bread {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #333333;
+    text-decoration: none;
+    margin-bottom: 0px;
+}
+.breadcrumb-candidate .bread.active {
+    color: #DF0E2C;
+}
+
+.tabs-my-app .nav-link {
+    padding: 0px 0px .5rem 0px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #BDBDBD;
+    border-radius: 0px;
+}
+.tabs-my-app .nav-link.active {
+    background-color: #fff;
+    color: #050401;
+    border-bottom: 4px solid #DF0E2C;
+}
+.card-list-my-app {
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 10px;
+    margin-bottom: 2.6rem;
+}
+.card-head-my-app {
+    /* opacity: 0.1; */
+    border-radius: 10px;
+}
+.card-head-my-app.success {
+    background: #ebf1fa;
+}
+.card-head-my-app.reject {
+    background: #fde7ea;
+}
+.card-head-my-app.success p {
+    color: #2E61AF;
+}
+.card-head-my-app.reject p {
+    color: #DF0E2C;
+}
+.card-head-my-app p {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 0px;
+}
+
+.fulltime-badge {
+    background: rgba(240, 29, 38, 0.75);
+    border: 2px solid #DF0E2C;
+    box-sizing: border-box;
+    border-radius: 13.5px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #E8F7EE;
+    padding: 2px 6px;
+    width: fit-content;
+}
+.internship-badge {
+    background: rgba(12, 84, 160, 0.75);
+    border: 2px solid #2E61AF;
+    box-sizing: border-box;
+    border-radius: 13.5px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #E8F7EE;
+    padding: 2px 6px;
+    width: fit-content;
+}
+.label-no-margin {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #333333;
+    margin-bottom: 0px;
+}
+
+.border-left1 {
+    border-left: 1px solid #BDBDBD;
+}
+
+.text-empty-job {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #4F4F4F;
 }
 @media (min-width: 992px) {
+    .margin-right-1rem {
+        margin-right: 1rem;
+    }
     .margin-right-2rem {
         margin-right: 2rem;
     }
