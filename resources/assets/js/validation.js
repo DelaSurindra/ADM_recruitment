@@ -1,5 +1,22 @@
 const formrules = {
 	// contoh validasi id form
+	'formLoginAdmin':{
+		ignore: null,
+		rules:{
+			'email':'required',
+			'password':'required',
+		},
+		submitHandler:false,
+		messages: {
+			email: {
+				required: 'Mohon isi email',
+			},
+			password: {
+				required:'Mohon isi password'
+			}
+		},
+    },
+	
 	'formAddEventNews':{
         ignore: null,
 		rules:{

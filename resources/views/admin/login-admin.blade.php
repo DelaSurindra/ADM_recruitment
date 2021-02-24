@@ -10,13 +10,11 @@
     <meta name="baseImage" content="{{ url('storage') }}" />
     <meta name="csrf-token" content="{{csrf_token()}}">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <link rel="shortcut icon" type="image/png" href="{{asset('image/gambar/hicoffe_logo.png')}}" />
+    <link rel="shortcut icon" type="image/png" href="{{asset('image/icon/navbar/logo_navbar.svg')}}" />
     <link rel="stylesheet" href="{{asset('plugin/bootstrap-4.3.1/css/bootstrap.min.css')}}">
-    <title>Hasanah Lifestyle</title>
-    <link rel="shortcut icon" href="../favicon.ico">
+    <title>ADM Recruitment</title>
     <link rel="stylesheet" type="text/css" href="{{asset('loginCSS/css/style.css')}}" />
-    <link rel="stylesheet" href="{{asset('css/all.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('/css/sweetalert2.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/all.css')}}"><link rel="stylesheet" type="text/css" href="{{asset('plugin/sweetalert/sweetalert2.min.css')}}" />
 </head>
 <div id="loading-overlay">
     <div class="loader"></div>
@@ -125,11 +123,11 @@
             <div class="login-title">
                 Login Admin<br>
             </div>
-            <form class="form-login" id="formLoginAdmin" ajax="true" action="" method="post">
+            <form class="form-login" id="formLoginAdmin" ajax="true" action="{{route('post.login-admin')}}" method="post">
                 <div class="input-container mt-4">
                     <img src="{{asset('image/icon/login/icon_username.svg')}}" class="icon">
                     <div class="form-group">
-                        <input class="input-field form-control" type="text" placeholder="Enter your Username" id="username" name="username" required>
+                        <input class="input-field form-control" type="text" placeholder="Enter your Email" id="email" name="email" required>
                     </div>
                 </div>
                 <div class="input-container mt-4">
@@ -155,7 +153,6 @@
 <script type="text/javascript" src="{{asset('plugin/jquery-validate/dist/jquery.validate.min.js') }}"></script>
 <script type="text/javascript" src="{{asset('plugin/jquery-validate/dist/additional-methods.js') }}"></script>
 <script src="{{asset('js/all.js')}}"></script>
-<script src="{{asset('js/login.js')}}"></script>
-<script src="{{asset('js/sweetalert2.min.js')}}"></script>
+<script src="{{asset('plugin/sweetalert/sweetalert2.min.js')}}"></script>
 
 </html>

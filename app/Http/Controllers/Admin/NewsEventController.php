@@ -85,7 +85,6 @@ class NewsEventController extends Controller
                 'title'         => $data['titleNewsEvent'],
                 'content'       => $data['descriptionNewsEvent'],
                 'image'         => $dataImage,
-                'start_date'    => date('Y-m-d'),
                 'type'          => $data['tipeNewsEvent']
             ]);
         } else {
@@ -106,7 +105,7 @@ class NewsEventController extends Controller
                 'url' => 'close'
             ];
 
-            return redirect('/news_event')->with('notif', $messages);
+            return redirect('/HR/news_event')->with('notif', $messages);
         } else {
             $messages = [
                 'status' => 'error',
@@ -182,7 +181,7 @@ class NewsEventController extends Controller
                 'url' => 'close'
             ];
 
-            return redirect('/news_event')->with('notif', $messages);
+            return redirect('/HR/news_event')->with('notif', $messages);
         } else {
             $messages = [
                 'status' => 'error',
@@ -212,7 +211,7 @@ class NewsEventController extends Controller
             return [
                 'status'   => 'success',
                 'message'  => $message,
-                'url'      => '/news_event',
+                'url'      => '/HR/news_event',
                 'callback' => 'redirect'
             ];
         } else {
