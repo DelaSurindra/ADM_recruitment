@@ -48,3 +48,6 @@ Route::prefix('logout')->group(function () {
 // Candidate View Preparation
 Route::get('/first-login', 'Candidate\LoginController@viewLoginCandidate')->name('get.login-candidate');
 Route::get('/profile', 'Candidate\ProfileController@viewProfile')->name('get.profile.view');
+Route::get('/personal-information', 'Candidate\ProfileController@editPersonalInformation')->name('get.profile.personal-information');
+Route::get('/other-information', 'Candidate\ProfileController@editOtherInformation')->name('get.profile.other-information');
+Route::get('/education-information', 'Candidate\ProfileController@editEducationInformation')->name('get.profile.education-information');

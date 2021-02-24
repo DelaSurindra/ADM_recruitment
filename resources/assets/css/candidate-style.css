@@ -105,6 +105,9 @@ body {
     top: 9px;
     right: 33px;
 }
+.form-candidate-view .with-icon .this-icon.click {
+    cursor: pointer;
+}
 .form-candidate-view .form-group {
     margin-bottom: 1.2rem;
 }
@@ -383,7 +386,125 @@ body {
     letter-spacing: -0.02em;
     color: #4F4F4F;
 }
+
+.breadcrumb-candidate {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+.breadcrumb-candidate .bread {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #333333;
+    text-decoration: none;
+    margin-bottom: 0px;
+}
+.breadcrumb-candidate .bread.active {
+    color: #DF0E2C;
+}
+
+.tabs-my-app .nav-link {
+    padding: 0px 0px .5rem 0px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #BDBDBD;
+    border-radius: 0px;
+}
+.tabs-my-app .nav-link.active {
+    background-color: #fff;
+    color: #050401;
+    border-bottom: 4px solid #DF0E2C;
+}
+.card-list-my-app {
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 10px;
+    margin-bottom: 2.6rem;
+}
+.card-head-my-app {
+    /* opacity: 0.1; */
+    border-radius: 10px;
+}
+.card-head-my-app.success {
+    background: #ebf1fa;
+}
+.card-head-my-app.reject {
+    background: #fde7ea;
+}
+.card-head-my-app.success p {
+    color: #2E61AF;
+}
+.card-head-my-app.reject p {
+    color: #DF0E2C;
+}
+.card-head-my-app p {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 0px;
+}
+
+.fulltime-badge {
+    background: rgba(240, 29, 38, 0.75);
+    border: 2px solid #DF0E2C;
+    box-sizing: border-box;
+    border-radius: 13.5px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #E8F7EE;
+    padding: 2px 6px;
+    width: fit-content;
+}
+.internship-badge {
+    background: rgba(12, 84, 160, 0.75);
+    border: 2px solid #2E61AF;
+    box-sizing: border-box;
+    border-radius: 13.5px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #E8F7EE;
+    padding: 2px 6px;
+    width: fit-content;
+}
+.label-no-margin {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #333333;
+    margin-bottom: 0px;
+}
+
+.border-left1 {
+    border-left: 1px solid #BDBDBD;
+}
+
+.text-empty-job {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #4F4F4F;
+}
 @media (min-width: 992px) {
+    .margin-right-1rem {
+        margin-right: 1rem;
+    }
     .margin-right-2rem {
         margin-right: 2rem;
     }
