@@ -51,7 +51,7 @@
                                         <div class="row">
                                             <div class="col-xl-11 col-md-12">
                                                 <label>Min Salary</label>
-                                                <input id="minSalaryVacancy" name="minSalaryVacancy" class="form-control" type="text" placeholder="Min Salary">
+                                                <input id="minSalaryVacancy" name="minSalaryVacancy" class="form-control form-hr" type="text" placeholder="Min Salary">
                                             </div>
                                         </div>
                                     </div>
@@ -61,7 +61,7 @@
                                         <div class="row">
                                             <div class="col-xl-11 col-md-12">
                                                 <label>Max Salary</label>
-                                                <input id="maxSalaryVacancy" name="maxSalaryVacancy" class="form-control" type="text" placeholder="Max Salary">
+                                                <input id="maxSalaryVacancy" name="maxSalaryVacancy" class="form-control form-hr" type="text" placeholder="Max Salary">
                                             </div>
                                         </div>
                                     </div>
@@ -100,7 +100,7 @@
                                         <div class="row">
                                             <div class="col-xl-11 col-md-12">
                                                 <label>Working Time</label>
-                                                <input id="workingTimeVacancy" name="workingTimeVacancy" class="form-control" type="text" placeholder="Working Time">
+                                                <input id="workingTimeVacancy" name="workingTimeVacancy" class="form-control form-hr" type="text" placeholder="Working Time">
                                             </div>
                                         </div>
                                     </div>
@@ -110,7 +110,7 @@
                                         <div class="row">
                                             <div class="col-xl-11 col-md-12">
                                                 <label>Activated Date</label>
-                                                <input id="activatedDate" name="activatedDate" class="form-control" type="text" placeholder="Activated Date">
+                                                <input id="activatedDate" name="activatedDate" class="form-control form-hr" type="text" placeholder="Activated Date">
                                             </div>
                                         </div>
                                     </div>

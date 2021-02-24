@@ -19,6 +19,16 @@
     background: #E8F7EE !important;
 }
 
+.form-hr{
+    background: #E8F7EE;
+    border-radius: 4px;
+}
+
+.form-hr:focus{
+    background: #E8F7EE;
+    border-radius: 4px;
+}
+
 .title-page{
     font-family: Inter;
     font-style: normal;
@@ -51,6 +61,24 @@
 .img-detail{
     width: 100% !important;
     height: auto;
+}
+
+.navbar-title{
+    float: left;
+    height: 60px;
+    padding: 25px;
+}
+
+.navbar-title p{
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 17px;
+    line-height: 130%;
+    align-items: center;
+    letter-spacing: -0.02em;
+    color: #4F4F4F;
+    margin-bottom: 0px;
 }
 
 .top-0{
@@ -343,6 +371,7 @@
     height: 45px;
 }
 .select2-container--default .select2-selection--single {
+    border: 1px solid #aaa !important;
     background: #E8F7EE;
     border-radius: 4px;
     height: calc(1.5em + .75rem + 2px);

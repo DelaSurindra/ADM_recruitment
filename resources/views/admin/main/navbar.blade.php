@@ -19,7 +19,9 @@
         </div>
     </div>
     <div class="navbar-top">
-        
+        <div class="navbar-title">
+            <p>Welcome Back, <strong>Sahadi</strong></p>
+        </div>
         <div class="search">
             <div class="dropdown custom-dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{asset('image/icon/navbar/icon_setting.svg')}}"></a>
