@@ -7,10 +7,10 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
-                <p>List Vacancy</p>
+                <p class="title-page"><img src="{{asset('image/icon/main/icon_title_candidate.svg')}}" alt=""> Manage Vacancy</p>
             </div>
             <div class="col-md-6">
-                <a href="{{route('get.vacancy.add')}}"><button type="button" class="btn btn-primary btn-with-icon btn-rounded margin-top-btn right"><span><i class="fas fa-plus"></i></span> Tambah Vacancy</button></a>
+                <a href="{{route('get.vacancy.add')}}"><button type="button" class="btn btn-red right">Add Vacancy</button></a>
             </div>
         </div>
         <div class="row">

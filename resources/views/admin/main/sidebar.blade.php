@@ -21,6 +21,7 @@
                     </div>
                 </a>
             </li>
+            <p class="text-title title-bottom">HOMEPAGE CONTENT</p>
             <li class="tree-menu custom-height-menu-sidebar">
                 <a href="{{ route('get.news.event') }}" class="menu {{($sidebar== 'manajemen_news_event'?'active':'')}}">
                     <div class="row">
@@ -28,11 +29,12 @@
                             <img src="{{asset('image/icon/sidebar/icon_menu_news_event.svg')}}" alt="" width="25px" class="right-icon-sidebar icon-sidebar-mobile">
                         </div>
                         <div class="col-md-10">
-                            <span class="font-color-sidebar">Manajemen News/Event</span>
+                            <span class="font-color-sidebar">Manage News&Event</span>
                         </div>
                     </div>
                 </a>
             </li>
+            <p class="text-title title-bottom">RECRUITMENT</p>
             <li class="tree-menu custom-height-menu-sidebar">
                 <a href="{{ route('get.vacancy') }}" class="menu {{($sidebar== 'manajemen_vacancy'?'active':'')}}">
                     <div class="row">
@@ -40,7 +42,7 @@
                             <img src="{{asset('image/icon/sidebar/icon_menu_vacancy.svg')}}" alt="" width="25px" class="right-icon-sidebar icon-sidebar-mobile">
                         </div>
                         <div class="col-md-10">
-                            <span class="font-color-sidebar">Manajemen Vacancy</span>
+                            <span class="font-color-sidebar">Manage Vacancy</span>
                         </div>
                     </div>
                 </a>

@@ -6,15 +6,16 @@
 <div class="card clear margin-right-20">
     <div class="row">
         <div class="col-md-6">
-            <p>List News/Event</p>
+            
+            <p class="title-page"><img src="{{asset('image/icon/main/icon_title_candidate.svg')}}" alt=""> Manage News&Event</p>
         </div>
         <div class="col-md-6">
-            <a href="{{route('get.news.event.add')}}"><button type="button" class="btn btn-primary btn-with-icon btn-rounded margin-top-btn right"><span><i class="fas fa-plus"></i></span> Tambah Event/News</button></a>
+            <a href="{{route('get.news.event.add')}}"><button type="button" class="btn btn-red right">Add News&Event</button></a>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <table id="tableNewsEvent" class="table table-strip stripe hover tbl-custom-margin">
+            <table id="tableNewsEvent" class="table-hr table table-strip stripe hover tbl-custom-margin">
                 <thead>
                     <tr>
                         <th>Tanggal</th>

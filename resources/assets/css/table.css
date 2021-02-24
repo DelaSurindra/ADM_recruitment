@@ -122,10 +122,12 @@ table.dataTable.no-footer{
 .table-strip th{
 	border: none !important;
 }
-table.dataTable.stripe tbody tr.odd{
-	background: #E5E5E5 !important;
+
+.table-hr.dataTable.stripe tbody tr.odd{
+	background: #EDFCF3 !important;
 }
-table.dataTable.stripe tbody tr.even{
+
+.table-hr.dataTable.stripe tbody tr.even{
 	background: transparent !important;	
 }
 /*.table-strip tr {
