@@ -32,7 +32,7 @@ body {
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-  background:#E5E5E5;
+  background:#F2F5FA;
 }
 
 .f-left {
@@ -50,7 +50,7 @@ body {
   padding: 0px;
   position: fixed;
   /*border-bottom: 1px solid #cccccc;*/
-  background: #FAFAFA;
+  background: #F2F5FA;
 }
 .main-header .logo {
   display: block;
@@ -64,7 +64,6 @@ body {
   color: #fff;
   background-color: #f2f2f2;
   text-decoration: none;
-  border-right: 1px solid #ccc;
   /* padding-left: 10px;
   position: fixed; */
 }
@@ -207,7 +206,7 @@ body {
 .main-header .search {
   float: right;
   height: 60px;
-  padding: 20px;
+  padding: 25px;
 }
 .main-header .search input {
   width: 125px;
@@ -559,11 +558,11 @@ body {
   clear: both;
   margin-left: 290px;
   z-index: 820;
-  padding: 5px 25px 25px 25px;
-  margin-top: 60px;
+  padding: 5px 5px 25px 25px;
+  margin-top: 40px;
   min-height: calc(100vh - 110px);
   height: min-content;
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
 }
 .content-wrapper.mini {
   margin-left: 70px;
