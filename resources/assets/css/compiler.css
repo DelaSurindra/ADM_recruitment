@@ -1,23 +1,27 @@
-/*@font-face {
-  font-family: "mali";
-  src: url(.../font/Muli/Muli-Black.ttf) format("ttf"), url(.../font/Muli/Muli-Black.ttf) format("ttf");
-}*/
 @font-face {
-/*  font-family: "Raleway";
-  src: url(.../font/Raleway/Raleway-Black.ttf) format("ttf");*/
-  font-family: 'sf_pro_displayregular'!important;
-  src: url('.../font/Woff/Regular/sf-pro-display-regular-webfont.woff2') format('woff2'),
-       url('.../font/Woff/Regular/sf-pro-display-regular-webfont.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
+  font-family: 'inter_regular'!important;
+  src: url('../font/Inter/static/Inter-Regular.ttf') format('ttf');
 }
+@font-face {
+  font-family: 'inter_medium'!important;
+  src: url('../font/Inter/static/Inter-Medium.ttf') format('ttf');
+}
+@font-face {
+  font-family: 'inter_semibold'!important;
+  src: url('../font/Inter/static/Inter-SemiBold.ttf') format('ttf');
+}
+@font-face {
+  font-family: 'inter_bold'!important;
+  src: url('../font/Inter/static/Inter-Bold.ttf') format('ttf');
+}
+
 html, body {
   height: 100%;
 }
 
 body {
   /*font-family: "Raleway", sans-serif;*/
-  font-family: 'sf_pro_displayregular', sans-serif!important;
+  font-family: 'inter_regular', sans-serif !important;
   font-weight: 400;
   font-size: 14px;
   background-color: #fff;
@@ -438,7 +442,7 @@ body {
 }
 
 .main-sidebar ul li .active span{
-  font-family: Inter;
+  /* font-family: Inter; */
   font-style: normal;
   font-weight: 600;
   font-size: 14px;

@@ -59,3 +59,4 @@ Route::get('/education-information', 'Candidate\ProfileController@editEducationI
 Route::get('/my-app-detail', 'Candidate\ProfileController@myAppDetail')->name('get.profile.my-app-detail');
 Route::get('/test-reschedule', 'Candidate\ProfileController@testReschedule')->name('get.profile.test-reschedule');
 Route::get('/interview-reschedule', 'Candidate\ProfileController@interviewReschedule')->name('get.profile.interview-reschedule');
+Route::get('/news-event', 'Candidate\NewsEventController@viewNewsEvent')->name('get.news.event.page');

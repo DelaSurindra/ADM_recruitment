@@ -1,3 +1,24 @@
+@font-face {
+    font-family: 'inter_regular'!important;
+    src: url('../font/Inter/static/Inter-Regular.ttf') format('ttf');
+}
+@font-face {
+    font-family: 'inter_medium'!important;
+    src: url('../font/Inter/static/Inter-Medium.ttf') format('ttf');
+}
+@font-face {
+    font-family: 'inter_semibold'!important;
+    src: url('../font/Inter/static/Inter-SemiBold.ttf') format('ttf');
+}
+@font-face {
+    font-family: 'inter_bold'!important;
+    src: url('../font/Inter/static/Inter-Bold.ttf') format('ttf');
+}
+
+body{
+    font-family: 'inter_regular', sans-serif !important;
+}
+
 .half-bg-login{
     width: 28vw;
     height: 100vh;
