@@ -9,7 +9,7 @@ use Request;
 class NewsEventController extends Controller
 {
     public function viewNewsEvent(){
-        $newsEvent = NewsEvent::orderBy('created_at', 'DESC')->get()->toArray();
+        $newsEvent = NewsEvent::where('type', '1')->orderBy('created_at', 'DESC')->get()->toArray();
         // dd($newsEvent);
         return view('candidate.news_event.news_event')->with(['topbar'=>'news_event', 'newsEvent' => $newsEvent]);
     }
