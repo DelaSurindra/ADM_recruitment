@@ -27,7 +27,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{asset('image/icon/navbar/icon_setting.svg')}}"></a>
                 <div class="dropdown-menu custom-dropdown-menu">
                     <a href="#" class="dropdown-item"><img src="{{asset('image/icon/navbar/icon_change_password.svg')}}" style="margin-right: 20px;">Change Password</a>
-                    <a href="#" class="dropdown-item margin-right-20"><img src="{{asset('image/icon/navbar/icon_logout.svg')}}" style="margin-right: 20px;">Logout</a>
+                    <a href="{{route('get.logout')}}" class="dropdown-item margin-right-20"><img src="{{asset('image/icon/navbar/icon_logout.svg')}}" style="margin-right: 20px;">Logout</a>
                 </div>
             </div>
         </div>

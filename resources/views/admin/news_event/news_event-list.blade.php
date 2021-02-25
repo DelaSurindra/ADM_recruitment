@@ -6,7 +6,6 @@
 <div class="card clear margin-right-20">
     <div class="row">
         <div class="col-md-6">
-            
             <p class="title-page"><img src="{{asset('image/icon/main/icon_title_candidate.svg')}}" alt=""> Manage News&Event</p>
         </div>
         <div class="col-md-6">
