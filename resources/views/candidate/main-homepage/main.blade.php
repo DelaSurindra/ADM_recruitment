@@ -34,6 +34,8 @@
         <div id="notif" data-status="{!! $notif['status'] !!}" data-message="{!! $notif['message'] !!}" data-url="{!! $notif['url'] !!}">
         </div>
         @endif
+
+        @include('candidate.main-homepage.topbar')
         
         <div class="content-wrapper">
             @yield('content')

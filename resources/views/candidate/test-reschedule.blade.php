@@ -32,7 +32,10 @@
     <div class="my-4">
         <h4 class="candidate-page-subtitle mb-3">Choose New Schedule</h4>
         <form action="">
-            <input type="radio">
+            <label class="custome-radio-tab mb-0 mr-4"> Male
+                <input type="radio" name="radio">
+                <span class="checkmark"></span>
+            </label>
             <button class="btn btn-red btn-block">Submit</button>
         </form>
     </div>
