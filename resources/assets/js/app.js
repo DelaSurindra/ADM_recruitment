@@ -49,7 +49,7 @@ $(document).ready(function () {
 
         ui.popup.show(status, message, url)
     }
-
+    
 })
 
 // window.onload = function () {
