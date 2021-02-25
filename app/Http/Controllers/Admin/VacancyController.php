@@ -81,16 +81,6 @@ class VacancyController extends Controller
     public function addVacancy(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
-        // dd($data);
-        if ($data['minSalaryVacancy'] != "" && $data['maxSalaryVacancy'] != "") {
-            $salary = $data['minSalaryVacancy'].' - '.$data['maxSalaryVacancy'];
-        }else if ($data['minSalaryVacancy'] != "") {
-            $salary = "min ".$data['minSalaryVacancy'];
-        }else if ($data['maxSalaryVacancy'] != "") {
-            $salary = "max ".$data['maxSalaryVacancy'];
-        } else {
-            $salary = "";
-        }
 
         if (is_array($data['majorVacancy'])) {
             $major = $data['majorVacancy'][0];
@@ -104,7 +94,6 @@ class VacancyController extends Controller
         $addVacancy = Vacancy::insert([
             'job_title' => $data['titleVacancy'],
             'lokasi' => $data['locationVacancy'],
-            'salary' => $salary,
             'major' => $major,
             'degree' => $data['degreeVacancy'],
             'work_time' => $data['workingTimeVacancy'],
@@ -136,31 +125,9 @@ class VacancyController extends Controller
         $idVacancy = base64_decode(urldecode($id));
         $dataVacancy = Vacancy::where('job_id', $idVacancy)->get()->toArray();
         $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
-        // dd($dataVacancy);
+        
         if ($dataVacancy) {
-            if ($dataVacancy[0]['salary'] != "") {
-                $salary = substr($dataVacancy[0]['salary'], 0,3);
-                if ($salary == "min") {
-                    $exp = explode(' ', $dataVacancy[0]['salary']);
-                    $dataVacancy[0]['minSalary'] = $exp[1];
-                    $dataVacancy[0]['maxSalary'] = "";
-                }else if ($salary == "max") {
-                    $exp = explode(' ', $dataVacancy[0]['salary']);
-                    $dataVacancy[0]['maxSalary'] = $exp[1];
-                    $dataVacancy[0]['minSalary'] = "";
-                }else{
-                    $exp = explode('-', $dataVacancy[0]['salary']);
-                    $dataVacancy[0]['maxSalary'] = $exp[0];
-                    $dataVacancy[0]['minSalary'] = $exp[1];
-                }
-            }else{
-                $dataVacancy[0]['maxSalary'] = "";
-                $dataVacancy[0]['minSalary'] = "";
-            }
-
             $dataVacancy[0]['major'] = explode(',', $dataVacancy[0]['major']);
-            
-            // dd($dataVacancy);
             return view('admin.vacancy.vacancy-edit')->with([
                 'pageTitle' => 'Manajemen vacancy', 
                 'title' => 'Manajemen vacancy', 
@@ -182,16 +149,6 @@ class VacancyController extends Controller
     public function editVacancy(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
-        // dd($data);
-        if ($data['minSalaryVacancy'] != "" && $data['maxSalaryVacancy'] != "") {
-            $salary = $data['minSalaryVacancy'].' - '.$data['maxSalaryVacancy'];
-        }else if ($data['minSalaryVacancy'] != "") {
-            $salary = "min ".$data['minSalaryVacancy'];
-        }else if ($data['maxSalaryVacancy'] != "") {
-            $salary = "max ".$data['maxSalaryVacancy'];
-        } else {
-            $salary = "";
-        }
 
         if (is_array($data['majorVacancy'])) {
             $major = $data['majorVacancy'][0];
@@ -205,7 +162,6 @@ class VacancyController extends Controller
         $editVacancy = Vacancy::where('job_id', $data['idVacancy'])->update([
             'job_title' => $data['titleVacancy'],
             'lokasi' => $data['locationVacancy'],
-            'salary' => $salary,
             'major' => $major,
             'degree' => $data['degreeVacancy'],
             'work_time' => $data['workingTimeVacancy'],

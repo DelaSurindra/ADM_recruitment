@@ -21,14 +21,16 @@
                             <div class="row">
                                 <div class="col-xl-2 col-md-3">
                                     <div class="dropzone-wrapper">
-                                        <div class="dropzone-desc top-0">
-                                            @if($data['image'] == '' || $data['image'] == null)
-                                            <img src="{{ asset('image/icon/main/add-image.png') }}" alt="icon">
-                                            <p>Upload Image</p>
-                                            @else
-                                            <img src="{{ asset('storage/').'/'.$data['image'] }}" class="img-detail" alt="Image News/Event" width="100%">
-                                            @endif
-                                        </div>
+                                        @if($data['image'] == '' || $data['image'] == null)
+                                            <div class="dropzone-desc">
+                                                <img src="{{ asset('image/icon/main/add-image.png') }}" alt="icon">
+                                                <p>Upload Image</p>
+                                            </div>
+                                        @else
+                                            <div class="dropzone-desc top-0">
+                                                <img src="{{ asset('storage/').'/'.$data['image'] }}" class="img-detail" alt="Image News/Event" width="100%">
+                                            </div>
+                                        @endif
                                         <input type="file" name="imageNewsEvent" class="dropzone" id="imageNewsEvent">
                                         <input type="hidden" name="oldImage" value="{{$data['image']}}">
                                     </div>
@@ -63,21 +65,21 @@
                 </div>
                 <div class="row {{$data['type'] == '1' ? 'hidden':''}}" id="divDateNewsEvent">
                     <div class="col-6">
-                        <div class="form-group focused">
-                            <label class="form-label font-color-label" for="tglMulaiNewsEvent">Start Date News/Event</label>
+                        <div class="form-group">
+                            <label>Start Date News/Event</label>
                             <div class="row">
                                 <div class="col-md-10 col-10">
-                                <input id="tglMulaiNewsEvent" name="tglMulaiNewsEvent" class="form-input datepicker dateNewsEvent" type="text" value="{{$data['start_date']}}" {{$data['type'] == '1' ? 'disabled':''}}>
+                                <input id="tglMulaiNewsEvent" name="tglMulaiNewsEvent" class="form-control form-hr datepicker dateNewsEvent" type="text" value="{{$data['start_date']}}" {{$data['type'] == '1' ? 'disabled':''}}>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="form-group focused">
-                            <label class="form-label font-color-label" for="tglSelesaiNewsEvent">End Date News/Event</label>
+                        <div class="form-group">
+                            <label>End Date News/Event</label>
                             <div class="row">
                                 <div class="col-md-10 col-10">
-                                <input id="tglSelesaiNewsEvent" name="tglSelesaiNewsEvent" class="form-input datepicker dateNewsEvent" type="text" value="{{$data['end_date']}}" {{$data['type'] == '1' ? 'disabled':''}}>
+                                <input id="tglSelesaiNewsEvent" name="tglSelesaiNewsEvent" class="form-control form-hr datepicker dateNewsEvent" type="text" value="{{$data['end_date']}}" {{$data['type'] == '1' ? 'disabled':''}}>
                                 </div>
                             </div>
                         </div>

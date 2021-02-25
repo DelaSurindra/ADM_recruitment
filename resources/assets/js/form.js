@@ -260,15 +260,15 @@ if ($("#formEditEventNews").length) {
 }
 
 if ($("#formAddVacancy").length) {
-	var minSalary = document.getElementById('minSalaryVacancy');
-	minSalary.addEventListener("keyup", function (e) {
-		minSalary.value = formatRupiah(this.value);
-	});
+	// var minSalary = document.getElementById('minSalaryVacancy');
+	// minSalary.addEventListener("keyup", function (e) {
+	// 	minSalary.value = formatRupiah(this.value);
+	// });
 
-	var maxSalary = document.getElementById('maxSalaryVacancy');
-	maxSalary.addEventListener("keyup", function (e) {
-		maxSalary.value = formatRupiah(this.value);
-	});
+	// var maxSalary = document.getElementById('maxSalaryVacancy');
+	// maxSalary.addEventListener("keyup", function (e) {
+	// 	maxSalary.value = formatRupiah(this.value);
+	// });
 
 	$('#activatedDate').datetimepicker({
 		format: 'DD-MM-YYYY',
@@ -299,7 +299,7 @@ if ($("#formAddVacancy").length) {
 		next2 = next2 + 1;
 		// var newIn = '<label>Syarat</label><input autocomplete="off" class="form-input bg-input form-control" id="field-syarat' + next2 + '" name="syarat[]" type="text" style="width: 93%; float: left;">';
 		var newIn = '<select class="select2 min-width" id="field-syarat' + next2 + '" name="majorVacancy">'+
-						'<option value="">Major</option>'+
+						'<option value="">-- Pilih Major --</option>'+
 						'<option value="Sistem Informasi">Sistem Informasi</option>'+
 						'<option value="Akuntansi">Akuntansi</option>'+
 					'</select>';
@@ -327,15 +327,15 @@ if ($("#formAddVacancy").length) {
 }
 
 if ($("#formEditVacancy").length) {
-	var minSalary = document.getElementById('minSalaryVacancy');
-	minSalary.addEventListener("keyup", function (e) {
-		minSalary.value = formatRupiah(this.value);
-	});
+	// var minSalary = document.getElementById('minSalaryVacancy');
+	// minSalary.addEventListener("keyup", function (e) {
+	// 	minSalary.value = formatRupiah(this.value);
+	// });
 
-	var maxSalary = document.getElementById('maxSalaryVacancy');
-	maxSalary.addEventListener("keyup", function (e) {
-		maxSalary.value = formatRupiah(this.value);
-	});
+	// var maxSalary = document.getElementById('maxSalaryVacancy');
+	// maxSalary.addEventListener("keyup", function (e) {
+	// 	maxSalary.value = formatRupiah(this.value);
+	// });
 
 	$('#activatedDate').datetimepicker({
 		format: 'DD-MM-YYYY',
@@ -369,7 +369,7 @@ if ($("#formEditVacancy").length) {
 		after.after(removeBtn)
 		
 		var newIn = '<select class="select2 min-width" id="field-syarat' + next + '" name="majorVacancy">'+
-						'<option value="">Major</option>'+
+						'<option value="">-- Pilih Major --</option>'+
 						'<option value="Sistem Informasi">Sistem Informasi</option>'+
 						'<option value="Akuntansi">Akuntansi</option>'+
 					'</select>';

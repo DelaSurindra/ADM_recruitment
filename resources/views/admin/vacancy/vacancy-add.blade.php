@@ -46,26 +46,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-md-6 col-sm-12">
-                                    <div class="form-group" >
-                                        <div class="row">
-                                            <div class="col-xl-11 col-md-12">
-                                                <label>Min Salary</label>
-                                                <input id="minSalaryVacancy" name="minSalaryVacancy" class="form-control form-hr" type="text" placeholder="Min Salary">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-6 col-sm-12">
-                                    <div class="form-group" >
-                                        <div class="row">
-                                            <div class="col-xl-11 col-md-12">
-                                                <label>Max Salary</label>
-                                                <input id="maxSalaryVacancy" name="maxSalaryVacancy" class="form-control form-hr" type="text" placeholder="Max Salary">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                                 <div class="col-xl-4 col-md-6 col-sm-12">
                                     <div class="form-group" id="degreeVacancyDiv">
                                         <div class="row">
@@ -126,7 +107,7 @@
                                         <label>Major</label>
                                         <div id="fieldMajorDiv1">
                                             <select class="select2 min-width" id="field-syarat1" name="majorVacancy">
-                                                <option value="">Major</option>
+                                                <option value="">-- Pilih Major --</option>
                                                 <option value="Sistem Informasi">Sistem Informasi</option>
                                                 <option value="Akuntansi">Akuntansi</option>
                                             </select>

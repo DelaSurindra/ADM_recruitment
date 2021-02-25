@@ -48,26 +48,6 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-md-6 col-sm-12">
-                                    <div class="form-group" >
-                                        <div class="row">
-                                            <div class="col-xl-11 col-md-12">
-                                                <label>Min Salary</label>
-                                                <input id="minSalaryVacancy" name="minSalaryVacancy" class="form-control" type="text" placeholder="Min Salary" value="{{$data['minSalary']}}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-6 col-sm-12">
-                                    <div class="form-group" >
-                                        <div class="row">
-                                            <div class="col-xl-11 col-md-12">
-                                                <label>Max Salary</label>
-                                                <input id="maxSalaryVacancy" name="maxSalaryVacancy" class="form-control" type="text" placeholder="Max Salary" value="{{$data['maxSalary']}}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-6 col-sm-12">
                                     <div class="form-group" id="degreeVacancyDiv">
                                         <div class="row">
                                             <div class="col-xl-11 col-md-12">
@@ -101,7 +81,7 @@
                                         <div class="row">
                                             <div class="col-xl-11 col-md-12">
                                                 <label>Working Time</label>
-                                                <input id="workingTimeVacancy" name="workingTimeVacancy" class="form-control" type="text" placeholder="Working Time" value="{{$data['work_time']}}">
+                                                <input id="workingTimeVacancy" name="workingTimeVacancy" class="form-control form-hr" type="text" placeholder="Working Time" value="{{$data['work_time']}}">
                                             </div>
                                         </div>
                                     </div>
@@ -111,7 +91,7 @@
                                         <div class="row">
                                             <div class="col-xl-11 col-md-12">
                                                 <label>Activated Date</label>
-                                                <input id="activatedDate" name="activatedDate" class="form-control" type="text" placeholder="Activated Date" value="{{$data['active_date']}}">
+                                                <input id="activatedDate" name="activatedDate" class="form-control form-hr" type="text" placeholder="Activated Date" value="{{$data['active_date']}}">
                                             </div>
                                         </div>
                                     </div>
@@ -128,7 +108,7 @@
                                         <div id="fieldMajorDiv1">
                                             @for ($i = 0; $i < count($data['major']); $i++)
                                             <select class="select2 min-width" id="field-syarat{{ $i+1 }}" name="majorVacancy">
-                                                <option value="">Major</option>
+                                                <option value="">-- Pilih Major --</option>
                                                 <option value="Sistem Informasi" {{ $data['major'][$i] == 'Sistem Informasi' ? 'selected' : '' }}>Sistem Informasi</option>
                                                 <option value="Akuntansi" {{ $data['major'][$i] == 'Akuntansi' ? 'selected' : '' }}>Akuntansi</option>
                                             </select>

@@ -114,7 +114,6 @@ var table = {
 						// var data = full.job_title;
 						var data = '<h5 style="font-style: normal;font-weight: bold;font-size: 20px;line-height: 130%;letter-spacing: -0.02em;color: #282A2C;margin-bottom: 1px;">'+full.job_title+'</h5>'+
                         			'<p style="font-style: normal;font-weight: 200;font-size: 16px;line-height: 130%;letter-spacing: -0.02em;color: #282A2C;">'+full.lokasi+', Indonesia</p>'+
-									'<p style="font-style: normal;font-weight: 500;font-size: 16px;line-height: 130%;letter-spacing: -0.02em;color: #EF4A3C;margin-bottom: 1px;">'+full.salary+'</p>'+
 									'<p style="font-style: normal;font-weight: 500;font-size: 14px;line-height: 130%;letter-spacing: -0.02em;color: #333333;">'+full.degree+', Bachelors Degree in '+full.job_title+'</p>'+
 									'<p style="font-style: normal;font-weight: 400;font-size: 14px;line-height: 130%;letter-spacing: -0.02em;color: #333333;">'+full.major+'</p>';
 		            	

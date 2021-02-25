@@ -65,7 +65,7 @@
                                 <label>Start Date News/Event</label>
                                 <div class="row">
                                     <div class="col-md-10 col-10">
-                                        <input id="tglMulaiNewsEvent" name="tglMulaiNewsEvent" class="form-control datepicker dateNewsEvent" type="text" disabled>
+                                        <input id="tglMulaiNewsEvent" name="tglMulaiNewsEvent" class="form-control form-hr datepicker dateNewsEvent" type="text" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                                 <label>End Date News/Event</label>
                                 <div class="row">
                                     <div class="col-md-10 col-10">
-                                    <input id="tglSelesaiNewsEvent" name="tglSelesaiNewsEvent" class="form-control datepicker dateNewsEvent" type="text" disabled>
+                                    <input id="tglSelesaiNewsEvent" name="tglSelesaiNewsEvent" class="form-control form-hr datepicker dateNewsEvent" type="text" disabled>
                                     </div>
                                 </div>
                             </div>
