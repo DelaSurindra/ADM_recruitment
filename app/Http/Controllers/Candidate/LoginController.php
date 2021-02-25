@@ -20,7 +20,7 @@ class LoginController extends Controller
     	if (Session()->get('session_id') != null) {
             return redirect()->back();
         }else{
-	    	return view('candidate.first-login-candidate');
+	    	return view('candidate.first-login-candidate')->with(['topbar'=>'first_login']);
         }
     }
 

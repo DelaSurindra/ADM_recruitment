@@ -1,6 +1,6 @@
 @extends('candidate.main-homepage.main')
 @section('content')
-<div class="container">
+<div class="container my-5">
     <div class="row">
         <div class="col-xl-6 col-lg-6 col-md-12">
             <h2 class="candidate-page-title">Complete Your<br>Account</h2>
