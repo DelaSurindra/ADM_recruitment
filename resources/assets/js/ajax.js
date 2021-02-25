@@ -94,6 +94,10 @@ var ajax = {
 								}else if(result.callback == 'login'){
 									// ui.toast.show();
 									setInterval(function(){window.location = result.url;}, 2000);
+								}else if(result.callback == 'reload'){
+									setInterval(function(){
+										window.location.reload();
+									}, 2000);
 								}
 							}else if(result.status == 'info'){
 								ui.popup.hideLoader();

@@ -15,7 +15,7 @@ Route::prefix('s')->group(function () {
 	Route::post('/', 'Security\EncryptController@getPass')->name('s');
 });
 
-Route::get('/', 'Admin\HomeController@HomeView')->name('home');
+// Route::get('/', 'Admin\HomeController@HomeView')->name('home');
 
 Route::prefix('HR')->group(function(){
 	Route::prefix('logout')->group(function () {
@@ -51,13 +51,32 @@ Route::prefix('HR')->group(function(){
 
 
 // Candidate View Preparation
-Route::get('/first-login', 'Candidate\LoginController@viewLoginCandidate')->name('get.login-candidate');
-Route::get('/profile', 'Candidate\ProfileController@viewProfile')->name('get.profile.view');
-Route::get('/personal-information', 'Candidate\ProfileController@editPersonalInformation')->name('get.profile.personal-information');
-Route::get('/other-information', 'Candidate\ProfileController@editOtherInformation')->name('get.profile.other-information');
-Route::get('/education-information', 'Candidate\ProfileController@editEducationInformation')->name('get.profile.education-information');
-Route::get('/my-app-detail', 'Candidate\ProfileController@myAppDetail')->name('get.profile.my-app-detail');
-Route::get('/test-reschedule', 'Candidate\ProfileController@testReschedule')->name('get.profile.test-reschedule');
-Route::get('/interview-reschedule', 'Candidate\ProfileController@interviewReschedule')->name('get.profile.interview-reschedule');
+Route::middleware('authcandidate')->group(function(){
+	Route::get('/first-login', 'Candidate\LoginController@viewLoginCandidate')->name('get.first-login');
+	Route::post('/post-first-login', 'Candidate\LoginController@postFirstLogin')->name('post.first-login');
+
+	Route::prefix('signout')->group(function () {
+		Route::get('/', 'Candidate\LoginController@logout')->name('get.logout-candidate');
+	});
+
+	Route::prefix('profile')->group(function () {
+		Route::get('/', 'Candidate\ProfileController@viewProfile')->name('get.profile.view');
+		Route::get('/personal-information', 'Candidate\ProfileController@editPersonalInformation')->name('get.profile.personal-information');
+		Route::get('/other-information', 'Candidate\ProfileController@editOtherInformation')->name('get.profile.other-information');
+		Route::get('/education-information', 'Candidate\ProfileController@editEducationInformation')->name('get.profile.education-information');
+
+		Route::get('/my-app-detail', 'Candidate\ProfileController@myAppDetail')->name('get.profile.my-app-detail');
+	});
+});
+
+Route::get('/', 'Candidate\LoginController@index')->name('home');
+
 Route::get('/news-event', 'Candidate\NewsEventController@viewNewsEvent')->name('get.news.event.page');
 Route::get('/news-event/detail/{id}', 'Candidate\NewsEventController@viewNewsEventDetail')->name('get.news.event.page.detail');
+
+Route::post('/post-signup', 'Candidate\LoginController@signUp')->name('post.signup');
+Route::post('/post-login', 'Candidate\LoginController@signIn')->name('post.login');
+
+// Fitur Masih Belum Pasti
+Route::get('/test-reschedule', 'Candidate\ProfileController@testReschedule')->name('get.profile.test-reschedule');
+Route::get('/interview-reschedule', 'Candidate\ProfileController@interviewReschedule')->name('get.profile.interview-reschedule');

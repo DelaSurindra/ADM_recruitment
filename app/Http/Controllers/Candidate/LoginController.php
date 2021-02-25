@@ -6,18 +6,23 @@ use App\Http\Controllers\Security\EncryptController;
 use App\Http\Controllers\Security\ValidatorController;
 use App\Http\Controllers\RequestController;
 use App\Model\User;
+use App\Model\Candidate;
 use File;
 
 use Illuminate\View\View;
 use DB;
 use Request;
 use Session;
+use Hash;
 
 class LoginController extends Controller
 {
+    public function index() {
+        return view('candidate.main-homepage.main')->with(['topbar'=>'home']);
+    }
 
     public function viewLoginCandidate(){
-    	if (Session()->get('session_id') != null) {
+    	if (Session()->get('session_candidate') != null) {
             return redirect()->back();
         }else{
 	    	return view('candidate.first-login-candidate')->with(['topbar'=>'first_login']);
@@ -27,8 +32,8 @@ class LoginController extends Controller
     public function signUp(){
         $encrypt = new EncryptController;
     	$data = $encrypt->fnDecrypt(Request::input('data'),true);
-
-        $searchEmail = User::where('email', $data['email'])->first();
+        // dd($data);
+        $searchEmail = User::where('email', $data['emailCandidate'])->first();
         if ($searchEmail) {
             return [
                 'status'  => 'error',
@@ -36,26 +41,43 @@ class LoginController extends Controller
             ];
         } else {
             $insertUser = User::insertGetId([
-                'email' => $data['email'],
-                'type'  => '1',
-                'password' => bcrypt($data['password'].env('SALT_PASS_HR'))
+                'email' => $data['emailCandidate'],
+                'type' => '1',
+                'password' => bcrypt($data['passwordCandidate'].env('SALT_PASS_CANDIDATE'))
             ]);
 
             $insertCandidate = Candidate::insert([
-                'name'      => "",
-                'user_id'   => $insertUser
+                'first_name' => $data['firstNameCandidate'],
+                'last_name' => $data['lastNameCandidate'],
+                'user_id' => $insertUser
             ]);
 
             if ($insertCandidate) {
-                // Insert Session ID
-                $user = User::where('id', $insertUser)->first();
+                $user = User::select('kandidat.*', 'users.email', 'users.password', 'users.type', 'users.status')
+                ->join('kandidat', 'users.id', 'kandidat.user_id')
+                ->where('users.id', $insertUser)->first();
+                // dd($user->first_name);
                 $session = [
+                    'user_id' => $user->user_id,
+                    'user_email' => $user->email,
+                    'user_password' => $user->password,
+                    'user_type' => $user->type,
+                    'user_status' => $user->status,
                     'id' => $user->id,
-                    'email' => $user->email,
-                    'type' => $user->type,
-                    'data' => $user->customer
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'tanggal_lahir' => $user->tanggal_lahir,
+                    'gender' => $user->gender,
+                    'telp' => $user->telp,
+                    'kota' => $user->kota,
+                    'linkedin' => $user->linkedin,
+                    'cover_letter' => $user->cover_letter,
+                    'resume' => $user->resume,
+                    'protofolio' => $user->protofolio,
+                    'skill' => $user->skill,
                 ];
-                Session::put('session_id', $session);
+
+                Session::put('session_candidate', $session);
 
                 return [
                     'status'   => 'success',
@@ -70,7 +92,64 @@ class LoginController extends Controller
                 ];
             }
         }
-        
     }
 
+    public function signIn(){
+        $encrypt = new EncryptController;
+    	$data = $encrypt->fnDecrypt(Request::input('data'),true);
+        // dd($data);
+        $cekEmail = User::where('email', $data['email'])->where('type', '1')->first();
+        
+    	if ($cekEmail) {
+            if (Hash::check($data['password'].env('SALT_PASS_CANDIDATE'), $cekEmail->password)) {
+                $user = User::select('kandidat.*', 'users.email', 'users.password', 'users.type', 'users.status')
+                ->join('kandidat', 'users.id', 'kandidat.user_id')
+                ->where('users.id', $cekEmail->id)->first();
+                // dd($user->first_name);
+                $session = [
+                    'user_id' => $user->user_id,
+                    'user_email' => $user->email,
+                    'user_password' => $user->password,
+                    'user_type' => $user->type,
+                    'user_status' => $user->status,
+                    'id' => $user->id,
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'tanggal_lahir' => $user->tanggal_lahir,
+                    'gender' => $user->gender,
+                    'telp' => $user->telp,
+                    'kota' => $user->kota,
+                    'linkedin' => $user->linkedin,
+                    'cover_letter' => $user->cover_letter,
+                    'resume' => $user->resume,
+                    'protofolio' => $user->protofolio,
+                    'skill' => $user->skill,
+                ];
+
+                Session::put('session_candidate', $session);
+
+                return [
+                    'status'   => 'success',
+                    'url' => '/',
+                    'callback' => 'login'
+                ];
+            } else {
+                return [
+                    'status'  => 'error',
+                    'message' => 'Email dan Password tidak sesuai'
+                ];
+            }
+        } else {
+            return [
+                'status'  => 'error',
+                'message' => 'Email dan Password tidak sesuai'
+            ];
+        }
+    }
+
+    public function logout(){
+        session()->forget('session_candidate');
+
+    	return redirect('/');
+    }
 }

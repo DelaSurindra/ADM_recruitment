@@ -39,7 +39,7 @@
         </div>
     </div>
     
-    <form action="" id="formFirstLogin" class="form-candidate-view mt-5">
+    <form action="{{ route('post.first-login') }}" id="formFirstLogin" class="form-candidate-view mt-5" method="POST">
         <div data-speed="100" id="page-1" class="item active">
             <div class="row">
                 <div class="col-lg-6 col-md-12">
