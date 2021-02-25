@@ -138,3 +138,65 @@ background-color: #ccc;
 .modal-sign-up .modal-content .modal-body {
     padding: 2.1rem 1.8rem;
 }
+
+footer {
+    padding: 4rem 0px;
+}
+.title-usefull-link {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #BDBDBD;
+}
+.subtitle-usefull-link {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #050401;
+}
+ul.usefull-link {
+    list-style-type: none;
+    padding-left: 0px;
+}
+ul.usefull-link li {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+ul.usefull-link li a{
+    text-decoration: none;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #DF0E2C;
+}
+
+ul.location-list {
+    padding-left: 1em;
+}
+ul.location-list li::marker {
+    color: #DF0E2C;
+}
+ul.location-list li p {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #050401;
+}
+
+.all-right-reserved {
+    width: 145px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: -0.01em;
+    color: #BDBDBD;
+}
