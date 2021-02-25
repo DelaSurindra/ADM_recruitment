@@ -1,6 +1,6 @@
 @extends('candidate.main-homepage.main')
 @section('content')
-<div class="container">
+<div class="container mt-1">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12">
             <ul class="nav nav-pills mb-3 tabs-news" id="pills-tab" role="tablist">
@@ -13,6 +13,31 @@
             </ul>
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-news" role="tabpanel" aria-labelledby="pills-news-tab">
+                    @foreach($newsEvent as $data)
+                        <a href="{{route('get.news.event.page.detail', base64_encode(urlencode($data['id'])))}}" class="news-ahref">
+                            <div class="card-list-news">
+                                <div class="card-body-news">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-12">
+                                            <img src="{{asset('storage/').'/'.$data['image'] }}" class="img-news">
+                                        </div>
+                                        <div class="col-lg-8 col-md-12 mt-5">
+                                            <div class="div-right-news">
+                                                <div class="d-flex">
+                                                    <div class="badge-news mb-3">{{$data['type'] == "1" ? 'News':'Event'}}</div>
+                                                    <p class="align-items-center p-title-news">{{date('d F Y', strtotime($data['created_at']))}}</p>
+                                                </div>
+                                                <h4 class="news-page-title">{{$data['title']}}</h4>
+                                                <p class="news-page-content">{!! $data['content'] !!}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+                <div class="tab-pane fade show" id="pills-event" role="tabpanel" aria-labelledby="pills-event-tab">
                     <div class="card-list-news">
                         <div class="card-body-news">
                             <div class="row">
@@ -22,7 +47,7 @@
                                 <div class="col-lg-8 col-md-12 mt-5">
                                     <div class="div-right-news">
                                         <div class="d-flex">
-                                            <div class="badge-news mb-3">News</div>
+                                            <div class="badge-news mb-3">Event</div>
                                             <p class="align-items-center p-title-news">12 Februay 2021</p>
                                         </div>
                                         <h4 class="news-page-title">Astra Daihatsu Motors Recruitment Goes to Japan</h4>
@@ -41,7 +66,7 @@
                                 <div class="col-lg-8 col-md-12 mt-5">
                                     <div class="div-right-news">
                                         <div class="d-flex">
-                                            <div class="badge-news mb-3">News</div>
+                                            <div class="badge-news mb-3">Event</div>
                                             <p class="align-items-center p-title-news">12 Februay 2021</p>
                                         </div>
                                         <h4 class="news-page-title">Astra Daihatsu Motors Recruitment Goes to Japan</h4>
@@ -54,6 +79,7 @@
                 </div>
                 <div class="tab-pane fade" id="pills-event" role="tabpanel" aria-labelledby="pills-event-tab">...</div>
             </div>
+
         </div>
     </div>
 </div>

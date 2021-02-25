@@ -9,14 +9,14 @@
     
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Job List</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">News & Event</a>
+                <li class="nav-item {{($topbar== 'news_event'?'active':'')}}">
+                    <a class="nav-link" href="{{route('get.news.event.page')}}">News & Event</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Company Profile</a>

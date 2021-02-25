@@ -60,4 +60,4 @@ Route::get('/my-app-detail', 'Candidate\ProfileController@myAppDetail')->name('g
 Route::get('/test-reschedule', 'Candidate\ProfileController@testReschedule')->name('get.profile.test-reschedule');
 Route::get('/interview-reschedule', 'Candidate\ProfileController@interviewReschedule')->name('get.profile.interview-reschedule');
 Route::get('/news-event', 'Candidate\NewsEventController@viewNewsEvent')->name('get.news.event.page');
-Route::get('/news-event/detail', 'Candidate\NewsEventController@viewNewsEventDetail')->name('get.news.event.page.detail');
+Route::get('/news-event/detail/{id}', 'Candidate\NewsEventController@viewNewsEventDetail')->name('get.news.event.page.detail');
