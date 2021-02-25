@@ -275,6 +275,24 @@ body {
     background: #ececec;
     color: #DF0E2C;
 }
+.btn-gray {
+    background: #F2F2F2;
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    color: #DF0E2C;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-gray:hover {
+    background: #ececec;
+    color: #DF0E2C;
+}
 
 .display-none {
     display: none;
@@ -695,9 +713,63 @@ body {
     cursor: pointer;
 }
 
-
 .margin-top-6rem {
     margin-top: 6rem;
+}
+
+
+.custome-radio-tab {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    padding-top: 3px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #333333;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.custome-radio-tab input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+.custome-radio-tab .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 23px;
+    width: 23px;
+    background-color: #E0E0E0;
+    border-radius: 50%;
+}
+.custome-radio-tab .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+.custome-radio-tab:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+.custome-radio-tab input:checked ~ .checkmark {
+    background-color: #DF0E2C;
+}
+.custome-radio-tab input:checked ~ .checkmark:after {
+    display: block;
+}
+.custome-radio-tab .checkmark:after {
+    top: 6.5px;
+    left: 6.5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: white;
 }
 @media (min-width: 992px) {
     .margin-right-1rem {

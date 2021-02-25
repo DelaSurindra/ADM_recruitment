@@ -22,6 +22,7 @@ mix.babel([
     ], 'public/js/all.js')
     .styles([
 	    'resources/assets/css/candidate-style.css',
+        'resources/assets/css/homepage-style.css',
 	], 'public/css/candidate-style.min.css')
     .styles([
 	    'resources/assets/css/compiler.css',
