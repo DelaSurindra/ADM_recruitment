@@ -10,4 +10,8 @@ class NewsEventController extends Controller
     public function viewNewsEvent(){
         return view('candidate.news_event.news_event');
     }
+
+    public function viewNewsEventDetail(){
+        return view('candidate.news_event.news_event_detail');
+    }
 }

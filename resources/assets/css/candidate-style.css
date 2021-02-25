@@ -774,6 +774,41 @@ body {
     letter-spacing: -0.02em;
 }
 
+.div-img-detail{
+    width: 100%;
+    max-height: 430px;
+}
+
+.card-news-detail{
+    padding: 1rem;
+}
+
+.img-detail-news{
+    width: 100%;
+}
+
+.news-page-title-detail{
+    font-family: 'inter_bold', sans-serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #050401;
+}
+
+.p-title-news-detail{
+    margin-bottom: 0px;
+    margin-left: 4px;
+    margin-top: 4px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #828282;
+}
+
 .margin-top-6rem {
     margin-top: 6rem;
 }
