@@ -293,6 +293,23 @@ body {
     background: #ececec;
     color: #DF0E2C;
 }
+.btn-blue {
+    background: #E8F7EE;
+    border-radius: 8px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #828282;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-blue:hover {
+    background: #E8F7EE;
+    color: #828282;
+}
 
 .display-none {
     display: none;
@@ -494,6 +511,34 @@ body {
     line-height: 130%;
     letter-spacing: -0.02em;
     color: #E8F7EE;
+    padding: 2px 6px;
+    width: fit-content;
+}
+.fulltime-badge.not-active {
+    background: transparent;
+    border: 2px solid #DF0E2C;
+    box-sizing: border-box;
+    border-radius: 13.5px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #DF0E2C;
+    padding: 2px 6px;
+    width: fit-content;
+}
+.internship-badge.not-active {
+    background: transparent;
+    border: 2px solid #2E61AF;
+    box-sizing: border-box;
+    border-radius: 13.5px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #2E61AF;
     padding: 2px 6px;
     width: fit-content;
 }

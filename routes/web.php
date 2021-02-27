@@ -74,6 +74,9 @@ Route::get('/', 'Candidate\LoginController@index')->name('home');
 Route::get('/news-event', 'Candidate\NewsEventController@viewNewsEvent')->name('get.news.event.page');
 Route::get('/news-event/detail/{id}', 'Candidate\NewsEventController@viewNewsEventDetail')->name('get.news.event.page.detail');
 
+Route::get('/job', 'Candidate\JobController@viewJob')->name('get.job.page');
+Route::get('/job/detail/{id}', 'Candidate\JobController@viewJobDetail')->name('get.job.page.detail');
+
 Route::post('/post-signup', 'Candidate\LoginController@signUp')->name('post.signup');
 Route::post('/post-login', 'Candidate\LoginController@signIn')->name('post.login');
 
