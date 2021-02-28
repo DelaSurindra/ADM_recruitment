@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 @else
-                <button class="btn btn-gray px-3 mr-3" data-toggle="modal" data-target="#modalNotifForLogin" type="button">Sign Up</button>
+                <button class="btn btn-gray px-3 mr-3" data-toggle="modal" data-target="#modalSignUpCandidate" type="button">Sign Up</button>
                 <button class="btn btn-red px-3" data-toggle="modal" data-target="#modalLoginCandidate" type="button">Login</button>
                 @endif
             </div>

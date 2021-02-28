@@ -61,6 +61,17 @@ body {
 .icon-tracking-wrapper {
     text-align: center;
 }
+.icon-tracking-wrapper .desc p {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #BDBDBD;
+}
+.icon-tracking-wrapper.active .desc p {
+    color: #333333;
+}
 .tracking-line {
     top: 19px;
     z-index: -1;
@@ -147,6 +158,17 @@ body {
 }
 .form-candidate-view .select2-selection.select2-selection--single .select2-selection__arrow {
     top: 7px;
+}
+.photoProfileImage {
+    width: 73px;
+    height: 73px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.photoProfileLabel {
+    width: -webkit-fill-available;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .locate-me {
     font-style: normal;
@@ -309,6 +331,23 @@ body {
 .btn-blue:hover {
     background: #E8F7EE;
     color: #828282;
+}
+.btn-blue-red {
+    background: #E8F7EE;
+    border-radius: 8px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    color: #DF0E2C;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-blue-red:hover {
+    background: #E8F7EE;
+    color: #DF0E2C;
 }
 
 .display-none {

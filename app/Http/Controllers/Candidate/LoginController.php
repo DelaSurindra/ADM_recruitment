@@ -17,12 +17,8 @@ use Hash;
 
 class LoginController extends Controller
 {
-    public function viewLoginCandidate(){
-    	if (Session()->get('session_candidate') != null) {
-            return redirect()->back();
-        }else{
-	    	return view('candidate.first-login-candidate')->with(['topbar'=>'first_login']);
-        }
+    public function index() {
+        return view('candidate.main-homepage.main')->with(['topbar'=>'home']);
     }
 
     public function signUp(){

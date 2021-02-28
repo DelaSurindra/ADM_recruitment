@@ -11,12 +11,12 @@
                     <div class="gray-line"></div>
                     <div class="gray-line"></div>
                 </div>
-                <div class="icon-tracking-wrapper personal-information">
+                <div class="icon-tracking-wrapper personal-information active">
                     <div class="icon">
                         <img src="{{ asset('image/icon/homepage/track-user-red.svg') }}" alt="icon">
                     </div>
                     <div class="desc">
-                        <p>Personal<br>Information</p>
+                        <p class="mb-0 mt-2">Personal<br>Information</p>
                     </div>
                 </div>
                 <div class="icon-tracking-wrapper education-information">
@@ -24,7 +24,7 @@
                         <img src="{{ asset('image/icon/homepage/track-toga.svg') }}" alt="icon">
                     </div>
                     <div class="desc">
-                        <p>Education<br>Information</p>
+                        <p class="mb-0 mt-2">Education<br>Information</p>
                     </div>
                 </div>
                 <div class="icon-tracking-wrapper other-information">
@@ -32,14 +32,15 @@
                         <img src="{{ asset('image/icon/homepage/track-pin.svg') }}" alt="icon">
                     </div>
                     <div class="desc">
-                        <p>Other<br>Information</p>
+                        <p class="mb-0 mt-2">Other<br>Information</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     
-    <form action="{{ route('post.first-login') }}" id="formFirstLogin" class="form-candidate-view mt-5" method="POST">
+    <form action="{{ route('post.first-login') }}" id="formFirstLogin" class="form-candidate-view mt-5" method="POST" enctype="multipart/form-data">
+        @csrf
         <div data-speed="100" id="page-1" class="item active">
             <div class="row">
                 <div class="col-lg-6 col-md-12">
@@ -47,14 +48,14 @@
                         <label for="">Photo Profile<span class="required-sign">*</span></label>
                         <div class="input-group d-flex align-items-center">
                             <div class="input-group-prepend">
-                                <img src="{{ asset('image/icon/homepage/dummy-profile.svg') }}" alt="">
+                                <img src="{{ asset('image/icon/homepage/dummy-profile.svg') }}" class="photoProfileImage" alt="image">
                             </div>
                             <div class="ml-3 d-flex align-items-center" style="width:80%">
-                                <div class="w-100">
-                                    <label class="mb-0" for="inputGroupFile01">Filename</label>
+                                <div style="width:inherit">
+                                    <label class="photoProfileLabel mb-0">Filename</label>
                                 </div>
                                 <span class="btn btn-file d-flex justify-content-end">
-                                    Upload <input type="file">
+                                    Upload <input type="file" name="photoProfile" id="photoProfile">
                                 </span>
                             </div>
                         </div>
@@ -67,7 +68,7 @@
                         <label for="">First Name<span class="required-sign">*</span></label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <input type="text" class="form-control" placeholder="First Name">
+                                <input type="text" name="firstName" id="firstName" class="form-control" placeholder="First Name">
                             </div>
                         </div>
                     </div>
@@ -77,7 +78,7 @@
                         <label for="">Last Name<span class="required-sign">*</span></label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <input type="text" class="form-control" placeholder="Last Name">
+                                <input type="text" name="lastName" id="lastName" class="form-control" placeholder="Last Name">
                             </div>
                         </div>
                     </div>
@@ -89,7 +90,7 @@
                         <label for="">Date of Birth<span class="required-sign">*</span></label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12 with-icon">
-                                <input type="text" class="form-control" placeholder="Choose date">
+                                <input type="text" name="birthDate" id="birthDate" class="form-control" placeholder="Choose date">
                                 <img src="{{ asset('image/icon/homepage/icon-calender-input.svg') }}" class="this-icon" alt="icon">
                             </div>
                         </div>
@@ -102,11 +103,11 @@
                         <label for="">Gender<span class="required-sign">*</span></label>
                         <div class="d-flex">
                             <label class="custome-radio-wrapper mb-0 mr-4"> Male
-                                <input type="radio" name="radio">
+                                <input type="radio" name="gender" id="gender">
                                 <span class="checkmark"></span>
                             </label>
                             <label class="custome-radio-wrapper mb-0"> Female
-                                <input type="radio" name="radio">
+                                <input type="radio" name="gender" id="gender">
                                 <span class="checkmark"></span>
                             </label>
                         </div>
@@ -119,7 +120,7 @@
                         <label for="">Email<span class="required-sign">*</span></label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <input type="text" class="form-control" placeholder="Email">
+                                <input type="text" name="email" id="email" class="form-control" placeholder="Email">
                             </div>
                         </div>
                     </div>
@@ -129,7 +130,7 @@
                         <label for="">Phone Number<span class="required-sign">*</span></label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <input type="text" class="form-control" placeholder="usually 10 - 13 numberic digit">
+                                <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" placeholder="usually 10 - 13 numberic digit">
                             </div>
                         </div>
                     </div>
@@ -141,7 +142,7 @@
                         <label for="">Location (City)<span class="required-sign">*</span></label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <input type="text" class="form-control mb-2" placeholder="Location">
+                                <input type="text" name="myLocation" id="myLocation" class="form-control mb-2" placeholder="Location">
                                 <small id="LocateMe" class="locate-me pt-3">Locate Me</small>
                             </div>
                         </div>
@@ -154,7 +155,7 @@
                         <label for="">Linkedin Profile<span class="required-sign">*</span></label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <input type="text" class="form-control" placeholder="ex: www.linkedin.com/example">
+                                <input type="text" name="lingkedInLink" id="lingkedInLink" class="form-control" placeholder="ex: www.linkedin.com/example">
                             </div>
                         </div>
                     </div>
@@ -183,7 +184,7 @@
                                 <label for="">School/University<span class="required-sign">*</span></label>
                                 <div class="row">
                                     <div class="col-lg-11 col-md-12">
-                                        <input type="text" class="form-control" placeholder="School/University">
+                                        <input type="text" name="university" id="university" class="form-control" placeholder="School/University">
                                     </div>
                                 </div>
                             </div>
@@ -193,7 +194,7 @@
                                 <label for="">Degree<span class="required-sign">*</span></label>
                                 <div class="row">
                                     <div class="col-lg-11 col-md-12">
-                                        <select name="" id="" class="select2 form-control">
+                                        <select name="degree" id="degree" class="select2 form-control">
                                             <option value="">Choose your degree</option>
                                             <option value="">Opt 1</option>
                                             <option value="">Opt 1</option>
@@ -209,7 +210,7 @@
                                 <label for="">Faculty<span class="required-sign">*</span></label>
                                 <div class="row">
                                     <div class="col-lg-11 col-md-12">
-                                        <input type="text" class="form-control" placeholder="Faculty">
+                                        <input type="text" name="faculty" id="faculty" class="form-control" placeholder="Faculty">
                                     </div>
                                 </div>
                             </div>
@@ -219,7 +220,7 @@
                                 <label for="">Major<span class="required-sign">*</span></label>
                                 <div class="row">
                                     <div class="col-lg-11 col-md-12">
-                                        <input type="text" class="form-control" placeholder="Major">
+                                        <input type="text" name="major" id="major" class="form-control" placeholder="Major">
                                     </div>
                                 </div>
                             </div>
@@ -231,7 +232,7 @@
                                 <label for="">Start Date<span class="required-sign">*</span></label>
                                 <div class="row">
                                     <div class="col-lg-11 col-md-12 with-icon">
-                                        <input type="text" class="form-control" placeholder="Choose date" id="startDateEdication" name="startDateEdication">
+                                        <input type="text" class="form-control" placeholder="Choose date" id="startDateEducation" name="startDateEducation">
                                         <img src="{{ asset('image/icon/homepage/icon-calender-input.svg') }}" class="this-icon" alt="icon">
                                     </div>
                                 </div>
@@ -242,7 +243,7 @@
                                 <label for="">End Date<span class="required-sign">*</span></label>
                                 <div class="row">
                                     <div class="col-lg-11 col-md-12 with-icon">
-                                        <input type="text" class="form-control" placeholder="Choose date" id="endDateEdication" name="endDateEdication">
+                                        <input type="text" class="form-control" placeholder="Choose date" id="endDateEducation" name="endDateEducation">
                                         <img src="{{ asset('image/icon/homepage/icon-calender-input.svg') }}" class="this-icon" alt="icon">
                                     </div>
                                 </div>
@@ -255,10 +256,9 @@
                                 <label for="">Certificate of Study<span class="required-sign">*</span></label>
                                 <div class="row">
                                     <div class="col-lg-11 col-md-12">
-                                        <input type="text" class="form-control" placeholder="Format jpg/png maximum 2MB file">
-                                        <p id="filenameCertificateStudy" class="m-1"></p>
+                                        <input type="text" class="form-control file-input-label" placeholder="Format jpg/png maximum 2MB file" disable>
                                         <span class="btn btn-file pl-1 mb-2">
-                                            Upload File <input type="file">
+                                            Upload File <input type="file" name="certificate[]" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg">
                                         </span>
                                     </div>
                                 </div>
@@ -269,7 +269,7 @@
             </div>
             <div class="row mb-4 margin-right-2rem firstBtnListEducation">
                 <div class="col-lg-12 col-md-12 firstBtnEducation">
-                    <button type="button" class="btn btn-white btn-block large btnAddListEdication">
+                    <button type="button" class="btn btn-white btn-block large btnAddListEducation">
                         <i class="fas fa-plus mr-2" style="font-size:18px"></i> 
                         Add Another Education
                     </button>
@@ -278,7 +278,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <button type="button" class="btn btn-white btn-block btnAddListEdication">
+                                <button type="button" class="btn btn-white btn-block btnAddListEducation">
                                     <i class="fas fa-trash mr-2" style="font-size:18px"></i> 
                                     Delete the Education Data Above 
                                 </button>
@@ -290,7 +290,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <button type="button" class="btn btn-white btn-block btnAddListEdication">
+                                <button type="button" class="btn btn-white btn-block btnAddListEducation">
                                     <i class="fas fa-plus mr-2" style="font-size:18px"></i> 
                                     Add Another Education
                                 </button>

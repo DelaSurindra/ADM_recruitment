@@ -52,8 +52,8 @@ Route::prefix('HR')->group(function(){
 
 // Candidate View Preparation
 Route::middleware('authcandidate')->group(function(){
-	Route::get('/first-login', 'Candidate\LoginController@viewLoginCandidate')->name('get.first-login');
-	Route::post('/post-first-login', 'Candidate\LoginController@postFirstLogin')->name('post.first-login');
+	Route::get('/first-login', 'Candidate\ProfileController@viewFirstLogin')->name('get.first-login');
+	Route::post('/post-first-login', 'Candidate\ProfileController@postFirstLogin')->name('post.first-login');
 
 	Route::prefix('signout')->group(function () {
 		Route::get('/', 'Candidate\LoginController@logout')->name('get.logout-candidate');

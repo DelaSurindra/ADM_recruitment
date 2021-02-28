@@ -64,7 +64,7 @@
                                 <label for="">Start Date<span class="required-sign">*</span></label>
                                 <div class="row">
                                     <div class="col-lg-11 col-md-12 with-icon">
-                                        <input type="text" class="form-control" placeholder="Choose date" id="startDateEdication" name="startDateEdication">
+                                        <input type="text" class="form-control" placeholder="Choose date" id="startDateEducation" name="startDateEducation">
                                         <img src="{{ asset('image/icon/homepage/icon-calender-input.svg') }}" class="this-icon" alt="icon">
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
                                 <label for="">End Date<span class="required-sign">*</span></label>
                                 <div class="row">
                                     <div class="col-lg-11 col-md-12 with-icon">
-                                        <input type="text" class="form-control" placeholder="Choose date" id="endDateEdication" name="endDateEdication">
+                                        <input type="text" class="form-control" placeholder="Choose date" id="endDateEducation" name="endDateEducation">
                                         <img src="{{ asset('image/icon/homepage/icon-calender-input.svg') }}" class="this-icon" alt="icon">
                                     </div>
                                 </div>
@@ -102,7 +102,7 @@
             </div>
             <div class="row mb-4 margin-right-2rem firstBtnListEducation">
                 <div class="col-lg-12 col-md-12 firstBtnEducation">
-                    <button type="button" class="btn btn-white btn-block large btnAddListEdication">
+                    <button type="button" class="btn btn-white btn-block large btnAddListEducation">
                         <i class="fas fa-plus mr-2" style="font-size:18px"></i> 
                         Add Another Education
                     </button>
@@ -111,7 +111,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <button type="button" class="btn btn-white btn-block btnAddListEdication">
+                                <button type="button" class="btn btn-white btn-block btnAddListEducation">
                                     <i class="fas fa-trash mr-2" style="font-size:18px"></i> 
                                     Delete the Education Data Above 
                                 </button>
@@ -123,7 +123,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <button type="button" class="btn btn-white btn-block btnAddListEdication">
+                                <button type="button" class="btn btn-white btn-block btnAddListEducation">
                                     <i class="fas fa-plus mr-2" style="font-size:18px"></i> 
                                     Add Another Education
                                 </button>

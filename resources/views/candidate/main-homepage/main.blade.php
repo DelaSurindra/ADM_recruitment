@@ -79,6 +79,35 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalNotifProfileSaved" tabindex="-1" aria-labelledby="modalNotifProfileSavedLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm modal-for-notif">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-icon-notif">
+                        <img src="{{ asset('image/icon/homepage/edit-profile-icon.svg') }}" alt="icon">
+                        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis m-0" alt="icon">
+                        </button> -->
+                    </div>
+
+                    <div class="modal-content-notif">
+                        <h4 class="candidate-page-subtitle">Your Profile Saved</h4>
+                        <p class="my-4">Thankyou for sign up to our platform.</p>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <button class="btn btn-block btn-blue-red">Go to Profile</button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-block btn-red">See Job List</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     @section('modal')
 
     @show
