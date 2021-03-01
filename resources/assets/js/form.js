@@ -766,3 +766,83 @@ if ($("#formEditEducationInformation").length) {
 		}
 	})
 }
+
+$("#loadNews").click(function(e){
+	e.preventDefault();
+	var value = this.value;
+	ajax.getData('/news-get-more', 'post', {value:value}, function(data){
+		var count = parseInt(value)+5;
+		$("#loadNews").val(count);
+		if (data.length) {
+			for (let i = 0; i < data.length; i++) {
+				var id = encodeURIComponent(window.btoa(data[i]['id']));
+				$("#divNews").append(
+					'<a href="/news-event/detail/'+id+'" class="news-ahref">'+
+						'<div class="card-list-news">'+
+							'<div class="card-body-news">'+
+								'<div class="row">'+
+									'<div class="col-lg-4 col-md-12">'+
+										'<img src="'+baseImage+'/'+data[i]['image']+'" class="img-news">'+
+									'</div>'+
+									'<div class="col-lg-8 col-md-12 mt-5">'+
+										'<div class="div-right-news">'+
+											'<div class="d-flex">'+
+												'<div class="badge-news mb-3">News</div>'+
+												'<p class="align-items-center p-title-news">'+data[i]["tanggal"]+'</p>'+
+											'</div>'+
+											'<h4 class="news-page-title">'+data[i]["title"]+'</h4>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>'+
+						'</div>'+
+					'</a>'
+				)
+				
+			}
+		}else{
+			$("#loadNews").addClass('hidden');
+		}
+	})
+	
+})
+
+$("#loadEvent").click(function(e){
+	e.preventDefault();
+	var value = this.value;
+	ajax.getData('/event-get-more', 'post', {value:value}, function(data){
+		var count = parseInt(value)+5;
+		$("#loadEvent").val(count);
+		if (data.length) {
+			for (let i = 0; i < data.length; i++) {
+				var id = encodeURIComponent(window.btoa(data[i]['id']));
+				$("#divNews").append(
+					'<a href="/news-event/detail/'+id+'" class="news-ahref">'+
+						'<div class="card-list-news">'+
+							'<div class="card-body-news">'+
+								'<div class="row">'+
+									'<div class="col-lg-4 col-md-12">'+
+										'<img src="'+baseImage+'/'+data[i]['image']+'" class="img-news">'+
+									'</div>'+
+									'<div class="col-lg-8 col-md-12 mt-5">'+
+										'<div class="div-right-news">'+
+											'<div class="d-flex">'+
+												'<div class="badge-news mb-3">Event</div>'+
+												'<p class="align-items-center p-title-news">'+data[i]["tanggal"]+'</p>'+
+											'</div>'+
+											'<h4 class="news-page-title">'+data[i]["title"]+'</h4>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>'+
+						'</div>'+
+					'</a>'
+				)
+				
+			}
+		}else{
+			$("#loadEvent").addClass('hidden');
+		}
+	})
+	
+})

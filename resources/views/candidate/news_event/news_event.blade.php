@@ -55,8 +55,8 @@
             </ul>
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-news" role="tabpanel" aria-labelledby="pills-news-tab">
-                    <div>
-                        @foreach($newsEvent as $data)
+                    <div id="divNews">
+                        @foreach($news as $data)
                             <a href="{{route('get.news.event.page.detail', base64_encode(urlencode($data['id'])))}}" class="news-ahref">
                                 <div class="card-list-news">
                                     <div class="card-body-news">
@@ -67,7 +67,7 @@
                                             <div class="col-lg-8 col-md-12 mt-5">
                                                 <div class="div-right-news">
                                                     <div class="d-flex">
-                                                        <div class="badge-news mb-3">{{$data['type'] == "1" ? 'News':'Event'}}</div>
+                                                        <div class="badge-news mb-3">News</div>
                                                         <p class="align-items-center p-title-news">{{date('d F Y', strtotime($data['created_at']))}}</p>
                                                     </div>
                                                     <h4 class="news-page-title">{{$data['title']}}</h4>
@@ -81,50 +81,43 @@
                         @endforeach
                     </div>
                     <div>
-                        <center>Load More</center>
+                        <center>
+                            <button type="button" class="btn btn-load-more" id="loadNews" value=5>Load More</button>
+                        </center>
                     </div>
                 </div>
                 <div class="tab-pane fade show" id="pills-event" role="tabpanel" aria-labelledby="pills-event-tab">
-                    <div class="card-list-news">
-                        <div class="card-body-news">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-12">
-                                    <img src="{{asset('image/candidate/news_example.png')}}" class="img-news">
-                                </div>
-                                <div class="col-lg-8 col-md-12 mt-5">
-                                    <div class="div-right-news">
-                                        <div class="d-flex">
-                                            <div class="badge-news mb-3">Event</div>
-                                            <p class="align-items-center p-title-news">12 Februay 2021</p>
+                    <div id="divEvent">
+                        @foreach($event as $data)
+                            <a href="{{route('get.news.event.page.detail', base64_encode(urlencode($data['id'])))}}" class="news-ahref">
+                                <div class="card-list-news">
+                                    <div class="card-body-news">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-12">
+                                                <img src="{{asset('storage/').'/'.$data['image'] }}" class="img-news">
+                                            </div>
+                                            <div class="col-lg-8 col-md-12 mt-5">
+                                                <div class="div-right-news">
+                                                    <div class="d-flex">
+                                                        <div class="badge-news mb-3">Event</div>
+                                                        <p class="align-items-center p-title-news">{{date('d F Y', strtotime($data['created_at']))}}</p>
+                                                    </div>
+                                                    <h4 class="news-page-title">{{$data['title']}}</h4>
+                                                    <!-- <p class="news-page-content">{!! $data['content'] !!}</p> -->
+                                                </div>
+                                            </div>
                                         </div>
-                                        <h4 class="news-page-title">Astra Daihatsu Motors Recruitment Goes to Japan</h4>
-                                        <p class="news-page-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Odio nunc sed non augue. Magnis augue tortor facilisis id. Mi sed gravida congue pulvinar odio feugiat. Etiam cursus in sce....</p>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </a>
+                        @endforeach
                     </div>
-                    <div class="card-list-news">
-                        <div class="card-body-news">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-12">
-                                    <img src="{{asset('image/candidate/news_example.png')}}" class="img-news">
-                                </div>
-                                <div class="col-lg-8 col-md-12 mt-5">
-                                    <div class="div-right-news">
-                                        <div class="d-flex">
-                                            <div class="badge-news mb-3">Event</div>
-                                            <p class="align-items-center p-title-news">12 Februay 2021</p>
-                                        </div>
-                                        <h4 class="news-page-title">Astra Daihatsu Motors Recruitment Goes to Japan</h4>
-                                        <p class="news-page-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Odio nunc sed non augue. Magnis augue tortor facilisis id. Mi sed gravida congue pulvinar odio feugiat. Etiam cursus in sce....</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div>
+                        <center>
+                            <button type="button" class="btn btn-load-more" id="loadEvent" value=5>Load More</button>
+                        </center>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="pills-event" role="tabpanel" aria-labelledby="pills-event-tab">...</div>
             </div>
 
         </div>

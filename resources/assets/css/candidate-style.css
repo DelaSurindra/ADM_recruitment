@@ -881,6 +881,26 @@ body {
     color: #DF0E2C;
 }
 
+.btn-load-more{
+    background: white;
+    border: none;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    display: flex;
+    align-items: center;
+    color: #DF0E2C;
+}
+
+.hidden{
+    display: none;
+}
+
+.btn-load-more:hover{
+    color: #DF0E2C;
+}
+
 .margin-top-6rem {
     margin-top: 6rem;
 }
@@ -939,6 +959,7 @@ body {
     border-radius: 50%;
     background: white;
 }
+
 @media (min-width: 992px) {
     .margin-right-1rem {
         margin-right: 1rem;
