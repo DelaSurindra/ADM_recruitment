@@ -12,8 +12,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Job List</a>
+                <li class="nav-item {{($topbar== 'job'?'active':'')}}">
+                    <a class="nav-link" href="{{route('get.job.page')}}">Job List</a>
                 </li>
                 <li class="nav-item {{($topbar== 'news_event'?'active':'')}}">
                     <a class="nav-link" href="{{route('get.news.event.page')}}">News & Event</a>
@@ -31,7 +31,65 @@
 
             <div class="form-inline my-2 my-lg-0">
                 @if(Session::get('session_candidate'))
-                <a href="{{ route('get.logout-candidate') }}" class="btn btn-red">Logout</a>
+                <div class="notif-dropdown dropdown">
+                    <div class="notif-count" id="notifCount">99</div>
+                    <div class="notif-access" id="dropdownMenuNotif" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{{ asset('image/icon/homepage/icon-bell.svg') }}" alt="icon">
+                    </div>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuNotif">
+                        <div class="dropdown-item">
+                            <div class="notif-header">
+                                <h6>Notification <span class="notif-count-inside">99</span></h6>
+                                <a href="#">View All</a>
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+
+                        <div class="dropdown-item">
+                            <p class="notif-title">Notification Title</p>
+                            <p class="notif-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pharetra in molestie diam ele</p>
+                            <div class="notif-detail">
+                                <p class="date-notif">12 Feb 2021 13:15</p>
+                                <a href="#" class="link-notif">See Details</a>
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-item">
+                            <p class="notif-title">Notification Title</p>
+                            <p class="notif-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pharetra in molestie diam ele</p>
+                            <div class="notif-detail">
+                                <p class="date-notif">12 Feb 2021 13:15</p>
+                                <a href="#" class="link-notif">See Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-dropdown dropdown">
+                    <div class="profile-access" id="dropdownMenuProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img class="rounded-circle img-profile" src="https://instagram.fcgk9-1.fna.fbcdn.net/v/t51.2885-15/sh0.08/e35/p640x640/36687395_1833002890090498_1311641978080854016_n.jpg?_nc_ht=instagram.fcgk9-1.fna.fbcdn.net&_nc_cat=110&_nc_ohc=xRSWiQpr3Z4AX8TfB-s&tp=1&oh=f0b27cf086b3be75608151d4375e2384&oe=605D5A77" alt="avatar">
+                        <p class="name-profile">Ian Ahmad</p>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuProfile">
+                        <h6 class="dropdown-item">Ian Ahmad</h6>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">
+                            <img src="{{ asset('image/icon/homepage/edit-profile-icon.svg') }}" alt="icon"> Edit Profile
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">
+                            <img src="{{ asset('image/icon/homepage/edit-password-icon.svg') }}" alt="icon"> Edit Password
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">
+                            <img src="{{ asset('image/icon/homepage/myapp-icon.svg') }}" alt="icon"> My Application
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item signout" href="{{ route('get.logout-candidate') }}">
+                            <img src="{{ asset('image/icon/homepage/logout-icon.svg') }}" alt="icon"> Logout
+                        </a>
+                    </div>
+                </div>
                 @else
                 <button class="btn btn-gray px-3 mr-3" data-toggle="modal" data-target="#modalSignUpCandidate" type="button">Sign Up</button>
                 <button class="btn btn-red px-3" data-toggle="modal" data-target="#modalLoginCandidate" type="button">Login</button>

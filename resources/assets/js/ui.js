@@ -98,11 +98,15 @@ var ui = {
 				if (item[0].id === 'page-1') {
 					$('.tracking-line div').removeClass();
 					$('.education-information img').attr('src', '/image/icon/homepage/track-toga-red.svg')
+					$('.personal-information').removeClass('active')
+					$('.education-information').addClass('active')
 					$('.tracking-line div:first-child').addClass('red-line');
 					$('.tracking-line div:last-child').addClass('gray-line');
 				} else if (item[0].id === 'page-2') {
 					$('.tracking-line div').removeClass();
 					$('.other-information img').attr('src', '/image/icon/homepage/track-pin-red.svg')
+					$('.education-information').removeClass('active')
+					$('.other-information').addClass('active')
 					$('.tracking-line div:first-child').addClass('red-line');
 					$('.tracking-line div:last-child').addClass('red-line');
 				} else {

@@ -451,17 +451,61 @@ $("#tipeNewsEvent").change(function(){
 })
 
 if ($("#formFirstLogin").length) {
-	$('#startDateEdication').datetimepicker({
+	function readFile(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			
+			reader.onload = function (e) {
+				$('.photoProfileLabel').empty();
+				$('.photoProfileImage').attr('src', e.target.result);
+				$('.photoProfileLabel').html(input.files[0].name);
+			};
+			
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	
+	$("#photoProfile").change(function(){
+		readFile(this);
+	});
+
+	function readFileInput(input) {
+		console.log(input)
+		console.log(input.files)
+		console.log(input.files[0])
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			
+			reader.onload = function (e) {
+				var inputLabel = $(input).parent().parent().find('.file-input-label');
+				inputLabel.val();
+				inputLabel.val(input.files[0].name);
+			};
+			
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	
+	$('.uploadCertificate').change(function(e){
+		e.preventDefault();
+		readFileInput(this);
+	});
+
+	$('input[name="birthDate"]').datetimepicker({
 		format: 'DD-MM-YYYY',
 	});
 
-	$('#endDateEdication').datetimepicker({
+	$('#startDateEducation').datetimepicker({
 		format: 'DD-MM-YYYY',
 	});
 
-	$('.btnAddListEdication').click(function(e){
+	$('#endDateEducation').datetimepicker({
+		format: 'DD-MM-YYYY',
+	});
+
+	$('.btnAddListEducation').click(function(e){
 		e.preventDefault()
-		$('.btnAddListEdication.large').hide()
+		$('.btnAddListEducation.large').hide()
 		$('.firstBtnListEducation').removeClass('margin-right-2rem')
 	
 		var option = '<div class="listStudy">'+
@@ -472,7 +516,7 @@ if ($("#formFirstLogin").length) {
 									'<label for="">School/University<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<input type="text" class="form-control" placeholder="School/University">'+
+											'<input type="text" name="university" id="university" class="form-control" placeholder="School/University">'+
 										'</div>'+
 									'</div>'+
 								'</div>'+
@@ -482,7 +526,7 @@ if ($("#formFirstLogin").length) {
 									'<label for="">Degree<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<select name="" id="" class="select2 form-control">'+
+											'<select name="degree" id="degree" class="select2 form-control">'+
 												'<option value="">Choose your degree</option>'+
 												'<option value="">Opt 1</option>'+
 												'<option value="">Opt 1</option>'+
@@ -498,7 +542,7 @@ if ($("#formFirstLogin").length) {
 									'<label for="">Faculty<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<input type="text" class="form-control" placeholder="Faculty">'+
+											'<input type="text" name="faculty" id="faculty" class="form-control" placeholder="Faculty">'+
 										'</div>'+
 									'</div>'+
 								'</div>'+
@@ -508,7 +552,7 @@ if ($("#formFirstLogin").length) {
 									'<label for="">Major<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<input type="text" class="form-control" placeholder="Major">'+
+											'<input type="text" name="major" id="major" class="form-control" placeholder="Major">'+
 										'</div>'+
 									'</div>'+
 								'</div>'+
@@ -520,7 +564,7 @@ if ($("#formFirstLogin").length) {
 									'<label for="">Start Date<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12 with-icon">'+
-											'<input type="text" class="form-control" placeholder="Choose date" id="startDateEdication" name="startDateEdication">'+
+											'<input type="text" class="form-control" placeholder="Choose date" id="startDateEducation" name="startDateEducation">'+
 											'<img src="/image/icon/homepage/icon-calender-input.svg" class="this-icon" alt="icon">'+
 										'</div>'+
 									'</div>'+
@@ -531,7 +575,7 @@ if ($("#formFirstLogin").length) {
 									'<label for="">End Date<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12 with-icon">'+
-											'<input type="text" class="form-control" placeholder="Choose date" id="endDateEdication" name="endDateEdication">'+
+											'<input type="text" class="form-control" placeholder="Choose date" id="endDateEducation" name="endDateEducation">'+
 											'<img src="/image/icon/homepage/icon-calender-input.svg" class="this-icon" alt="icon">'+
 										'</div>'+
 									'</div>'+
@@ -544,10 +588,9 @@ if ($("#formFirstLogin").length) {
 									'<label for="">Certificate of Study<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<input type="text" class="form-control" placeholder="Format jpg/png maximum 2MB file">'+
-											'<p id="filenameCertificateStudy" class="m-1"></p>'+
+											'<input type="text" class="form-control file-input-label" placeholder="Format jpg/png maximum 2MB file" disable>'+
 											'<span class="btn btn-file pl-1 mb-2">'+
-												'Upload File <input type="file">'+
+												'Upload File <input type="file" name="certificate[]" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg">'+
 											'</span>'+
 										'</div>'+
 									'</div>'+
@@ -559,7 +602,7 @@ if ($("#formFirstLogin").length) {
 								'<div class="form-group">'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<button type="button" class="btn btn-white btn-block btnAddListEdication">'+
+											'<button type="button" class="btn btn-white btn-block btnAddListEducation">'+
 												'<i class="fas fa-trash mr-2" style="font-size:18px"></i> Delete the Education Data Above'+
 											'</button>'+
 										'</div>'+
@@ -570,7 +613,7 @@ if ($("#formFirstLogin").length) {
 								'<div class="form-group">'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<button type="button" class="btn btn-white btn-block btnAddListEdication">'+
+											'<button type="button" class="btn btn-white btn-block btnAddListEducation">'+
 												'<i class="fas fa-plus mr-2" style="font-size:18px"></i> Add Another Education'+
 											'</button>'+
 										'</div>'+
@@ -582,11 +625,11 @@ if ($("#formFirstLogin").length) {
 	
 		$('#listEducationCandidate').append(option)
 	
-		$('input[name="startDateEdication"]').datetimepicker({
+		$('input[name="startDateEducation"]').datetimepicker({
 			format: 'DD-MM-YYYY',
 		});
 	
-		$('input[name="endDateEdication"]').datetimepicker({
+		$('input[name="endDateEducation"]').datetimepicker({
 			format: 'DD-MM-YYYY',
 		});
 	
@@ -599,24 +642,46 @@ if ($("#formFirstLogin").length) {
 				$(this).parent().parent().remove()
 
 				if ($('.listStudy').length < 2) {
-					$('.btnAddListEdication.large').show()
+					$('.btnAddListEducation.large').show()
 				}
 			})
 		}
 		if ($('.secondBtnEducation').length) {
 			$('.secondBtnEducation').click(function(){
 				$(this).remove()
-				$('.btnAddListEdication.large').click();
+				$('.btnAddListEducation.large').click();
 			})
 		}
+
+		function readFileInput(input) {
+			console.log(input)
+			console.log(input.files)
+			console.log(input.files[0])
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				
+				reader.onload = function (e) {
+					var inputLabel = $(input).parent().parent().find('.file-input-label');
+					inputLabel.val();
+					inputLabel.val(input.files[0].name);
+				};
+				
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+		
+		$('.uploadCertificate').change(function(e){
+			e.preventDefault();
+			readFileInput(this);
+		});
 	})
 }
 
 
 if ($("#formEditEducationInformation").length) {
-	$('.btnAddListEdication').click(function(e){
+	$('.btnAddListEducation').click(function(e){
 		e.preventDefault()
-		$('.btnAddListEdication.large').hide()
+		$('.btnAddListEducation.large').hide()
 		$('.firstBtnListEducation').removeClass('margin-right-2rem')
 	
 		var option = '<div class="listStudy">'+
@@ -675,7 +740,7 @@ if ($("#formEditEducationInformation").length) {
 									'<label for="">Start Date<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12 with-icon">'+
-											'<input type="text" class="form-control" placeholder="Choose date" id="startDateEdication" name="startDateEdication">'+
+											'<input type="text" class="form-control" placeholder="Choose date" id="startDateEducation" name="startDateEducation">'+
 											'<img src="/image/icon/homepage/icon-calender-input.svg" class="this-icon" alt="icon">'+
 										'</div>'+
 									'</div>'+
@@ -686,7 +751,7 @@ if ($("#formEditEducationInformation").length) {
 									'<label for="">End Date<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12 with-icon">'+
-											'<input type="text" class="form-control" placeholder="Choose date" id="endDateEdication" name="endDateEdication">'+
+											'<input type="text" class="form-control" placeholder="Choose date" id="endDateEducation" name="endDateEducation">'+
 											'<img src="/image/icon/homepage/icon-calender-input.svg" class="this-icon" alt="icon">'+
 										'</div>'+
 									'</div>'+
@@ -714,7 +779,7 @@ if ($("#formEditEducationInformation").length) {
 								'<div class="form-group">'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<button type="button" class="btn btn-white btn-block btnAddListEdication">'+
+											'<button type="button" class="btn btn-white btn-block btnAddListEducation">'+
 												'<i class="fas fa-trash mr-2" style="font-size:18px"></i> Delete the Education Data Above'+
 											'</button>'+
 										'</div>'+
@@ -725,7 +790,7 @@ if ($("#formEditEducationInformation").length) {
 								'<div class="form-group">'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<button type="button" class="btn btn-white btn-block btnAddListEdication">'+
+											'<button type="button" class="btn btn-white btn-block btnAddListEducation">'+
 												'<i class="fas fa-plus mr-2" style="font-size:18px"></i> Add Another Education'+
 											'</button>'+
 										'</div>'+
@@ -737,11 +802,11 @@ if ($("#formEditEducationInformation").length) {
 	
 		$('#listEducationCandidate').append(option)
 	
-		$('input[name="startDateEdication"]').datetimepicker({
+		$('input[name="startDateEducation"]').datetimepicker({
 			format: 'DD-MM-YYYY',
 		});
 	
-		$('input[name="endDateEdication"]').datetimepicker({
+		$('input[name="endDateEducation"]').datetimepicker({
 			format: 'DD-MM-YYYY',
 		});
 	
@@ -754,14 +819,14 @@ if ($("#formEditEducationInformation").length) {
 				$(this).parent().parent().remove()
 
 				if ($('.listStudy').length < 2) {
-					$('.btnAddListEdication.large').show()
+					$('.btnAddListEducation.large').show()
 				}
 			})
 		}
 		if ($('.secondBtnEducation').length) {
 			$('.secondBtnEducation').click(function(){
 				$(this).remove()
-				$('.btnAddListEdication.large').click();
+				$('.btnAddListEducation.large').click();
 			})
 		}
 	})

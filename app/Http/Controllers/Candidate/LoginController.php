@@ -21,14 +21,6 @@ class LoginController extends Controller
         return view('candidate.main-homepage.main')->with(['topbar'=>'home']);
     }
 
-    public function viewLoginCandidate(){
-    	if (Session()->get('session_candidate') != null) {
-            return redirect()->back();
-        }else{
-	    	return view('candidate.first-login-candidate')->with(['topbar'=>'first_login']);
-        }
-    }
-
     public function signUp(){
         $encrypt = new EncryptController;
     	$data = $encrypt->fnDecrypt(Request::input('data'),true);
@@ -150,6 +142,6 @@ class LoginController extends Controller
     public function logout(){
         session()->forget('session_candidate');
 
-    	return redirect('/');
+    	return redirect('/job');
     }
 }

@@ -52,8 +52,8 @@ Route::prefix('HR')->group(function(){
 
 // Candidate View Preparation
 Route::middleware('authcandidate')->group(function(){
-	Route::get('/first-login', 'Candidate\LoginController@viewLoginCandidate')->name('get.first-login');
-	Route::post('/post-first-login', 'Candidate\LoginController@postFirstLogin')->name('post.first-login');
+	Route::get('/first-login', 'Candidate\ProfileController@viewFirstLogin')->name('get.first-login');
+	Route::post('/post-first-login', 'Candidate\ProfileController@postFirstLogin')->name('post.first-login');
 
 	Route::prefix('signout')->group(function () {
 		Route::get('/', 'Candidate\LoginController@logout')->name('get.logout-candidate');
@@ -75,6 +75,9 @@ Route::get('/news-event', 'Candidate\NewsEventController@viewNewsEvent')->name('
 Route::get('/news-event/detail/{id}', 'Candidate\NewsEventController@viewNewsEventDetail')->name('get.news.event.page.detail');
 Route::post('/news-get-more', 'Candidate\NewsEventController@getMoreNews')->name('get.news.more');
 Route::post('/event-get-more', 'Candidate\NewsEventController@getMoreEvent')->name('get.event.more');
+
+Route::get('/job', 'Candidate\JobController@viewJob')->name('get.job.page');
+Route::get('/job/detail/{id}', 'Candidate\JobController@viewJobDetail')->name('get.job.page.detail');
 
 Route::post('/post-signup', 'Candidate\LoginController@signUp')->name('post.signup');
 Route::post('/post-login', 'Candidate\LoginController@signIn')->name('post.login');
