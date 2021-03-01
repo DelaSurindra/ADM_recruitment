@@ -103,9 +103,12 @@ var ajax = {
 								ui.popup.hideLoader();
 								// bisa menggunakan if seperti diatas
 							}else if(result.status == 'warning'){
+								$('.modal').modal('hide');
 								ui.popup.hideLoader();
 								if (result.callback == 'redirect') {
 									ui.popup.show(result.status, result.message, result.url);
+								} else if (result.callback == 'mustLogin') {
+									$('#modalNotifForLogin').modal('show')
 								}
 							}else{
 								if(result.messages == '<p>Error: Validation</p>') {

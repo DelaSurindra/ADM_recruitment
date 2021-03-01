@@ -19,7 +19,7 @@ class AuthCandidate
         if ($session_id != null) {
             return $next($request);
         }else{
-            return redirect('/');
+            return back()->with('mustLogin', 'login');
         }
     }
 }

@@ -74,7 +74,7 @@ class LoginController extends Controller
                 return [
                     'status'   => 'success',
                     'message'  => 'Berhasil Melakukan Registrasi',
-                    'url'      => '/first-login',
+                    'url'      => '/complete-account',
                     'callback' => 'redirect'
                 ];
             }else{

@@ -41,6 +41,7 @@
     
     <form action="{{ route('post.first-login') }}" id="formFirstLogin" class="form-candidate-view mt-5" method="POST" enctype="multipart/form-data">
         @csrf
+        <input type="hidden" name="idCandidate" id="idCandidate" value="{{ Session::get('session_candidate')['id'] }}">
         <div data-speed="100" id="page-1" class="item active">
             <div class="row">
                 <div class="col-lg-6 col-md-12">
@@ -75,7 +76,7 @@
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <div class="form-group">
-                        <label for="">Last Name<span class="required-sign">*</span></label>
+                        <label for="">Last Name</label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
                                 <input type="text" name="lastName" id="lastName" class="form-control" placeholder="Last Name">
@@ -103,11 +104,11 @@
                         <label for="">Gender<span class="required-sign">*</span></label>
                         <div class="d-flex">
                             <label class="custome-radio-wrapper mb-0 mr-4"> Male
-                                <input type="radio" name="gender" id="gender">
+                                <input type="radio" name="gender" id="gender1" value="1">
                                 <span class="checkmark"></span>
                             </label>
                             <label class="custome-radio-wrapper mb-0"> Female
-                                <input type="radio" name="gender" id="gender">
+                                <input type="radio" name="gender" id="gender2" value="2">
                                 <span class="checkmark"></span>
                             </label>
                         </div>
@@ -120,7 +121,7 @@
                         <label for="">Email<span class="required-sign">*</span></label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <input type="text" name="email" id="email" class="form-control" placeholder="Email">
+                                <input type="text" name="email" id="email" class="form-control" placeholder="Email" value="{{ Session::get('session_candidate')['user_email'] }}" disabled>
                             </div>
                         </div>
                     </div>
@@ -142,8 +143,12 @@
                         <label for="">Location (City)<span class="required-sign">*</span></label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <input type="text" name="myLocation" id="myLocation" class="form-control mb-2" placeholder="Location">
-                                <small id="LocateMe" class="locate-me pt-3">Locate Me</small>
+                                <select name="myLocation" id="myLocation" class="select2 form-control">
+                                    <option value="">Choose Location</option>
+                                    @foreach($wilayah as $data)
+                                        <option value="{{$data['kabupaten']}}">{{$data['kabupaten']}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -152,10 +157,10 @@
             <div class="row">
                 <div class="col-lg-6 col-md-12">
                     <div class="form-group">
-                        <label for="">Linkedin Profile<span class="required-sign">*</span></label>
+                        <label for="">Linkedin Profile</label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <input type="text" name="lingkedInLink" id="lingkedInLink" class="form-control" placeholder="ex: www.linkedin.com/example">
+                                <input type="text" name="lingkedInLink" id="lingkedInLink" class="form-control" placeholder="ex: http://linkedin.com/example">
                             </div>
                         </div>
                     </div>
@@ -196,8 +201,9 @@
                                     <div class="col-lg-11 col-md-12">
                                         <select name="degree" id="degree" class="select2 form-control">
                                             <option value="">Choose your degree</option>
-                                            <option value="">Opt 1</option>
-                                            <option value="">Opt 1</option>
+                                            <option value="1">Diploma Degree</option>
+                                            <option value="2">Bachelor Degree</option>
+                                            <option value="3">Master Degree</option>
                                         </select>
                                     </div>
                                 </div>
@@ -220,7 +226,11 @@
                                 <label for="">Major<span class="required-sign">*</span></label>
                                 <div class="row">
                                     <div class="col-lg-11 col-md-12">
-                                        <input type="text" name="major" id="major" class="form-control" placeholder="Major">
+                                        <select name="major" id="major" class="select2 form-control">
+                                            <option value="">Choose your major</option>
+                                            <option value="Sistem Informasi">Sistem Informasi</option>
+                                            <option value="Akuntansi">Akuntansi</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -229,7 +239,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label for="">Start Date<span class="required-sign">*</span></label>
+                                <label for="">Start Year<span class="required-sign">*</span></label>
                                 <div class="row">
                                     <div class="col-lg-11 col-md-12 with-icon">
                                         <input type="text" class="form-control" placeholder="Choose date" id="startDateEducation" name="startDateEducation">
@@ -240,7 +250,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label for="">End Date<span class="required-sign">*</span></label>
+                                <label for="">End Year<span class="required-sign">*</span></label>
                                 <div class="row">
                                     <div class="col-lg-11 col-md-12 with-icon">
                                         <input type="text" class="form-control" placeholder="Choose date" id="endDateEducation" name="endDateEducation">
@@ -253,10 +263,20 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group">
+                                <label for="">GPA<span class="required-sign">*</span></label>
+                                <div class="row">
+                                    <div class="col-lg-11 col-md-12">
+                                        <input type="text" class="form-control" placeholder="0 - 100" id="gpa" name="gpa">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group">
                                 <label for="">Certificate of Study<span class="required-sign">*</span></label>
                                 <div class="row">
                                     <div class="col-lg-11 col-md-12">
-                                        <input type="text" class="form-control file-input-label" placeholder="Format jpg/png maximum 2MB file" disable>
+                                        <input type="text" class="form-control file-input-label" placeholder="Format jpg/png maximum 2MB file" disabled>
                                         <span class="btn btn-file pl-1 mb-2">
                                             Upload File <input type="file" name="certificate[]" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg">
                                         </span>
@@ -305,7 +325,8 @@
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <div class="row">
-                        <div class="col-lg-11 col-md-12">
+                        <div class="col-lg-11 col-md-12 d-flex">
+                            <button class="btn btn-red slideBtn mr-2" for="page-2"><i class="fas fa-chevron-circle-left"></i></button>
                             <button type="button" class="btn btn-red btn-block right slideBtn btn-next" for="page-2">Next</button>
                         </div>
                     </div>
@@ -317,13 +338,13 @@
             <div class="row">
                 <div class="col-lg-6 col-md-12">
                     <div class="form-group">
-                        <label for="">Cover Letter<span class="required-sign">*</span></label>
+                        <label for="">Cover Letter</label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <input type="text" class="form-control" placeholder="You can attach file or send a link direct to your file">
+                                <input type="text" name="coverLetterLink" id="coverLetterLink" class="form-control" placeholder="You can attach file or send a link direct to your file">
                                 <p id="filenameCertificateStudy" class="m-1"></p>
                                 <span class="btn btn-file pl-1 mb-2">
-                                    Upload File <input type="file">
+                                    Upload File <input type="file" name="coverLetter" id="coverLetter">
                                 </span>
                             </div>
                         </div>
@@ -333,13 +354,13 @@
             <div class="row">
                 <div class="col-lg-6 col-md-12">
                     <div class="form-group">
-                        <label for="">Resume<span class="required-sign">*</span></label>
+                        <label for="">Resume</label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <input type="text" class="form-control" placeholder="You can attach file or send a link direct to your file">
+                                <input type="text" name="resumeLink" id="resumeLink" class="form-control" placeholder="You can attach file or send a link direct to your file">
                                 <p id="filenameCertificateStudy" class="m-1"></p>
                                 <span class="btn btn-file pl-1 mb-2">
-                                    Upload File <input type="file">
+                                    Upload File <input type="file" name="resume" id="resume">
                                 </span>
                             </div>
                         </div>
@@ -349,13 +370,13 @@
             <div class="row">
                 <div class="col-lg-6 col-md-12">
                     <div class="form-group">
-                        <label for="">Portofolio<span class="required-sign">*</span></label>
+                        <label for="">Portofolio</label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <input type="text" class="form-control" placeholder="You can attach file or send a link direct to your file">
+                                <input type="text" name="portofolioLink" id="portofolioLink" class="form-control" placeholder="You can attach file or send a link direct to your file">
                                 <p id="filenameCertificateStudy" class="m-1"></p>
                                 <span class="btn btn-file pl-1 mb-2">
-                                    Upload File <input type="file">
+                                    Upload File <input type="file" name="portofolio" id="portofolio">
                                 </span>
                             </div>
                         </div>
@@ -365,10 +386,10 @@
             <div class="row mb-4">
                 <div class="col-lg-6 col-md-12">
                     <div class="form-group">
-                        <label for="">Skill<span class="required-sign">*</span></label>
+                        <label for="">Skill</label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="Mention all your skill"></textarea>
+                                <textarea name="skill" id="skill" class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="Mention all your skill"></textarea>
                             </div>
                         </div>
                     </div>
@@ -380,7 +401,8 @@
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <div class="row">
-                        <div class="col-lg-11 col-md-12">
+                        <div class="col-lg-11 col-md-12 d-flex">
+                            <button class="btn btn-red slideBtn mr-2" for="page-3"><i class="fas fa-chevron-circle-left"></i></button>
                             <button type="submit" class="btn btn-red btn-block">Save Profile</button>
                         </div>
                     </div>

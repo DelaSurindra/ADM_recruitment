@@ -1,6 +1,6 @@
-@extends('candidate.profile')
+@extends('candidate.profile.profile')
 @section('profile')
-    @include('candidate.profile-home')
+    @include('candidate.profile.profile-home')
 @endsection
 
 @section('app')

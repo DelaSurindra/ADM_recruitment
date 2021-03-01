@@ -44,7 +44,10 @@
                     <button class="btn btn-blue btn-block"type="button">Apply Before : <b> 12 February 2021</b></button>
                 </div>
                 <div class="col-lg-6 col-md-12">
-                    <button class="btn btn-red btn-block"type="button">Check Online Test</button>
+                    <form action="{{ route('post.apply-job') }}" id="formApplyJob" method="POST" ajax="true">
+                        <input type="hidden" name="idUser" id="idUser" value="{{ Session::get('session_candidate')['user_id'] }}">
+                        <button class="btn btn-red btn-block" type="submit">Apply This Job</button>
+                    </form>
                 </div>
             </div>
 

@@ -49,6 +49,12 @@ $(document).ready(function () {
 
         ui.popup.show(status, message, url)
     }
+    if ($('#mustLogin').length) {
+        $('.modal').modal('hide');
+	    ui.popup.hideLoader();
+
+        $('#modalNotifForLogin').modal('show')
+    }
     
 })
 

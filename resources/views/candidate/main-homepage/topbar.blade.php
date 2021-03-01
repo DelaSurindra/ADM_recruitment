@@ -67,13 +67,13 @@
                 <div class="profile-dropdown dropdown">
                     <div class="profile-access" id="dropdownMenuProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="rounded-circle img-profile" src="https://instagram.fcgk9-1.fna.fbcdn.net/v/t51.2885-15/sh0.08/e35/p640x640/36687395_1833002890090498_1311641978080854016_n.jpg?_nc_ht=instagram.fcgk9-1.fna.fbcdn.net&_nc_cat=110&_nc_ohc=xRSWiQpr3Z4AX8TfB-s&tp=1&oh=f0b27cf086b3be75608151d4375e2384&oe=605D5A77" alt="avatar">
-                        <p class="name-profile">Ian Ahmad</p>
+                        <p class="name-profile">{{ Session::get('session_candidate')['first_name'] }} {{ Session::get('session_candidate')['last_name'] }}</p>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuProfile">
-                        <h6 class="dropdown-item">Ian Ahmad</h6>
+                        <h6 class="dropdown-item">{{ Session::get('session_candidate')['first_name'] }} {{ Session::get('session_candidate')['last_name'] }}</h6>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{ route('get.profile.view') }}">
                             <img src="{{ asset('image/icon/homepage/edit-profile-icon.svg') }}" alt="icon"> Edit Profile
                         </a>
                         <div class="dropdown-divider"></div>
@@ -143,7 +143,7 @@
                         <button class="btn btn-red btn-block">Sign Up</button>
                     </div>
                     <div class="form-group mb-0 signup-text">
-                        <p class="text-center">Do you have an account? <span>Login</span></p>
+                        <p class="text-center">Do you have an account? <span class="goToLogin">Login</span></p>
                     </div>
                 </form>
             </div>
@@ -185,7 +185,7 @@
                         <button class="btn btn-red btn-block">Login</button>
                     </div>
                     <div class="form-group mb-0 signup-text">
-                        <p class="text-center">Dont you have an account? <span>Sign Up</span></p>
+                        <p class="text-center">Dont you have an account? <span class="goToRegister">Sign Up</span></p>
                     </div>
                 </form>
             </div>

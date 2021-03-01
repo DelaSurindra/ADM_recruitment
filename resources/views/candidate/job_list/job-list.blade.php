@@ -15,7 +15,7 @@
                             <div class="dropdown-item">
                                 <form class="form-candidate-view">
                                     <h6 class="mb-2">Search</h6>
-                                    <input type="text" class="form-control mb-2" placeholder="Search">
+                                    <input type="text" class="form-control mb-2" placeholder="Search Job">
                                     <button type="submit" class="submit-filter">Apply</button>
                                 </form>
                             </div>
@@ -32,18 +32,18 @@
                                 <div class="dropdown-item">
                                     <h6 class="mb-2">Job Type</h6>
                                     <div class="list-type-job">
-                                        <div class="fulltime-badge mr-1">Full-time</div>
-                                        <div class="internship-badge mr-1">Internship</div>
-                                        <div class="fulltime-badge not-active">Full-time</div>
+                                        <div class="fulltime-badge job-type-select not-active mr-1">Full-time</div>
+                                        <div class="internship-badge job-type-select not-active mr-1">Internship</div>
                                     </div>
                                 </div>
                                 <div class="dropdown-divider"></div>
                                 <div class="dropdown-item">
                                     <h6 class="mb-2">Location</h6>
                                     <select name="" id="" class="form-control select2">
-                                        <option value="">Loc 1</option>
-                                        <option value="">Loc 2</option>
-                                        <option value="">Loc 3</option>
+                                        <option value="">Choose Location</option>
+                                        @foreach($wilayah as $data)
+                                            <option value="{{$data['kabupaten']}}">{{$data['kabupaten']}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="dropdown-divider"></div>
@@ -55,11 +55,11 @@
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="container-custom-checked mb-0 mr-2"> S1
-                                            <input type="checkbox" name="rememberMe" id="rememberMe" value="1">
+                                            <input type="checkbox" name="rememberMe" id="rememberMe" value="2">
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="container-custom-checked mb-0"> S2
-                                            <input type="checkbox" name="rememberMe" id="rememberMe" value="1">
+                                            <input type="checkbox" name="rememberMe" id="rememberMe" value="3">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -68,9 +68,9 @@
                                 <div class="dropdown-item">
                                     <h6>Major</h6>
                                     <select name="" id="" class="form-control select2">
-                                        <option value="">Loc 1</option>
-                                        <option value="">Loc 2</option>
-                                        <option value="">Loc 3</option>
+                                        <option value="">Choose Major</option>
+                                        <option value="Sistem Informasi">Sistem Informasi</option>
+                                        <option value="Akuntansi">Akuntansi</option>
                                     </select>
                                 </div>
                                 <div class="dropdown-divider"></div>
@@ -86,8 +86,38 @@
                 </div>
             </div>
             <div class="row">
+                @foreach($job as $data)
+                <div class="col-lg-4 col-md-6 col-sm-12 my-3">
+                    <div class="card card-job-list">
+                        <a href="{{ route('get.job.page.detail', base64_encode(urlencode($data['job_id']))) }}" class="text-decoration-none">
+                            <div class="card-body">
+                                @if($data['type'] == 1)
+                                <div class="fulltime-badge mb-3">Full-time</div>
+                                @elseif($data['type'] == 2)
+                                <div class="internship-badge mb-3">Internship</div>
+                                @endif
+                                <label class="label-no-margin mb-1">{{ $data['lokasi'] }}, Indonesia</label>
+                                <h4 class="candidate-page-subtitle mb-3">{{ $data['job_title'] }}</h4>
+    
+                                <div class="d-flex align-items-center job-list-detail mb-1">
+                                    <div class="icon-wrapper">
+                                        <img src="{{ asset('image/icon/homepage/icon-graduate.svg') }}" alt="icon">
+                                    </div>
+                                    <p class="text">{{ $data['education_req'] }}</p>
+                                </div>
+                                <div class="d-flex align-items-start job-list-detail">
+                                    <div class="icon-wrapper">
+                                        <img src="{{ asset('image/icon/homepage/icon-book.svg') }}" alt="icon">
+                                    </div>
+                                    <p class="text">{!! $data['job_requirement'] !!}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                @endforeach
                 @for($i=0; $i < 3; $i++)
-                <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-6 col-sm-12 my-3">
                     <div class="card card-job-list">
                         <div class="card-body">
                             <div class="internship-badge mb-3">Internship</div>
@@ -98,13 +128,13 @@
                                 <div class="icon-wrapper">
                                     <img src="{{ asset('image/icon/homepage/icon-graduate.svg') }}" alt="icon">
                                 </div>
-                                <p>Diploma, Bachelor's Degree in Engineering</p>
+                                <p class="text">Diploma, Bachelor's Degree in Engineering</p>
                             </div>
                             <div class="d-flex align-items-start job-list-detail">
                                 <div class="icon-wrapper">
                                     <img src="{{ asset('image/icon/homepage/icon-book.svg') }}" alt="icon">
                                 </div>
-                                <p>DevOps & Cloud Management Software, Enterprise Resource Planning</p>
+                                <p class="text">DevOps & Cloud Management Software, Enterprise Resource Planning</p>
                             </div>
                         </div>
                     </div>

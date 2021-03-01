@@ -52,7 +52,7 @@ Route::prefix('HR')->group(function(){
 
 // Candidate View Preparation
 Route::middleware('authcandidate')->group(function(){
-	Route::get('/first-login', 'Candidate\ProfileController@viewFirstLogin')->name('get.first-login');
+	Route::get('/complete-account', 'Candidate\ProfileController@viewFirstLogin')->name('get.first-login');
 	Route::post('/post-first-login', 'Candidate\ProfileController@postFirstLogin')->name('post.first-login');
 
 	Route::prefix('signout')->group(function () {
@@ -62,8 +62,13 @@ Route::middleware('authcandidate')->group(function(){
 	Route::prefix('profile')->group(function () {
 		Route::get('/', 'Candidate\ProfileController@viewProfile')->name('get.profile.view');
 		Route::get('/personal-information', 'Candidate\ProfileController@editPersonalInformation')->name('get.profile.personal-information');
+		Route::post('/post-personal-information', 'Candidate\ProfileController@postEditPersonalInformation')->name('post.profile.personal-information');
 		Route::get('/other-information', 'Candidate\ProfileController@editOtherInformation')->name('get.profile.other-information');
+		Route::post('/post-other-information', 'Candidate\ProfileController@postEditOtherInformation')->name('post.profile.other-information');
 		Route::get('/education-information', 'Candidate\ProfileController@editEducationInformation')->name('get.profile.education-information');
+		Route::post('/post-education-information', 'Candidate\ProfileController@postEditEducationInformation')->name('post.profile.education-information');
+
+		Route::post('/post-edit-password', 'Candidate\ProfileController@postEditPassword')->name('post.profile.edit-password');
 
 		Route::get('/my-app-detail', 'Candidate\ProfileController@myAppDetail')->name('get.profile.my-app-detail');
 	});
@@ -78,6 +83,7 @@ Route::post('/event-get-more', 'Candidate\NewsEventController@getMoreEvent')->na
 
 Route::get('/job', 'Candidate\JobController@viewJob')->name('get.job.page');
 Route::get('/job/detail/{id}', 'Candidate\JobController@viewJobDetail')->name('get.job.page.detail');
+Route::post('/apply-job', 'Candidate\JobController@applyJob')->name('post.apply-job');
 
 Route::post('/post-signup', 'Candidate\LoginController@signUp')->name('post.signup');
 Route::post('/post-login', 'Candidate\LoginController@signIn')->name('post.login');

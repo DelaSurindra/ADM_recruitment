@@ -46,6 +46,15 @@ var form = {
 			form.validate(form_id);
 		});
 
+		$('.goToLogin').click(function(){
+			$('.modal').modal('hide');
+			$('#modalLoginCandidate').modal('show')
+		});
+	
+		$('.goToRegister').click(function(){
+			$('.modal').modal('hide');
+			$('#modalSignUpCandidate').modal('show')
+		});
 	},
 	validate:function(form_id){
 
@@ -496,11 +505,11 @@ if ($("#formFirstLogin").length) {
 	});
 
 	$('#startDateEducation').datetimepicker({
-		format: 'DD-MM-YYYY',
+		format: 'YYYY',
 	});
 
 	$('#endDateEducation').datetimepicker({
-		format: 'DD-MM-YYYY',
+		format: 'YYYY',
 	});
 
 	$('.btnAddListEducation').click(function(e){
@@ -528,8 +537,9 @@ if ($("#formFirstLogin").length) {
 										'<div class="col-lg-11 col-md-12">'+
 											'<select name="degree" id="degree" class="select2 form-control">'+
 												'<option value="">Choose your degree</option>'+
-												'<option value="">Opt 1</option>'+
-												'<option value="">Opt 1</option>'+
+												'<option value="1">Diploma Degree</option>'+
+												'<option value="2">Bachelor Degree</option>'+
+												'<option value="3">Master Degree</option>'+
 											'</select>'+
 										'</div>'+
 									'</div>'+
@@ -552,7 +562,11 @@ if ($("#formFirstLogin").length) {
 									'<label for="">Major<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<input type="text" name="major" id="major" class="form-control" placeholder="Major">'+
+											'<select name="major" id="major" class="select2 form-control">'+
+												'<option value="">Choose your major</option>'+
+												'<option value="Sistem Informasi">Sistem Informasi</option>'+
+												'<option value="Akuntansi">Akuntansi</option>'+
+											'</select>'+
 										'</div>'+
 									'</div>'+
 								'</div>'+
@@ -585,10 +599,20 @@ if ($("#formFirstLogin").length) {
 						'<div class="row">'+
 							'<div class="col-lg-6 col-md-12">'+
 								'<div class="form-group">'+
+									'<label for="">GPA<span class="required-sign">*</span></label>'+
+									'<div class="row">'+
+										'<div class="col-lg-11 col-md-12">'+
+											'<input type="text" class="form-control" placeholder="0 - 100" id="gpa" name="gpa">'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>'+
+							'<div class="col-lg-6 col-md-12">'+
+								'<div class="form-group">'+
 									'<label for="">Certificate of Study<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<input type="text" class="form-control file-input-label" placeholder="Format jpg/png maximum 2MB file" disable>'+
+											'<input type="text" class="form-control file-input-label" placeholder="Format jpg/png maximum 2MB file" disabled>'+
 											'<span class="btn btn-file pl-1 mb-2">'+
 												'Upload File <input type="file" name="certificate[]" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg">'+
 											'</span>'+
@@ -626,11 +650,11 @@ if ($("#formFirstLogin").length) {
 		$('#listEducationCandidate').append(option)
 	
 		$('input[name="startDateEducation"]').datetimepicker({
-			format: 'DD-MM-YYYY',
+			format: 'YYYY',
 		});
 	
 		$('input[name="endDateEducation"]').datetimepicker({
-			format: 'DD-MM-YYYY',
+			format: 'YYYY',
 		});
 	
 		if ($('.select2').length) {
@@ -677,8 +701,61 @@ if ($("#formFirstLogin").length) {
 	})
 }
 
+if ($('#formEditPersonalInformation').length) {
+	function readFile(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			
+			reader.onload = function (e) {
+				$('.photoProfileLabel').empty();
+				$('.photoProfileImage').attr('src', e.target.result);
+				$('.photoProfileLabel').html(input.files[0].name);
+			};
+			
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	
+	$("#photoProfile").change(function(){
+		readFile(this);
+	});
+
+	$('input[name="birthDate"]').datetimepicker({
+		format: 'DD-MM-YYYY',
+	});
+}
 
 if ($("#formEditEducationInformation").length) {
+	function readFileInput(input) {
+		console.log(input)
+		console.log(input.files)
+		console.log(input.files[0])
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			
+			reader.onload = function (e) {
+				var inputLabel = $(input).parent().parent().find('.file-input-label');
+				inputLabel.val();
+				inputLabel.val(input.files[0].name);
+			};
+			
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	
+	$('.uploadCertificate').change(function(e){
+		e.preventDefault();
+		readFileInput(this);
+	});
+
+	$('#startDateEducation').datetimepicker({
+		format: 'YYYY',
+	});
+
+	$('#endDateEducation').datetimepicker({
+		format: 'YYYY',
+	});
+
 	$('.btnAddListEducation').click(function(e){
 		e.preventDefault()
 		$('.btnAddListEducation.large').hide()
@@ -692,7 +769,7 @@ if ($("#formEditEducationInformation").length) {
 									'<label for="">School/University<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<input type="text" class="form-control" placeholder="School/University">'+
+											'<input type="text" name="university" id="university" class="form-control" placeholder="School/University">'+
 										'</div>'+
 									'</div>'+
 								'</div>'+
@@ -702,10 +779,11 @@ if ($("#formEditEducationInformation").length) {
 									'<label for="">Degree<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<select name="" id="" class="select2 form-control">'+
+											'<select name="degree" id="degree" class="select2 form-control">'+
 												'<option value="">Choose your degree</option>'+
-												'<option value="">Opt 1</option>'+
-												'<option value="">Opt 1</option>'+
+												'<option value="1">Diploma Degree</option>'+
+												'<option value="2">Bachelor Degree</option>'+
+												'<option value="3">Master Degree</option>'+
 											'</select>'+
 										'</div>'+
 									'</div>'+
@@ -718,7 +796,7 @@ if ($("#formEditEducationInformation").length) {
 									'<label for="">Faculty<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<input type="text" class="form-control" placeholder="Faculty">'+
+											'<input type="text" name="faculty" id="faculty" class="form-control" placeholder="Faculty">'+
 										'</div>'+
 									'</div>'+
 								'</div>'+
@@ -728,7 +806,11 @@ if ($("#formEditEducationInformation").length) {
 									'<label for="">Major<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<input type="text" class="form-control" placeholder="Major">'+
+											'<select name="major" id="major" class="select2 form-control">'+
+												'<option value="">Choose your major</option>'+
+												'<option value="Sistem Informasi">Sistem Informasi</option>'+
+												'<option value="Akuntansi">Akuntansi</option>'+
+											'</select>'+
 										'</div>'+
 									'</div>'+
 								'</div>'+
@@ -761,20 +843,29 @@ if ($("#formEditEducationInformation").length) {
 						'<div class="row">'+
 							'<div class="col-lg-6 col-md-12">'+
 								'<div class="form-group">'+
+									'<label for="">GPA<span class="required-sign">*</span></label>'+
+									'<div class="row">'+
+										'<div class="col-lg-11 col-md-12">'+
+											'<input type="text" class="form-control" placeholder="0 - 100" id="gpa" name="gpa">'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>'+
+							'<div class="col-lg-6 col-md-12">'+
+								'<div class="form-group">'+
 									'<label for="">Certificate of Study<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<input type="text" class="form-control" placeholder="Format jpg/png maximum 2MB file">'+
-											'<p id="filenameCertificateStudy" class="m-1"></p>'+
+											'<input type="text" class="form-control file-input-label" placeholder="Format jpg/png maximum 2MB file" disabled>'+
 											'<span class="btn btn-file pl-1 mb-2">'+
-												'Upload File <input type="file">'+
+												'Upload File <input type="file" name="certificate[]" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg">'+
 											'</span>'+
 										'</div>'+
 									'</div>'+
 								'</div>'+
 							'</div>'+
 						'</div>'+
-						'<div class="row">'+
+						'<div class="row startSecondButtonAddListEducation">'+
 							'<div class="col-lg-6 col-md-12 removeThisEducation">'+
 								'<div class="form-group">'+
 									'<div class="row">'+
@@ -803,11 +894,11 @@ if ($("#formEditEducationInformation").length) {
 		$('#listEducationCandidate').append(option)
 	
 		$('input[name="startDateEducation"]').datetimepicker({
-			format: 'DD-MM-YYYY',
+			format: 'YYYY',
 		});
 	
 		$('input[name="endDateEducation"]').datetimepicker({
-			format: 'DD-MM-YYYY',
+			format: 'YYYY',
 		});
 	
 		if ($('.select2').length) {
@@ -820,6 +911,20 @@ if ($("#formEditEducationInformation").length) {
 
 				if ($('.listStudy').length < 2) {
 					$('.btnAddListEducation.large').show()
+				} else {
+					var newBtn = '<div class="col-lg-6 col-md-12 secondBtnEducation">'+
+									'<div class="form-group">'+
+										'<div class="row">'+
+											'<div class="col-lg-11 col-md-12">'+
+												'<button type="button" class="btn btn-white btn-block btnAddListEducation">'+
+													'<i class="fas fa-plus mr-2" style="font-size:18px"></i> Add Another Education'+
+												'</button>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>';
+
+					$('.startSecondButtonAddListEducation').last().append(newBtn)
 				}
 			})
 		}
@@ -829,6 +934,28 @@ if ($("#formEditEducationInformation").length) {
 				$('.btnAddListEducation.large').click();
 			})
 		}
+
+		function readFileInput(input) {
+			console.log(input)
+			console.log(input.files)
+			console.log(input.files[0])
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				
+				reader.onload = function (e) {
+					var inputLabel = $(input).parent().parent().find('.file-input-label');
+					inputLabel.val();
+					inputLabel.val(input.files[0].name);
+				};
+				
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+		
+		$('.uploadCertificate').change(function(e){
+			e.preventDefault();
+			readFileInput(this);
+		});
 	})
 }
 
@@ -911,3 +1038,14 @@ $("#loadEvent").click(function(e){
 	})
 	
 })
+
+
+if ($('#filterJobList').length) {
+	$('.job-type-select').click(function(){
+		if ($(this).hasClass('not-active')) {
+			$(this).removeClass('not-active')
+		} else {
+			$(this).addClass('not-active')
+		}
+	})
+}

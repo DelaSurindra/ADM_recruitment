@@ -187,6 +187,139 @@ const formrules = {
 		}
     },
 
+	'formFirstLogin':{
+        ignore: null,
+		rules:{
+			'photoProfile':{
+                required:true
+            },
+            'firstName':{
+                required:true,
+				STD_VAL_WEB_3: true,
+            },
+            'lastName':{
+                STD_VAL_WEB_3: true,
+            },
+			'birthDate':{
+				required:true,
+                STD_VAL_WEB_11: true,
+            },
+			'gender':{
+				required:true
+			},
+			'phoneNumber':{
+				required:true,
+				STD_VAL_WEB_8: true,
+			},
+			'myLocation':{
+				required:true,
+			},
+			'lingkedInLink':{
+				STD_VAL_WEB_20: true,
+			},
+			'university':{
+				required:true,
+				STD_VAL_WEB_25: true,
+			},
+			'degree':{
+				required:true,
+			},
+			'faculty':{
+				required:true,
+				STD_VAL_WEB_25: true,
+			},
+			'major':{
+				required:true,
+			},
+			'startDateEducation':{
+				required:true,
+			},
+			'endDateEducation':{
+				required:true,
+			},
+			'gpa':{
+				required:true,
+			},
+			'certificate':{
+				required:true,
+			},
+			// 'coverLetter':{
+			// 	STD_VAL_WEB_20:true,
+			// },
+			// 'resume':{
+			// 	STD_VAL_WEB_20:true,
+			// },
+			// 'portofolio':{
+			// 	STD_VAL_WEB_20:true,
+			// },
+			// 'skill':{
+			// 	STD_VAL_WEB_20:true,
+			// },
+		},
+		submitHandler:false,
+		messages: {
+			titleNewsEvent: {
+				required:'Mohon isi Title'
+            },
+            tipeNewsEvent: {
+				required:'Mohon pilih Tipe'
+            },
+            tglMulaiNewsEvent: {
+				required:'Mohon isi Start Date'
+            },
+			tglSelesaiNewsEvent: {
+				required:'Mohon isi Start Date'
+            },
+			descriptionNewsEvent: {
+				required:'Mohon isi Description'
+            }
+        },
+        errorPlacement: function (error, element) {
+			if (element.is("#tipeNewsEvent")) {
+				error.appendTo(element.parents('#tipeNewsEventDiv'));
+			}
+			else { // This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+    },
+
+	'formEditPassword':{
+        ignore: null,
+		rules:{
+			'oldPassword':{
+                required:true
+            },
+            'newPassword':{
+                required:true
+            },
+            'newPasswordConfirm':{
+                required:true,
+				equalTo: '#newPassword'
+            },
+		},
+		submitHandler:false,
+		messages: {
+			oldPassword: {
+				required: 'Mohon isi password lama',
+			},
+			newPassword: {
+				required: 'Mohon isi password baru',
+			},
+			newPasswordConfirm: {
+				required: 'Mohon isi konfirmasi password baru',
+			}
+        },
+        errorPlacement: function (error, element) {
+			if (element.is("#tipeNewsEvent")) {
+				error.appendTo(element.parents('#tipeNewsEventDiv'));
+			}
+			else { // This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+    },
+
 }
 
 var validation = {
@@ -484,9 +617,156 @@ var validation = {
 		}, "Password hanya boleh mengandung A-Z, a-z, 0-9 dan simbol dari 0-9");
 		jQuery.validator.addMethod('filesize', function(value, element, param) {
 				return this.optional(element) || (element.files[0].size <= param)
-			}, "Ukuran Maksimal Gambar 1 MB");
+		}, "Ukuran Maksimal Gambar 1 MB");
 
 
+		jQuery.validator.addMethod("STD_VAL_WEB_1", function(value, element) {
+			return this.optional(element) || /^(?=.*\d)([a-zA-Z0-9]+)(?!.*[ #<>\/\\=”’"'!@#$%^&()]).{6,10}$/.test(value);
+		}, "Username yang Anda masukkan harus terdiri dari 6-10 karakter alfanumerik tanpa spasi");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_2", function(value, element) { // 3x salah blokir
+			return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w])(?!.*\s).{8,12}$/.test(value);
+		}, "Password kombinasi huruf kapital, huruf kecil, angka, dan karakter non-alphabetic");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_3", function(value, element) {
+			return this.optional(element) || /^[a-zA-Z.' ]*$/.test(value);
+		}, "Nama harus terdiri dari alfabet, titik (.) dan single quote (')");
+
+		// STD_VAL_WEB_4 Jenis Kelamin (kemungkinan select option)
+
+		jQuery.validator.addMethod("STD_VAL_WEB_5",function(value,element){
+			value = value.toLowerCase();
+			return this.optional(element) || /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
+		},"Email Anda salah. Email harus terdiri dari @ dan domain");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_6", function(value, element) {
+			return this.optional(element) || /^\d{16}$/.test(value);
+		}, "Nomor KTP yang Anda masukkan salah. Harus terdiri dari 16 karakter");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_7", function(value, element) {
+			return this.optional(element) || /^\d{15}$/.test(value);
+		}, "NPWP yang Anda masukkan salah. Harus terdiri dari 15 karakter tanpa spasi dan symbol");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_8", function(value, element) {
+			return this.optional(element) || /^\d{11,13}$/.test(value);
+		}, "Nomor HP yang Anda masukkan salah");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_9", function(value, element) { // 3x salah blokir
+			return this.optional(element) || /^\d{6}$/.test(value);
+		}, "Pin yang anda masukkan salah. Jika salah hingga 3x akan otomatis terblokir");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_10", function(value, element) {
+			return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\s).{6,255}$/.test(value);
+		}, "Alamat yang anda masukkan salah");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_11", function(value, element) {
+			return this.optional(element) || /^(((0[1-9]|[12]\d|3[01])\-(0[13578]|1[02])\-((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\-(0[13456789]|1[012])\-((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\-02\-((19|[2-9]\d)\d{2}))|(29\-02\-((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/.test(value);
+		}, "Masukkan format tanggal yang sesuai");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_12", function(value, element) {
+			return this.optional(element) || /^([1-9]|([012][0-9])|(3[01]))-([0]{0,1}[1-9]|1[012])-\d\d\d\d [012]{0,1}[0-9]:[0-6][0-9]:[0-6][0-9]$/.test(value);
+		}, "Masukkan format tanggal yang sesuai");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_13", function(value, element) { // 3x salah blokir, expired 3 menit, 1 menit untuk retry
+			return this.optional(element) || /^\d{6}$/.test(value);
+		}, "OTP yang Anda masukkan salah");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_14", function(value, element) {
+			return this.optional(element) || /^[a-zA-Z0-9]{8,12}$/.test(value);
+		}, "MPIN yang Anda masukkan salah");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_15", function(value, element) { // setelah 4 input angka otomatis spasi (tambahkan pada masking)
+			return this.optional(element) || /^[0-9 ]{19}$/.test(value);
+		}, "Nomor kartu yang Anda masukkan tidak valid/salah");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_16", function(value, element) { // Saat input otomatis masking
+			return this.optional(element) || /^\d{3}$/.test(value);
+		}, "CVV yang Anda masukkan tidak valid/salah");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_17", function(value, element) { // Maxlength sesuai kebutuhan
+			return this.optional(element) || /^[0-9]*$/.test(value);
+		}, "Virtual Account Number yang anda masukkan tidak valid");
+
+		jQuery.validator.addMethod('STD_VAL_WEB_18', function(value, element, param) {
+			param = typeof param === "string" ? param.replace(/,/g, "|") : "png|jpeg|png";
+			return this.optional(element) || (element.files[0].size <= 1000000 && value.match(new RegExp("\\.(" + param + ")$", "i")))
+		}, "Upload gambar maksimal 1MB");
+
+		jQuery.validator.addMethod('STD_VAL_WEB_19', function(value, element, param) {
+			param = typeof param === "string" ? param.replace(/,/g, "|") : "doc|docx|xls|xlsx|csv";
+			return this.optional(element) || (element.files[0].size <= 5000000 && value.match(new RegExp("\\.(" + param + ")$", "i")))
+		}, "Upload file maksimal 5MB");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_20", function(value, element) {
+			return this.optional(element) || /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/.test(value);
+		}, "URL yang Anda masukkan tidak valid");
+
+		// STD_VAL_WEB_21 Accepted (kemungkinan checkbox)
+		// STD_VAL_WEB_22 Active_url 
+
+		jQuery.validator.addMethod("STD_VAL_WEB_23", function (value, element) {
+			return this.optional(element) || /^[a-zA-Z ]*$/.test(value);
+		}, "Input harus a-z A-Z");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_24", function (value, element) {
+			return this.optional(element) || /^([0-9]+)$/.test(value);
+		}, "Input harus 0-9");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_25", function (value, element) {
+			return this.optional(element) || /^[a-zA-Z0-9 ]*$/.test(value);
+		}, "Input harus 0-9, a-z, A-Z");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_26", function (value, element) {
+			return this.optional(element) || /^[a-zA-Z0-9-_]*$/.test(value);
+		}, "Input harus 0-9, a-z, A-Z, -, _");
+
+		// STD_VAL_WEB_27 array 
+		// STD_VAL_WEB_28 boolean (radio button) 
+
+		jQuery.validator.addMethod("STD_VAL_WEB_29", function (value, element, param) {
+			return this.optional(element) || value == $(param).val();
+		}, "Input tidak cocok");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_30", function (value, element) {
+			return this.optional(element) || /^\d+$/.test(value);
+		}, "Input harus digit");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_31", function (value, element, param) {
+			return this.optional(element) || (value >= param[0] && value <= param[1]);
+		}, "Input harus berdasarkan range");
+
+		// STD_VAL_WEB_32 
+		// STD_VAL_WEB_33 
+
+		jQuery.validator.addMethod("STD_VAL_WEB_34", function (value, element) {
+			return this.optional(element) || /^-?\d+$/.test(value);
+		}, "Input harus bilangan bulat");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_35", function (value, element) {
+			return this.optional(element) || /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(value);
+		}, "Input harus valid IP");
+
+		
+		jQuery.validator.addMethod("STD_VAL_WEB_36", function (value, element) {
+			return this.optional(element) || /^(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)$/i.test(value);
+		}, "Input harus ipv4");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_37", function (value, element) {
+			return this.optional(element) || /^((([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){5}:([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){4}:([0-9A-Fa-f]{1,4}:){0,2}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){3}:([0-9A-Fa-f]{1,4}:){0,3}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){2}:([0-9A-Fa-f]{1,4}:){0,4}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(([0-9A-Fa-f]{1,4}:){0,5}:((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(::([0-9A-Fa-f]{1,4}:){0,5}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|([0-9A-Fa-f]{1,4}::([0-9A-Fa-f]{1,4}:){0,5}[0-9A-Fa-f]{1,4})|(::([0-9A-Fa-f]{1,4}:){0,6}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,7}:))$/i.test(value);
+		}, "Input harus ipv6");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_38", function (value, element, param) {
+			return this.optional(element) || /^[\],:{}\s]*$/.test(text.replace(/\\["\\\/bfnrtu]/g, '@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').replace(/(?:^|:|,)(?:\s*\[)+/g, ''));
+			// function isValidJSON(param) {
+			//     try {
+			//         JSON.parse(param);
+			//     } catch (e) {
+			//         return false;
+			//     }
+
+			//     return true;
+			// }
+		}, "Input harus string json");
 	},
 	validateMe:function(id, valRules, valMessages) {
 

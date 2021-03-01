@@ -34,6 +34,16 @@ body {
     display: block;
 }
 
+label.error {
+    color: #DF0E2C !important;
+}
+.goToLogin {
+    cursor: pointer;
+}
+.goToRegister {
+    cursor: pointer;
+}
+
 .candidate-page-title {
     font-family: 'inter_bold', sans-serif;
     font-style: normal;

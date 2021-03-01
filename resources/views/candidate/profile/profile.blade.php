@@ -16,7 +16,7 @@
                     <img src="{{ asset('image/icon/homepage/myapp-icon.svg') }}" alt="icon"> My Application
                 </a>
                 <div class="divider-nav-link"></div>
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('get.logout-candidate') }}">
                     <img src="{{ asset('image/icon/homepage/logout-icon.svg') }}" alt="icon"> Logout
                 </a>
             </div>
@@ -27,7 +27,7 @@
                     @yield('profile')
                 </div>
                 <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                    @include('candidate.edit-password')
+                    @include('candidate.profile.edit-password')
                 </div>
                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                     @yield('app')
