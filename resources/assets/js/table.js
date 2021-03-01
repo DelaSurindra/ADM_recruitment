@@ -112,9 +112,17 @@ var table = {
 					"className": "title-poster-news",
 					"render": function(data, type, full, meta){
 						// var data = full.job_title;
+						var degree = '';
+						if (full.degree == "1") {
+							degree = "D3";
+						}else if (full.degree == "2") {
+							degree = "S1";
+						}else if (full.degree == "3"){
+							degree = "S2";
+						}
 						var data = '<h5 style="font-style: normal;font-weight: bold;font-size: 20px;line-height: 130%;letter-spacing: -0.02em;color: #282A2C;margin-bottom: 1px;">'+full.job_title+'</h5>'+
                         			'<p style="font-style: normal;font-weight: 200;font-size: 16px;line-height: 130%;letter-spacing: -0.02em;color: #282A2C;">'+full.lokasi+', Indonesia</p>'+
-									'<p style="font-style: normal;font-weight: 500;font-size: 14px;line-height: 130%;letter-spacing: -0.02em;color: #333333;">'+full.degree+', Bachelors Degree in '+full.job_title+'</p>'+
+									'<p style="font-style: normal;font-weight: 500;font-size: 14px;line-height: 130%;letter-spacing: -0.02em;color: #333333;">'+degree+', Bachelors Degree in '+full.job_title+'</p>'+
 									'<p style="font-style: normal;font-weight: 400;font-size: 14px;line-height: 130%;letter-spacing: -0.02em;color: #333333;">'+full.major+'</p>';
 		            	
 		               	return data;
@@ -246,7 +254,7 @@ var table = {
 		tbody.html('');
 	},
 	serverSide:function(id,columns,url,custParam=null,columnDefs=null){
-		var urutan = [0, 'asc'];
+		var urutan = [0, 'desc'];
 		var ordering = true;
 		
 		if (id == "tableVacancy") {

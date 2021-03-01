@@ -54,9 +54,9 @@
                                                 <label>Degree</label>
                                                 <select class="select2 tex-center select2-width" id="degreeVacancy" name="degreeVacancy">
                                                     <option value="">Degree</option>
-                                                    <option {{$data['degree'] == 'D3' ? 'selected':''}} value="D3">D3</option>
-                                                    <option {{$data['degree'] == 'D3' ? 'selected':''}} value="S1">S1</option>
-                                                    <option {{$data['degree'] == 'D3' ? 'selected':''}} value="S2">S2</option>
+                                                    <option {{$data['degree'] == '1' ? 'selected':''}} value="D3">D3</option>
+                                                    <option {{$data['degree'] == '2' ? 'selected':''}} value="S1">S1</option>
+                                                    <option {{$data['degree'] == '3' ? 'selected':''}} value="S2">S2</option>
                                                 </select>
                                             </div>
                                         </div>

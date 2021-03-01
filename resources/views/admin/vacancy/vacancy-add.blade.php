@@ -54,9 +54,9 @@
                                                 <label>Degree</label>
                                                 <select class="select2 tex-center select2-width" id="degreeVacancy" name="degreeVacancy">
                                                     <option value="">Degree</option>
-                                                    <option value="D3">D3</option>
-                                                    <option value="S1">S1</option>
-                                                    <option value="S2">S2</option>
+                                                    <option value="1">D3</option>
+                                                    <option value="2">S1</option>
+                                                    <option value="3">S2</option>
                                                 </select>
                                             </div>
                                         </div>
