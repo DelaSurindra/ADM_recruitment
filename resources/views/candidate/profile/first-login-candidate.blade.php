@@ -122,6 +122,7 @@
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
                                 <input type="text" name="email" id="email" class="form-control" placeholder="Email" value="{{ Session::get('session_candidate')['user_email'] }}" disabled>
+                                <input type="hidden" name="emailCandidate" value="{{ Session::get('session_candidate')['user_email'] }}">
                             </div>
                         </div>
                     </div>
