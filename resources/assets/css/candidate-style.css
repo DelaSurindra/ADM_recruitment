@@ -995,6 +995,104 @@ label.error {
     color: #DF0E2C;
 }
 
+.carousel-news{
+    top: 27% !important;
+    left: 15% !important;
+    bottom: auto !important;
+    right: auto !important;
+    padding: 0px !important;
+    text-align: left !important;
+}
+
+.img-carousel{
+    max-height: 475px;
+    position:relative;
+    z-index:-1;
+}
+
+.div-image-carousel{
+    background: linear-gradient(181.6deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 76.74%);
+}
+
+.badge-carousel {
+    background: rgba(232, 247, 238, 0.5);
+    border: 2px solid #333333;
+    box-sizing: border-box;
+    border-radius: 13.5px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #333333;
+    padding: 2px 6px;
+    width: fit-content;
+}
+
+.text-carousel{
+    font-style: normal;
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 130%;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+    width: 898px;
+}
+
+.carousel-control-prev-icon{
+    background: none !important;
+}
+
+.carousel-control-next-icon{
+    background: none !important;
+}
+
+.img-prev-next{
+    height: 35px;
+}
+
+.btn-read-more{
+    background: #DF0E2C;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+    width: 232px;
+    height: 45px;
+    padding-left: 80px;
+}
+
+.btn-read-more:hover{
+    color: #FFFFFF;
+    text-decoration: none !important;
+}
+
+.a-read-more{
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}
+
+.carousel-indicators li{
+    width: 8px !important;
+    height: 8px !important;
+    border:none !important;
+    border-radius: 3px;
+    opacity: 1 !important;
+}
+
+.carousel-indicators .active{
+    background: #DF0E2C;
+    border-radius: 3px;
+    width: 40px !important;
+}
+
 .margin-top-6rem {
     margin-top: 6rem;
 }

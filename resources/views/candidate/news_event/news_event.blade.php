@@ -10,39 +10,48 @@
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="{{asset('image/candidate/news_example.png')}}" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Gambar Slide Yang Pertama</h5>
-                        <p>Gambar pemandangan sungai.</p>
+                    <div class="div-image-carousel">
+                        <img src="{{asset('storage/').'/'.$newsEvent[0]['image'] }}" class="d-block w-100 img-carousel">
+                    </div>
+                    <div class="carousel-caption d-none d-md-block carousel-news">
+                        <div class="badge-carousel mb-2">{{$newsEvent[0]['type'] == "1" ? "News" : "Event"}}</div>
+                        <h5 class="text-carousel mb-5">{{$newsEvent[0]['title']}}</h5>
+                        <a href="{{route('get.news.event.page.detail', base64_encode(urlencode($newsEvent[0]['id'])))}}" class="a-read-more"><button type="button" class="btn btn-read-more">Read More</button></a>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="{{asset('image/candidate/news_example.png')}}" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Gambar Slide Yang Kedua</h5>
-                        <p>Gambar pemandangan sawah di desa.</p>
+                    <div class="div-image-carousel">
+                        <img src="{{asset('storage/').'/'.$newsEvent[1]['image'] }}" class="d-block w-100 img-carousel">
+                    </div>
+                    <div class="carousel-caption d-none d-md-block carousel-news">
+                        <div class="badge-carousel mb-2">{{$newsEvent[1]['type'] == "1" ? "News" : "Event"}}</div>
+                        <h5 class="text-carousel mb-5">{{$newsEvent[1]['title']}}</h5>
+                        <a href="{{route('get.news.event.page.detail', base64_encode(urlencode($newsEvent[1]['id'])))}}" class="a-read-more"><button type="button" class="btn btn-read-more">Read More</button></a>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="{{asset('image/candidate/news_example.png')}}" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Gambar Slide Yang Ketiga</h5>
-                        <p>Gambar pemandangan taman belakang rumah.</p>
+                    <div class="div-image-carousel">
+                        <img src="{{asset('storage/').'/'.$newsEvent[2]['image'] }}" class="d-block w-100 img-carousel">
+                    </div>
+                    <div class="carousel-caption d-none d-md-block carousel-news">
+                        <div class="badge-carousel mb-2">{{$newsEvent[1]['type'] == "1" ? "News" : "Event"}}</div>
+                        <h5 class="text-carousel mb-5">{{$newsEvent[1]['title']}}</h5>
+                        <a href="{{route('get.news.event.page.detail', base64_encode(urlencode($newsEvent[2]['id'])))}}" class="a-read-more"><button type="button" class="btn btn-read-more">Read More</button></a>
                     </div>
                 </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="carousel-control-prev-icon" aria-hidden="true"><img src="{{asset('/image/icon/homepage/news-prev.svg')}}" class="img-prev-next"></span>
                 <span class="sr-only">Previous</span>
             </a>
             <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="carousel-control-next-icon" aria-hidden="true"><img src="{{asset('/image/icon/homepage/news-next.svg')}}" class="img-prev-next"></span>
                 <span class="sr-only">Next</span>
             </a>
         </div>
     </div>
 </div>
-<div class="container mt-1">
+<div class="container mt-5">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12">
             <ul class="nav nav-pills mb-3 tabs-news" id="pills-tab" role="tablist">
