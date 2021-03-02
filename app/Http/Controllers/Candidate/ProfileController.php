@@ -259,7 +259,32 @@ class ProfileController extends Controller
     public function postEditOtherInformation(){
         $encrypt = new EncryptController;
     	$data = $encrypt->fnDecrypt(Request::input('data'),true);
-        dd($data);
+        // dd($data, Request::all());
+
+        // Cover Letter
+        if (Request::has('coverLetter')) {
+            $image = Request::file('coverLetter');
+            $ext = $image->getClientOriginalExtension();    
+            $path_cover_letter = $image->storeAs('cover-letter', 'cover_letter_'.time().'.'.$ext, 'public');
+        } else {
+            $path_cover_letter = $data['coverLetterLink'];
+        }
+        // Resume
+        if (Request::has('resume')) {
+            $image = Request::file('resume');
+            $ext = $image->getClientOriginalExtension();    
+            $path_resume = $image->storeAs('resume', 'resume_'.time().'.'.$ext, 'public');
+        } else {
+            $path_resume = $data['resumeLink'];
+        }
+        // Portofolio
+        if (Request::has('portofolio')) {
+            $image = Request::file('portofolio');
+            $ext = $image->getClientOriginalExtension();    
+            $path_portofolio = $image->storeAs('portofolio', 'portofolio_'.time().'.'.$ext, 'public');
+        } else {
+            $path_portofolio = $data['portofolioLink'];
+        }
 
         $candidate = Candidate::where('id', $data['idCandidate'])->update([
             'cover_letter' => $path_cover_letter,
@@ -269,13 +294,47 @@ class ProfileController extends Controller
         ]);
 
         if ($candidate) {
+            $id = session('session_candidate.user_id');
+            Session::forget('session_candidate');
+            $user = User::select('kandidat.*', 'users.email', 'users.password', 'users.type', 'users.status')
+                ->join('kandidat', 'users.id', 'kandidat.user_id')
+                ->where('users.id', $id)->first()->toArray();
+            $education = Education::where('kandidat_id', $user['id'])->get()->toArray();
+            
+            $session = [
+                'user_id' => $user['user_id'],
+                'user_email' => $user['email'],
+                'user_type' => $user['type'],
+                'user_status' => $user['status'],
+                'id' => $user['id'],
+                'first_name' => $user['first_name'],
+                'last_name' => $user['last_name'],
+                'tanggal_lahir' => $user['tanggal_lahir'],
+                'gender' => $user['gender'],
+                'telp' => $user['telp'],
+                'kota' => $user['kota'],
+                'linkedin' => $user['linkedin'],
+                'cover_letter' => $user['cover_letter'],
+                'resume' => $user['resume'],
+                'protofolio' => $user['protofolio'],
+                'skill' => $user['skill'],
+                'foto_profil' => $user['foto_profil'],
+                'pendidikan' => $education
+            ];
+
+            Session::put('session_candidate', $session);
+            $messages = [
+                'status' => 'success',
+                'message' => 'Success Edit Personal Information',
+                'url' => 'close'
+            ];
             $messages = [
                 'status' => 'success',
                 'message' => 'Success Edit Other Information',
                 'url' => 'close'
             ];
 
-            return redirect('/')->with('notif', $messages);
+            return redirect('/profile')->with('notif', $messages);
         } else {
             $messages = [
                 'status' => 'error',

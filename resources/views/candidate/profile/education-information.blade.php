@@ -1,8 +1,8 @@
 @extends('candidate.profile.profile')
 @section('profile')
 <div class="breadcrumb-candidate">
-    <a class="bread active" href="#">Edit Profil</a>
-    <p class="bread">/Edit Education Information</p>
+    <a class="bread active" href="{{route('get.profile.view')}}">Edit Profil</a>
+    <p class="bread">&nbsp/ Edit Education Information</p>
 </div>
 <h2 class="candidate-page-title">Edit Education Information</h2>
 <div class="row mt-5">

@@ -66,7 +66,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Portofolio</label>
-                                <input type="text" class="form-control" value="{{session('session_candidate.portofolio')}}" disabled>
+                                <input type="text" class="form-control" value="{{session('session_candidate.protofolio')}}" disabled>
                             </div>
                             <div class="form-group mb-0">
                                 <label for="">Skill</label>
