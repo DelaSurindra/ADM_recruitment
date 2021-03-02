@@ -11,7 +11,8 @@ class NewsEventController extends Controller
     public function viewNewsEvent(){
         $news = NewsEvent::where('type', '1')->where('status', '1')->orderBy('created_at', 'DESC')->offset(0)->limit(5)->get()->toArray();
         $event = NewsEvent::where('type', '2')->where('status', '1')->orderBy('created_at', 'DESC')->offset(0)->limit(5)->get()->toArray();
-        return view('candidate.news_event.news_event')->with(['topbar'=>'news_event', 'news' => $news, 'event'=>$event]);
+        $newsEvent = NewsEvent::where('status', '1')->orderBy('created_at', 'DESC')->limit(3)->get()->toArray();
+        return view('candidate.news_event.news_event')->with(['topbar'=>'news_event', 'news' => $news, 'event'=>$event, 'newsEvent'=>$newsEvent]);
     }
 
     public function viewNewsEventDetail($id){
