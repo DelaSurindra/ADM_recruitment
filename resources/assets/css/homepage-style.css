@@ -662,7 +662,9 @@ ul.location-list li p {
     align-items: center;
 }
 
-
 .job-type-select {
     cursor: pointer;
+}
+.loadMoreJob {
+    /*  */
 }

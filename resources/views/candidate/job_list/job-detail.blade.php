@@ -9,43 +9,50 @@
             </div>
         </div>
         <div class="col-lg-8 col-md-12">
+            @if($job['type'] == 1)
             <div class="fulltime-badge mb-2">Full-time</div>
-            <h2 class="candidate-page-title">Pre Sales Solution Architect</h2>
+            @elseif($job['type'] == 2)
+            <div class="internship-badge mb-2">Internship</div>
+            @endif
+            <h2 class="candidate-page-title">{{ $job['job_title'] }}</h2>
             <div class="row mt-4">
                 <div class="col-12">
                     <div class="d-flex align-items-center applican-detail">
                         <div class="icon-wrapper">
                             <img src="{{ asset('image/icon/homepage/icon-map.svg') }}" alt="icon">
                         </div>
-                        <p>Banten, Indonesia</p>
+                        <p>{{ $job['lokasi'] }}, Indonesia</p>
                     </div>
                     <div class="d-flex align-items-center applican-detail">
                         <div class="icon-wrapper">
                             <img src="{{ asset('image/icon/homepage/icon-graduate.svg') }}" alt="icon">
                         </div>
-                        <p>Diploma, Bachelor's Degree in Engineering</p>
+                        <p>{{ $job['degree'] }}</p>
                     </div>
                     <div class="d-flex align-items-center applican-detail">
                         <div class="icon-wrapper">
                             <img src="{{ asset('image/icon/homepage/icon-book.svg') }}" alt="icon">
                         </div>
-                        <p>DevOps & Cloud Management Software, Enterprise Resource Planning</p>
+                        <p>{{ $job['education_req'] }}</p>
                     </div>
                     <div class="d-flex align-items-center applican-detail">
                         <div class="icon-wrapper">
                             <img src="{{ asset('image/icon/homepage/icon-clock.svg') }}" alt="icon">
                         </div>
-                        <h6>Sunday - Saturday 08:00 - 16:00</h6>
+                        <h6>{{ $job['work_time'] }}</h6>
                     </div>
                 </div>
             </div>
             <div class="row mt-4">
                 <div class="col-lg-6 col-md-12">
-                    <button class="btn btn-blue btn-block"type="button">Apply Before : <b> 12 February 2021</b></button>
+                    <button class="btn btn-blue btn-block"type="button">Apply Before : <b> {{ date('j F Y', strtotime($job['active_date'])) }}</b></button>
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <form action="{{ route('post.apply-job') }}" id="formApplyJob" method="POST" ajax="true">
                         <input type="hidden" name="idUser" id="idUser" value="{{ Session::get('session_candidate')['user_id'] }}">
+                        <input type="hidden" name="idJob" id="idJob" value="{{ $job['job_id'] }}">
+                        <input type="hidden" name="degreeJob" id="degreeJob" value="{{ $job['degree'] }}">
+                        <input type="hidden" name="majorJob" id="majorJob" value="{{ $job['major'] }}">
                         <button class="btn btn-red btn-block" type="submit">Apply This Job</button>
                     </form>
                 </div>
@@ -53,9 +60,9 @@
 
             <hr class="my-4">
 
-            <h4 class="candidate-page-subtitle mb-4">Application History</h4>
+            <h4 class="candidate-page-subtitle mb-4">Jobs Description</h4>
 
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            <p>{!! $job['job_requirement'] !!}</p>
         </div>
 
         <div class="col-lg-4 col-md-12">

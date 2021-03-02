@@ -91,13 +91,15 @@ var ajax = {
 								ui.popup.hideLoader();
 								if (result.callback == 'redirect') {
 									ui.popup.show(result.status, result.message, result.url);
-								}else if(result.callback == 'login'){
+								} else if(result.callback == 'login') {
 									// ui.toast.show();
 									setInterval(function(){window.location = result.url;}, 2000);
-								}else if(result.callback == 'reload'){
+								} else if(result.callback == 'reload') {
 									setInterval(function(){
 										window.location.reload();
 									}, 2000);
+								} else if(result.callback == 'applySuccess') {
+									$('#modalNotifApplySuccess').modal('show')
 								}
 							}else if(result.status == 'info'){
 								ui.popup.hideLoader();
