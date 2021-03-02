@@ -7,6 +7,7 @@ use App\Http\Controllers\Security\ValidatorController;
 use App\Http\Controllers\RequestController;
 use App\Model\User;
 use App\Model\Candidate;
+use App\Model\Education;
 use File;
 
 use Illuminate\View\View;
@@ -47,26 +48,28 @@ class LoginController extends Controller
             if ($insertCandidate) {
                 $user = User::select('kandidat.*', 'users.email', 'users.password', 'users.type', 'users.status')
                 ->join('kandidat', 'users.id', 'kandidat.user_id')
-                ->where('users.id', $insertUser)->first();
-                // dd($user->first_name);
+                ->where('users.id', $cekEmail->id)->first()->toArray();
+                $education = Education::where('kandidat_id', $user['id'])->get()->toArray();
+                // dd($user, $education);
                 $session = [
-                    'user_id' => $user->user_id,
-                    'user_email' => $user->email,
-                    'user_password' => $user->password,
-                    'user_type' => $user->type,
-                    'user_status' => $user->status,
-                    'id' => $user->id,
-                    'first_name' => $user->first_name,
-                    'last_name' => $user->last_name,
-                    'tanggal_lahir' => $user->tanggal_lahir,
-                    'gender' => $user->gender,
-                    'telp' => $user->telp,
-                    'kota' => $user->kota,
-                    'linkedin' => $user->linkedin,
-                    'cover_letter' => $user->cover_letter,
-                    'resume' => $user->resume,
-                    'protofolio' => $user->protofolio,
-                    'skill' => $user->skill,
+                    'user_id' => $user['user_id'],
+                    'user_email' => $user['email'],
+                    'user_type' => $user['type'],
+                    'user_status' => $user['status'],
+                    'id' => $user['id'],
+                    'first_name' => $user['first_name'],
+                    'last_name' => $user['last_name'],
+                    'tanggal_lahir' => $user['tanggal_lahir'],
+                    'gender' => $user['gender'],
+                    'telp' => $user['telp'],
+                    'kota' => $user['kota'],
+                    'linkedin' => $user['linkedin'],
+                    'cover_letter' => $user['cover_letter'],
+                    'resume' => $user['resume'],
+                    'protofolio' => $user['protofolio'],
+                    'skill' => $user['skill'],
+                    'foto_profil' => $user['foto_profil'],
+                    'pendidikan' => $education
                 ];
 
                 Session::put('session_candidate', $session);
@@ -96,26 +99,28 @@ class LoginController extends Controller
             if (Hash::check($data['password'].env('SALT_PASS_CANDIDATE'), $cekEmail->password)) {
                 $user = User::select('kandidat.*', 'users.email', 'users.password', 'users.type', 'users.status')
                 ->join('kandidat', 'users.id', 'kandidat.user_id')
-                ->where('users.id', $cekEmail->id)->first();
-                // dd($user->first_name);
+                ->where('users.id', $cekEmail->id)->first()->toArray();
+                $education = Education::where('kandidat_id', $user['id'])->get()->toArray();
+                // dd($user, $education);
                 $session = [
-                    'user_id' => $user->user_id,
-                    'user_email' => $user->email,
-                    'user_password' => $user->password,
-                    'user_type' => $user->type,
-                    'user_status' => $user->status,
-                    'id' => $user->id,
-                    'first_name' => $user->first_name,
-                    'last_name' => $user->last_name,
-                    'tanggal_lahir' => $user->tanggal_lahir,
-                    'gender' => $user->gender,
-                    'telp' => $user->telp,
-                    'kota' => $user->kota,
-                    'linkedin' => $user->linkedin,
-                    'cover_letter' => $user->cover_letter,
-                    'resume' => $user->resume,
-                    'protofolio' => $user->protofolio,
-                    'skill' => $user->skill,
+                    'user_id' => $user['user_id'],
+                    'user_email' => $user['email'],
+                    'user_type' => $user['type'],
+                    'user_status' => $user['status'],
+                    'id' => $user['id'],
+                    'first_name' => $user['first_name'],
+                    'last_name' => $user['last_name'],
+                    'tanggal_lahir' => $user['tanggal_lahir'],
+                    'gender' => $user['gender'],
+                    'telp' => $user['telp'],
+                    'kota' => $user['kota'],
+                    'linkedin' => $user['linkedin'],
+                    'cover_letter' => $user['cover_letter'],
+                    'resume' => $user['resume'],
+                    'protofolio' => $user['protofolio'],
+                    'skill' => $user['skill'],
+                    'foto_profil' => $user['foto_profil'],
+                    'pendidikan' => $education
                 ];
 
                 Session::put('session_candidate', $session);

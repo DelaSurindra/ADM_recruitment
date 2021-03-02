@@ -58,19 +58,20 @@ Route::middleware('authcandidate')->group(function(){
 	Route::prefix('signout')->group(function () {
 		Route::get('/', 'Candidate\LoginController@logout')->name('get.logout-candidate');
 	});
-
-	Route::prefix('profile')->group(function () {
-		Route::get('/', 'Candidate\ProfileController@viewProfile')->name('get.profile.view');
-		Route::get('/personal-information', 'Candidate\ProfileController@editPersonalInformation')->name('get.profile.personal-information');
-		Route::post('/post-personal-information', 'Candidate\ProfileController@postEditPersonalInformation')->name('post.profile.personal-information');
-		Route::get('/other-information', 'Candidate\ProfileController@editOtherInformation')->name('get.profile.other-information');
-		Route::post('/post-other-information', 'Candidate\ProfileController@postEditOtherInformation')->name('post.profile.other-information');
-		Route::get('/education-information', 'Candidate\ProfileController@editEducationInformation')->name('get.profile.education-information');
-		Route::post('/post-education-information', 'Candidate\ProfileController@postEditEducationInformation')->name('post.profile.education-information');
-
-		Route::post('/post-edit-password', 'Candidate\ProfileController@postEditPassword')->name('post.profile.edit-password');
-
-		Route::get('/my-app-detail', 'Candidate\ProfileController@myAppDetail')->name('get.profile.my-app-detail');
+	Route::middleware('firstLogin')->group(function(){
+		Route::prefix('profile')->group(function () {
+			Route::get('/', 'Candidate\ProfileController@viewProfile')->name('get.profile.view');
+			Route::get('/personal-information', 'Candidate\ProfileController@editPersonalInformation')->name('get.profile.personal-information');
+			Route::post('/post-personal-information', 'Candidate\ProfileController@postEditPersonalInformation')->name('post.profile.personal-information');
+			Route::get('/other-information', 'Candidate\ProfileController@editOtherInformation')->name('get.profile.other-information');
+			Route::post('/post-other-information', 'Candidate\ProfileController@postEditOtherInformation')->name('post.profile.other-information');
+			Route::get('/education-information', 'Candidate\ProfileController@editEducationInformation')->name('get.profile.education-information');
+			Route::post('/post-education-information', 'Candidate\ProfileController@postEditEducationInformation')->name('post.profile.education-information');
+	
+			Route::post('/post-edit-password', 'Candidate\ProfileController@postEditPassword')->name('post.profile.edit-password');
+	
+			Route::get('/my-app-detail', 'Candidate\ProfileController@myAppDetail')->name('get.profile.my-app-detail');
+		});
 	});
 
 	Route::prefix('job')->group(function () {

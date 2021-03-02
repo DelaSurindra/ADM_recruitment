@@ -19,9 +19,13 @@ class ProfileController extends Controller
 {
     public function viewFirstLogin(){
         // dd(Session::get('session_candidate'));
-        $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
-
-	    return view('candidate.profile.first-login-candidate')->with(['topbar'=>'first_login', 'wilayah'=>$wilayah]);
+        if (session('session_candidate.telp') != null) {
+            return redirect('/profile');
+        } else {
+            $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
+            
+            return view('candidate.profile.first-login-candidate')->with(['topbar'=>'first_login', 'wilayah'=>$wilayah]);
+        }
     }
 
     public function postFirstLogin(){
@@ -31,13 +35,14 @@ class ProfileController extends Controller
         // Belum ada Kolom di DB
         // photo profile
         // gpa (education)
-
         // Photo Profile
         if (Request::has('photoProfile')) {
             $image = Request::file('photoProfile');
             $ext = $image->getClientOriginalExtension();    
             $path_photo_profile = $image->storeAs('photo-profile', 'photo_profile_'.time().'.'.$ext, 'public');
             // $sql->image_logo = $path; di db nggk ada kolomnya
+        }else{
+            $path_photo_profile = "";
         }
         // Cover Letter
         if (Request::has('coverLetter')) {
@@ -75,6 +80,7 @@ class ProfileController extends Controller
             'cover_letter' => $path_cover_letter,
             'resume' => $path_resume,
             'protofolio' => $path_portofolio,
+            'foto_profil' => $path_photo_profile,
             'skill' => $data['skill'],
         ]);
 
@@ -90,8 +96,8 @@ class ProfileController extends Controller
                     $education->gelar = $data['degree'][$i];
                     $education->fakultas = $data['faculty'][$i];
                     $education->jurusan = $data['major'][$i];
-                    $education->start_year = date('Y', strtotime($data['startDateEducation'][$i]));
-                    $education->end_year = date('Y', strtotime($data['endDateEducation'][$i]));
+                    $education->start_year = $data['startDateEducation'][$i];
+                    $education->end_year = $data['endDateEducation'][$i];
                     $education->ijazah = $path_certificate;
                     $education->kandidat_id = $data['idCandidate'];
                     $education->save();
@@ -107,8 +113,8 @@ class ProfileController extends Controller
                 $education->gelar = $data['degree'];
                 $education->fakultas = $data['faculty'];
                 $education->jurusan = $data['major'];
-                $education->start_year = date('Y', strtotime($data['startDateEducation']));
-                $education->end_year = date('Y', strtotime($data['endDateEducation']));
+                $education->start_year = $data['startDateEducation'];
+                $education->end_year = $data['endDateEducation'];
                 $education->ijazah = $path_certificate;
                 $education->kandidat_id = $data['idCandidate'];
                 $education->save();
@@ -116,6 +122,34 @@ class ProfileController extends Controller
         }
 
         if ($candidate) {
+            Session::forget('session_candidate');
+            $user = User::select('kandidat.*', 'users.email', 'users.password', 'users.type', 'users.status')
+                ->join('kandidat', 'users.id', 'kandidat.user_id')
+                ->where('users.id', $cekEmail->id)->first()->toArray();
+            $education = Education::where('kandidat_id', $user['id'])->get()->toArray();
+            // dd($user, $education);
+            $session = [
+                'user_id' => $user['user_id'],
+                'user_email' => $user['email'],
+                'user_type' => $user['type'],
+                'user_status' => $user['status'],
+                'id' => $user['id'],
+                'first_name' => $user['first_name'],
+                'last_name' => $user['last_name'],
+                'tanggal_lahir' => $user['tanggal_lahir'],
+                'gender' => $user['gender'],
+                'telp' => $user['telp'],
+                'kota' => $user['kota'],
+                'linkedin' => $user['linkedin'],
+                'cover_letter' => $user['cover_letter'],
+                'resume' => $user['resume'],
+                'protofolio' => $user['protofolio'],
+                'skill' => $user['skill'],
+                'foto_profil' => $user['foto_profil'],
+                'pendidikan' => $education
+            ];
+
+            Session::put('session_candidate', $session);
             $messages = [
                 'status' => 'success',
                 'message' => 'Complete Account Success',
