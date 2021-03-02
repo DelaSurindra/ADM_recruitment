@@ -55,6 +55,12 @@ $(document).ready(function () {
 
         $('#modalNotifForLogin').modal('show')
     }
+    if ($('#profileSaved').length) {
+        $('.modal').modal('hide');
+	    ui.popup.hideLoader();
+
+        $('#modalNotifProfileSaved').modal('show')
+    }
     
 })
 

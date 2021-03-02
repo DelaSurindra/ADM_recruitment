@@ -122,7 +122,7 @@ class ProfileController extends Controller
                 'url' => 'close'
             ];
 
-            return redirect('/')->with('notif', $messages);
+            return redirect('/')->with('profileSaved', $messages);
         } else {
             $messages = [
                 'status' => 'error',

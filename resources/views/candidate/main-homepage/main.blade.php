@@ -41,6 +41,12 @@
         </div>
         @endif
 
+        @php $profileSaved = session('profileSaved'); @endphp
+        @if ($profileSaved)
+        <div id="profileSaved">
+        </div>
+        @endif
+
         @include('candidate.main-homepage.topbar')
         
         <div class="content-wrapper">
@@ -115,6 +121,35 @@
                                 <a href="{{ route('get.job.page') }}" class="btn btn-block btn-red">See Job List</a>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Notif For Apply Success -->
+    <div class="modal fade" id="modalNotifApplySuccess" tabindex="-1" aria-labelledby="modalNotifProfileSavedLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm modal-for-notif">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-icon-notif">
+                        <div class="ilustrasi">
+                            <img src="{{ asset('image/icon/homepage/ilustrasi-sukses.svg') }}" class="img-fluid" alt="ilustrasi">
+                        </div>
+                        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis m-0" alt="icon">
+                        </button> -->
+                    </div>
+
+                    <div class="modal-content-notif">
+                        <h4 class="candidate-page-subtitle">Apply Success</h4>
+                        <p class="my-4">Congratulations, your application has been sent. Please wait for the announcement for the next recruitment step. Lastly, we have one question for you</p>
+
+                        <form action="" id="formTellMe" class="form-candidate-view" method="POST" ajax="true">
+                            <label for="">How did you hear about this job?</label>
+                            <input type="text" name="tellMe" id="tellMe" class="form-control mb-4" placeholder="Tell me">
+                            <button type="submit" class="btn btn-red btn-block">Go to My Application</button>
+                        </form>
                     </div>
                 </div>
             </div>
