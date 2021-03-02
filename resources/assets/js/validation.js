@@ -320,6 +320,49 @@ const formrules = {
 		}
     },
 
+	'formEditPersonalInformation':{
+        ignore: null,
+		rules:{
+            'firstName':{
+                required:true,
+				STD_VAL_WEB_3: true,
+            },
+            'lastName':{
+                required: true,
+                STD_VAL_WEB_3: true,
+            },
+			'birthDate':{
+				required:true,
+                STD_VAL_WEB_11: true,
+            },
+			'gender':{
+				required:true
+			},
+			'phoneNumber':{
+				required:true,
+				STD_VAL_WEB_8: true,
+			},
+			'myLocation':{
+				required:true,
+			},
+			'lingkedInLink':{
+				required: true,
+				STD_VAL_WEB_20: true,
+			},
+		},
+		submitHandler:false,
+        errorPlacement: function (error, element) {
+			if (element.is("#myLocation")) {
+				error.appendTo(element.parents('#myLocationDiv'));
+			}else if (element.is("#gender")) {
+				error.appendTo(element.parents('#genderDiv'));
+			}
+			else { // This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+    },
+
 }
 
 var validation = {
