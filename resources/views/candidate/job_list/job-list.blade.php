@@ -105,41 +105,22 @@
                                     </div>
                                     <p class="text">{{ $data['education_req'] }}</p>
                                 </div>
-                                <div class="d-flex align-items-start job-list-detail">
+                                <div class="d-flex align-items-center job-list-detail">
                                     <div class="icon-wrapper">
                                         <img src="{{ asset('image/icon/homepage/icon-book.svg') }}" alt="icon">
                                     </div>
-                                    <p class="text">{!! $data['job_requirement'] !!}</p>
+                                    <p class="text">{{ $data['major'] }}</p>
                                 </div>
                             </div>
                         </a>
                     </div>
                 </div>
                 @endforeach
-                @for($i=0; $i < 3; $i++)
-                <div class="col-lg-4 col-md-6 col-sm-12 my-3">
-                    <div class="card card-job-list">
-                        <div class="card-body">
-                            <div class="internship-badge mb-3">Internship</div>
-                            <label class="label-no-margin mb-1">Banten, Indonesia</label>
-                            <h4 class="candidate-page-subtitle mb-3">Pre Sales Solution Architect</h4>
-
-                            <div class="d-flex align-items-center job-list-detail mb-1">
-                                <div class="icon-wrapper">
-                                    <img src="{{ asset('image/icon/homepage/icon-graduate.svg') }}" alt="icon">
-                                </div>
-                                <p class="text">Diploma, Bachelor's Degree in Engineering</p>
-                            </div>
-                            <div class="d-flex align-items-start job-list-detail">
-                                <div class="icon-wrapper">
-                                    <img src="{{ asset('image/icon/homepage/icon-book.svg') }}" alt="icon">
-                                </div>
-                                <p class="text">DevOps & Cloud Management Software, Enterprise Resource Planning</p>
-                            </div>
-                        </div>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center mt-3">
+                    <button class="btn btn-white px-5 loadMoreJob">Load More</button>
                 </div>
-                @endfor
             </div>
         </div>
     </div>
