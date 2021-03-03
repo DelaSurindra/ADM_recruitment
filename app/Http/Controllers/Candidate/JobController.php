@@ -40,6 +40,78 @@ class JobController extends Controller
         return view('candidate.job_list.job-list')->with(['topbar'=>'job', 'job'=>$job, 'wilayah'=>$wilayah]);
     }
 
+    public function getJobList() {
+        $data = Request::input('value');
+        // dd($data);
+        $filter; 
+        $parameter = parse_str($data, $filter);
+        // dd($filter);
+        if (isset($filter['searchJob'])) {
+            $sql = new Vacancy;
+            // Search
+            if (isset($filter['searchJob']) && !empty($filter['searchJob'])) {
+                $sql = $sql->where('job_title', 'like','%'.$filter['searchJob'].'%');
+            }
+            // Filter Job Type
+            if (isset($filter['jobTypeFulltime']) || isset($filter['jobTypeInternship'])) {
+                if (!empty($filter['jobTypeFulltime']) && !empty($filter['jobTypeInternship'])) {
+                    $sql = $sql->whereIn('type', [$filter['jobTypeFulltime'], $filter['jobTypeInternship']]);
+                } elseif (!empty($filter['jobTypeFulltime'])) {
+                    $sql = $sql->where('type', $filter['jobTypeFulltime']);
+                } elseif (!empty($filter['jobTypeInternship'])) {
+                    $sql = $sql->where('type', $filter['jobTypeInternship']);
+                }
+            }
+            // Filter Lokasi
+            if (isset($filter['locationFilter']) && !empty($filter['locationFilter'])) {
+                $sql = $sql->where('lokasi', $filter['locationFilter']);
+            }
+            // Filter Education
+            if (isset($filter['educationFilterD3']) || isset($filter['educationFilterS1']) || isset($filter['educationFilterS2'])) {
+                if (!empty($filter['educationFilterD3']) && !empty($filter['educationFilterS1']) && !empty($filter['educationFilterS2'])) {
+                    $sql = $sql->whereIn('degree', [$filter['educationFilterD3'], $filter['educationFilterS1'], $filter['educationFilterS2']]);
+                } elseif (!empty($filter['educationFilterD3']) && !empty($filter['educationFilterS1'])) {
+                    $sql = $sql->whereIn('degree', [$filter['educationFilterD3'], $filter['educationFilterS1']]);
+                } elseif (!empty($filter['educationFilterD3']) && !empty($filter['educationFilterS2'])) {
+                    $sql = $sql->whereIn('degree', [$filter['educationFilterD3'], $filter['educationFilterS2']]);
+                } elseif (!empty($filter['educationFilterS1']) && !empty($filter['educationFilterS2'])) {
+                    $sql = $sql->whereIn('degree', [$filter['educationFilterS1'], $filter['educationFilterS2']]);
+                } elseif (!empty($filter['educationFilterD3'])) {
+                    $sql = $sql->where('degree', $filter['educationFilterD3']);
+                } elseif (!empty($filter['educationFilterS1'])) {
+                    $sql = $sql->where('degree', $filter['educationFilterS1']);
+                } elseif (!empty($filter['educationFilterS2'])) {
+                    $sql = $sql->where('degree', $filter['educationFilterS2']);
+                }
+            }
+            // Filter Major
+            if (isset($filter['majorFilter']) && !empty($filter['majorFilter'])) {
+                $sql = $sql->where('major', $filter['majorFilter']);
+            }
+
+            $job = $sql->orderBy('created_at', 'desc')->get()->toArray();
+        } else {
+            $job = Vacancy::orderBy('created_at', 'desc')->take($data)->get()->toArray();
+        }
+        
+        for ($i=0; $i < count($job); $i++) { 
+            if($job[$i]['degree'] == 1) {
+                $degree = "Diploma's Degree";
+            } elseif($job[$i]['degree'] == 2) {
+                $degree = "Bachelor's Degree";
+            } elseif($job[$i]['degree'] == 3) {
+                $degree = "Master's Degree";
+            }
+
+            $major = explode(',', $job[$i]['major']);
+            foreach ($major as $value) {
+                $job[$i]['education_req'] = $degree.' in '.$value;
+            }
+        }
+        // dd($job);
+        return response()->json($job);
+    }
+
     public function viewJobDetail($id) {
         $id = base64_decode(urldecode($id));
         $job = Vacancy::where('job_id', $id)->first()->toArray();

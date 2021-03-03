@@ -13,10 +13,12 @@
                         </div>
                         <div class="dropdown-menu search dropdown-menu-right" aria-labelledby="dropdownJobSearch">
                             <div class="dropdown-item">
-                                <form class="form-candidate-view">
+                                <form id="filterSearchList" class="form-candidate-view" filter="true">
                                     <h6 class="mb-2">Search</h6>
-                                    <input type="text" class="form-control mb-2" placeholder="Search Job">
-                                    <button type="submit" class="submit-filter">Apply</button>
+                                    <input type="text" name="searchJob" id="searchJob" class="form-control mb-2" placeholder="Search Job">
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" for="filterSearchList" class="submit-filter mr-2 mt-1">Apply</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -28,21 +30,23 @@
                             <p>Filter</p>
                         </div>
                         <div class="dropdown-menu filter dropdown-menu-right" aria-labelledby="dropdownJobFilter">
-                            <form class="form-candidate-view" id="filterJobList" ajax="true">
+                            <form class="form-candidate-view" id="filterJobList" filter="true">
                                 <div class="dropdown-item">
                                     <h6 class="mb-2">Job Type</h6>
                                     <div class="list-type-job">
                                         <div class="fulltime-badge job-type-select not-active mr-1">Full-time</div>
                                         <div class="internship-badge job-type-select not-active mr-1">Internship</div>
                                     </div>
+                                    <input type="checkbox" name="jobTypeFulltime" value="1" id="checkFilterFulltime" class="d-none">
+                                    <input type="checkbox" name="jobTypeInternship" value="2" id="checkFilterInternship" class="d-none">
                                 </div>
                                 <div class="dropdown-divider"></div>
                                 <div class="dropdown-item">
                                     <h6 class="mb-2">Location</h6>
-                                    <select name="" id="" class="form-control select2">
+                                    <select name="locationFilter" id="locationFilter" class="form-control select2">
                                         <option value="">Choose Location</option>
                                         @foreach($wilayah as $data)
-                                            <option value="{{$data['kabupaten']}}">{{$data['kabupaten']}}</option>
+                                        <option value="{{$data['kabupaten']}}">{{$data['kabupaten']}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -51,15 +55,15 @@
                                     <h6 class="mb-2">Education</h6>
                                     <div class="d-flex align-items-center">
                                         <label class="container-custom-checked mb-0 mr-2"> D3
-                                            <input type="checkbox" name="rememberMe" id="rememberMe" value="1">
+                                            <input type="checkbox" name="educationFilterD3" id="degree1" value="1">
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="container-custom-checked mb-0 mr-2"> S1
-                                            <input type="checkbox" name="rememberMe" id="rememberMe" value="2">
+                                            <input type="checkbox" name="educationFilterS1" id="degree2" value="2">
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="container-custom-checked mb-0"> S2
-                                            <input type="checkbox" name="rememberMe" id="rememberMe" value="3">
+                                            <input type="checkbox" name="educationFilterS2" id="degree3" value="3">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -67,7 +71,7 @@
                                 <div class="dropdown-divider"></div>
                                 <div class="dropdown-item">
                                     <h6>Major</h6>
-                                    <select name="" id="" class="form-control select2">
+                                    <select name="majorFilter" id="majorFilter" class="form-control select2">
                                         <option value="">Choose Major</option>
                                         <option value="Sistem Informasi">Sistem Informasi</option>
                                         <option value="Akuntansi">Akuntansi</option>
@@ -77,7 +81,7 @@
                                 <div class="dropdown-item">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <button type="button" class="clear-filter">Clear all filter</button>
-                                        <button type="submit" class="submit-filter">Apply</button>
+                                        <button type="submit" for="filterJobList" class="submit-filter">Apply</button>
                                     </div>
                                 </div>
                             </form>
@@ -85,7 +89,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id="loadJobs">
                 @foreach($job as $data)
                 <div class="col-lg-4 col-md-6 col-sm-12 my-3">
                     <div class="card card-job-list">
