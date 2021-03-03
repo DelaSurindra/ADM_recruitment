@@ -119,8 +119,10 @@ table.dataTable.no-footer{
 
 /*strip*/
 
-.table-strip th{
+.table-hr th{
 	border: none !important;
+	min-width: 170px;
+    padding-left: 10px !important;
 }
 
 .table-hr.dataTable.stripe tbody tr.odd{
@@ -236,8 +238,9 @@ table#tableMerchantQRIS .merch-alamat {
 }
 .dataTables_scrollBody::-webkit-scrollbar {
     height: 6px !important;
+	width: 6px !important;
 }
 .dataTables_scrollBody::-webkit-scrollbar-thumb {
-    background: #299643;
-    border-radius: 5px;
+    background: #DF0E2C;
+    border-radius: 3px;
 }

@@ -39,7 +39,7 @@
                 <a href="{{ route('get.vacancy') }}" class="menu {{($sidebar== 'manajemen_vacancy'?'active':'')}}">
                     <div class="row">
                         <div class="col-md-2">
-                            <img src="{{asset('image/icon/sidebar/icon_menu_vacancy.svg')}}" alt="" width="25px" class="right-icon-sidebar icon-sidebar-mobile">
+                            <img src="{{ $sidebar== 'manajemen_vacancy' ? asset('image/icon/sidebar/icon_menu_vacancy_active.svg') : asset('image/icon/sidebar/icon_menu_vacancy.svg')}}" alt="" width="25px" class="right-icon-sidebar icon-sidebar-mobile">
                         </div>
                         <div class="col-md-10">
                             <span class="font-color-sidebar">Manage Vacancy</span>

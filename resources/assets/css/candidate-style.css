@@ -277,6 +277,7 @@ label.error {
 .btn-red {
     background: #DF0E2C;
     border-radius: 8px;
+    font-family: 'inter_semibold', sans-serif !important;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -809,6 +810,7 @@ label.error {
 
 .tabs-news .nav-link {
     padding: 0px 0px .5rem 0px;
+    font-family: 'inter_semibold', sans-serif !important;
     font-style: normal;
     font-weight: bold;
     font-size: 36px;
@@ -842,6 +844,7 @@ label.error {
     border: 2px solid #333333;
     box-sizing: border-box;
     border-radius: 13.5px;
+    font-family: 'inter_semibold', sans-serif !important;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -856,6 +859,7 @@ label.error {
     margin-bottom: 0px;
     margin-left: 15px;
     margin-top: 4px;
+    font-family: 'inter_semibold', sans-serif !important;
     font-style: normal;
     font-weight: normal;
     font-size: 13px;
@@ -931,6 +935,7 @@ label.error {
 }
 
 .text-valid{
+    font-family: 'inter_semibold', sans-serif !important;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -948,6 +953,7 @@ label.error {
     margin-bottom: 0px;
     margin-left: 4px;
     margin-top: 4px;
+    font-family: 'inter_semibold', sans-serif !important;
     font-style: normal;
     font-weight: normal;
     font-size: 13px;
@@ -962,6 +968,7 @@ label.error {
     margin-bottom: 1.5rem;
 }
 .breadcrumb-news .bread {
+    font-family: 'inter_semibold', sans-serif !important;
     font-style: normal;
     font-weight: normal;
     font-size: 15px;
@@ -978,6 +985,7 @@ label.error {
 .btn-load-more{
     background: white;
     border: none;
+    font-family: 'inter_semibold', sans-serif !important;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -1019,6 +1027,7 @@ label.error {
     border: 2px solid #333333;
     box-sizing: border-box;
     border-radius: 13.5px;
+    font-family: 'inter_semibold', sans-serif !important;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -1030,6 +1039,7 @@ label.error {
 }
 
 .text-carousel{
+    font-family: 'inter_semibold', sans-serif !important;
     font-style: normal;
     font-weight: 900;
     font-size: 48px;
@@ -1057,6 +1067,7 @@ label.error {
     background: #DF0E2C;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
     border-radius: 8px;
+    font-family: 'inter_semibold', sans-serif !important;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
