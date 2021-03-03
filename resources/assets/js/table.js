@@ -85,66 +85,87 @@ var table = {
 
 		if ($('#tableVacancy').length) {
 			var column = [
-				{
-					'data': null
-				}, {
-					'data': null
-				}, {
-					'data': null
-				},
+				{'data':'created_at'},
+				{'data':'job_title'},
+				{'data':'type'},
+				{'data':'degree'},
+				{'data':'major'},
+				{'data':'work_time'},
+				{'data':'active_date'},
+				{'data':'status'},
 			];
 
 			columnDefs = [
 				{
-					"targets": 0,
-					"orderable": false,
-					"className": "img-poster-news",
-					"data": "job_poster",
-					"render": function(data, type, full, meta){
-						var data = '<img src="/image/icon/main/logo-astra.svg" alt="img" style="width:75%;height:auto" />'
-		            	
-		               	return data;
-					}
-				},
-				{
-					"targets": 1,
-					"data": "job_title",
-					"className": "title-poster-news",
-					"render": function(data, type, full, meta){
-						// var data = full.job_title;
-						var degree = '';
-						if (full.degree == "1") {
-							degree = "D3";
-						}else if (full.degree == "2") {
-							degree = "S1";
-						}else if (full.degree == "3"){
-							degree = "S2";
-						}
-						var data = '<h5 style="font-style: normal;font-weight: bold;font-size: 20px;line-height: 130%;letter-spacing: -0.02em;color: #282A2C;margin-bottom: 1px;">'+full.job_title+'</h5>'+
-                        			'<p style="font-style: normal;font-weight: 200;font-size: 16px;line-height: 130%;letter-spacing: -0.02em;color: #282A2C;">'+full.lokasi+', Indonesia</p>'+
-									'<p style="font-style: normal;font-weight: 500;font-size: 14px;line-height: 130%;letter-spacing: -0.02em;color: #333333;">'+degree+', Bachelors Degree in '+full.job_title+'</p>'+
-									'<p style="font-style: normal;font-weight: 400;font-size: 14px;line-height: 130%;letter-spacing: -0.02em;color: #333333;">'+full.major+'</p>';
-		            	
-		               	return data;
-					}
-				},
-				{
 					"targets": 2,
+					"data": "type",
+					"render": function(data, type, full, meta){
+						var data = ''
+		            	if (full.type == 1) {
+		            	    data = 'Full Time';
+		            	} else {
+		            	    data = 'Intership';
+		            	}
+		               	return data;
+					}
+				},
+				{
+					"targets": 3,
+					"data": "degree",
+					"render": function(data, type, full, meta){
+						var data = ''
+		            	if (full.degree == 1) {
+		            	    data = 'D3';
+		            	} else if(full.degree == 2) {
+		            	    data = 'S1';
+		            	}else{
+							data = "S2"
+						}
+		               	return data;
+					}
+				},
+				{
+					"targets": 3,
+					"data": "degree",
+					"render": function(data, type, full, meta){
+						var data = ''
+		            	if (full.degree == 1) {
+		            	    data = 'D3';
+		            	} else if(full.degree == 2) {
+		            	    data = 'S1';
+		            	}else{
+							data = "S2"
+						}
+		               	return data;
+					}
+				},
+				{
+					"targets": 7,
+					"data": "status",
+					"render": function(data, type, full, meta){
+						var data = ''
+		            	if (full.status == 1) {
+		            	    data = '<strong>Publised</strong>';
+		            	}else{
+							data = "<p>Deaktif</p>"
+						}
+		               	return data;
+					}
+				},
+				{
+					"targets": 8,
 					"data": "id",
 					"className": "action-poster-news",
 					"render": function(data, type, full, meta){
 						var id = encodeURIComponent(window.btoa(full.job_id));
 						var konfirm = '';
-						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a href="/HR/vacancy/detail-vacancy/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Vacancy"></a></button>';
+						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/vacancy/detail-vacancy/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Vacancy"> Edit&nbsp</a></button>';
 						if (full.status == '1') {
-							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy"><img style="margin-right: 1px;" src="/image/icon/main/delete.svg" title="Deaktif Vacancy"></button>';
+							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy edit-table"><img style="margin-right: 1px;" src="/image/icon/main/deactive.svg" title="Deaktif Vacancy">Deactive</button>';
 						} else {
-							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy"><img style="margin-right: 1px;" src="/image/icon/main/delete.svg" title="Aktifkan Vacancy"></button>';
+							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy edit-table"><img style="margin-right: 1px;" src="/image/icon/main/active.svg" title="Aktifkan Vacancy">Active</button>';
 						}
-						var hasil = '<div style="position:absolute;top:20px;right:5px">'+
-										data+konfirm+
-									'</div>';
-
+						var hasil = data+konfirm
 		               	return hasil;
 					}
 				}
@@ -319,17 +340,19 @@ var table = {
 		var search = true;
 
 		var svrTable = $("#"+id).DataTable({
-			"drawCallback": function( settings ) {
-				if (id == "tableVacancy") {
-					$('.dataTables_scrollHead').remove()
-					$('.dataTables_scrollBody table thead').hide()
-				}
-			},
+			// "drawCallback": function( settings ) {
+			// 	if (id == "tableVacancy") {
+			// 		$('.dataTables_scrollHead').remove()
+			// 		$('.dataTables_scrollBody table thead').hide()
+			// 	}
+			// },
 			// processing:true,
+			scrollY: "325px",
+			scrollCollapse: true,
 			serverSide:true,
 			columnDefs:columnDefs,
 			columns:columns,
-			// responsive: true,
+			responsive: false,
 			scrollX: true,
 			// scrollY: true,
 			ajax:function(data, callback, settings){

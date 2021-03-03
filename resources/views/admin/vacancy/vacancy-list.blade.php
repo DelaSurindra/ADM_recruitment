@@ -7,7 +7,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
-                <p class="title-page"><img src="{{asset('image/icon/main/icon_title_candidate.svg')}}" alt=""> Manage Vacancy</p>
+                <p class="title-page"><img src="{{asset('image/icon/main/icon_title_vacancy.svg')}}" alt=""> Manage Vacancy</p>
             </div>
             <div class="col-md-6">
                 <a href="{{route('get.vacancy.add')}}"><button type="button" class="btn btn-red right">Add Vacancy</button></a>
@@ -15,7 +15,20 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <table id="tableVacancy" class="table w-100">
+                <table id="tableVacancy" class="table-hr table table-strip stripe hover">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Title</th>
+                            <th>Job Type</th>
+                            <th>Degree</th>
+                            <th>Major</th>
+                            <th>Working TIme</th>
+                            <th>Actived Date</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
                     <tbody>
                         
                     </tbody>

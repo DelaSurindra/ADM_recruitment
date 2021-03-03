@@ -59,6 +59,7 @@ class NewsEventController extends Controller
     }
 
     public function viewNewsEventAdd(){
+        
         return view('admin.news_event.news_event-add')->with(['pageTitle' => 'Manajemen News/Event', 'title' => 'Manajemen News/Event', 'sidebar' => 'manajemen_news_event']);
     }
 

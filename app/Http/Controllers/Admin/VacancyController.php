@@ -74,8 +74,13 @@ class VacancyController extends Controller
     }
 
     public function viewVacancyAdd(){
+        $breadcrumb = [
+            "page"      => "Manage Vacancy",
+            "detail"    => "Create Job Vacancy",
+            "route"     => "/HR/vacancy"
+        ];
         $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
-        return view('admin.vacancy.vacancy-add')->with(['pageTitle' => 'Manajemen vacancy', 'title' => 'Manajemen vacancy', 'sidebar' => 'manajemen_vacancy', 'wilayah'=>$wilayah]);
+        return view('admin.vacancy.vacancy-add')->with(['pageTitle' => 'Manajemen vacancy', 'title' => 'Manajemen vacancy', 'sidebar' => 'manajemen_vacancy', 'wilayah'=>$wilayah, 'breadcrumb' => $breadcrumb]);
     }
 
     public function addVacancy(){
@@ -122,6 +127,11 @@ class VacancyController extends Controller
     }
 
     public function viewVacancyDetail($id){
+        $breadcrumb = [
+            "page"      => "Manage Vacancy",
+            "detail"    => "Edit Job Vacancy",
+            "route"     => "/HR/vacancy"
+        ];
         $idVacancy = base64_decode(urldecode($id));
         $dataVacancy = Vacancy::where('job_id', $idVacancy)->get()->toArray();
         $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
@@ -133,7 +143,8 @@ class VacancyController extends Controller
                 'title' => 'Manajemen vacancy', 
                 'sidebar' => 'manajemen_vacancy', 
                 'data' => $dataVacancy[0],
-                'wilayah' => $wilayah
+                'wilayah' => $wilayah,
+                'breadcrumb' => $breadcrumb
             ]);
         } else {
             $messages = [

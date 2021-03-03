@@ -319,7 +319,7 @@ if ($("#formAddVacancy").length) {
 					'</select>';
 		$("#field-syarat"+next2).select2();
 		var newInput = $(newIn);
-		var removeBtn = '<button id="remove-syarat' + (next2 - 1) + '" class="btn remove-me-syarat btn-min">-</button></><div id="field-syarat">';
+		var removeBtn = '<button id="remove-syarat' + (next2 - 1) + '" class="remove-me-syarat btn-min">-</button></><div id="field-syarat">';
 		var removeButton = $(removeBtn);
 		$(addto).after(newInput);
 		$(addRemove).after(removeButton);
@@ -378,7 +378,7 @@ if ($("#formEditVacancy").length) {
 		var next = jml+1
 
 		//change btn to minus
-		var removeBtn = '<button type="button" id="remove-syarat' + jml + '" class="btn remove-me-syarat btn-min">-</button>';
+		var removeBtn = '<button type="button" id="remove-syarat' + jml + '" class="remove-me-syarat btn-min">-</button>';
 		var after = $('#field-syarat'+jml).next()
 		after.after(removeBtn)
 		

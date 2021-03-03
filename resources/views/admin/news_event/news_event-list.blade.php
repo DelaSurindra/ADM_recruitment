@@ -14,7 +14,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <table id="tableNewsEvent" class="table-hr table table-strip stripe hover tbl-custom-margin">
+            <table id="tableNewsEvent" class="table-hr table table-strip stripe hover">
                 <thead>
                     <tr>
                         <th>Tanggal</th>
@@ -23,7 +23,7 @@
                         <th>Tanggal Selesai</th>
                         <th>Tipe</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
