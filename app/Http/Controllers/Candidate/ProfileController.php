@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Security\EncryptController;
 use App\Http\Controllers\Security\ValidatorController;
 use App\Http\Controllers\RequestController;
+use App\Model\Job_Application;
 use App\Model\Candidate;
 use App\Model\Education;
 use App\Model\Wilayah;
@@ -32,9 +33,7 @@ class ProfileController extends Controller
         $encrypt = new EncryptController;
     	$data = $encrypt->fnDecrypt(Request::input('data'),true);
         // dd($data, Request::file('certificate'));
-        // Belum ada Kolom di DB
-        // photo profile
-        // gpa (education)
+        
         // Photo Profile
         if (Request::has('photoProfile')) {
             $image = Request::file('photoProfile');
@@ -99,6 +98,7 @@ class ProfileController extends Controller
                     $education->start_year = $data['startDateEducation'][$i];
                     $education->end_year = $data['endDateEducation'][$i];
                     $education->ijazah = $path_certificate;
+                    $education->gpa = $data['gpa'][$i];
                     $education->kandidat_id = $data['idCandidate'];
                     $education->save();
                 }
@@ -116,6 +116,7 @@ class ProfileController extends Controller
                 $education->start_year = $data['startDateEducation'];
                 $education->end_year = $data['endDateEducation'];
                 $education->ijazah = $path_certificate;
+                $education->gpa = $data['gpa'];
                 $education->kandidat_id = $data['idCandidate'];
                 $education->save();
             }
@@ -170,13 +171,17 @@ class ProfileController extends Controller
     }
 
     public function viewProfile(){
-        return view('candidate.profile.profile-child')->with(['topbar'=>'profile']);
+        $job_apply = Job_Application::where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
+        // dd($job_apply);
+        return view('candidate.profile.profile-child')->with(['topbar'=>'profile', 'tab_profile'=>'profile-home', 'job_apply'=>$job_apply]);
     }
 
     public function editPersonalInformation(){
         $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
 
-        return view('candidate.profile.personal-information')->with(['topbar'=>'personal_information', 'wilayah'=>$wilayah]);
+        $job_apply = Job_Application::where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
+
+        return view('candidate.profile.personal-information')->with(['topbar'=>'personal_information', 'tab_profile'=>'profile-home', 'wilayah'=>$wilayah, 'job_apply'=>$job_apply]);
     }
 
     public function postEditPersonalInformation(){
@@ -253,7 +258,9 @@ class ProfileController extends Controller
     }
 
     public function editOtherInformation(){
-        return view('candidate.profile.other-information')->with(['topbar'=>'other_information']);
+        $job_apply = Job_Application::where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
+
+        return view('candidate.profile.other-information')->with(['topbar'=>'other_information', 'tab_profile'=>'profile-home', 'job_apply'=>$job_apply]);
     }
 
     public function postEditOtherInformation(){
@@ -323,11 +330,7 @@ class ProfileController extends Controller
             ];
 
             Session::put('session_candidate', $session);
-            $messages = [
-                'status' => 'success',
-                'message' => 'Success Edit Personal Information',
-                'url' => 'close'
-            ];
+            
             $messages = [
                 'status' => 'success',
                 'message' => 'Success Edit Other Information',
@@ -347,59 +350,183 @@ class ProfileController extends Controller
     }
 
     public function editEducationInformation(){
-        return view('candidate.profile.education-information')->with(['topbar'=>'education_information']);
+        $job_apply = Job_Application::where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
+
+        return view('candidate.profile.education-information')->with(['topbar'=>'education_information', 'tab_profile'=>'profile-home', 'job_apply'=>$job_apply]);
     }
 
     public function postEditEducationInformation(){
         $encrypt = new EncryptController;
     	$data = $encrypt->fnDecrypt(Request::input('data'),true);
-        // dd($data, Request::file('certificate'), $data['startDateEducation']);
+        // dd($data, Request::file('certificate'));
 
         if (Request::has('certificate')) {
+            $temp = [];
             $image = Request::file('certificate');
-            if (count($image) > 1) {
-                for ($i=0; $i < count($image); $i++) {
-                    $ext = $image[$i]->getClientOriginalExtension();
-                    $path_certificate = $image[$i]->storeAs('certificate', 'certificate_'.time().'.'.$ext, 'public');
-    
-                    $education = new Education;
-                    $education->universitas = $data['university'][$i];
-                    $education->gelar = $data['degree'][$i];
-                    $education->fakultas = $data['faculty'][$i];
-                    $education->jurusan = $data['major'][$i];
-                    $education->start_year = $data['startDateEducation'][$i];
-                    $education->end_year = $data['endDateEducation'][$i];
-                    $education->ijazah = $path_certificate;
-                    $education->kandidat_id = $data['idCandidate'];
-                    $education->save();
+            foreach ($image as $key => $value) {
+                $ext = $value->getClientOriginalExtension();
+                $path_certificate = $value->storeAs('certificate', 'certificate_'.$key.time().'.'.$ext, 'public');
+
+                $temp[$key] = $path_certificate;
+            }
+            // dd($temp);
+            if (is_array($data['idEducation']) && count($data['idEducation']) > 1) {
+                for ($i=0; $i < count($data['idEducation']); $i++) { 
+                    if (!empty($data['idEducation'][$i])) {
+                        $sql = Education::where('id', $data['idEducation'][$i])->first();
+                        $sql->universitas = $data['university'][$i];
+                        $sql->gelar = $data['degree'][$i];
+                        $sql->fakultas = $data['faculty'][$i];
+                        $sql->jurusan = $data['major'][$i];
+                        $sql->start_year = $data['startDateEducation'][$i];
+                        $sql->end_year = $data['endDateEducation'][$i];
+                        $sql->gpa = $data['gpa'][$i];
+                        $sql->kandidat_id = $data['idCandidate'];
+                        if (isset($temp[$i])) {
+                            $sql->ijazah = $temp[$i];
+                        }
+                        $sql->save();
+                    } else {
+                        $sql = new Education;
+                        $sql->universitas = $data['university'][$i];
+                        $sql->gelar = $data['degree'][$i];
+                        $sql->fakultas = $data['faculty'][$i];
+                        $sql->jurusan = $data['major'][$i];
+                        $sql->start_year = $data['startDateEducation'][$i];
+                        $sql->end_year = $data['endDateEducation'][$i];
+                        $sql->gpa = $data['gpa'][$i];
+                        $sql->kandidat_id = $data['idCandidate'];
+                        if (isset($temp[$i])) {
+                            $sql->ijazah = $temp[$i];
+                        }
+                        $sql->save();
+                    }
                 }
             } else {
-                for ($i=0; $i < count($image); $i++) {
-                    $ext = $image[$i]->getClientOriginalExtension();
-                    $path_certificate = $image[$i]->storeAs('certificate', 'certificate_'.time().'.'.$ext, 'public');
+                for ($i=0; $i < count($temp); $i++) {
+                    if (!empty($data['idEducation'])) {
+                        $sql = Education::where('id', $data['idEducation'])->first();
+                        $sql->universitas = $data['university'];
+                        $sql->gelar = $data['degree'];
+                        $sql->fakultas = $data['faculty'];
+                        $sql->jurusan = $data['major'];
+                        $sql->start_year = $data['startDateEducation'];
+                        $sql->end_year = $data['endDateEducation'];
+                        $sql->gpa = $data['gpa'];
+                        $sql->kandidat_id = $data['idCandidate'];
+                        if (isset($temp[$i])) {
+                            $sql->ijazah = $temp[$i];
+                        }
+                        $sql->save();
+                    } else {
+                        $sql = new Education;
+                        $sql->universitas = $data['university'];
+                        $sql->gelar = $data['degree'];
+                        $sql->fakultas = $data['faculty'];
+                        $sql->jurusan = $data['major'];
+                        $sql->start_year = $data['startDateEducation'];
+                        $sql->end_year = $data['endDateEducation'];
+                        $sql->gpa = $data['gpa'];
+                        $sql->kandidat_id = $data['idCandidate'];
+                        if (isset($temp[$i])) {
+                            $sql->ijazah = $temp[$i];
+                        }
+                        $sql->save();
+                    }
                 }
-
-                $education = new Education;
-                $education->universitas = $data['university'];
-                $education->gelar = $data['degree'];
-                $education->fakultas = $data['faculty'];
-                $education->jurusan = $data['major'];
-                $education->start_year = $data['startDateEducation'];
-                $education->end_year = $data['endDateEducation'];
-                $education->ijazah = $path_certificate;
-                $education->kandidat_id = $data['idCandidate'];
-                $education->save();
+            }
+        } else {
+            if (is_array($data['idEducation']) && count($data['idEducation']) > 1) {
+                for ($i=0; $i < count($data['idEducation']); $i++) { 
+                    if (!empty($data['idEducation'][$i])) {
+                        $sql = Education::where('id', $data['idEducation'][$i])->update([
+                            'universitas' => $data['university'][$i],
+                            'gelar' => $data['degree'][$i],
+                            'fakultas' => $data['faculty'][$i],
+                            'jurusan' => $data['major'][$i],
+                            'start_year' => $data['startDateEducation'][$i],
+                            'end_year' => $data['endDateEducation'][$i],
+                            'gpa' => $data['gpa'][$i],
+                            'kandidat_id' => $data['idCandidate'],
+                        ]);
+                    } else {
+                        $sql = Education::insert([
+                            'universitas' => $data['university'][$i],
+                            'gelar' => $data['degree'][$i],
+                            'fakultas' => $data['faculty'][$i],
+                            'jurusan' => $data['major'][$i],
+                            'start_year' => $data['startDateEducation'][$i],
+                            'end_year' => $data['endDateEducation'][$i],
+                            'gpa' => $data['gpa'][$i],
+                            'kandidat_id' => $data['idCandidate'],
+                        ]);
+                    }
+                }
+            } else {
+                if (!empty($data['idEducation'])) {
+                    $sql = Education::where('id', $data['idEducation'])->update([
+                        'universitas' => $data['university'],
+                        'gelar' => $data['degree'],
+                        'fakultas' => $data['faculty'],
+                        'jurusan' => $data['major'],
+                        'start_year' => $data['startDateEducation'],
+                        'end_year' => $data['endDateEducation'],
+                        'gpa' => $data['gpa'],
+                        'kandidat_id' => $data['idCandidate'],
+                    ]);
+                } else {
+                    $sql = Education::insert([
+                        'universitas' => $data['university'],
+                        'gelar' => $data['degree'],
+                        'fakultas' => $data['faculty'],
+                        'jurusan' => $data['major'],
+                        'start_year' => $data['startDateEducation'],
+                        'end_year' => $data['endDateEducation'],
+                        'gpa' => $data['gpa'],
+                        'kandidat_id' => $data['idCandidate'],
+                    ]);
+                }
             }
         }
+        
+        if ($sql) {
+            $id = session('session_candidate.user_id');
+            Session::forget('session_candidate');
+            $user = User::select('kandidat.*', 'users.email', 'users.password', 'users.type', 'users.status')
+                ->join('kandidat', 'users.id', 'kandidat.user_id')
+                ->where('users.id', $id)->first()->toArray();
+            $education = Education::where('kandidat_id', $user['id'])->get()->toArray();
+            
+            $session = [
+                'user_id' => $user['user_id'],
+                'user_email' => $user['email'],
+                'user_type' => $user['type'],
+                'user_status' => $user['status'],
+                'id' => $user['id'],
+                'first_name' => $user['first_name'],
+                'last_name' => $user['last_name'],
+                'tanggal_lahir' => $user['tanggal_lahir'],
+                'gender' => $user['gender'],
+                'telp' => $user['telp'],
+                'kota' => $user['kota'],
+                'linkedin' => $user['linkedin'],
+                'cover_letter' => $user['cover_letter'],
+                'resume' => $user['resume'],
+                'protofolio' => $user['protofolio'],
+                'skill' => $user['skill'],
+                'foto_profil' => $user['foto_profil'],
+                'pendidikan' => $education
+            ];
 
-        if ($education->save()) {
+            Session::put('session_candidate', $session);
+
             $messages = [
                 'status' => 'success',
                 'message' => 'Success Edit Education Information',
                 'url' => 'close'
             ];
 
-            return redirect('/')->with('notif', $messages);
+            return redirect('/profile')->with('notif', $messages);
         } else {
             $messages = [
                 'status' => 'error',
@@ -409,6 +536,12 @@ class ProfileController extends Controller
 
             return back()->with('notif', $messages);
         }
+    }
+
+    public function viewEditPassword(){
+        $job_apply = Job_Application::where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
+
+        return view('candidate.profile.education-information')->with(['topbar'=>'education_information', 'tab_profile'=>'profile-password', 'job_apply'=>$job_apply]);
     }
 
     public function postEditPassword(){
@@ -443,8 +576,13 @@ class ProfileController extends Controller
         }
     }
 
+    public function myApp(){
+        $job_apply = Job_Application::where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
+
+        return view('candidate.profile.profile-child')->with(['topbar'=>'myapp_detail', 'tab_profile'=>'profile-applican', 'job_apply'=>$job_apply]);
+    }
     public function myAppDetail(){
-        return view('candidate.profile.my-app-detail')->with(['topbar'=>'myapp_detail']);
+        return view('candidate.profile.my-app-detail')->with(['topbar'=>'myapp_detail', 'tab_profile'=>'profile-applican']);
     }
 
     public function testReschedule(){
