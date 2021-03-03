@@ -147,6 +147,6 @@ class LoginController extends Controller
     public function logout(){
         session()->forget('session_candidate');
 
-    	return redirect('/job');
+    	return redirect('/');
     }
 }

@@ -5,7 +5,7 @@
 
 @section('app')
 <div class="breadcrumb-candidate">
-    <a class="bread active" href="#">My Application</a>
+    <a class="bread active" href="{{ route('get.profile.my-app') }}">My Application</a>
     <p class="bread">/Pre Sales Solution Architect</p>
 </div>
 <div class="fulltime-badge mb-2">Full-time</div>

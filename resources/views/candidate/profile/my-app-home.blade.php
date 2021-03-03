@@ -14,7 +14,28 @@
         </ul>
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                <div class="card-list-my-app">
+                @if(count($job_apply) > 0)
+                    @foreach($job_apply as $apply)
+                    <div class="card-list-my-app">
+                        <div class="card-head-my-app success d-flex justify-content-center">
+                            <p>Success</p>
+                        </div>
+                        <div class="card-body-my-app p-4">
+                            <div class="row m-1">
+                                <div class="col-lg-8 col-md-12">
+                                    <div class="fulltime-badge mb-3">Full-time</div>
+                                    <label class="label-no-margin mb-1">Banten, Indonesia</label>
+                                    <h4 class="candidate-page-subtitle mb-0">Pre Sales Solution Architect</h4>
+                                </div>
+                                <div class="col-lg-4 col-md-12 border-left1">
+                                    <a href="{{ route('get.profile.my-app-detail') }}" class="btn btn-white btn-block">View Detail</a>
+                                    <button class="btn btn-red btn-block">Doc. Sign & Contract</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                <!-- <div class="card-list-my-app">
                     <div class="card-head-my-app success d-flex justify-content-center">
                         <p>Success</p>
                     </div>
@@ -49,16 +70,18 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
+                @else
                 <!-- Ketika data kosong -->
                 <div class="card">
                     <div class="card-body d-flex flex-column justify-content-center align-items-center p-5">
                         <img src="{{ asset('image/icon/homepage/icon-koper.svg') }}" alt="icon">
                         <h4 class="candidate-page-subtitle mb-2 mt-5">You haven't applied for a job </h4>
                         <p class="text-empty-job mb-3">Join our team right now</p>
-                        <button class="btn btn-red px-5">See Job Vacancy</button>
+                        <a href="{{ route('get.job.page') }}" class="btn btn-red px-5">See Job Vacancy</a>
                     </div>
                 </div>
+                @endif
             </div>
             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
             <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>

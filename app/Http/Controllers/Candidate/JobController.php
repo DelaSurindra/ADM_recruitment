@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Security\EncryptController;
 use App\Http\Controllers\Security\ValidatorController;
 use App\Http\Controllers\RequestController;
+use App\Model\Job_Application;
 use App\Model\Education;
 use App\Model\Vacancy;
 use App\Model\Wilayah;
@@ -21,7 +22,7 @@ class JobController extends Controller
         $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
         // Get data Job
         $job = Vacancy::orderBy('created_at', 'desc')->take(9)->get()->toArray();
-        
+        // dd($job);
         for ($i=0; $i < count($job); $i++) { 
             if($job[$i]['degree'] == 1) {
                 $degree = "Diploma's Degree";
@@ -29,6 +30,8 @@ class JobController extends Controller
                 $degree = "Bachelor's Degree";
             } elseif($job[$i]['degree'] == 3) {
                 $degree = "Master's Degree";
+            } else {
+                $degree = "";
             }
 
             $major = explode(',', $job[$i]['major']);
@@ -135,36 +138,54 @@ class JobController extends Controller
     public function applyJob() {
         $encrypt = new EncryptController;
     	$data = $encrypt->fnDecrypt(Request::input('data'),true);
-        // dd($data);
+        
         if ($data['idUser']) {
             // get data education
             $education = Education::where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
             // get data job
             $job = Vacancy::where('job_id', $data['idJob'])->first()->toArray();
-            // dd($education, $job);
+            
             $state = false;
             if (count($education) > 1) {
                 foreach ($education as $pendidikan) {
-                    if ($pendidikan['gelar'] == $job['degree'] && trim($pendidikan['jurusan']," ") === $job['major']) {
+                    if ($pendidikan['gelar'] >= $job['degree'] && trim($pendidikan['jurusan'], " ") === $job['major']) {
                         $state = true;
                     }
                 }
             } else {
-                if ($education[0]['gelar'] == $job['degree'] && $education[0]['jurusan'] == $job['major']) {
+                if ($education[0]['gelar'] >= $job['degree'] && trim($education[0]['jurusan'], " ") === $job['major']) {
                     $state = true;
                 }
             }
-            // dd($education, $job, $state);
+            
             if ($state) {
-                return [
-                    'status' => 'success',
-                    'message' => 'Berhasil',
-                    'callback' => 'applySuccess'
-                ];
+                $apply = Job_Application::insertGetId([
+                    'interview_count' => '',
+                    'referensi' => '',
+                    'status' => 1,
+                    'kandidat_id' => Session::get('session_candidate')['id'],
+                    'vacancy_id' => $data['idJob']
+                ]);
+
+                if ($apply) {
+                    $track = $this->statusTrackApply($apply, 1);
+
+                    return [
+                        'status' => 'success',
+                        'message' => 'Berhasil',
+                        'idApply' => $apply,
+                        'callback' => 'applySuccess'
+                    ];
+                } else {
+                    return [
+                        'status' => 'error',
+                        'message' => 'Job Requirement Not Match',
+                    ];
+                }
             } else {
                 return [
                     'status' => 'error',
-                    'message' => 'Gagal Apply Job',
+                    'message' => 'Job Requirement Not Match',
                 ];
             }
         } else {
@@ -172,6 +193,28 @@ class JobController extends Controller
                 'status' => 'warning',
                 'message' => 'Harap login',
                 'callback' => 'mustLogin'
+            ];
+        }
+    }
+
+    public function applyTellMe() {
+        $encrypt = new EncryptController;
+    	$data = $encrypt->fnDecrypt(Request::input('data'),true);
+        // dd($data);
+        $sql = Job_Application::where('id', $data['idApply'])->update([
+            'referensi' => $data['tellMe'],
+        ]);
+
+        if ($sql) {
+            return [
+                'status' => 'success',
+                'message' => 'Berhasil',
+                'callback' => 'applySuccessTellMe'
+            ];
+        } else {
+            return [
+                'status' => 'error',
+                'message' => 'Error Save Tell Me',
             ];
         }
     }

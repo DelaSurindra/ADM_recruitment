@@ -99,7 +99,16 @@ var ajax = {
 										window.location.reload();
 									}, 2000);
 								} else if(result.callback == 'applySuccess') {
+									var id = result.idApply;
+									$('#idApply').val(id);
+
 									$('#modalNotifApplySuccess').modal('show')
+								} else if(result.callback == 'applySuccessTellMe') {
+									setInterval(
+										function() {
+											window.location = '/profile';
+										}
+									, 2000);
 								}
 							}else if(result.status == 'info'){
 								ui.popup.hideLoader();

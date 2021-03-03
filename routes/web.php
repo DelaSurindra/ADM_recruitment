@@ -68,14 +68,16 @@ Route::middleware('authcandidate')->group(function(){
 			Route::get('/education-information', 'Candidate\ProfileController@editEducationInformation')->name('get.profile.education-information');
 			Route::post('/post-education-information', 'Candidate\ProfileController@postEditEducationInformation')->name('post.profile.education-information');
 	
+			Route::get('/edit-password', 'Candidate\ProfileController@viewEditPassword')->name('get.profile.edit-password');
 			Route::post('/post-edit-password', 'Candidate\ProfileController@postEditPassword')->name('post.profile.edit-password');
 	
+			Route::get('/my-app', 'Candidate\ProfileController@myApp')->name('get.profile.my-app');
 			Route::get('/my-app-detail', 'Candidate\ProfileController@myAppDetail')->name('get.profile.my-app-detail');
 		});
 	});
 
 	Route::prefix('job')->group(function () {
-		Route::post('/post-edit-password', 'Candidate\ProfileController@postEditPassword')->name('post.profile.edit-password');
+		Route::post('/tell-me', 'Candidate\JobController@applyTellMe')->name('post.tell-me');
 	});
 });
 

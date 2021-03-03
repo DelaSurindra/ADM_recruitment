@@ -145,7 +145,8 @@
                         <h4 class="candidate-page-subtitle">Apply Success</h4>
                         <p class="my-4">Congratulations, your application has been sent. Please wait for the announcement for the next recruitment step. Lastly, we have one question for you</p>
 
-                        <form action="" id="formTellMe" class="form-candidate-view" method="POST" ajax="true">
+                        <form action="{{ route('post.tell-me') }}" id="formTellMe" class="form-candidate-view" method="POST" ajax="true">
+                            <input type="hidden" name="idApply" id="idApply" value="">
                             <label for="">How did you hear about this job?</label>
                             <input type="text" name="tellMe" id="tellMe" class="form-control mb-4" placeholder="Tell me">
                             <button type="submit" class="btn btn-red btn-block">Go to My Application</button>

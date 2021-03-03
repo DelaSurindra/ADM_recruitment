@@ -767,6 +767,7 @@ if ($("#formEditEducationInformation").length) {
 		$('.firstBtnListEducation').removeClass('margin-right-2rem')
 	
 		var option = '<div class="listStudy">'+
+						'<input type="hidden" name="idEducation" id="idEducation" value="">'+
 						'<hr>'+
 						'<div class="row">'+
 							'<div class="col-lg-6 col-md-12">'+
