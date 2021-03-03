@@ -30,11 +30,74 @@
             </div>
         @endif
         <div class="search">
-            <div class="dropdown custom-dropdown">
+            <!-- <div class="dropdown custom-dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{asset('image/icon/navbar/icon_setting.svg')}}"></a>
                 <div class="dropdown-menu custom-dropdown-menu">
                     <a href="#" class="dropdown-item"><img src="{{asset('image/icon/navbar/icon_change_password.svg')}}" style="margin-right: 20px;">Change Password</a>
                     <a href="{{route('get.logout')}}" class="dropdown-item margin-right-20"><img src="{{asset('image/icon/navbar/icon_logout.svg')}}" style="margin-right: 20px;">Logout</a>
+                </div>
+            </div> -->
+            <div class="notif-dropdown dropdown">
+                <div class="notif-count" id="notifCount">99</div>
+                <div class="notif-access" id="dropdownMenuNotif" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="{{ asset('image/icon/homepage/icon-bell.svg') }}" alt="icon">
+                </div>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuNotif">
+                    <div class="dropdown-item">
+                        <div class="notif-header">
+                            <h6>Notification <span class="notif-count-inside">99</span></h6>
+                            <a href="#">View All</a>
+                        </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+
+                    <div class="dropdown-item">
+                        <p class="notif-title">Notification Title</p>
+                        <p class="notif-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pharetra in molestie diam ele</p>
+                        <div class="notif-detail">
+                            <p class="date-notif">12 Feb 2021 13:15</p>
+                            <a href="#" class="link-notif">See Details</a>
+                        </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-item">
+                        <p class="notif-title">Notification Title</p>
+                        <p class="notif-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pharetra in molestie diam ele</p>
+                        <div class="notif-detail">
+                            <p class="date-notif">12 Feb 2021 13:15</p>
+                            <a href="#" class="link-notif">See Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-dropdown dropdown">
+                <div class="profile-access" id="dropdownMenuProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @if(session('session_candidate.foto_profil') == null)
+                    <img class="rounded-circle img-profile" src="{{ asset('image/icon/homepage/dummy-profile.svg') }}" alt="avatar">
+                    @else
+                    <img class="rounded-circle img-profile" src="{{asset('storage/').'/'.session('session_candidate.foto_profil') }}" alt="avatar">
+                    @endif
+                    <p class="name-profile">Sahadi</p>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuProfile">
+                    <h6 class="dropdown-item">Sahadi</h6>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ route('get.profile.view') }}">
+                        <img src="{{ asset('image/icon/homepage/edit-profile-icon.svg') }}" alt="icon"> Edit Profile
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+                        <img src="{{ asset('image/icon/homepage/edit-password-icon.svg') }}" alt="icon"> Edit Password
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+                        <img src="{{ asset('image/icon/homepage/myapp-icon.svg') }}" alt="icon"> My Application
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item signout" href="{{route('get.logout')}}">
+                        <img src="{{ asset('image/icon/homepage/logout-icon.svg') }}" alt="icon"> Logout
+                    </a>
                 </div>
             </div>
         </div>
