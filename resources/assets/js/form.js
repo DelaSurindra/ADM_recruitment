@@ -848,16 +848,6 @@ if ($("#formEditEducationInformation").length) {
 						'<div class="row">'+
 							'<div class="col-lg-6 col-md-12">'+
 								'<div class="form-group">'+
-									'<label for="">GPA<span class="required-sign">*</span></label>'+
-									'<div class="row">'+
-										'<div class="col-lg-11 col-md-12">'+
-											'<input type="text" class="form-control" placeholder="0 - 100" id="gpa" name="gpa">'+
-										'</div>'+
-									'</div>'+
-								'</div>'+
-							'</div>'+
-							'<div class="col-lg-6 col-md-12">'+
-								'<div class="form-group">'+
 									'<label for="">Certificate of Study<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
@@ -865,6 +855,16 @@ if ($("#formEditEducationInformation").length) {
 											'<span class="btn btn-file pl-1 mb-2">'+
 												'Upload File <input type="file" name="certificate[]" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg">'+
 											'</span>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>'+
+							'<div class="col-lg-6 col-md-12">'+
+								'<div class="form-group">'+
+									'<label for="">GPA<span class="required-sign">*</span></label>'+
+									'<div class="row">'+
+										'<div class="col-lg-11 col-md-12">'+
+											'<input type="text" class="form-control" placeholder="0 - 100" id="gpa" name="gpa">'+
 										'</div>'+
 									'</div>'+
 								'</div>'+
@@ -962,6 +962,49 @@ if ($("#formEditEducationInformation").length) {
 			readFileInput(this);
 		});
 	})
+}
+
+if ($("#formEditOtherInformation").length) {
+	function readFileInput(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			
+			reader.onload = function (e) {
+				var inputLabel = $(input).parent().parent().find('.file-input-label');
+				inputLabel.val();
+				inputLabel.val(input.files[0].name);
+			};
+			
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$('#coverLetter').change(function(e){
+		e.preventDefault();
+		readFileInput(this);
+	});
+	
+	$('#resume').change(function(e){
+		e.preventDefault();
+		readFileInput(this);
+	});
+
+	$('#portofolio').change(function(e){
+		e.preventDefault();
+		readFileInput(this);
+	});
+
+	$("#deleteCoverLetter").click(function(){
+		$("#coverLetterLink").val('')
+	});
+
+	$("#deleteResume").click(function(){
+		$("#resumeLink").val('')
+	});
+
+	$("#deletePortofolio").click(function(){
+		$("#portofolioLink").val('')
+	});
 }
 
 $("#loadNews").click(function(e){

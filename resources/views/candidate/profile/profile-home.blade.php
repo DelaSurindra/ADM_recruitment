@@ -11,7 +11,7 @@
             <div class="card-body">
                 <div class="text-center wrapper-header-card-personal">
                     @if(session('session_candidate.foto_profil') == null)
-                    <img class="rounded-circle img-profile" src="https://instagram.fcgk9-1.fna.fbcdn.net/v/t51.2885-15/sh0.08/e35/p640x640/36687395_1833002890090498_1311641978080854016_n.jpg?_nc_ht=instagram.fcgk9-1.fna.fbcdn.net&_nc_cat=110&_nc_ohc=xRSWiQpr3Z4AX8TfB-s&tp=1&oh=f0b27cf086b3be75608151d4375e2384&oe=605D5A77" alt="avatar">
+                    <img class="rounded-circle img-profile" src="{{ asset('image/icon/homepage/dummy-profile.svg') }}" alt="avatar">
                     @else
                     <img class="rounded-circle img-profile" src="{{asset('storage/').'/'.session('session_candidate.foto_profil') }}" alt="avatar">
                     @endif
@@ -66,7 +66,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Portofolio</label>
-                                <input type="text" class="form-control" value="{{session('session_candidate.portofolio')}}" disabled>
+                                <input type="text" class="form-control" value="{{session('session_candidate.protofolio')}}" disabled>
                             </div>
                             <div class="form-group mb-0">
                                 <label for="">Skill</label>
