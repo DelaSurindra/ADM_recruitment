@@ -162,6 +162,60 @@ var table = {
 		var imageActive = '../image/icon/main/activae.png';
 
 		$('.modal').modal('hide'); // ketika fitur filternya menggunakan modal
+
+		if (id == 'filterSearchList' || id == 'filterJobList') {
+			$('.loadMoreJob').hide();
+			ajax.getData('/job-more', 'post', {value:value}, function(data){
+				$('#loadJobs').empty()
+				if (data.length > 0) {
+					for (let i = 0; i < data.length; i++) {
+						var id = encodeURIComponent(window.btoa(data[i]['job_id']));
+			
+						if (data[i]['type'] == 1) {
+							var type = '<div class="fulltime-badge mb-3">Full-time</div>';
+						} else if (data[i]['type'] == 2) {
+							var type = '<div class="internship-badge mb-3">Internship</div>'
+						}
+			
+						var option = '<div class="col-lg-4 col-md-6 col-sm-12 my-3">'+
+										'<div class="card card-job-list">'+
+											'<a href="/job/detail/'+id+'" class="text-decoration-none">'+
+												'<div class="card-body">'+
+													type+
+													'<label class="label-no-margin mb-1">'+data[i]['lokasi']+', Indonesia</label>'+
+													'<h4 class="candidate-page-subtitle mb-3">'+data[i]['job_title']+'</h4>'+
+													
+													'<div class="d-flex align-items-center job-list-detail mb-1">'+
+														'<div class="icon-wrapper">'+
+															'<img src="/image/icon/homepage/icon-graduate.svg" alt="icon">'+
+														'</div>'+
+														'<p class="text">'+data[i]['education_req']+'</p>'+
+													'</div>'+
+													'<div class="d-flex align-items-center job-list-detail">'+
+														'<div class="icon-wrapper">'+
+															'<img src="/image/icon/homepage/icon-book.svg" alt="icon">'+
+														'</div>'+
+														'<p class="text">'+data[i]['major']+'</p>'+
+													'</div>'+
+												'</div>'+
+											'</a>'+
+										'</div>'+
+									'</div>';
+			
+						$('#loadJobs').append(option)
+					}
+				} else {
+					var option = '<div class="col-12 my-3">'+
+									'<div class="card card-job-list">'+
+										'<p style="font-size: 23px;margin: 2rem 0px;text-align: center;">Data Not Found</p>'+
+									'</div>'+
+								'</div>';
+			
+					$('#loadJobs').append(option)
+				}
+			})
+		}
+
 		if (id == 'filterCabang') {
 			var column = [
 				{'data':'kode_cabang'},

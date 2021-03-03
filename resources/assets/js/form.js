@@ -141,6 +141,11 @@ var form = {
 			}
 			ajax.submitData(url,data,form_id);
 		}else if(isFilter=='true'){
+			if (form_id == 'filterSearchList' || form_id == 'filterJobList') {
+				var filterSearch = $('#filterSearchList').serialize();
+				var filterJob = $('#filterJobList').serialize();
+				data = filterSearch+'&'+filterJob;
+			}
 			table.filter(form_id,data);
 		}else{
 			other.encrypt(data,function(err,encData){
@@ -1043,9 +1048,77 @@ $("#loadEvent").click(function(e){
 if ($('#filterJobList').length) {
 	$('.job-type-select').click(function(){
 		if ($(this).hasClass('not-active')) {
+			if ($(this).hasClass('fulltime-badge')) {
+				$('#checkFilterFulltime').prop('checked', true);
+			} else if ($(this).hasClass('internship-badge')) {
+				$('#checkFilterInternship').prop('checked', true);
+			}
 			$(this).removeClass('not-active')
 		} else {
+			if ($(this).hasClass('fulltime-badge')) {
+				$('#checkFilterFulltime').prop('checked', false);
+			} else if ($(this).hasClass('internship-badge')) {
+				$('#checkFilterInternship').prop('checked', false);
+			}
 			$(this).addClass('not-active')
 		}
 	})
 }
+
+var lastArray =  function(array, n) {
+	if (array == null) 
+	  return void 0;
+	if (n == null) 
+	   return array[array.length - 1];
+	return array.slice(Math.max(array.length - n, 0));  
+};
+
+$('.loadMoreJob').click(function(){
+	var list = $('.card-job-list').length;
+	var value = list + 3;
+
+	ajax.getData('/job-more', 'post', {value:value}, function(data){
+		if (data.length >= value) {
+			$('.loadMoreJob').hide();
+		}
+
+		var newData = lastArray(data, 3)
+		
+		for (let i = 0; i < newData.length; i++) {
+			var id = encodeURIComponent(window.btoa(newData[i]['job_id']));
+
+			if (newData[i]['type'] == 1) {
+				var type = '<div class="fulltime-badge mb-3">Full-time</div>';
+			} else if (newData[i]['type'] == 2) {
+				var type = '<div class="internship-badge mb-3">Internship</div>'
+			}
+
+			var option = '<div class="col-lg-4 col-md-6 col-sm-12 my-3">'+
+							'<div class="card card-job-list">'+
+								'<a href="/job/detail/'+id+'" class="text-decoration-none">'+
+									'<div class="card-body">'+
+										type+
+										'<label class="label-no-margin mb-1">'+newData[i]['lokasi']+', Indonesia</label>'+
+										'<h4 class="candidate-page-subtitle mb-3">'+newData[i]['job_title']+'</h4>'+
+										
+										'<div class="d-flex align-items-center job-list-detail mb-1">'+
+											'<div class="icon-wrapper">'+
+												'<img src="/image/icon/homepage/icon-graduate.svg" alt="icon">'+
+											'</div>'+
+											'<p class="text">'+newData[i]['education_req']+'</p>'+
+										'</div>'+
+										'<div class="d-flex align-items-center job-list-detail">'+
+											'<div class="icon-wrapper">'+
+												'<img src="/image/icon/homepage/icon-book.svg" alt="icon">'+
+											'</div>'+
+											'<p class="text">'+newData[i]['major']+'</p>'+
+										'</div>'+
+									'</div>'+
+								'</a>'+
+							'</div>'+
+						'</div>';
+
+			$('#loadJobs').append(option)
+		}
+	})
+})

@@ -87,6 +87,7 @@ Route::post('/news-get-more', 'Candidate\NewsEventController@getMoreNews')->name
 Route::post('/event-get-more', 'Candidate\NewsEventController@getMoreEvent')->name('get.event.more');
 
 Route::get('/job', 'Candidate\JobController@viewJob')->name('get.job.page');
+Route::post('/job-more', 'Candidate\JobController@getJobList')->name('get.job.more');
 Route::get('/job/detail/{id}', 'Candidate\JobController@viewJobDetail')->name('get.job.page.detail');
 Route::post('/apply-job', 'Candidate\JobController@applyJob')->name('post.apply-job');
 
