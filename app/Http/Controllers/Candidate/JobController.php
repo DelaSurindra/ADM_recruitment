@@ -117,22 +117,42 @@ class JobController extends Controller
 
     public function viewJobDetail($id) {
         $id = base64_decode(urldecode($id));
-        $job = Vacancy::where('job_id', $id)->first()->toArray();
+
+        $job = Vacancy::orderBy('created_at', 'desc')->take(3)->get()->toArray();
         // dd($job);
-        if($job['degree'] == 1) {
+        for ($i=0; $i < count($job); $i++) { 
+            if($job[$i]['degree'] == 1) {
+                $degree = "Diploma's Degree";
+            } elseif($job[$i]['degree'] == 2) {
+                $degree = "Bachelor's Degree";
+            } elseif($job[$i]['degree'] == 3) {
+                $degree = "Master's Degree";
+            } else {
+                $degree = "";
+            }
+
+            $major = explode(',', $job[$i]['major']);
+            foreach ($major as $value) {
+                $job[$i]['education_req'] = $degree.' in '.$value;
+            }
+        }
+
+        $jobDetail = Vacancy::where('job_id', $id)->first()->toArray();
+        // dd($job);
+        if($jobDetail['degree'] == 1) {
             $degree = "Diploma's Degree";
-        } elseif($job['degree'] == 2) {
+        } elseif($jobDetail['degree'] == 2) {
             $degree = "Bachelor's Degree";
-        } elseif($job['degree'] == 3) {
+        } elseif($jobDetail['degree'] == 3) {
             $degree = "Master's Degree";
         }
 
-        $major = explode(',', $job['major']);
+        $major = explode(',', $jobDetail['major']);
         foreach ($major as $value) {
-            $job['education_req'] = $degree.' in '.$value;
+            $jobDetail['education_req'] = $degree.' in '.$value;
         }
 
-        return view('candidate.job_list.job-detail')->with(['topbar'=>'job', 'job'=>$job]);
+        return view('candidate.job_list.job-detail')->with(['topbar'=>'job', 'job'=>$job, 'jobDetail'=>$jobDetail]);
     }
 
     public function applyJob() {
