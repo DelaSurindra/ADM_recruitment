@@ -105,6 +105,7 @@
 
 .notif-dropdown.dropdown {
     margin-right: 2rem;
+    margin-top:4px;
 }
 .notif-dropdown .notif-access {
     cursor: pointer;
