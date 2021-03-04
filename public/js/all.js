@@ -1,3 +1,2629 @@
-function _defineProperty(e,a,t){return a in e?Object.defineProperty(e,a,{value:t,enumerable:!0,configurable:!0,writable:!0}):e[a]=t,e}function reload(){location.reload()}function formatRupiahRp(e){var a=e.replace(/[^,\d]/g,"").toString(),t=a.split(","),i=t[0].length%3,n=t[0].substr(0,i),o=t[0].substr(i).match(/\d{3}/gi);return o&&(separator=i?".":"",n+=separator+o.join(".")),"Rp "+(n=void 0!=t[1]?n+t[1]:n)}function formatRupiahKoma(e){var a=e.replace(/[^.\d]/g,"").toString(),t=a.split("."),i=t[0].length%3,n=t[0].substr(0,i),o=t[0].substr(i).match(/\d{3}/gi);return o&&(separator=i?",":"",n+=separator+o.join(",")),n=void 0!=t[1]?n+t[1]:n}function formatRupiah(e){var a=e.replace(/[^,\d]/g,"").toString(),t=a.split(","),i=t[0].length%3,n=t[0].substr(0,i),o=t[0].substr(i).match(/\d{3}/gi);return o&&(separator=i?".":"",n+=separator+o.join(".")),n=void 0!=t[1]?n+t[1]:n}function readFile(e){if(console.log(e.files,e.files[0]),e.files&&e.files[0]){var a=new FileReader;a.onload=function(a){var t='<img src="'+a.target.result+'" style="width:100%;height:auto" />',i=$(e).parent(),n=$(e).parent().parent().find(".preview-zone"),o=$(e).parent().find(".dropzone-desc");Math.floor(75);i.removeClass("dragover"),n.removeClass("hidden"),o.empty(),o.css("top","0"),o.append(t)},a.readAsDataURL(e.files[0])}}function reset(e){e.wrap("<form>").closest("form").get(0).reset(),e.unwrap()}$(document).ready(function(){if(_ajax.init(),table.init(),form.init(),ui.slide.init(),validation.addMethods(),$(document).ajaxError(function(e,a,t,i){console.log("exception = "+i)}),moveOnMax=function(e,a){1==e.value.length&&document.getElementById(a).focus()},$("#notif").length){var e=$("#notif").data("status"),a=$("#notif").data("message"),t=$("#notif").data("url");ui.popup.show(e,a,t)}$("#mustLogin").length&&($(".modal").modal("hide"),ui.popup.hideLoader(),$("#modalNotifForLogin").modal("show")),$("#profileSaved").length&&($(".modal").modal("hide"),ui.popup.hideLoader(),$("#modalNotifProfileSaved").modal("show"))}),$(".modal").on("hidden.bs.modal",function(e){$(this).find("form")[0].reset(),$(".select").val("").trigger("change")});var baseUrl=$("meta[name=base]").attr("content")+"/",baseImage=$("meta[name=baseImage]").attr("content")+"/",cdn=$("meta[name=cdn]").attr("content"),other={encrypt:function(e,a){$.ajax({url:baseUrl+"s",type:"post",headers:{"X-CSRF-TOKEN":$('meta[name="csrf-token"]').attr("content")},success:function(t){var i=t;if("error"!==i.status&&"reload"!==i.status){var n=i.password,o=CryptoJS.lib.WordArray.random(16),r=CryptoJS.PBKDF2("Secret Passphrase",o,{keySize:8,iterations:500}),s=CryptoJS.enc.Hex.parse(n[2]);if(e.indexOf("&captcha=")){var l=e.split("&captcha="),d=l[1];e=l[0]}var c=CryptoJS.AES.encrypt(e+"&safer=",r,{iv:s}),u=c.ciphertext.toString(CryptoJS.enc.Base64),m=c.iv.toString(CryptoJS.enc.Base64),p=c.key.toString(CryptoJS.enc.Base64),f=u+n[0]+m+n[1]+p+n[2],t={data:f};"undefined"!=d&&(t.captcha=d),a(null,t)}else swal({title:i.messages.title,text:i.messages.message,type:"error",html:!0,showCancelButton:!0,confirmButtonColor:"green",confirmButtonText:"Refresh"},function(){location.reload()})}})},notification:{init:function(){$("#buttonNotif").length&&$.ajax({url:baseUrl+"notif/check",type:"POST",cache:!1,beforeSend:function(e){},success:function(e){var a,t=0;for(a in e)e.hasOwnProperty(a)&&t++;if(t>0){var i=$(".drop-content-notif");i.empty(),$.each(e.notif,function(e,a){var t=null;t="1"==a.status_notif?$("<li>"):$("<li>").addClass("unread"),t.append('<a href="'+baseUrl+"notif/get/"+a.id_notif+'" class="aNotif"><b class="font-notif">'+a.message_notif+'</b> </br><span class="font-notif">'+a.created_at+"</span></a>"),i.append(t)})}else li_element.append('<li class="dropdown-item-notif"><span>Belum ada notifikasi</span></li>'),i.append(li_element);e.countNotif>0?($("#total-notif").show(),$("#totalNotif").html(e.countNotif)):$("#total-notif").hide()}})}},checkSession:{stat:!1,init:function(){function e(){0==t?other.checkSession.action():t--}function a(){t=905}var t=905;$(document).on("mousemove keypress",function(){a()}),setInterval(function(){e()},1e3)},action:function(){other.checkSession.stat||(other.checkSession.stat=!0,$.ajax({url:baseUrl+"checkSession",global:!1,type:"get",beforeSend:function(e){},success:function(e){"1"==e?(other.checkSession.idler=0,other.checkSession.stat=!1):ui.popup.show("warning","Anda sudah tidak aktif dalam waktu 15 menit","/logout")}}))}}},_ajax={init:function(){$.ajaxSetup({headers:{"X-CSRF-TOKEN":$('meta[name="csrf-token"]').attr("content")},beforeSend:function(e){ui.popup.showLoader()},timeout:3e4,error:function(e,a,t,i){ui.popup.show("error","Sedang Gangguan Jaringan","Error"),ui.popup.hideLoader()},complete:function(){},global:!0})},getData:function(e,a,t,i){$.ajaxSetup({headers:{"X-CSRF-TOKEN":$('meta[name="csrf-token"]').attr("content")}}),null==t&&(t={}),$.ajax({type:a,url:baseUrl+e,data:t,success:function(e){ui.popup.hideLoader(),"success"==e.status&&(ui.popup.hideLoader(),"redirect"==e.callback&&ui.popup.show(e.status,e.message,e.url)),"error"==e.status?ui.popup.show("error",e.messages.message,e.messages.title):"reload"==e.status?ui.popup.alert(e.messages.title,e.messages.message,"refresh"):"logout"==e.status?ui.popup.alert(e.messages.title,e.messages.message,"logout"):401==e?(ui.popup.show("warning","Sesi Anda telah habis, harap login kembali","Session Expired"),2==$(".toast-warning").length&&$(".toast-warning")[1].remove(),setInterval(function(){window.location="/logout"},3e3)):i(e instanceof Array||e instanceof Object?e:JSON.parse(e))}})},submitData:function(e,a,t){other.encrypt(a,function(a,i){a?callback(a):$.ajax({url:e,type:"post",data:i,error:function(e,a,t){ui.popup.hideLoader(),ui.popup.show("error",t,"Error")},success:function(e,a){if(null==e)ui.popup.show(e.status,"Error"),ui.popup.hideLoader();else if(401==e)ui.popup.show("warning","Sesi anda habis, mohon login kembali","Session Expired"),ui.popup.hideLoader(),setInterval(function(){window.location="/logout"},3e3);else if("success"==e.status)if($(".modal").modal("hide"),ui.popup.hideLoader(),"redirect"==e.callback)ui.popup.show(e.status,e.message,e.url);else if("login"==e.callback)setInterval(function(){window.location=e.url},2e3);else if("reload"==e.callback)setInterval(function(){window.location.reload()},2e3);else if("applySuccess"==e.callback){var i=e.idApply;$("#idApply").val(i),$("#modalNotifApplySuccess").modal("show")}else"applySuccessTellMe"==e.callback&&setInterval(function(){window.location="/profile"},2e3);else"info"==e.status?ui.popup.hideLoader():"warning"==e.status?($(".modal").modal("hide"),ui.popup.hideLoader(),"redirect"==e.callback?ui.popup.show(e.status,e.message,e.url):"mustLogin"==e.callback&&$("#modalNotifForLogin").modal("show")):"<p>Error: Validation</p>"==e.messages?(ui.popup.hideLoader(),$("#"+t).validate().showErrors(e.errors),ui.popup.show(e.status,"Harap cek isian")):(ui.popup.show(e.status,e.message),ui.popup.hideLoader())}})})},submitImage:function(e,a,t,i){}},form={init:function(){$("form").attr("autocomplete","off"),$(".select2").length&&$(".select2").select2(),$("input").focus(function(){$(this).parents(".form-group").addClass("focused")}),$("textarea").focus(function(){$(this).parents(".form-group").addClass("focused")}),$("input").blur(function(){""==$(this).val()?($(this).removeClass("filled"),$(this).parents(".form-group").removeClass("focused")):$(this).addClass("filled")}),$("textarea").blur(function(){""==$(this).val()?($(this).removeClass("filled"),$(this).parents(".form-group").removeClass("focused")):$(this).addClass("filled")}),$.validator.addMethod("lettersonly",function(e,a){return this.optional(a)||/^[a-z]+$/i.test(e)},"Letters only please"),$.validator.addMethod("regexp",function(e,a,t){return t.test(e)},""),$.each($("form"),function(e,a){$(this).validate(formrules[$(this).attr("id")])}),$("form").submit(function(e){e.preventDefault(),console.log("masuk");var a=$(this).attr("id");form.validate(a)}),$(".goToLogin").click(function(){$(".modal").modal("hide"),$("#modalLoginCandidate").modal("show")}),$(".goToRegister").click(function(){$(".modal").modal("hide"),$("#modalSignUpCandidate").modal("show")})},validate:function(e){var a=$("#"+e),t=a.attr("message"),i=a.attr("agreement"),n={errorPlacement:function(e,a){if(a.parent().hasClass("input-group"))e.appendTo(a.parent().parent());else{var t=a.parents(".form-group").find(".help-block");t.length?e.appendTo(t):e.appendTo(a.parents(".form-group"))}},highlight:function(e,a,t){alert("test"),$(e).parents(".form-group").addClass("has-error")},unhighlight:function(e,a,t){$(e).parents(".form-group").removeClass("has-error")}},o=Object.assign(n,formrules[e]),r=a.validate(o);if($("button[type=reset]").click(function(){r.resetForm()}),a.valid())if(console.log(e),null!=t&&""!=t){if(t.indexOf("|")>-1){var s=t.split("|"),l=s[0],d=s[1],c=d.split(";"),u='<table class="table">';$.each(c,function(e,a){var t=a.split(":")[0],i=form.find("input[name="+a.split(":")[1]+"],select[name="+a.split(":")[1]+"]").val();u+="<tr><td>"+t+"</td><td>"+i+"</td></tr>"}),u+="</table>",t=l+u}ui.popup.confirm("Konfirmasi",t,'form.submit("'+e+'")')}else null!=i&&""!=i?(t=$("#"+i).html(),ui.popup.agreement("Persetujuan Agen Baru",t,'form.submit("'+e+'")')):form.submit(e);else ui.popup.show("error","Harap cek isian","Form Tidak Valid")},submit:function(e){var a=$("#"+e),t=a.attr("action"),i=formrules[e];null==i&&(i={});var n=($(".form-control"),a.serialize()),o=a.attr("ajax"),r=a.attr("filter");if("true"==o)"payform"==e&&(e=$("#"+e).attr("for")),_ajax.submitData(t,n,e);else if("true"==r){if("filterSearchList"==e||"filterJobList"==e){var s=$("#filterSearchList").serialize(),l=$("#filterJobList").serialize();n=s+"&"+l}table.filter(e,n)}else other.encrypt(n,function(e,t){if(e)callback(e);else{var i=$('<input type="hidden" name="data" />');$(i).val(t.data),a.find('select,input:not("input[type=file],input[type=hidden][name=_token],input[name=captcha]")').attr("disabled","true").end().append(i).unbind("submit").submit()}})}};if($("#formAddEventNews").length&&($("#tglMulaiNewsEvent").datetimepicker({format:"DD-MM-YYYY"}),$("#tglSelesaiNewsEvent").datetimepicker({format:"DD-MM-YYYY"}),$("#descriptionNewsEvent").summernote({height:200}),$("#descriptionNewsEvent").each(function(){var e=$(this);$("form").on("submit",function(){e.summernote("isEmpty")?e.val(""):"<br>"==e.val()&&e.val("")})})),$("#formEditEventNews").length&&($("#tglMulaiNewsEvent").datetimepicker({format:"DD-MM-YYYY"}),$("#tglSelesaiNewsEvent").datetimepicker({format:"DD-MM-YYYY"}),$("#descriptionNewsEvent").summernote({height:200}),$("#descriptionNewsEvent").each(function(){var e=$(this);$("form").on("submit",function(){e.summernote("isEmpty")?e.val(""):"<br>"==e.val()&&e.val("")})})),$("#formAddVacancy").length){$("#activatedDate").datetimepicker({format:"DD-MM-YYYY"}),$("#descriptionVacancy").summernote({height:200}),$("#descriptionVacancy").each(function(){var e=$(this);$("form").on("submit",function(){e.summernote("isEmpty")?e.val(""):"<br>"==e.val()&&e.val("")})});var next2=1;$(".add-more-syarat").click(function(e){e.preventDefault();var a=document.querySelectorAll("#fieldMajorDiv"+next2+" span");console.log(a);var t="#field-syarat"+next2,i="#field-syarat"+next2;next2+=1;var n='<select class="select2 min-width" id="field-syarat'+next2+'" name="majorVacancy"><option value="">-- Pilih Major --</option><option value="Sistem Informasi">Sistem Informasi</option><option value="Akuntansi">Akuntansi</option></select>';$("#field-syarat"+next2).select2();var o=$(n),r='<button id="remove-syarat'+(next2-1)+'" class="remove-me-syarat btn-min">-</button></><div id="field-syarat">',s=$(r);$(t).after(o),$(i).after(s),$("#field-syarat"+next2).attr("data-source",$(t).attr("data-source")),$("#count").val(next2),$(".remove-me-syarat").click(function(e){e.preventDefault();var a="field"+this.id.toString().replace("remove","");console.log(a),$("#"+a).remove(),$(this).prev().remove(),$(this).remove()}),$('select[name="majorVacancy"]').select2()})}if($("#formEditVacancy").length&&($("#activatedDate").datetimepicker({format:"DD-MM-YYYY"}),$("#descriptionVacancy").summernote({height:200}),$("#descriptionVacancy").each(function(){var e=$(this);$("form").on("submit",function(){e.summernote("isEmpty")?e.val(""):"<br>"==e.val()&&e.val("")})}),$(".add-more-syarat").click(function(e){e.preventDefault(),this.remove();var a=this,t=$("#fieldMajorDiv1 select").length,i=t+1,n='<button type="button" id="remove-syarat'+t+'" class="remove-me-syarat btn-min">-</button>';$("#field-syarat"+t).next().after(n);var o='<select class="select2 min-width" id="field-syarat'+i+'" name="majorVacancy"><option value="">-- Pilih Major --</option><option value="Sistem Informasi">Sistem Informasi</option><option value="Akuntansi">Akuntansi</option></select>';$("#fieldMajorDiv1").append(o),$("#fieldMajorDiv1").append(a),$('select[name="majorVacancy"]').select2()}),$(".remove-me-syarat").click(function(e){e.preventDefault();var a="field"+this.id.toString().replace("remove","");console.log(a),$("#"+a).remove(),$(this).prev().remove(),$(this).remove()})),$(".dropzone").change(function(){readFile(this)}),$(".dropzone-wrapper").on("dragover",function(e){e.preventDefault(),e.stopPropagation(),$(this).addClass("dragover")}),$(".dropzone-wrapper").on("dragleave",function(e){e.preventDefault(),e.stopPropagation(),$(this).removeClass("dragover")}),$(".remove-preview").on("click",function(){var e=$(this).parents(".preview-zone").find(".box-body"),a=$(this).parents(".preview-zone"),t=$(this).parents(".form-group").find(".dropzone");e.empty(),a.addClass("hidden"),reset(t)}),$("#tipeNewsEvent").change(function(){"1"==$("#tipeNewsEvent").val()?($("#divDateNewsEvent").addClass("hidden"),$(".dateNewsEvent").attr("disabled",!0)):($("#divDateNewsEvent").removeClass("hidden"),$(".dateNewsEvent").attr("disabled",!1))}),$("#formFirstLogin").length){var _readFile=function(e){if(e.files&&e.files[0]){var a=new FileReader;a.onload=function(a){$(".photoProfileLabel").empty(),$(".photoProfileImage").attr("src",a.target.result),$(".photoProfileLabel").html(e.files[0].name)},a.readAsDataURL(e.files[0])}},readFileInput=function(e){if(console.log(e),console.log(e.files),console.log(e.files[0]),e.files&&e.files[0]){var a=new FileReader;a.onload=function(a){var t=$(e).parent().parent().find(".file-input-label");t.val(),t.val(e.files[0].name)},a.readAsDataURL(e.files[0])}};$("#photoProfile").change(function(){_readFile(this)}),$(".uploadCertificate").change(function(e){e.preventDefault(),readFileInput(this)}),$('input[name="birthDate"]').datetimepicker({format:"DD-MM-YYYY"}),$("#startDateEducation").datetimepicker({format:"YYYY"}),$("#endDateEducation").datetimepicker({format:"YYYY"}),$(".btnAddListEducation").click(function(e){function a(e){if(console.log(e),console.log(e.files),console.log(e.files[0]),e.files&&e.files[0]){var a=new FileReader;a.onload=function(a){var t=$(e).parent().parent().find(".file-input-label");t.val(),t.val(e.files[0].name)},a.readAsDataURL(e.files[0])}}e.preventDefault(),$(".btnAddListEducation.large").hide(),$(".firstBtnListEducation").removeClass("margin-right-2rem");$("#listEducationCandidate").append('<div class="listStudy"><hr><div class="row"><div class="col-lg-6 col-md-12"><div class="form-group"><label for="">School/University<span class="required-sign">*</span></label><div class="row"><div class="col-lg-11 col-md-12"><input type="text" name="university" id="university" class="form-control" placeholder="School/University"></div></div></div></div><div class="col-lg-6 col-md-12"><div class="form-group"><label for="">Degree<span class="required-sign">*</span></label><div class="row"><div class="col-lg-11 col-md-12"><select name="degree" id="degree" class="select2 form-control"><option value="">Choose your degree</option><option value="1">Diploma Degree</option><option value="2">Bachelor Degree</option><option value="3">Master Degree</option></select></div></div></div></div></div><div class="row"><div class="col-lg-6 col-md-12"><div class="form-group"><label for="">Faculty<span class="required-sign">*</span></label><div class="row"><div class="col-lg-11 col-md-12"><input type="text" name="faculty" id="faculty" class="form-control" placeholder="Faculty"></div></div></div></div><div class="col-lg-6 col-md-12"><div class="form-group"><label for="">Major<span class="required-sign">*</span></label><div class="row"><div class="col-lg-11 col-md-12"><select name="major" id="major" class="select2 form-control"><option value="">Choose your major</option><option value="Sistem Informasi">Sistem Informasi</option><option value="Akuntansi">Akuntansi</option></select></div></div></div></div></div><div class="row"><div class="col-lg-6 col-md-12"><div class="form-group"><label for="">Start Date<span class="required-sign">*</span></label><div class="row"><div class="col-lg-11 col-md-12 with-icon"><input type="text" class="form-control" placeholder="Choose date" id="startDateEducation" name="startDateEducation"><img src="/image/icon/homepage/icon-calender-input.svg" class="this-icon" alt="icon"></div></div></div></div><div class="col-lg-6 col-md-12"><div class="form-group"><label for="">End Date<span class="required-sign">*</span></label><div class="row"><div class="col-lg-11 col-md-12 with-icon"><input type="text" class="form-control" placeholder="Choose date" id="endDateEducation" name="endDateEducation"><img src="/image/icon/homepage/icon-calender-input.svg" class="this-icon" alt="icon"></div></div></div></div></div><div class="row"><div class="col-lg-6 col-md-12"><div class="form-group"><label for="">GPA<span class="required-sign">*</span></label><div class="row"><div class="col-lg-11 col-md-12"><input type="text" class="form-control" placeholder="0 - 100" id="gpa" name="gpa"></div></div></div></div><div class="col-lg-6 col-md-12"><div class="form-group"><label for="">Certificate of Study<span class="required-sign">*</span></label><div class="row"><div class="col-lg-11 col-md-12"><input type="text" class="form-control file-input-label" placeholder="Format jpg/png maximum 2MB file" disabled><span class="btn btn-file pl-1 mb-2">Upload File <input type="file" name="certificate[]" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg"></span></div></div></div></div></div><div class="row"><div class="col-lg-6 col-md-12 removeThisEducation"><div class="form-group"><div class="row"><div class="col-lg-11 col-md-12"><button type="button" class="btn btn-white btn-block btnAddListEducation"><i class="fas fa-trash mr-2" style="font-size:18px"></i> Delete the Education Data Above</button></div></div></div></div><div class="col-lg-6 col-md-12 secondBtnEducation"><div class="form-group"><div class="row"><div class="col-lg-11 col-md-12"><button type="button" class="btn btn-white btn-block btnAddListEducation"><i class="fas fa-plus mr-2" style="font-size:18px"></i> Add Another Education</button></div></div></div></div></div></div>'),$('input[name="startDateEducation"]').datetimepicker({format:"YYYY"}),$('input[name="endDateEducation"]').datetimepicker({format:"YYYY"}),$(".select2").length&&$(".select2").select2(),$(".removeThisEducation").length&&$(".removeThisEducation").click(function(){console.log("click"),$(this).parent().parent().remove(),$(".listStudy").length<2&&$(".btnAddListEducation.large").show()}),$(".secondBtnEducation").length&&$(".secondBtnEducation").click(function(){$(this).remove(),$(".btnAddListEducation.large").click()}),$(".uploadCertificate").change(function(e){e.preventDefault(),a(this)})})}if($("#formEditPersonalInformation").length){var _readFile2=function(e){if(e.files&&e.files[0]){var a=new FileReader;a.onload=function(a){$(".photoProfileLabel").empty(),$(".photoProfileImage").attr("src",a.target.result),$(".photoProfileLabel").html(e.files[0].name)},a.readAsDataURL(e.files[0])}};$("#photoProfile").change(function(){_readFile2(this)}),$('input[name="birthDate"]').datetimepicker({format:"DD-MM-YYYY"})}if($("#formEditEducationInformation").length){var _readFileInput=function(e){if(console.log(e),console.log(e.files),console.log(e.files[0]),e.files&&e.files[0]){var a=new FileReader;a.onload=function(a){var t=$(e).parent().parent().find(".file-input-label");t.val(),t.val(e.files[0].name)},a.readAsDataURL(e.files[0])}};$(".uploadCertificate").change(function(e){e.preventDefault(),_readFileInput(this)}),$("#startDateEducation").datetimepicker({format:"YYYY"}),$("#endDateEducation").datetimepicker({format:"YYYY"}),$(".btnAddListEducation").click(function(e){function a(e){if(console.log(e),console.log(e.files),console.log(e.files[0]),e.files&&e.files[0]){var a=new FileReader;a.onload=function(a){var t=$(e).parent().parent().find(".file-input-label");t.val(),t.val(e.files[0].name)},a.readAsDataURL(e.files[0])}}e.preventDefault(),$(".btnAddListEducation.large").hide(),$(".firstBtnListEducation").removeClass("margin-right-2rem");$("#listEducationCandidate").append('<div class="listStudy"><input type="hidden" name="idEducation" id="idEducation" value=""><hr><div class="row"><div class="col-lg-6 col-md-12"><div class="form-group"><label for="">School/University<span class="required-sign">*</span></label><div class="row"><div class="col-lg-11 col-md-12"><input type="text" name="university" id="university" class="form-control" placeholder="School/University"></div></div></div></div><div class="col-lg-6 col-md-12"><div class="form-group"><label for="">Degree<span class="required-sign">*</span></label><div class="row"><div class="col-lg-11 col-md-12"><select name="degree" id="degree" class="select2 form-control"><option value="">Choose your degree</option><option value="1">Diploma Degree</option><option value="2">Bachelor Degree</option><option value="3">Master Degree</option></select></div></div></div></div></div><div class="row"><div class="col-lg-6 col-md-12"><div class="form-group"><label for="">Faculty<span class="required-sign">*</span></label><div class="row"><div class="col-lg-11 col-md-12"><input type="text" name="faculty" id="faculty" class="form-control" placeholder="Faculty"></div></div></div></div><div class="col-lg-6 col-md-12"><div class="form-group"><label for="">Major<span class="required-sign">*</span></label><div class="row"><div class="col-lg-11 col-md-12"><select name="major" id="major" class="select2 form-control"><option value="">Choose your major</option><option value="Sistem Informasi">Sistem Informasi</option><option value="Akuntansi">Akuntansi</option></select></div></div></div></div></div><div class="row"><div class="col-lg-6 col-md-12"><div class="form-group"><label for="">Start Date<span class="required-sign">*</span></label><div class="row"><div class="col-lg-11 col-md-12 with-icon"><input type="text" class="form-control" placeholder="Choose date" id="startDateEducation" name="startDateEducation"><img src="/image/icon/homepage/icon-calender-input.svg" class="this-icon" alt="icon"></div></div></div></div><div class="col-lg-6 col-md-12"><div class="form-group"><label for="">End Date<span class="required-sign">*</span></label><div class="row"><div class="col-lg-11 col-md-12 with-icon"><input type="text" class="form-control" placeholder="Choose date" id="endDateEducation" name="endDateEducation"><img src="/image/icon/homepage/icon-calender-input.svg" class="this-icon" alt="icon"></div></div></div></div></div><div class="row"><div class="col-lg-6 col-md-12"><div class="form-group"><label for="">Certificate of Study<span class="required-sign">*</span></label><div class="row"><div class="col-lg-11 col-md-12"><input type="text" class="form-control file-input-label" placeholder="Format jpg/png maximum 2MB file" disabled><span class="btn btn-file pl-1 mb-2">Upload File <input type="file" name="certificate[]" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg"></span></div></div></div></div><div class="col-lg-6 col-md-12"><div class="form-group"><label for="">GPA<span class="required-sign">*</span></label><div class="row"><div class="col-lg-11 col-md-12"><input type="text" class="form-control" placeholder="0 - 100" id="gpa" name="gpa"></div></div></div></div></div><div class="row startSecondButtonAddListEducation"><div class="col-lg-6 col-md-12 removeThisEducation"><div class="form-group"><div class="row"><div class="col-lg-11 col-md-12"><button type="button" class="btn btn-white btn-block btnAddListEducation"><i class="fas fa-trash mr-2" style="font-size:18px"></i> Delete the Education Data Above</button></div></div></div></div><div class="col-lg-6 col-md-12 secondBtnEducation"><div class="form-group"><div class="row"><div class="col-lg-11 col-md-12"><button type="button" class="btn btn-white btn-block btnAddListEducation"><i class="fas fa-plus mr-2" style="font-size:18px"></i> Add Another Education</button></div></div></div></div></div></div>'),$('input[name="startDateEducation"]').datetimepicker({format:"YYYY"}),$('input[name="endDateEducation"]').datetimepicker({format:"YYYY"}),$(".select2").length&&$(".select2").select2(),$(".removeThisEducation").length&&$(".removeThisEducation").click(function(){if(console.log("click"),$(this).parent().parent().remove(),$(".listStudy").length<2)$(".btnAddListEducation.large").show();else{$(".startSecondButtonAddListEducation").last().append('<div class="col-lg-6 col-md-12 secondBtnEducation"><div class="form-group"><div class="row"><div class="col-lg-11 col-md-12"><button type="button" class="btn btn-white btn-block btnAddListEducation"><i class="fas fa-plus mr-2" style="font-size:18px"></i> Add Another Education</button></div></div></div></div>')}}),$(".secondBtnEducation").length&&$(".secondBtnEducation").click(function(){$(this).remove(),$(".btnAddListEducation.large").click()}),$(".uploadCertificate").change(function(e){e.preventDefault(),a(this)})})}if($("#formEditOtherInformation").length){var _readFileInput2=function(e){if(e.files&&e.files[0]){var a=new FileReader;a.onload=function(a){var t=$(e).parent().parent().find(".file-input-label");t.val(),t.val(e.files[0].name)},a.readAsDataURL(e.files[0])}};$("#coverLetter").change(function(e){e.preventDefault(),_readFileInput2(this)}),$("#resume").change(function(e){e.preventDefault(),_readFileInput2(this)}),$("#portofolio").change(function(e){e.preventDefault(),_readFileInput2(this)}),$("#deleteCoverLetter").click(function(){$("#coverLetterLink").val("")}),$("#deleteResume").click(function(){$("#resumeLink").val("")}),$("#deletePortofolio").click(function(){$("#portofolioLink").val("")})}$("#loadNews").click(function(e){e.preventDefault();var a=this.value;_ajax.getData("/news-get-more","post",{value:a},function(e){var t=parseInt(a)+5;if($("#loadNews").val(t),e.length)for(var i=0;i<e.length;i++){var n=encodeURIComponent(window.btoa(e[i].id));$("#divNews").append('<a href="/news-event/detail/'+n+'" class="news-ahref"><div class="card-list-news"><div class="card-body-news"><div class="row"><div class="col-lg-4 col-md-12"><img src="'+baseImage+"/"+e[i].image+'" class="img-news"></div><div class="col-lg-8 col-md-12 mt-5"><div class="div-right-news"><div class="d-flex"><div class="badge-news mb-3">News</div><p class="align-items-center p-title-news">'+e[i].tanggal+'</p></div><h4 class="news-page-title">'+e[i].title+"</h4></div></div></div></div></div></a>")}else $("#loadNews").addClass("hidden")})}),$("#loadEvent").click(function(e){e.preventDefault();var a=this.value;_ajax.getData("/event-get-more","post",{value:a},function(e){var t=parseInt(a)+5;if($("#loadEvent").val(t),e.length)for(var i=0;i<e.length;i++){var n=encodeURIComponent(window.btoa(e[i].id));$("#divNews").append('<a href="/news-event/detail/'+n+'" class="news-ahref"><div class="card-list-news"><div class="card-body-news"><div class="row"><div class="col-lg-4 col-md-12"><img src="'+baseImage+"/"+e[i].image+'" class="img-news"></div><div class="col-lg-8 col-md-12 mt-5"><div class="div-right-news"><div class="d-flex"><div class="badge-news mb-3">Event</div><p class="align-items-center p-title-news">'+e[i].tanggal+'</p></div><h4 class="news-page-title">'+e[i].title+"</h4></div></div></div></div></div></a>")}else $("#loadEvent").addClass("hidden")})}),$("#filterJobList").length&&$(".job-type-select").click(function(){$(this).hasClass("not-active")?($(this).hasClass("fulltime-badge")?$("#checkFilterFulltime").prop("checked",!0):$(this).hasClass("internship-badge")&&$("#checkFilterInternship").prop("checked",!0),$(this).removeClass("not-active")):($(this).hasClass("fulltime-badge")?$("#checkFilterFulltime").prop("checked",!1):$(this).hasClass("internship-badge")&&$("#checkFilterInternship").prop("checked",!1),$(this).addClass("not-active"))});var lastArray=function(e,a){if(null!=e)return null==a?e[e.length-1]:e.slice(Math.max(e.length-a,0))};$(".loadMoreJob").click(function(){var e=$(".card-job-list").length,a=e+3;_ajax.getData("/job-more","post",{value:a},function(e){e.length>=a&&$(".loadMoreJob").hide();for(var t=lastArray(e,3),i=0;i<t.length;i++){var n=encodeURIComponent(window.btoa(t[i].job_id));if(1==t[i].type)var o='<div class="fulltime-badge mb-3">Full-time</div>';else if(2==t[i].type)var o='<div class="internship-badge mb-3">Internship</div>';var r='<div class="col-lg-4 col-md-6 col-sm-12 my-3"><div class="card card-job-list"><a href="/job/detail/'+n+'" class="text-decoration-none"><div class="card-body">'+o+'<label class="label-no-margin mb-1">'+t[i].lokasi+', Indonesia</label><h4 class="candidate-page-subtitle mb-3">'+t[i].job_title+'</h4><div class="d-flex align-items-center job-list-detail mb-1"><div class="icon-wrapper"><img src="/image/icon/homepage/icon-graduate.svg" alt="icon"></div><p class="text">'+t[i].education_req+'</p></div><div class="d-flex align-items-center job-list-detail"><div class="icon-wrapper"><img src="/image/icon/homepage/icon-book.svg" alt="icon"></div><p class="text">'+t[i].major+"</p></div></div></a></div></div>";$("#loadJobs").append(r)}})});var table={init:function(){if($("#tableNewsEvent").length){var e=[{data:"created_at"},{data:"title"},{data:"start_date"},{data:"end_date"}];columnDefs=[{targets:2,data:"type",render:function(e,a,t,i){return 1==t.type?"-":t.start_date}},{targets:3,data:"type",render:function(e,a,t,i){return 1==t.type?"-":t.end_date}},{targets:4,data:"type",render:function(e,a,t,i){return 1==t.type?"News":"Event"}},{targets:5,data:"status",render:function(e,a,t,i){return 1==t.status?'<span class="status status-success">Aktif</span>':'<span class="status status-delete">Deaktif</span>'}},{targets:6,data:"id",render:function(e,a,t,i){var n=encodeURIComponent(window.btoa(t.id)),o="",e='<button type="button" class="btn btn-table btn-transparent"><a href="/HR/news_event/detail-news-event/'+n+'"><img style="margin-right: 1px;" src="/image/icon/main/lingkarEdit_icon.svg" title="Edit News/Event"></a></button>';return o="1"==t.status?'<button type="button" class="btn btn-table btn-transparent konfirmNewsEvent"><img style="margin-right: 1px;" src="/image/icon/main/lingkarHapus_icon.svg" title="Deaktif News/Event"></button>':'<button type="button" class="btn btn-table btn-transparent konfirmNewsEvent"><img style="margin-right: 1px;" src="/image/icon/main/lingkarAktif_icon.svg" title="Aktifkan News/Event"></button>',e+o}}],table.serverSide("tableNewsEvent",e,"/HR/news_event/list-news-event",null,columnDefs)}if($("#tableVacancy").length){var e=[{data:"created_at"},{data:"job_title"},{data:"type"},{data:"degree"},{data:"major"},{data:"work_time"},{data:"active_date"},{data:"status"}];columnDefs=[{targets:2,data:"type",render:function(e,a,t,i){return 1==t.type?"Full Time":"Intership"}},{targets:3,data:"degree",render:function(e,a,t,i){return 1==t.degree?"D3":2==t.degree?"S1":"S2"}},{targets:3,data:"degree",render:function(e,a,t,i){return 1==t.degree?"D3":2==t.degree?"S1":"S2"}},{targets:7,data:"status",render:function(e,a,t,i){return 1==t.status?"<strong>Publised</strong>":"<p>Deaktif</p>"}},{targets:8,data:"id",
-className:"action-poster-news",render:function(e,a,t,i){var n=encodeURIComponent(window.btoa(t.job_id)),o="",e='<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/vacancy/detail-vacancy/'+n+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Vacancy"> Edit&nbsp</a></button>';return o="1"==t.status?'<button type="button" class="btn btn-table btn-transparent konfirmVacancy edit-table"><img style="margin-right: 1px;" src="/image/icon/main/deactive.svg" title="Deaktif Vacancy">Deactive</button>':'<button type="button" class="btn btn-table btn-transparent konfirmVacancy edit-table"><img style="margin-right: 1px;" src="/image/icon/main/active.svg" title="Aktifkan Vacancy">Active</button>',e+o}}],table.serverSide("tableVacancy",e,"HR/vacancy/list-vacancy",null,columnDefs)}},filter:function(e,a){if($(".modal").modal("hide"),"filterSearchList"!=e&&"filterJobList"!=e||($(".loadMoreJob").hide(),_ajax.getData("/job-more","post",{value:a},function(e){if($("#loadJobs").empty(),e.length>0)for(var a=0;a<e.length;a++){var t=encodeURIComponent(window.btoa(e[a].job_id));if(1==e[a].type)var i='<div class="fulltime-badge mb-3">Full-time</div>';else if(2==e[a].type)var i='<div class="internship-badge mb-3">Internship</div>';var n='<div class="col-lg-4 col-md-6 col-sm-12 my-3"><div class="card card-job-list"><a href="/job/detail/'+t+'" class="text-decoration-none"><div class="card-body">'+i+'<label class="label-no-margin mb-1">'+e[a].lokasi+', Indonesia</label><h4 class="candidate-page-subtitle mb-3">'+e[a].job_title+'</h4><div class="d-flex align-items-center job-list-detail mb-1"><div class="icon-wrapper"><img src="/image/icon/homepage/icon-graduate.svg" alt="icon"></div><p class="text">'+e[a].education_req+'</p></div><div class="d-flex align-items-center job-list-detail"><div class="icon-wrapper"><img src="/image/icon/homepage/icon-book.svg" alt="icon"></div><p class="text">'+e[a].major+"</p></div></div></a></div></div>";$("#loadJobs").append(n)}else{var n='<div class="col-12 my-3"><div class="card card-job-list"><p style="font-size: 23px;margin: 2rem 0px;text-align: center;">Data Not Found</p></div></div>';$("#loadJobs").append(n)}})),"filterCabang"==e){var t=[{data:"kode_cabang"},{data:"nama_cabang"},{data:"alamat"},{data:"kota"},{data:"provinsi"},{data:"no_telp"},{data:null}];columnDefs=[{targets:6,data:"status",render:function(e,a,t,i){var e="";return"Deactive"==t.status?e='<span class="badge-table badge-grey">Deactive</span>':"Active"==t.status&&(e='<span class="badge-table badge-blue">Active</span>'),e}},{targets:7,data:"id",render:function(e,a,t,i){var n=encodeURIComponent(window.btoa(t.id));if("Active"==t.status)var o='<a class="dropdown-item deactiveCabang" href="#"><div class="icon-dropdown-menu d-inline-block"><img src="../image/icon/main/deactive.png" /></div><span class="ml-2 d-inline-block">Deactive</span></a>';else var o='<a class="dropdown-item activeCabang" href="#"><div class="icon-dropdown-menu d-inline-block"><img src="../image/icon/main/activae.png" /></div><span class="ml-2 d-inline-block">Active</span></a>';return'<div class="dropleft"><button type="button" class="dropdown-toggle table-dropdown-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></button><div class="dropdown-menu dropdown-menu-table py-2"><a class="dropdown-item detailCabang" href="#" type="button"><div class="icon-dropdown-menu d-inline-block"><img src="../image/icon/main/eye-solid.png" /></div><span class="ml-2 d-inline-block">Detail</span></a><a class="dropdown-item" href="/cabang/edit-cabang/'+n+'"><div class="icon-dropdown-menu d-inline-block"><img src="../image/icon/main/pen-square-solid.png" /></div><span class="ml-2 d-inline-block">Edit</span></a>'+o+"</div></div>"}}],table.serverSide("tableCabang",t,"cabang/get-cabang",a,columnDefs)}},getData:function(e,a,t){$.ajax({url:e,type:"post",data:a,success:function(e){e.error?t(data):t(null,e.data)}})},clear:function(e){$("#"+e).find("tbody").html("")},serverSide:function(e,a,t){var i=arguments.length>3&&void 0!==arguments[3]?arguments[3]:null,n=arguments.length>4&&void 0!==arguments[4]?arguments[4]:null,o=[0,"desc"],r=!0;"tableVacancy"==e&&(o=!1,r=!1);var s=$("#"+e).DataTable({scrollY:"325px",scrollCollapse:!0,serverSide:!0,columnDefs:n,columns:a,responsive:!1,scrollX:!0,ajax:function(a,n,o){a.param=i,_ajax.getData(t,"post",a,function(a){console.log(a),"reload"==a.status?ui.popup.show("confirm",a.messages.title,a.messages.message,"refresh"):"logout"==a.status?ui.popup.alert(a.messages.title,a.messages.message,"logout"):("tableReport"==e&&($("#summary_unpaid").html(a.summary.unpaid),$("#summary_paid").html(a.summary.paid),$("#summary_expired").html(a.summary.expired)),n(a))})},bDestroy:!0,searching:!0,order:o,ordering:r});$("div.dataTables_filter input").unbind(),$("div.dataTables_filter input").bind("keyup",function(e){13==e.keyCode&&s.search(this.value).draw()})},setAndPopulate:function(e,a,t,i,n,o){var r,s=o||[0,"asc"],l=(r={data:t,drawCallback:function(e){},tableTools:{sSwfPath:"assets/plugins/datatables/TableTools/swf/copy_csv_xls_pdf.swf",aButtons:["xls","csv","pdf"]},columns:a,pageLength:10,order:[s],bDestroy:!0,lengthMenu:[[5,10,25,50,-1],[5,10,25,50,"All"]],aoColumnDefs:i,scrollX:!0,scrollY:!0},_defineProperty(r,"lengthMenu",[[10,25,50,-1],[10,25,50,"All"]]),_defineProperty(r,"buttons",["csv","pdf"]),_defineProperty(r,"rowCallback",function(a,t){"tbl_notification"==e&&"1"==t.read&&$(a).css("background-color","#D4D4D4"),"tbl_mitra"!=e&&"tbl_user"!=e&&"tbl_agent_approved"!=e||"0"==t.status&&$(a).css("background-color","#FF7A7A")}),r);null!=n&&$.extend(l,n);var d=($("#"+e).find("tbody"),$("#"+e).DataTable(l));d.on("order.dt search.dt",function(){"tableFitur"==e||d.column(0,{search:"applied",order:"applied"}).nodes().each(function(e,a){e.innerHTML=a+1})}).draw()}};$("#tableNewsEvent tbody").on("click","button.konfirmNewsEvent",function(e){var a=$("#tableNewsEvent").DataTable(),t=a.row($(this).closest("tr")).data();"1"==t.status?($("#titleKonfirmasiEventNews").html('Apakah Anda yakin akan menonaktifkan News/Event "'+t.title+'" ?'),$("#tipeDeleteNewsEvent").val("0"),$("#titleModalKonfirmEventNews").html("Nonaktifkan News/Event"),$("#btnKonfirmasiNewsEvent").html("Nonaktifkan"),document.getElementById("btnKonfirmasiNewsEvent").classList.remove("btn-submit-modal"),document.getElementById("btnKonfirmasiNewsEvent").classList.add("btn-hapus-modal")):"0"==t.status&&($("#titleKonfirmasiEventNews").html('Apakah Anda yakin akan mengaktifkan News/Event "'+t.title+'" ?'),$("#tipeDeleteNewsEvent").val("1"),$("#titleModalKonfirmEventNews").html("Aktifkan News/Event"),$("#btnKonfirmasiNewsEvent").html("Aktifkan"),document.getElementById("btnKonfirmasiNewsEvent").classList.remove("btn-hapus-modal"),document.getElementById("btnKonfirmasiNewsEvent").classList.add("btn-submit-modal")),$("#idDeleteNewsEvent").val(t.id),$("#modalKonfirmEventNews").modal("show")}),$("#tableVacancy tbody").on("click","button.konfirmVacancy",function(e){var a=$("#tableVacancy").DataTable(),t=a.row($(this).closest("tr")).data();"1"==t.status?($("#titleKonfirmasiVacancy").html('Apakah Anda yakin akan menonaktifkan Vacancy "'+t.job_title+'" ?'),$("#tipeDeleteVacancy").val("0"),$("#titleModalKonfirmVacancy").html("Nonaktifkan Vacancy"),$("#btnKonfirmasiVacancy").html("Nonaktifkan"),document.getElementById("btnKonfirmasiVacancy").classList.remove("btn-submit-modal"),document.getElementById("btnKonfirmasiVacancy").classList.add("btn-hapus-modal")):"0"==t.status&&($("#titleKonfirmasiVacancy").html('Apakah Anda yakin akan mengaktifkan Vacancy "'+t.job_title+'" ?'),$("#tipeDeleteVacancy").val("1"),$("#titleModalKonfirmVacancy").html("Aktifkan Vacancy"),$("#btnKonfirmasiVacancy").html("Aktifkan"),document.getElementById("btnKonfirmasiVacancy").classList.remove("btn-hapus-modal"),document.getElementById("btnKonfirmasiVacancy").classList.add("btn-submit-modal")),$("#idDeleteVacancy").val(t.job_id),$("#modalKonfirmVacancy").modal("show")});var ui={popup:{show:function(e,a,t){"error"==e?Swal.fire({title:a,type:e,confirmButtonText:"OK",allowOutsideClick:!1}):"success"==e?"close"==t?Swal.fire({title:a,type:e,confirmButtonText:"OK",allowOutsideClick:!1}):Swal.fire({title:a,type:e,confirmButtonText:"OK",allowOutsideClick:!1}).then(function(){window.location=t}):"initActivation"==e?Swal.fire({html:a,showConfirmButton:!0,confirmButtonText:"Submit",showCancelButton:!0,cancelButtonText:"Tutup",allowOutsideClick:!1}):"warning"==e?"close"==t?Swal.fire({title:a,type:e,confirmButtonText:"OK",allowOutsideClick:!1}):Swal.fire({title:a,type:e,confirmButtonText:"OK",allowOutsideClick:!1}).then(function(){window.location=t}):Swal.fire({title:a,type:e,confirmButtonText:"OK",allowOutsideClick:!1})},showLoader:function(){$("#loading-overlay").addClass("active"),$("body").addClass("modal-open")},hideLoader:function(){$("#loading-overlay").removeClass("active"),$("body").removeClass("modal-open")},hide:function(e){$("."+e).toggleClass("submitted")}},slide:{init:function(){$(".carousel-control").on("click",function(e){e.preventDefault();var a=$(this),t=a.parent();a.hasClass("right")?ui.slide.next(t):ui.slide.prev(t)}),$(".slideBtn").on("click",function(e){e.preventDefault();var a=$(this),t=$("#"+a.attr("for"));"page-1"===t[0].id?($(".tracking-line div").removeClass(),$(".education-information img").attr("src","/image/icon/homepage/track-toga-red.svg"),$(".personal-information").removeClass("active"),$(".education-information").addClass("active"),$(".tracking-line div:first-child").addClass("red-line"),$(".tracking-line div:last-child").addClass("gray-line")):"page-2"===t[0].id?($(".tracking-line div").removeClass(),$(".other-information img").attr("src","/image/icon/homepage/track-pin-red.svg"),$(".education-information").removeClass("active"),$(".other-information").addClass("active"),$(".tracking-line div:first-child").addClass("red-line"),$(".tracking-line div:last-child").addClass("red-line")):($(".tracking-line div").removeClass(),$(".tracking-line div:first-child").addClass("red-line"),$(".tracking-line div:last-child").addClass("red-line")),a.hasClass("btn-next")?ui.slide.next(t):ui.slide.prev(t)})},next:function(e){var a=e.next();e.toggle({slide:{direction:"left"}}),a.toggle({slide:{direction:"right"}})},prev:function(e){var a=e.prev();e.toggle({slide:{direction:"right"}}),a.toggle({slide:{direction:"left"}})}}},formrules={formLoginAdmin:{ignore:null,rules:{email:"required",password:"required"},submitHandler:!1,messages:{email:{required:"Mohon isi email"},password:{required:"Mohon isi password"}}},formAddEventNews:{ignore:null,rules:{imageNewsEvent:{required:!0},titleNewsEvent:{required:!0},tipeNewsEvent:{required:!0},tglMulaiNewsEvent:{required:!0},tglSelesaiNewsEvent:{required:!0},descriptionNewsEvent:{required:!0}},submitHandler:!1,messages:{imageNewsEvent:{required:"Mohon isi Image"},titleNewsEvent:{required:"Mohon isi Title"},tipeNewsEvent:{required:"Mohon pilih Tipe"},tglMulaiNewsEvent:{required:"Mohon isi Start Date"},tglSelesaiNewsEvent:{required:"Mohon isi Start Date"},descriptionNewsEvent:{required:"Mohon isi Description"}},errorPlacement:function(e,a){a.is("#tipeNewsEvent")?e.appendTo(a.parents("#tipeNewsEventDiv")):e.insertAfter(a)}},formEditEventNews:{ignore:null,rules:{titleNewsEvent:{required:!0},tipeNewsEvent:{required:!0},tglMulaiNewsEvent:{required:!0},tglSelesaiNewsEvent:{required:!0},descriptionNewsEvent:{required:!0}},submitHandler:!1,messages:{titleNewsEvent:{required:"Mohon isi Title"},tipeNewsEvent:{required:"Mohon pilih Tipe"},tglMulaiNewsEvent:{required:"Mohon isi Start Date"},tglSelesaiNewsEvent:{required:"Mohon isi Start Date"},descriptionNewsEvent:{required:"Mohon isi Description"}},errorPlacement:function(e,a){a.is("#tipeNewsEvent")?e.appendTo(a.parents("#tipeNewsEventDiv")):e.insertAfter(a)}},formAddVacancy:{ignore:null,rules:{titleVacancy:{required:!0},locationVacancy:{required:!0},degreeVacancy:{required:!0},typeVacancy:{required:!0},workingTimeVacancy:{required:!0},activatedDate:{required:!0},majorVacancy:{required:!0},descriptionVacancy:{required:!0}},submitHandler:!1,messages:{titleVacancy:{required:"Mohon isi Title"},locationVacancy:{required:"Mohon Pilih Lokasi"},degreeVacancy:{required:"Mohon pilih Degree"},typeVacancy:{required:"Mohon pilih Tipe"},workingTimeVacancy:{required:"Mohon isi Working Time"},activatedDate:{required:"Mohon isi Active Date"},majorVacancy:{required:"Mohon pilih Major"},descriptionVacancy:{required:"Mohon isi Description"}},errorPlacement:function(e,a){a.is("#locationVacancy")?e.appendTo(a.parents("#locationVacancyDiv")):a.is("#degreeVacancy")?e.appendTo(a.parents("#degreeVacancyDiv")):a.is("#typeVacancy")?e.appendTo(a.parents("#typeVacancyDiv")):a.is("#majorVacancy")?e.appendTo(a.parents("#majorVacancyDiv")):e.insertAfter(a)}},formFirstLogin:{ignore:null,rules:{photoProfile:{required:!0},firstName:{required:!0,STD_VAL_WEB_3:!0},lastName:{STD_VAL_WEB_3:!0},birthDate:{required:!0,STD_VAL_WEB_11:!0},gender:{required:!0},phoneNumber:{required:!0,STD_VAL_WEB_8:!0},myLocation:{required:!0},lingkedInLink:{STD_VAL_WEB_20:!0},university:{required:!0,STD_VAL_WEB_25:!0},degree:{required:!0},faculty:{required:!0,STD_VAL_WEB_25:!0},major:{required:!0},startDateEducation:{required:!0},endDateEducation:{required:!0},gpa:{required:!0},certificate:{required:!0}},submitHandler:!1,messages:{titleNewsEvent:{required:"Mohon isi Title"},tipeNewsEvent:{required:"Mohon pilih Tipe"},tglMulaiNewsEvent:{required:"Mohon isi Start Date"},tglSelesaiNewsEvent:{required:"Mohon isi Start Date"},descriptionNewsEvent:{required:"Mohon isi Description"}},errorPlacement:function(e,a){a.is("#tipeNewsEvent")?e.appendTo(a.parents("#tipeNewsEventDiv")):e.insertAfter(a)}},formEditPassword:{ignore:null,rules:{oldPassword:{required:!0},newPassword:{required:!0},newPasswordConfirm:{required:!0,equalTo:"#newPassword"}},submitHandler:!1,messages:{oldPassword:{required:"Mohon isi password lama"},newPassword:{required:"Mohon isi password baru"},newPasswordConfirm:{required:"Mohon isi konfirmasi password baru"}},errorPlacement:function(e,a){a.is("#tipeNewsEvent")?e.appendTo(a.parents("#tipeNewsEventDiv")):e.insertAfter(a)}},formEditPersonalInformation:{ignore:null,rules:{firstName:{required:!0,STD_VAL_WEB_3:!0},lastName:{required:!0,STD_VAL_WEB_3:!0},birthDate:{required:!0,STD_VAL_WEB_11:!0},gender:{required:!0},phoneNumber:{required:!0,STD_VAL_WEB_8:!0},myLocation:{required:!0},lingkedInLink:{required:!0,STD_VAL_WEB_20:!0}},submitHandler:!1,errorPlacement:function(e,a){a.is("#myLocation")?e.appendTo(a.parents("#myLocationDiv")):a.is("#gender")?e.appendTo(a.parents("#genderDiv")):e.insertAfter(a)}}},validation={messages:{required:function(){return'<i class="fa fa-exclamation-circle"></i> Mohon isi kolom ini'},minlength:function(e){return'<i class="fa fa-exclamation-circle"></i> Isi dengan minimum '+e},maxlength:function(e){return'<i class="fa fa-exclamation-circle"></i> Isi dengan maximum '+e},max:function(e,a){return'<i class="fa fa-exclamation-circle"></i> '+e+a},email:function(){return'<i class="fa fa-exclamation-circle"></i> Email Anda salah. Email harus terdiri dari @ dan domain'},digits:function(){return'<i class="fa fa-exclamation-circle"></i> Mohon isi hanya dengan nomor'},numbers2:function(){return'<i class="fa fa-exclamation-circle"></i> Mohon isi hanya dengan nomor'},nameCheck:function(){return'<i class="fa fa-exclamation-circle"></i> Nama hanya boleh mengandung A-Z dan \''},numericsSlash:function(){return'<i class="fa fa-exclamation-circle"></i> Nama hanya boleh mengandung 0-9 dan /'},alphaNumeric:function(){return'<i class="fa fa-exclamation-circle"></i> Nama hanya boleh mengandung 0-9, A-Z dan spasi'},alphaNumericNS:function(){return'<i class="fa fa-exclamation-circle"></i> Nama hanya boleh mengandung 0-9 dan A-Z'},alpha:function(){return'<i class="fa fa-exclamation-circle"></i> Nama hanya boleh mengandung A-Z dan spasi'},alphaNS:function(){return'<i class="fa fa-exclamation-circle"></i> Nama hanya boleh mengandung A-Z'},equalTo:function(){return'<i class="fa fa-exclamation-circle"></i> Mohon mengisi dengan isian yang sama'},addresscheck:function(){return'<i class="fa fa-exclamation-circle"></i> Input harus mengandung satu nomor, satu huruf kecil dan satu huruf besar'},pwcheck:function(){return'<i class="fa fa-exclamation-circle"></i> Input minimum 8 dan mengandung satu nomor, satu huruf kecil dan satu huruf besar'},pwcheck_alfanum:function(){return'<i class="fa fa-exclamation-circle"></i> Input antara 8-14 karakter dan harus merupakan kombinasi antara angka dan huruf'},pwcheck2:function(){return'<i class="fa fa-exclamation-circle"></i> Input antara 8-14 karakter dan harus mengandung nomor, huruf kecil, huruf besar dan simbol kecuali ("#<>/\\=\')'},notEqual:function(e){return'<i class="fa fa-exclamation-circle"></i> '+e},checkDate:function(){return'<i class="fa fa-exclamation-circle"></i> Format tanggal salah'},checkTime:function(){return'<i class="fa fa-exclamation-circle"></i> Format time (HH:mm) salah'},formatSeparator:function(){return'<i class="fa fa-exclamation-circle"></i> Contoh format: Ibu rumah tangga, pedagang, tukang jahit'},acceptImage:function(){return'<i class="fa fa-exclamation-circle"></i> Mohon upload hanya gambar'},filesize:function(e){return'<i class="fa fa-exclamation-circle"></i> Max file size: '+e},extension:function(e){return'<i class="fa fa-exclamation-circle"></i> Format yang Anda pilih tidak sesuai'},minValue:function(e){return'<i class="fa fa-exclamation-circle"></i> Minimal Amount: '+e},ageCheck:function(e){return'<i class="fa fa-exclamation-circle"></i> Minimal Age '+e},checkDateyyyymmdd:function(){return'<i class="fa fa-exclamation-circle></i> Format tanggal YYYY-MM-DD, contoh: 2016-01-30'},checkDateddmmyyyy:function(){return'<i class="fa fa-exclamation-circle></i> Format tanggal DD/MM/YYYY, contoh: 17/08/1945'}},addMethods:function(){jQuery.extend(jQuery.validator.messages,{required:"Mohon isi kolom ini.",remote:"Please fix this field.",email:"Email Anda salah. Email harus terdiri dari @ dan domain.",url:"Please enter a valid URL.",date:"Please enter a valid date.",dateISO:"Please enter a valid date (ISO).",number:"Please enter a valid number.",digits:"Mohon isi hanya dengan angka.",creditcard:"Please enter a valid credit card number.",equalTo:"Mohon isi dengan value yang sama.",accept:"Format yang Anda pilih tidak sesuai.",maxlength:jQuery.validator.format("Mohon isi dengan tidak melebihi {0} karakter."),minlength:jQuery.validator.format("Mohon isi dengan minimal {0} karakter."),rangelength:jQuery.validator.format("Please enter a value between {0} and {1} characters long."),range:jQuery.validator.format("Please enter a value between {0} and {1}."),max:jQuery.validator.format("Mohon isi tidak melebihi {0}."),min:jQuery.validator.format("Mohon isi minimal {0}."),extension:"Format yang Anda pilih tidak sesuai.",alphaNumeric:"Hanya boleh mengandung 0-9, A-Z dan spasi"}),$.validator.addMethod("maxDateRange",function(e,a,t){var i=new Date(e),n=new Date($(t[0]).val()),o=(i-n)/864e5;return/Invalid|NaN/.test(new Date(e))?isNaN(e)&&isNaN($(t[0]).val())||o<=t[1]:o<=t[1]},"Melebihi maksimal range {1} hari."),jQuery.validator.addMethod("greaterThan",function(e,a,t){return console.log(e,a,t),/Invalid|NaN/.test(new Date(e))?isNaN(e)&&isNaN($(t).val())||Number(e)>Number($(t).val()):new Date(e)>new Date($(t).val())},"Must be greater than {0}."),$.validator.addMethod("ageCheck",function(e,a,t){return moment().diff(function(e){var a=e.split("-");return moment([a[2],a[1]-1,a[0]])}(e),"years")>=t},"Check Umur"),jQuery.validator.addMethod("numbers2",function(e,a){return this.optional(a)||/^-?(?!0)(?:\d+|\d{1,3}(?:\.\d{3})+)$/.test(e)},"Mohon isi hanya dengan nomor"),jQuery.validator.addMethod("nameCheck",function(e,a){return this.optional(a)||/^([a-zA-Z' ]+)$/.test(e)},"Nama hanya boleh mengandung A-Z dan '"),jQuery.validator.addMethod("numericsSlash",function(e,a){return this.optional(a)||/^([0-9\/]+)$/.test(e)},"Nama hanya boleh mengandung 0-9 dan /"),jQuery.validator.addMethod("numericDot",function(e,a){return this.optional(a)||/^([0-9.]+)$/.test(e)},"Nama hanya boleh mengandung 0-9 dan ."),jQuery.validator.addMethod("numericKoma",function(e,a){return this.optional(a)||/^([0-9,]+)$/.test(e)},"Nama hanya boleh mengandung 0-9 dan ,"),jQuery.validator.addMethod("alphaNumeric",function(e,a){return this.optional(a)||/^[a-zA-Z0-9. ]*$/.test(e)},"Hanya boleh mengandung 0-9, A-Z, Titik dan spasi"),jQuery.validator.addMethod("alphaNumericNS",function(e,a){return this.optional(a)||/^[a-zA-Z0-9]*$/.test(e)},"Nama hanya boleh mengandung 0-9 dan A-Z"),jQuery.validator.addMethod("alamatFormat",function(e,a){return this.optional(a)||/^[a-zA-Z0-9 .,-\/]*$/.test(e)},"Nama hanya boleh mengandung A-Z, 0-9, titik, koma, dan strip"),jQuery.validator.addMethod("defaultText",function(e,a){return this.optional(a)||/^[a-zA-Z0-9 ',-.:\/?!&%()+=_\n]*$/.test(e)},"Inputan hanya boleh mengandung A-Z, 0-9, spasi dan simbol .,:'/?!&%()-+=_"),jQuery.validator.addMethod("defaultName",function(e,a){return this.optional(a)||/^[a-zA-Z0-9 .']*$/.test(e)},"Inputan hanya boleh mengandung A-Z, 0-9, spasi dan simbol .'"),jQuery.validator.addMethod("arabic",function(e,a){return this.optional(a)||/^[\u0600-\u06FF\u0750-\u077F ]*$/.test(e)},"Inputan hanya boleh bahasa Arab."),jQuery.validator.addMethod("defaultPhone",function(e,a){return this.optional(a)||/^[0-9-\/']*$/.test(e)},"Inputan hanya boleh mengandung 0-9, spasi, dan simbol-/'"),jQuery.validator.addMethod("alpha",function(e,a){return this.optional(a)||/^[a-zA-Z ]*$/.test(e)},"Nama hanya boleh mengandung A-Z dan spasi"),jQuery.validator.addMethod("alphaNS",function(e,a){return this.optional(a)||/^[a-zA-Z]*$/.test(e)},"Nama hanya boleh mengandung A-Z"),jQuery.validator.addMethod("addresscheck",function(e,a){return this.optional(a)||/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\s).{8,}$/.test(e)},"Input harus mengandung satu nomor, satu huruf kecil dan satu huruf besar"),jQuery.validator.addMethod("pwcheck",function(e,a){return this.optional(a)||/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$/.test(e)},"Input harus mengandung satu nomor, satu huruf kecil dan satu huruf besar"),jQuery.validator.addMethod("pwcheck_alfanum",function(e,a){return this.optional(a)||/^(?=.*\d)(?=.*\D)(?!.*\s).{8,14}$/.test(e)},"Input harus merupakan kombinasi antara angka dan huruf"),jQuery.validator.addMethod("pwcheck2",function(e,a){return this.optional(a)||/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w])(?!.*[#<>\/\\=”’"'])(?!.*\s).{8,14}$/.test(e)},'Input harus mengandung satu nomor, satu huruf kecil, satu huruf besar, simbol kecuali "#<>/\\="\''),jQuery.validator.addMethod("pwcheck3",function(e,a){return this.optional(a)||/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w])(?!.*\s).{8,12}$/.test(e)},"Input harus mengandung satu nomor, satu huruf kecil, satu huruf besar, simbol"),jQuery.validator.addMethod("max",function(e,a,t){var i=parseFloat(e.replace(/\./g,""));return this.optional(a)||i<=t},jQuery.validator.format("Maksimal {0}")),jQuery.validator.addMethod("maxDec",function(e,a,t){var i=e.replace(",",".");return this.optional(a)||i<=t},jQuery.validator.format("Maksimal {0}")),jQuery.validator.addMethod("maxDecMargin",function(e,a,t){var i=e.replace(",",".");return this.optional(a)||i<=t},jQuery.validator.format("Margin tidak valid")),jQuery.validator.addMethod("notEqual",function(e,a,t){return this.optional(a)||e!=$(t).val()},"This has to be different..."),jQuery.validator.addMethod("notZero",function(e,a,t){var i=parseFloat(e.replace(/\./g,""));e.substr(0,1);return this.optional(a)||i!=t},jQuery.validator.format("Value Tidak Boleh 0")),jQuery.validator.addMethod("zeroValid",function(e,a,t){var i=e.substr(0,1),n=parseFloat(e.replace(/\./g,""));return 1==e.length?this.optional(a)||n==i:this.optional(a)||i!=t},jQuery.validator.format("Angka pertama tidak boleh 0")),jQuery.validator.addMethod("minValue",function(e,a,t){return e>=t},"Min Value needed"),jQuery.validator.addMethod("checkDate",function(e,a){return this.optional(a)||/^(((0[1-9]|[12]\d|3[01])\-(0[13578]|1[02])\-((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\-(0[13456789]|1[012])\-((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\-02\-((19|[2-9]\d)\d{2}))|(29\-02\-((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/.test(e)},"Format tanggal salah"),jQuery.validator.addMethod("checkTime",function(e,a){return this.optional(a)||/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(e)},"Format time (HH:mm) salah"),jQuery.validator.addMethod("formatSeparator",function(e,a){return this.optional(a)||/^[A-Za-z ]+(,[A-Za-z ]+){0,2}$/.test(e)},"Contoh format: Ibu rumah tangga,pedagang,tukang jahit"),jQuery.validator.addMethod("checkDateyyyymmdd",function(e,a){return this.optional(a)||/^\d{4}-((0\d)|(1[012]))-(([012]\d)|3[01])$/.test(e)},"Format tanggal YYYY-MM-DD, contoh: 2016-01-30"),jQuery.validator.addMethod("checkDateddmmyyyy",function(e,a){return this.optional(a)||/^\d{2}\/\d{2}\/\d{4}$/.test(e)},"Format tanggal Bulan/Tanggal/Tahun, contoh: 06/08/1945"),jQuery.validator.addMethod("emailType",function(e,a){return e=e.toLowerCase(),this.optional(a)||/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e)},"Email Anda salah. Email harus terdiri dari @ dan domain"),jQuery.validator.addMethod("symbol",function(e,a){return this.optional(a)||/^[a-zA-Z0-9!@#$%^&()]*$/.test(e)},"Password hanya boleh mengandung A-Z, a-z, 0-9 dan simbol dari 0-9"),jQuery.validator.addMethod("filesize",function(e,a,t){return this.optional(a)||a.files[0].size<=t},"Ukuran Maksimal Gambar 1 MB"),jQuery.validator.addMethod("STD_VAL_WEB_1",function(e,a){return this.optional(a)||/^(?=.*\d)([a-zA-Z0-9]+)(?!.*[ #<>\/\\=”’"'!@#$%^&()]).{6,10}$/.test(e)},"Username yang Anda masukkan harus terdiri dari 6-10 karakter alfanumerik tanpa spasi"),jQuery.validator.addMethod("STD_VAL_WEB_2",function(e,a){return this.optional(a)||/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w])(?!.*\s).{8,12}$/.test(e)},"Password kombinasi huruf kapital, huruf kecil, angka, dan karakter non-alphabetic"),jQuery.validator.addMethod("STD_VAL_WEB_3",function(e,a){return this.optional(a)||/^[a-zA-Z.' ]*$/.test(e)},"Nama harus terdiri dari alfabet, titik (.) dan single quote (')"),jQuery.validator.addMethod("STD_VAL_WEB_5",function(e,a){return e=e.toLowerCase(),this.optional(a)||/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e)},"Email Anda salah. Email harus terdiri dari @ dan domain"),jQuery.validator.addMethod("STD_VAL_WEB_6",function(e,a){return this.optional(a)||/^\d{16}$/.test(e)},"Nomor KTP yang Anda masukkan salah. Harus terdiri dari 16 karakter"),jQuery.validator.addMethod("STD_VAL_WEB_7",function(e,a){return this.optional(a)||/^\d{15}$/.test(e)},"NPWP yang Anda masukkan salah. Harus terdiri dari 15 karakter tanpa spasi dan symbol"),jQuery.validator.addMethod("STD_VAL_WEB_8",function(e,a){return this.optional(a)||/^\d{11,13}$/.test(e)},"Nomor HP yang Anda masukkan salah"),jQuery.validator.addMethod("STD_VAL_WEB_9",function(e,a){return this.optional(a)||/^\d{6}$/.test(e)},"Pin yang anda masukkan salah. Jika salah hingga 3x akan otomatis terblokir"),jQuery.validator.addMethod("STD_VAL_WEB_10",function(e,a){return this.optional(a)||/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\s).{6,255}$/.test(e)},"Alamat yang anda masukkan salah"),jQuery.validator.addMethod("STD_VAL_WEB_11",function(e,a){return this.optional(a)||/^(((0[1-9]|[12]\d|3[01])\-(0[13578]|1[02])\-((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\-(0[13456789]|1[012])\-((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\-02\-((19|[2-9]\d)\d{2}))|(29\-02\-((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/.test(e)},"Masukkan format tanggal yang sesuai"),jQuery.validator.addMethod("STD_VAL_WEB_12",function(e,a){return this.optional(a)||/^([1-9]|([012][0-9])|(3[01]))-([0]{0,1}[1-9]|1[012])-\d\d\d\d [012]{0,1}[0-9]:[0-6][0-9]:[0-6][0-9]$/.test(e)},"Masukkan format tanggal yang sesuai"),jQuery.validator.addMethod("STD_VAL_WEB_13",function(e,a){return this.optional(a)||/^\d{6}$/.test(e)},"OTP yang Anda masukkan salah"),jQuery.validator.addMethod("STD_VAL_WEB_14",function(e,a){return this.optional(a)||/^[a-zA-Z0-9]{8,12}$/.test(e)},"MPIN yang Anda masukkan salah"),jQuery.validator.addMethod("STD_VAL_WEB_15",function(e,a){return this.optional(a)||/^[0-9 ]{19}$/.test(e)},"Nomor kartu yang Anda masukkan tidak valid/salah"),jQuery.validator.addMethod("STD_VAL_WEB_16",function(e,a){return this.optional(a)||/^\d{3}$/.test(e)},"CVV yang Anda masukkan tidak valid/salah"),jQuery.validator.addMethod("STD_VAL_WEB_17",function(e,a){return this.optional(a)||/^[0-9]*$/.test(e)},"Virtual Account Number yang anda masukkan tidak valid"),jQuery.validator.addMethod("STD_VAL_WEB_18",function(e,a,t){return t="string"==typeof t?t.replace(/,/g,"|"):"png|jpeg|png",this.optional(a)||a.files[0].size<=1e6&&e.match(new RegExp("\\.("+t+")$","i"))},"Upload gambar maksimal 1MB"),jQuery.validator.addMethod("STD_VAL_WEB_19",function(e,a,t){return t="string"==typeof t?t.replace(/,/g,"|"):"doc|docx|xls|xlsx|csv",this.optional(a)||a.files[0].size<=5e6&&e.match(new RegExp("\\.("+t+")$","i"))},"Upload file maksimal 5MB"),jQuery.validator.addMethod("STD_VAL_WEB_20",function(e,a){return this.optional(a)||/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)$/.test(e)},"URL yang Anda masukkan tidak valid"),jQuery.validator.addMethod("STD_VAL_WEB_23",function(e,a){return this.optional(a)||/^[a-zA-Z ]*$/.test(e)},"Input harus a-z A-Z"),jQuery.validator.addMethod("STD_VAL_WEB_24",function(e,a){return this.optional(a)||/^([0-9]+)$/.test(e)},"Input harus 0-9"),jQuery.validator.addMethod("STD_VAL_WEB_25",function(e,a){return this.optional(a)||/^[a-zA-Z0-9 ]*$/.test(e)},"Input harus 0-9, a-z, A-Z"),jQuery.validator.addMethod("STD_VAL_WEB_26",function(e,a){return this.optional(a)||/^[a-zA-Z0-9-_]*$/.test(e)},"Input harus 0-9, a-z, A-Z, -, _"),jQuery.validator.addMethod("STD_VAL_WEB_29",function(e,a,t){return this.optional(a)||e==$(t).val()},"Input tidak cocok"),jQuery.validator.addMethod("STD_VAL_WEB_30",function(e,a){return this.optional(a)||/^\d+$/.test(e)},"Input harus digit"),jQuery.validator.addMethod("STD_VAL_WEB_31",function(e,a,t){return this.optional(a)||e>=t[0]&&e<=t[1]},"Input harus berdasarkan range"),jQuery.validator.addMethod("STD_VAL_WEB_34",function(e,a){return this.optional(a)||/^-?\d+$/.test(e)},"Input harus bilangan bulat"),jQuery.validator.addMethod("STD_VAL_WEB_35",function(e,a){return this.optional(a)||/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(e)},"Input harus valid IP"),jQuery.validator.addMethod("STD_VAL_WEB_36",function(e,a){return this.optional(a)||/^(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)$/i.test(e)},"Input harus ipv4"),jQuery.validator.addMethod("STD_VAL_WEB_37",function(e,a){
-return this.optional(a)||/^((([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){5}:([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){4}:([0-9A-Fa-f]{1,4}:){0,2}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){3}:([0-9A-Fa-f]{1,4}:){0,3}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){2}:([0-9A-Fa-f]{1,4}:){0,4}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(([0-9A-Fa-f]{1,4}:){0,5}:((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(::([0-9A-Fa-f]{1,4}:){0,5}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|([0-9A-Fa-f]{1,4}::([0-9A-Fa-f]{1,4}:){0,5}[0-9A-Fa-f]{1,4})|(::([0-9A-Fa-f]{1,4}:){0,6}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,7}:))$/i.test(e)},"Input harus ipv6"),jQuery.validator.addMethod("STD_VAL_WEB_38",function(e,a,t){return this.optional(a)||/^[\],:{}\s]*$/.test(text.replace(/\\["\\\/bfnrtu]/g,"@").replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,"]").replace(/(?:^|:|,)(?:\s*\[)+/g,""))},"Input harus string json")},validateMe:function(e,a,t){validation.addMethods(),$("#"+e).validate({rules:a,messages:t,errorPlacement:function(e,a){var t=a.parents(".input");a.parents(".inputGroup").children(".alert.error").remove(),e.insertAfter(t),e.addClass("alert error")},success:function(e){e.parents("span.alert.error").remove()},wrapper:"span"})},validateMultiple:function(e,a,t){validation.addMethods(),$("#"+e).removeData("validator"),$("#"+e).removeData("check"),$("#"+e).removeData("confirm"),$("#"+e).find("input").removeClass("error"),$("#"+e).validate({rules:a,messages:t,errorPlacement:function(e,a){var t=a.parents(".input");a.parents(".inputGroup").children(".alert.error").remove(),e.insertAfter(t),e.addClass("alert error")},success:function(e){e.parents("span.alert.error").remove()},wrapper:"span"}).resetForm()},submitTry:function(e){if($(".nio_select").length&&$(".nio_select").show(),$(".added_photo").length&&!$(".imageAttachmentWrap.noApi").length&&$(".added_photo").show(),$(".tinymce").length&&$(".tinymce").show(),$(".stepForm").length){$(".stepForm.active").index();$(".stepForm").addClass("active")}return $("#"+e).valid()?($(".nio_select").hide(),$(".tinymce").hide(),validation.FileApiSupported()&&$(".added_photo").hide(),"vPassed"):($(".nio_select").hide(),$(".tinymce").hide(),validation.FileApiSupported()&&$(".added_photo").hide(),"vError")},FileApiSupported:function(){return!!(window.File&&window.FileReader&&window.FileList&&window.Blob)}};
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
+
+// require('./bootstrap');
+
+// window.Vue = require('vue');
+
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
+
+// Vue.component('example-component', require('./components/ExampleComponent.vue'));
+
+// const app = new Vue({
+//     el: '#app'
+// });
+
+/**
+ * Init Section
+ */
+$(document).ready(function () {
+	_ajax.init();
+	table.init();
+	form.init();
+	ui.slide.init();
+	validation.addMethods();
+	// if ($('#main-wrapper').length) {
+	//     other.checkSession.init();
+	// }
+	$(document).ajaxError(function (event, jqxhr, settings, exception) {
+		console.log('exception = ' + exception);
+	});
+
+	moveOnMax = function moveOnMax(field, nextFieldID) {
+		if (field.value.length == 1) {
+			document.getElementById(nextFieldID).focus();
+		}
+	};
+
+	if ($('#notif').length) {
+		var status = $('#notif').data('status');
+		var message = $('#notif').data('message');
+		var url = $('#notif').data('url');
+
+		ui.popup.show(status, message, url);
+	}
+	if ($('#mustLogin').length) {
+		$('.modal').modal('hide');
+		ui.popup.hideLoader();
+
+		$('#modalNotifForLogin').modal('show');
+	}
+	if ($('#profileSaved').length) {
+		$('.modal').modal('hide');
+		ui.popup.hideLoader();
+
+		$('#modalNotifProfileSaved').modal('show');
+	}
+});
+
+// window.onload = function () {
+//     if ("performance" in window) {
+//         if ("timing" in window.performance) {
+//             var time = window.performance.timing.loadEventStart - window.performance.timing.domLoading;
+
+//             var seconds = time / 1000;
+//             // 2- Extract hours:
+//             var hours = parseInt(seconds / 3600); // 3,600 seconds in 1 hour
+//             seconds = seconds % 3600; // seconds remaining after extracting hours
+//             // 3- Extract minutes:
+//             var minutes = parseInt(seconds / 60); // 60 seconds in 1 minute
+//             // 4- Keep only seconds not extracted to minutes:
+//             seconds = seconds % 60;
+//             document.getElementById("total_render_time").innerHTML = "Load Time: " + (seconds) + " seconds";
+//         } else {
+//             document.getElementById("result").innerHTML = "Page Timing API not supported";
+//         }
+//     } else {
+//         document.getElementById("result").innerHTML = "Page Performance API not supported";
+//     }
+// }
+
+$('.modal').on('hidden.bs.modal', function (e) {
+	$(this).find('form')[0].reset();
+	$('.select').val('').trigger('change');
+});
+
+var baseUrl = $('meta[name=base]').attr('content') + '/';
+var baseImage = $('meta[name=baseImage]').attr('content') + '/';
+var cdn = $('meta[name=cdn]').attr('content');
+
+var other = {
+
+	encrypt: function encrypt(formdata, callback) {
+		$.ajax({
+			url: baseUrl + 's',
+			type: 'post',
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			success: function success(data) {
+				var pass = data;
+				if (pass.status !== "error" && pass.status !== "reload") {
+					var password = pass.password;
+					var salt = CryptoJS.lib.WordArray.random(128 / 8);
+					var key256Bits500Iterations = CryptoJS.PBKDF2("Secret Passphrase", salt, { keySize: 256 / 32, iterations: 500 });
+					var iv = CryptoJS.enc.Hex.parse(password[2]);
+					if (formdata.indexOf("&captcha=")) {
+						var form = formdata.split("&captcha=");
+						var captcha = form[1];
+						formdata = form[0];
+					}
+					var encrypted = CryptoJS.AES.encrypt(formdata + '&safer=', key256Bits500Iterations, { iv: iv });
+
+					var data_base64 = encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+					var iv_base64 = encrypted.iv.toString(CryptoJS.enc.Base64);
+					var key_base64 = encrypted.key.toString(CryptoJS.enc.Base64);
+
+					var encData = data_base64 + password[0] + iv_base64 + password[1] + key_base64 + password[2];
+					var data = { data: encData };
+					if (captcha != 'undefined') {
+						data["captcha"] = captcha;
+					}
+					callback(null, data);
+				} else {
+					swal({
+						title: pass.messages.title,
+						text: pass.messages.message,
+						type: "error",
+						html: true,
+						showCancelButton: true,
+						confirmButtonColor: "green",
+						confirmButtonText: "Refresh"
+					}, function () {
+						location.reload();
+					});
+				}
+			}
+		});
+	},
+
+	// js untuk fitur notifikasi backoffice
+	notification: {
+		init: function init() {
+			if ($('#buttonNotif').length) {
+				$.ajax({
+					url: baseUrl + "notif/check",
+					type: "POST",
+					cache: false,
+					beforeSend: function beforeSend(jxqhr) {},
+					success: function success(result) {
+						var resultCount = 0;
+						var i;
+						for (i in result) {
+							if (result.hasOwnProperty(i)) {
+								resultCount++;
+							}
+						}
+
+						if (resultCount > 0) {
+							var link = '';
+							var div_element = $('.drop-content-notif');
+							div_element.empty();
+							$.each(result.notif, function (index, data) {
+								var li_element = null;
+
+								if (data.status_notif == '1') {
+									li_element = $('<li>');
+								} else {
+									li_element = $('<li>').addClass("unread");
+								}
+								li_element.append('<a href="' + baseUrl + 'notif/get/' + data.id_notif + '" class="aNotif">' + '<b class="font-notif">' + data.message_notif + '</b> </br>' + '<span class="font-notif">' + data.created_at + '</span>' + '</a>');
+								div_element.append(li_element);
+							});
+						} else {
+							li_element.append('<li class="dropdown-item-notif">' + '<span>Belum ada notifikasi</span>' + '</li>');
+							div_element.append(li_element);
+						}
+						if (result.countNotif > 0) {
+							$("#total-notif").show();
+							$("#totalNotif").html(result.countNotif);
+						} else {
+							$("#total-notif").hide();
+						}
+					}
+				});
+			}
+		}
+	},
+
+	checkSession: {
+		stat: false,
+		init: function init() {
+			var time = 905;
+			function timerCheck() {
+				if (time == 0) {
+					other.checkSession.action();
+				} else {
+					time--;
+				}
+			}
+
+			function reset() {
+				time = 905;
+			}
+
+			$(document).on('mousemove keypress', function () {
+				reset();
+			});
+
+			setInterval(function () {
+				timerCheck();
+			}, 1000);
+		},
+		action: function action() {
+			if (!other.checkSession.stat) {
+				other.checkSession.stat = true;
+				$.ajax({
+					url: baseUrl + 'checkSession',
+					global: false,
+					type: 'get',
+					beforeSend: function beforeSend(jxqhr) {},
+					success: function success(data) {
+						if (data == '1') {
+							other.checkSession.idler = 0;
+							other.checkSession.stat = false;
+						} else {
+							ui.popup.show('warning', 'Anda sudah tidak aktif dalam waktu 15 menit', '/logout');
+						}
+					}
+				});
+			}
+		}
+	}
+};
+function reload() {
+	location.reload();
+}
+
+var _ajax = {
+	init: function init() {
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			beforeSend: function beforeSend(jxqhr) {
+				ui.popup.showLoader();
+			},
+			timeout: 30000,
+			error: function error(event, jxqhr, status, _error) {
+				ui.popup.show('error', 'Sedang Gangguan Jaringan', 'Error');
+				ui.popup.hideLoader();
+			},
+			complete: function complete() {},
+			global: true
+		});
+	},
+	getData: function getData(url, method, params, callback) {
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+		if (params == null) {
+			params = {};
+		}
+		$.ajax({
+			type: method,
+			url: baseUrl + url,
+			data: params,
+			success: function success(result) {
+				ui.popup.hideLoader();
+				if (result.status == 'success') {
+					ui.popup.hideLoader();
+					if (result.callback == 'redirect') {
+						ui.popup.show(result.status, result.message, result.url);
+					}
+				}
+				if (result.status == 'error') {
+					ui.popup.show('error', result.messages.message, result.messages.title);
+				} else if (result.status == 'reload') {
+					ui.popup.alert(result.messages.title, result.messages.message, 'refresh');
+				} else if (result.status == 'logout') {
+					ui.popup.alert(result.messages.title, result.messages.message, 'logout');
+				} else if (result == 401) {
+					ui.popup.show('warning', 'Sesi Anda telah habis, harap login kembali', 'Session Expired');
+					if ($('.toast-warning').length == 2) {
+						$('.toast-warning')[1].remove();
+					}
+					setInterval(function () {
+						window.location = '/logout';
+					}, 3000);
+				} else {
+					if (result instanceof Array || result instanceof Object) {
+						callback(result);
+					} else {
+						callback(JSON.parse(result));
+					}
+				}
+			}
+		});
+	},
+	submitData: function submitData(url, data, form_id) {
+		other.encrypt(data, function (err, encData) {
+			if (err) {
+				callback(err);
+			} else {
+				$.ajax({
+					url: url,
+					type: 'post',
+					data: encData,
+					error: function error(jxqhr, status, _error2) {
+						ui.popup.hideLoader();
+						ui.popup.show('error', _error2, 'Error');
+					},
+					success: function success(result, status) {
+						if (result == null) {
+							ui.popup.show(result.status, 'Error');
+							ui.popup.hideLoader();
+						} else if (result == 401) {
+							ui.popup.show('warning', 'Sesi anda habis, mohon login kembali', 'Session Expired');
+							ui.popup.hideLoader();
+							setInterval(function () {
+								window.location = '/logout';
+							}, 3000);
+						} else {
+							if (result.status == 'success') {
+								$('.modal').modal('hide');
+								ui.popup.hideLoader();
+								if (result.callback == 'redirect') {
+									ui.popup.show(result.status, result.message, result.url);
+								} else if (result.callback == 'login') {
+									// ui.toast.show();
+									setInterval(function () {
+										window.location = result.url;
+									}, 2000);
+								} else if (result.callback == 'reload') {
+									setInterval(function () {
+										window.location.reload();
+									}, 2000);
+								} else if (result.callback == 'applySuccess') {
+									var id = result.idApply;
+									$('#idApply').val(id);
+
+									$('#modalNotifApplySuccess').modal('show');
+								} else if (result.callback == 'applySuccessTellMe') {
+									setInterval(function () {
+										window.location = '/profile';
+									}, 2000);
+								}
+							} else if (result.status == 'info') {
+								ui.popup.hideLoader();
+								// bisa menggunakan if seperti diatas
+							} else if (result.status == 'warning') {
+								$('.modal').modal('hide');
+								ui.popup.hideLoader();
+								if (result.callback == 'redirect') {
+									ui.popup.show(result.status, result.message, result.url);
+								} else if (result.callback == 'mustLogin') {
+									$('#modalNotifForLogin').modal('show');
+								}
+							} else {
+								if (result.messages == '<p>Error: Validation</p>') {
+									ui.popup.hideLoader();
+									$("#" + form_id).validate().showErrors(result.errors);
+									ui.popup.show(result.status, "Harap cek isian");
+								} else {
+									ui.popup.show(result.status, result.message);
+									ui.popup.hideLoader();
+								}
+							}
+						}
+					}
+				});
+			}
+		});
+	},
+	submitImage: function submitImage(url, form_id, path, to_id) {}
+};
+
+var form = {
+	init: function init() {
+		$('form').attr('autocomplete', 'off');
+		if ($('.select2').length) {
+			$('.select2').select2();
+		}
+		$('input').focus(function () {
+			$(this).parents('.form-group').addClass('focused');
+		});
+
+		$('textarea').focus(function () {
+			$(this).parents('.form-group').addClass('focused');
+		});
+		$('input').blur(function () {
+			var inputValue = $(this).val();
+			if (inputValue == "") {
+				$(this).removeClass('filled');
+				$(this).parents('.form-group').removeClass('focused');
+			} else {
+				$(this).addClass('filled');
+			}
+		});
+		$('textarea').blur(function () {
+			var inputValue = $(this).val();
+			if (inputValue == "") {
+				$(this).removeClass('filled');
+				$(this).parents('.form-group').removeClass('focused');
+			} else {
+				$(this).addClass('filled');
+			}
+		});
+		$.validator.addMethod("lettersonly", function (value, element) {
+			return this.optional(element) || /^[a-z]+$/i.test(value);
+		}, "Letters only please");
+
+		$.validator.addMethod("regexp", function (value, element, regexpr) {
+			return regexpr.test(value);
+		}, "");
+		$.each($('form'), function (key, val) {
+			$(this).validate(formrules[$(this).attr('id')]);
+		});
+		$('form').submit(function (e) {
+			e.preventDefault();
+			console.log('masuk');
+			var form_id = $(this).attr('id');
+			form.validate(form_id);
+		});
+
+		$('.goToLogin').click(function () {
+			$('.modal').modal('hide');
+			$('#modalLoginCandidate').modal('show');
+		});
+
+		$('.goToRegister').click(function () {
+			$('.modal').modal('hide');
+			$('#modalSignUpCandidate').modal('show');
+		});
+	},
+	validate: function validate(form_id) {
+
+		var formVal = $('#' + form_id);
+		var message = formVal.attr('message');
+		var agreement = formVal.attr('agreement');
+		var defaultOptions = {
+			errorPlacement: function errorPlacement(error, element) {
+				if (element.parent().hasClass('input-group')) {
+					error.appendTo(element.parent().parent());
+				} else {
+					var help = element.parents('.form-group').find('.help-block');
+					if (help.length) {
+						error.appendTo(help);
+					} else {
+						error.appendTo(element.parents('.form-group'));
+					}
+				}
+			},
+			highlight: function highlight(element, errorClass, validClass) {
+				alert('test');
+				$(element).parents('.form-group').addClass('has-error');
+			},
+			unhighlight: function unhighlight(element, errorClass, validClass) {
+
+				$(element).parents('.form-group').removeClass('has-error');
+			}
+		};
+		var ops = Object.assign(defaultOptions, formrules[form_id]);
+
+		var myform = formVal.validate(ops);
+		$('button[type=reset]').click(function () {
+			myform.resetForm();
+		});
+		if (formVal.valid()) {
+			console.log(form_id);
+			if (message != null && message != '') {
+				if (message.indexOf('|') > -1) {
+					var m_data = message.split('|');
+					var m_text = m_data[0];
+					var m_val = m_data[1];
+
+					var t_data = m_val.split(';');
+					var table = '<table class="table">';
+					$.each(t_data, function (key, val) {
+						var c1 = val.split(':')[0];
+						var c2 = form.find('input[name=' + val.split(':')[1] + '],select[name=' + val.split(':')[1] + ']').val();
+						table += '<tr><td>' + c1 + '</td><td>' + c2 + '</td></tr>';
+					});
+					table += '</table>';
+
+					message = m_text + table;
+				}
+				ui.popup.confirm('Konfirmasi', message, 'form.submit("' + form_id + '")');
+			} else if (agreement != null && agreement != '') {
+				message = $("#" + agreement).html();
+				ui.popup.agreement('Persetujuan Agen Baru', message, 'form.submit("' + form_id + '")');
+			} else {
+				form.submit(form_id);
+			}
+		} else {
+			ui.popup.show('error', 'Harap cek isian', 'Form Tidak Valid');
+		}
+	},
+	submit: function submit(form_id) {
+		var form = $('#' + form_id);
+		var url = form.attr('action');
+		var ops = formrules[form_id];
+		if (ops == null) {
+			ops = {};
+		}
+		var i = 1;
+		var input = $('.form-control');
+		var data = form.serialize();
+		var isajax = form.attr('ajax');
+		var isFilter = form.attr('filter');
+		if (isajax == 'true') {
+			if (form_id == 'payform') {
+				form_id = $('#' + form_id).attr('for');
+			}
+			_ajax.submitData(url, data, form_id);
+		} else if (isFilter == 'true') {
+			if (form_id == 'filterSearchList' || form_id == 'filterJobList') {
+				var filterSearch = $('#filterSearchList').serialize();
+				var filterJob = $('#filterJobList').serialize();
+				data = filterSearch + '&' + filterJob;
+			}
+			table.filter(form_id, data);
+		} else {
+			other.encrypt(data, function (err, encData) {
+				if (err) {
+					callback(err);
+				} else {
+					var encryptedElement = $('<input type="hidden" name="data" />');
+					$(encryptedElement).val(encData['data']);
+					form.find('select,input:not("input[type=file],input[type=hidden][name=_token],input[name=captcha]")').attr('disabled', 'true').end().append(encryptedElement).unbind('submit').submit();
+				}
+			});
+		}
+	}
+
+	// Fungsi Format rupiah untuk form
+};function formatRupiahRp(angka) {
+	var number_string = angka.replace(/[^,\d]/g, "").toString(),
+	    split = number_string.split(","),
+	    sisa = split[0].length % 3,
+	    rupiah = split[0].substr(0, sisa),
+	    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+	// tambahkan titik jika yang di input sudah menjadi angka ribuan
+	if (ribuan) {
+		separator = sisa ? "." : "";
+		rupiah += separator + ribuan.join(".");
+	}
+
+	rupiah = split[1] != undefined ? rupiah + split[1] : rupiah;
+	// return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+	return 'Rp ' + rupiah;
+}
+
+////////
+
+function formatRupiahKoma(angka) {
+	var number_string = angka.replace(/[^.\d]/g, "").toString(),
+	    split = number_string.split("."),
+	    sisa = split[0].length % 3,
+	    rupiah = split[0].substr(0, sisa),
+	    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+	// tambahkan titik jika yang di input sudah menjadi angka ribuan
+	if (ribuan) {
+		separator = sisa ? "," : "";
+		rupiah += separator + ribuan.join(",");
+	}
+
+	rupiah = split[1] != undefined ? rupiah + split[1] : rupiah;
+	return rupiah;
+}
+
+function formatRupiah(angka) {
+	var number_string = angka.replace(/[^,\d]/g, "").toString(),
+	    split = number_string.split(","),
+	    sisa = split[0].length % 3,
+	    rupiah = split[0].substr(0, sisa),
+	    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+	// tambahkan titik jika yang di input sudah menjadi angka ribuan
+	if (ribuan) {
+		separator = sisa ? "." : "";
+		rupiah += separator + ribuan.join(".");
+	}
+
+	rupiah = split[1] != undefined ? rupiah + split[1] : rupiah;
+	return rupiah;
+}
+
+if ($("#formAddEventNews").length) {
+	$('#tglMulaiNewsEvent').datetimepicker({
+		format: 'DD-MM-YYYY'
+	});
+
+	$('#tglSelesaiNewsEvent').datetimepicker({
+		format: 'DD-MM-YYYY'
+	});
+
+	$('#descriptionNewsEvent').summernote({
+		height: 200 //set editable area's height
+	});
+
+	$('#descriptionNewsEvent').each(function () {
+		var summernote = $(this);
+		$('form').on('submit', function () {
+			if (summernote.summernote('isEmpty')) {
+				summernote.val('');
+			} else if (summernote.val() == '<br>') {
+				summernote.val('');
+			}
+		});
+	});
+}
+
+if ($("#formEditEventNews").length) {
+	$('#tglMulaiNewsEvent').datetimepicker({
+		format: 'DD-MM-YYYY'
+	});
+
+	$('#tglSelesaiNewsEvent').datetimepicker({
+		format: 'DD-MM-YYYY'
+	});
+
+	$('#descriptionNewsEvent').summernote({
+		height: 200 //set editable area's height
+	});
+
+	$('#descriptionNewsEvent').each(function () {
+		var summernote = $(this);
+		$('form').on('submit', function () {
+			if (summernote.summernote('isEmpty')) {
+				summernote.val('');
+			} else if (summernote.val() == '<br>') {
+				summernote.val('');
+			}
+		});
+	});
+}
+
+if ($("#formAddVacancy").length) {
+	// var minSalary = document.getElementById('minSalaryVacancy');
+	// minSalary.addEventListener("keyup", function (e) {
+	// 	minSalary.value = formatRupiah(this.value);
+	// });
+
+	// var maxSalary = document.getElementById('maxSalaryVacancy');
+	// maxSalary.addEventListener("keyup", function (e) {
+	// 	maxSalary.value = formatRupiah(this.value);
+	// });
+
+	$('#activatedDate').datetimepicker({
+		format: 'DD-MM-YYYY'
+	});
+
+	$('#descriptionVacancy').summernote({
+		height: 200 //set editable area's height
+	});
+
+	$('#descriptionVacancy').each(function () {
+		var summernote = $(this);
+		$('form').on('submit', function () {
+			if (summernote.summernote('isEmpty')) {
+				summernote.val('');
+			} else if (summernote.val() == '<br>') {
+				summernote.val('');
+			}
+		});
+	});
+
+	var next2 = 1;
+	$(".add-more-syarat").click(function (e) {
+		e.preventDefault();
+		var childDivs = document.querySelectorAll('#fieldMajorDiv' + next2 + ' span');
+		console.log(childDivs);
+		var addto = "#field-syarat" + next2;
+		var addRemove = "#field-syarat" + next2;
+		next2 = next2 + 1;
+		// var newIn = '<label>Syarat</label><input autocomplete="off" class="form-input bg-input form-control" id="field-syarat' + next2 + '" name="syarat[]" type="text" style="width: 93%; float: left;">';
+		var newIn = '<select class="select2 min-width" id="field-syarat' + next2 + '" name="majorVacancy">' + '<option value="">-- Pilih Major --</option>' + '<option value="Sistem Informasi">Sistem Informasi</option>' + '<option value="Akuntansi">Akuntansi</option>' + '</select>';
+		$("#field-syarat" + next2).select2();
+		var newInput = $(newIn);
+		var removeBtn = '<button id="remove-syarat' + (next2 - 1) + '" class="remove-me-syarat btn-min">-</button></><div id="field-syarat">';
+		var removeButton = $(removeBtn);
+		$(addto).after(newInput);
+		$(addRemove).after(removeButton);
+
+		$("#field-syarat" + next2).attr('data-source', $(addto).attr('data-source'));
+		$("#count").val(next2);
+		$('.remove-me-syarat').click(function (e) {
+			e.preventDefault();
+			var fieldNum = 'field' + this.id.toString().replace('remove', '');
+			console.log(fieldNum);
+			$('#' + fieldNum).remove();
+			$(this).prev().remove();
+			$(this).remove();
+		});
+
+		$('select[name="majorVacancy"]').select2();
+	});
+}
+
+if ($("#formEditVacancy").length) {
+	// var minSalary = document.getElementById('minSalaryVacancy');
+	// minSalary.addEventListener("keyup", function (e) {
+	// 	minSalary.value = formatRupiah(this.value);
+	// });
+
+	// var maxSalary = document.getElementById('maxSalaryVacancy');
+	// maxSalary.addEventListener("keyup", function (e) {
+	// 	maxSalary.value = formatRupiah(this.value);
+	// });
+
+	$('#activatedDate').datetimepicker({
+		format: 'DD-MM-YYYY'
+	});
+
+	$('#descriptionVacancy').summernote({
+		height: 200 //set editable area's height
+	});
+
+	$('#descriptionVacancy').each(function () {
+		var summernote = $(this);
+		$('form').on('submit', function () {
+			if (summernote.summernote('isEmpty')) {
+				summernote.val('');
+			} else if (summernote.val() == '<br>') {
+				summernote.val('');
+			}
+		});
+	});
+
+	$(".add-more-syarat").click(function (e) {
+		e.preventDefault();
+		this.remove();
+		var btnAdd = this;
+		var jml = $('#fieldMajorDiv1 select').length;
+		var next = jml + 1;
+
+		//change btn to minus
+		var removeBtn = '<button type="button" id="remove-syarat' + jml + '" class="remove-me-syarat btn-min">-</button>';
+		var after = $('#field-syarat' + jml).next();
+		after.after(removeBtn);
+
+		var newIn = '<select class="select2 min-width" id="field-syarat' + next + '" name="majorVacancy">' + '<option value="">-- Pilih Major --</option>' + '<option value="Sistem Informasi">Sistem Informasi</option>' + '<option value="Akuntansi">Akuntansi</option>' + '</select>';
+		$('#fieldMajorDiv1').append(newIn);
+		$('#fieldMajorDiv1').append(btnAdd);
+
+		$('select[name="majorVacancy"]').select2();
+	});
+
+	$('.remove-me-syarat').click(function (e) {
+		e.preventDefault();
+		var fieldNum = 'field' + this.id.toString().replace('remove', '');
+		console.log(fieldNum);
+		$('#' + fieldNum).remove();
+		$(this).prev().remove();
+		$(this).remove();
+	});
+}
+
+function readFile(input) {
+	console.log(input.files, input.files[0]);
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+
+		reader.onload = function (e) {
+			var htmlPreview = '<img src="' + e.target.result + '" style="width:100%;height:auto" />';
+			var wrapperZone = $(input).parent();
+			var previewZone = $(input).parent().parent().find('.preview-zone');
+			var boxZone = $(input).parent().find('.dropzone-desc');
+			var top = Math.floor(150 / 2);
+
+			wrapperZone.removeClass('dragover');
+			previewZone.removeClass('hidden');
+			boxZone.empty();
+			boxZone.css('top', '0');
+			boxZone.append(htmlPreview);
+		};
+
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+function reset(e) {
+	e.wrap('<form>').closest('form').get(0).reset();
+	e.unwrap();
+}
+
+$(".dropzone").change(function () {
+	readFile(this);
+});
+$('.dropzone-wrapper').on('dragover', function (e) {
+	e.preventDefault();
+	e.stopPropagation();
+	$(this).addClass('dragover');
+});
+$('.dropzone-wrapper').on('dragleave', function (e) {
+	e.preventDefault();
+	e.stopPropagation();
+	$(this).removeClass('dragover');
+});
+$('.remove-preview').on('click', function () {
+	var boxZone = $(this).parents('.preview-zone').find('.box-body');
+	var previewZone = $(this).parents('.preview-zone');
+	var dropzone = $(this).parents('.form-group').find('.dropzone');
+	boxZone.empty();
+	previewZone.addClass('hidden');
+	reset(dropzone);
+});
+
+$("#tipeNewsEvent").change(function () {
+	var valueTipe = $("#tipeNewsEvent").val();
+
+	if (valueTipe == "1") {
+		$("#divDateNewsEvent").addClass('hidden');
+		$(".dateNewsEvent").attr('disabled', true);
+	} else {
+		$("#divDateNewsEvent").removeClass('hidden');
+		$(".dateNewsEvent").attr('disabled', false);
+	}
+});
+
+if ($("#formFirstLogin").length) {
+	var _readFile = function _readFile(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				$('.photoProfileLabel').empty();
+				$('.photoProfileImage').attr('src', e.target.result);
+				$('.photoProfileLabel').html(input.files[0].name);
+			};
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	};
+
+	var readFileInput = function readFileInput(input) {
+		console.log(input);
+		console.log(input.files);
+		console.log(input.files[0]);
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				var inputLabel = $(input).parent().parent().find('.file-input-label');
+				inputLabel.val();
+				inputLabel.val(input.files[0].name);
+			};
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	};
+
+	$("#photoProfile").change(function () {
+		_readFile(this);
+	});
+
+	$('.uploadCertificate').change(function (e) {
+		e.preventDefault();
+		readFileInput(this);
+	});
+
+	$('input[name="birthDate"]').datetimepicker({
+		format: 'DD-MM-YYYY'
+	});
+
+	$('#startDateEducation').datetimepicker({
+		format: 'YYYY'
+	});
+
+	$('#endDateEducation').datetimepicker({
+		format: 'YYYY'
+	});
+
+	$('.btnAddListEducation').click(function (e) {
+		e.preventDefault();
+		$('.btnAddListEducation.large').hide();
+		$('.firstBtnListEducation').removeClass('margin-right-2rem');
+
+		var option = '<div class="listStudy">' + '<hr>' + '<div class="row">' + '<div class="col-lg-6 col-md-12">' + '<div class="form-group">' + '<label for="">School/University<span class="required-sign">*</span></label>' + '<div class="row">' + '<div class="col-lg-11 col-md-12">' + '<input type="text" name="university" id="university" class="form-control" placeholder="School/University">' + '</div>' + '</div>' + '</div>' + '</div>' + '<div class="col-lg-6 col-md-12">' + '<div class="form-group">' + '<label for="">Degree<span class="required-sign">*</span></label>' + '<div class="row">' + '<div class="col-lg-11 col-md-12">' + '<select name="degree" id="degree" class="select2 form-control">' + '<option value="">Choose your degree</option>' + '<option value="1">Diploma Degree</option>' + '<option value="2">Bachelor Degree</option>' + '<option value="3">Master Degree</option>' + '</select>' + '</div>' + '</div>' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col-lg-6 col-md-12">' + '<div class="form-group">' + '<label for="">Faculty<span class="required-sign">*</span></label>' + '<div class="row">' + '<div class="col-lg-11 col-md-12">' + '<input type="text" name="faculty" id="faculty" class="form-control" placeholder="Faculty">' + '</div>' + '</div>' + '</div>' + '</div>' + '<div class="col-lg-6 col-md-12">' + '<div class="form-group">' + '<label for="">Major<span class="required-sign">*</span></label>' + '<div class="row">' + '<div class="col-lg-11 col-md-12">' + '<select name="major" id="major" class="select2 form-control">' + '<option value="">Choose your major</option>' + '<option value="Sistem Informasi">Sistem Informasi</option>' + '<option value="Akuntansi">Akuntansi</option>' + '</select>' + '</div>' + '</div>' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col-lg-6 col-md-12">' + '<div class="form-group">' + '<label for="">Start Date<span class="required-sign">*</span></label>' + '<div class="row">' + '<div class="col-lg-11 col-md-12 with-icon">' + '<input type="text" class="form-control" placeholder="Choose date" id="startDateEducation" name="startDateEducation">' + '<img src="/image/icon/homepage/icon-calender-input.svg" class="this-icon" alt="icon">' + '</div>' + '</div>' + '</div>' + '</div>' + '<div class="col-lg-6 col-md-12">' + '<div class="form-group">' + '<label for="">End Date<span class="required-sign">*</span></label>' + '<div class="row">' + '<div class="col-lg-11 col-md-12 with-icon">' + '<input type="text" class="form-control" placeholder="Choose date" id="endDateEducation" name="endDateEducation">' + '<img src="/image/icon/homepage/icon-calender-input.svg" class="this-icon" alt="icon">' + '</div>' + '</div>' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col-lg-6 col-md-12">' + '<div class="form-group">' + '<label for="">GPA<span class="required-sign">*</span></label>' + '<div class="row">' + '<div class="col-lg-11 col-md-12">' + '<input type="text" class="form-control" placeholder="0 - 100" id="gpa" name="gpa">' + '</div>' + '</div>' + '</div>' + '</div>' + '<div class="col-lg-6 col-md-12">' + '<div class="form-group">' + '<label for="">Certificate of Study<span class="required-sign">*</span></label>' + '<div class="row">' + '<div class="col-lg-11 col-md-12">' + '<input type="text" class="form-control file-input-label" placeholder="Format jpg/png maximum 2MB file" disabled>' + '<span class="btn btn-file pl-1 mb-2">' + 'Upload File <input type="file" name="certificate[]" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg">' + '</span>' + '</div>' + '</div>' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col-lg-6 col-md-12 removeThisEducation">' + '<div class="form-group">' + '<div class="row">' + '<div class="col-lg-11 col-md-12">' + '<button type="button" class="btn btn-white btn-block btnAddListEducation">' + '<i class="fas fa-trash mr-2" style="font-size:18px"></i> Delete the Education Data Above' + '</button>' + '</div>' + '</div>' + '</div>' + '</div>' + '<div class="col-lg-6 col-md-12 secondBtnEducation">' + '<div class="form-group">' + '<div class="row">' + '<div class="col-lg-11 col-md-12">' + '<button type="button" class="btn btn-white btn-block btnAddListEducation">' + '<i class="fas fa-plus mr-2" style="font-size:18px"></i> Add Another Education' + '</button>' + '</div>' + '</div>' + '</div>' + '</div>' + '</div>' + '</div>';
+
+		$('#listEducationCandidate').append(option);
+
+		$('input[name="startDateEducation"]').datetimepicker({
+			format: 'YYYY'
+		});
+
+		$('input[name="endDateEducation"]').datetimepicker({
+			format: 'YYYY'
+		});
+
+		if ($('.select2').length) {
+			$('.select2').select2();
+		}
+		if ($('.removeThisEducation').length) {
+			$('.removeThisEducation').click(function () {
+				console.log('click');
+				$(this).parent().parent().remove();
+
+				if ($('.listStudy').length < 2) {
+					$('.btnAddListEducation.large').show();
+				}
+			});
+		}
+		if ($('.secondBtnEducation').length) {
+			$('.secondBtnEducation').click(function () {
+				$(this).remove();
+				$('.btnAddListEducation.large').click();
+			});
+		}
+
+		function readFileInput(input) {
+			console.log(input);
+			console.log(input.files);
+			console.log(input.files[0]);
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function (e) {
+					var inputLabel = $(input).parent().parent().find('.file-input-label');
+					inputLabel.val();
+					inputLabel.val(input.files[0].name);
+				};
+
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+
+		$('.uploadCertificate').change(function (e) {
+			e.preventDefault();
+			readFileInput(this);
+		});
+	});
+}
+
+if ($('#formEditPersonalInformation').length) {
+	var _readFile2 = function _readFile2(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				$('.photoProfileLabel').empty();
+				$('.photoProfileImage').attr('src', e.target.result);
+				$('.photoProfileLabel').html(input.files[0].name);
+			};
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	};
+
+	$("#photoProfile").change(function () {
+		_readFile2(this);
+	});
+
+	$('input[name="birthDate"]').datetimepicker({
+		format: 'DD-MM-YYYY'
+	});
+}
+
+if ($("#formEditEducationInformation").length) {
+	var _readFileInput = function _readFileInput(input) {
+		console.log(input);
+		console.log(input.files);
+		console.log(input.files[0]);
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				var inputLabel = $(input).parent().parent().find('.file-input-label');
+				inputLabel.val();
+				inputLabel.val(input.files[0].name);
+			};
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	};
+
+	$('.uploadCertificate').change(function (e) {
+		e.preventDefault();
+		_readFileInput(this);
+	});
+
+	$('#startDateEducation').datetimepicker({
+		format: 'YYYY'
+	});
+
+	$('#endDateEducation').datetimepicker({
+		format: 'YYYY'
+	});
+
+	$('.btnAddListEducation').click(function (e) {
+		e.preventDefault();
+		$('.btnAddListEducation.large').hide();
+		$('.firstBtnListEducation').removeClass('margin-right-2rem');
+
+		var option = '<div class="listStudy">' + '<input type="hidden" name="idEducation" id="idEducation" value="">' + '<hr>' + '<div class="row">' + '<div class="col-lg-6 col-md-12">' + '<div class="form-group">' + '<label for="">School/University<span class="required-sign">*</span></label>' + '<div class="row">' + '<div class="col-lg-11 col-md-12">' + '<input type="text" name="university" id="university" class="form-control" placeholder="School/University">' + '</div>' + '</div>' + '</div>' + '</div>' + '<div class="col-lg-6 col-md-12">' + '<div class="form-group">' + '<label for="">Degree<span class="required-sign">*</span></label>' + '<div class="row">' + '<div class="col-lg-11 col-md-12">' + '<select name="degree" id="degree" class="select2 form-control">' + '<option value="">Choose your degree</option>' + '<option value="1">Diploma Degree</option>' + '<option value="2">Bachelor Degree</option>' + '<option value="3">Master Degree</option>' + '</select>' + '</div>' + '</div>' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col-lg-6 col-md-12">' + '<div class="form-group">' + '<label for="">Faculty<span class="required-sign">*</span></label>' + '<div class="row">' + '<div class="col-lg-11 col-md-12">' + '<input type="text" name="faculty" id="faculty" class="form-control" placeholder="Faculty">' + '</div>' + '</div>' + '</div>' + '</div>' + '<div class="col-lg-6 col-md-12">' + '<div class="form-group">' + '<label for="">Major<span class="required-sign">*</span></label>' + '<div class="row">' + '<div class="col-lg-11 col-md-12">' + '<select name="major" id="major" class="select2 form-control">' + '<option value="">Choose your major</option>' + '<option value="Sistem Informasi">Sistem Informasi</option>' + '<option value="Akuntansi">Akuntansi</option>' + '</select>' + '</div>' + '</div>' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col-lg-6 col-md-12">' + '<div class="form-group">' + '<label for="">Start Date<span class="required-sign">*</span></label>' + '<div class="row">' + '<div class="col-lg-11 col-md-12 with-icon">' + '<input type="text" class="form-control" placeholder="Choose date" id="startDateEducation" name="startDateEducation">' + '<img src="/image/icon/homepage/icon-calender-input.svg" class="this-icon" alt="icon">' + '</div>' + '</div>' + '</div>' + '</div>' + '<div class="col-lg-6 col-md-12">' + '<div class="form-group">' + '<label for="">End Date<span class="required-sign">*</span></label>' + '<div class="row">' + '<div class="col-lg-11 col-md-12 with-icon">' + '<input type="text" class="form-control" placeholder="Choose date" id="endDateEducation" name="endDateEducation">' + '<img src="/image/icon/homepage/icon-calender-input.svg" class="this-icon" alt="icon">' + '</div>' + '</div>' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col-lg-6 col-md-12">' + '<div class="form-group">' + '<label for="">Certificate of Study<span class="required-sign">*</span></label>' + '<div class="row">' + '<div class="col-lg-11 col-md-12">' + '<input type="text" class="form-control file-input-label" placeholder="Format jpg/png maximum 2MB file" disabled>' + '<span class="btn btn-file pl-1 mb-2">' + 'Upload File <input type="file" name="certificate[]" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg">' + '</span>' + '</div>' + '</div>' + '</div>' + '</div>' + '<div class="col-lg-6 col-md-12">' + '<div class="form-group">' + '<label for="">GPA<span class="required-sign">*</span></label>' + '<div class="row">' + '<div class="col-lg-11 col-md-12">' + '<input type="text" class="form-control" placeholder="0 - 100" id="gpa" name="gpa">' + '</div>' + '</div>' + '</div>' + '</div>' + '</div>' + '<div class="row startSecondButtonAddListEducation">' + '<div class="col-lg-6 col-md-12 removeThisEducation">' + '<div class="form-group">' + '<div class="row">' + '<div class="col-lg-11 col-md-12">' + '<button type="button" class="btn btn-white btn-block btnAddListEducation">' + '<i class="fas fa-trash mr-2" style="font-size:18px"></i> Delete the Education Data Above' + '</button>' + '</div>' + '</div>' + '</div>' + '</div>' + '<div class="col-lg-6 col-md-12 secondBtnEducation">' + '<div class="form-group">' + '<div class="row">' + '<div class="col-lg-11 col-md-12">' + '<button type="button" class="btn btn-white btn-block btnAddListEducation">' + '<i class="fas fa-plus mr-2" style="font-size:18px"></i> Add Another Education' + '</button>' + '</div>' + '</div>' + '</div>' + '</div>' + '</div>' + '</div>';
+
+		$('#listEducationCandidate').append(option);
+
+		$('input[name="startDateEducation"]').datetimepicker({
+			format: 'YYYY'
+		});
+
+		$('input[name="endDateEducation"]').datetimepicker({
+			format: 'YYYY'
+		});
+
+		if ($('.select2').length) {
+			$('.select2').select2();
+		}
+		if ($('.removeThisEducation').length) {
+			$('.removeThisEducation').click(function () {
+				console.log('click');
+				$(this).parent().parent().remove();
+
+				if ($('.listStudy').length < 2) {
+					$('.btnAddListEducation.large').show();
+				} else {
+					var newBtn = '<div class="col-lg-6 col-md-12 secondBtnEducation">' + '<div class="form-group">' + '<div class="row">' + '<div class="col-lg-11 col-md-12">' + '<button type="button" class="btn btn-white btn-block btnAddListEducation">' + '<i class="fas fa-plus mr-2" style="font-size:18px"></i> Add Another Education' + '</button>' + '</div>' + '</div>' + '</div>' + '</div>';
+
+					$('.startSecondButtonAddListEducation').last().append(newBtn);
+				}
+			});
+		}
+		if ($('.secondBtnEducation').length) {
+			$('.secondBtnEducation').click(function () {
+				$(this).remove();
+				$('.btnAddListEducation.large').click();
+			});
+		}
+
+		function readFileInput(input) {
+			console.log(input);
+			console.log(input.files);
+			console.log(input.files[0]);
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function (e) {
+					var inputLabel = $(input).parent().parent().find('.file-input-label');
+					inputLabel.val();
+					inputLabel.val(input.files[0].name);
+				};
+
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+
+		$('.uploadCertificate').change(function (e) {
+			e.preventDefault();
+			readFileInput(this);
+		});
+	});
+}
+
+if ($("#formEditOtherInformation").length) {
+	var _readFileInput2 = function _readFileInput2(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				var inputLabel = $(input).parent().parent().find('.file-input-label');
+				inputLabel.val();
+				inputLabel.val(input.files[0].name);
+			};
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	};
+
+	$('#coverLetter').change(function (e) {
+		e.preventDefault();
+		_readFileInput2(this);
+	});
+
+	$('#resume').change(function (e) {
+		e.preventDefault();
+		_readFileInput2(this);
+	});
+
+	$('#portofolio').change(function (e) {
+		e.preventDefault();
+		_readFileInput2(this);
+	});
+
+	$("#deleteCoverLetter").click(function () {
+		$("#coverLetterLink").val('');
+	});
+
+	$("#deleteResume").click(function () {
+		$("#resumeLink").val('');
+	});
+
+	$("#deletePortofolio").click(function () {
+		$("#portofolioLink").val('');
+	});
+}
+
+$("#loadNews").click(function (e) {
+	e.preventDefault();
+	var value = this.value;
+	_ajax.getData('/news-get-more', 'post', { value: value }, function (data) {
+		var count = parseInt(value) + 5;
+		$("#loadNews").val(count);
+		if (data.length) {
+			for (var i = 0; i < data.length; i++) {
+				var id = encodeURIComponent(window.btoa(data[i]['id']));
+				$("#divNews").append('<a href="/news-event/detail/' + id + '" class="news-ahref">' + '<div class="card-list-news">' + '<div class="card-body-news">' + '<div class="row">' + '<div class="col-lg-4 col-md-12">' + '<img src="' + baseImage + '/' + data[i]['image'] + '" class="img-news">' + '</div>' + '<div class="col-lg-8 col-md-12 mt-5">' + '<div class="div-right-news">' + '<div class="d-flex">' + '<div class="badge-news mb-3">News</div>' + '<p class="align-items-center p-title-news">' + data[i]["tanggal"] + '</p>' + '</div>' + '<h4 class="news-page-title">' + data[i]["title"] + '</h4>' + '</div>' + '</div>' + '</div>' + '</div>' + '</div>' + '</a>');
+			}
+		} else {
+			$("#loadNews").addClass('hidden');
+		}
+	});
+});
+
+$("#loadEvent").click(function (e) {
+	e.preventDefault();
+	var value = this.value;
+	_ajax.getData('/event-get-more', 'post', { value: value }, function (data) {
+		var count = parseInt(value) + 5;
+		$("#loadEvent").val(count);
+		if (data.length) {
+			for (var i = 0; i < data.length; i++) {
+				var id = encodeURIComponent(window.btoa(data[i]['id']));
+				$("#divNews").append('<a href="/news-event/detail/' + id + '" class="news-ahref">' + '<div class="card-list-news">' + '<div class="card-body-news">' + '<div class="row">' + '<div class="col-lg-4 col-md-12">' + '<img src="' + baseImage + '/' + data[i]['image'] + '" class="img-news">' + '</div>' + '<div class="col-lg-8 col-md-12 mt-5">' + '<div class="div-right-news">' + '<div class="d-flex">' + '<div class="badge-news mb-3">Event</div>' + '<p class="align-items-center p-title-news">' + data[i]["tanggal"] + '</p>' + '</div>' + '<h4 class="news-page-title">' + data[i]["title"] + '</h4>' + '</div>' + '</div>' + '</div>' + '</div>' + '</div>' + '</a>');
+			}
+		} else {
+			$("#loadEvent").addClass('hidden');
+		}
+	});
+});
+
+if ($('#filterJobList').length) {
+	$('.job-type-select').click(function () {
+		if ($(this).hasClass('not-active')) {
+			if ($(this).hasClass('fulltime-badge')) {
+				$('#checkFilterFulltime').prop('checked', true);
+			} else if ($(this).hasClass('internship-badge')) {
+				$('#checkFilterInternship').prop('checked', true);
+			}
+			$(this).removeClass('not-active');
+		} else {
+			if ($(this).hasClass('fulltime-badge')) {
+				$('#checkFilterFulltime').prop('checked', false);
+			} else if ($(this).hasClass('internship-badge')) {
+				$('#checkFilterInternship').prop('checked', false);
+			}
+			$(this).addClass('not-active');
+		}
+	});
+}
+
+var lastArray = function lastArray(array, n) {
+	if (array == null) return void 0;
+	if (n == null) return array[array.length - 1];
+	return array.slice(Math.max(array.length - n, 0));
+};
+
+$('.loadMoreJob').click(function () {
+	var list = $('.card-job-list').length;
+	var value = list + 3;
+
+	_ajax.getData('/job-more', 'post', { value: value }, function (data) {
+		if (data.length >= value) {
+			$('.loadMoreJob').hide();
+		}
+
+		var newData = lastArray(data, 3);
+
+		for (var i = 0; i < newData.length; i++) {
+			var id = encodeURIComponent(window.btoa(newData[i]['job_id']));
+
+			if (newData[i]['type'] == 1) {
+				var type = '<div class="fulltime-badge mb-3">Full-time</div>';
+			} else if (newData[i]['type'] == 2) {
+				var type = '<div class="internship-badge mb-3">Internship</div>';
+			}
+
+			var option = '<div class="col-lg-4 col-md-6 col-sm-12 my-3">' + '<div class="card card-job-list">' + '<a href="/job/detail/' + id + '" class="text-decoration-none">' + '<div class="card-body">' + type + '<label class="label-no-margin mb-1">' + newData[i]['lokasi'] + ', Indonesia</label>' + '<h4 class="candidate-page-subtitle mb-3">' + newData[i]['job_title'] + '</h4>' + '<div class="d-flex align-items-center job-list-detail mb-1">' + '<div class="icon-wrapper">' + '<img src="/image/icon/homepage/icon-graduate.svg" alt="icon">' + '</div>' + '<p class="text">' + newData[i]['education_req'] + '</p>' + '</div>' + '<div class="d-flex align-items-center job-list-detail">' + '<div class="icon-wrapper">' + '<img src="/image/icon/homepage/icon-book.svg" alt="icon">' + '</div>' + '<p class="text">' + newData[i]['major'] + '</p>' + '</div>' + '</div>' + '</a>' + '</div>' + '</div>';
+
+			$('#loadJobs').append(option);
+		}
+	});
+});
+var table = {
+	init: function init() {
+
+		if ($('#tableNewsEvent').length) {
+			var column = [{ 'data': 'created_at' }, { 'data': 'title' }, { 'data': 'start_date' }, { 'data': 'end_date' }];
+
+			columnDefs = [{
+				"targets": 2,
+				"data": "type",
+				"render": function render(data, type, full, meta) {
+					var data = '';
+					if (full.type == 1) {
+						data = '-';
+					} else {
+						data = full.start_date;
+					}
+					return data;
+				}
+			}, {
+				"targets": 3,
+				"data": "type",
+				"render": function render(data, type, full, meta) {
+					var data = '';
+					if (full.type == 1) {
+						data = '-';
+					} else {
+						data = full.end_date;
+					}
+					return data;
+				}
+			}, {
+				"targets": 4,
+				"data": "type",
+				"render": function render(data, type, full, meta) {
+					var data = '';
+					if (full.type == 1) {
+						data = 'News';
+					} else {
+						data = 'Event';
+					}
+					return data;
+				}
+			}, {
+				"targets": 5,
+				"data": "status",
+				"render": function render(data, type, full, meta) {
+					var data = '';
+					if (full.status == 1) {
+						data = '<span class="status status-success">Aktif</span>';
+					} else {
+						data = '<span class="status status-delete">Deaktif</span>';
+					}
+					return data;
+				}
+			}, {
+				"targets": 6,
+				"data": "id",
+				"render": function render(data, type, full, meta) {
+					var id = encodeURIComponent(window.btoa(full.id));
+					var konfirm = '';
+					var data = '<button type="button" class="btn btn-table btn-transparent"><a href="/HR/news_event/detail-news-event/' + id + '"><img style="margin-right: 1px;" src="/image/icon/main/lingkarEdit_icon.svg" title="Edit News/Event"></a></button>';
+					if (full.status == '1') {
+						konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmNewsEvent"><img style="margin-right: 1px;" src="/image/icon/main/lingkarHapus_icon.svg" title="Deaktif News/Event"></button>';
+					} else {
+						konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmNewsEvent"><img style="margin-right: 1px;" src="/image/icon/main/lingkarAktif_icon.svg" title="Aktifkan News/Event"></button>';
+					}
+					return data + konfirm;
+				}
+			}];
+
+			table.serverSide('tableNewsEvent', column, '/HR/news_event/list-news-event', null, columnDefs);
+		}
+
+		if ($('#tableVacancy').length) {
+			var column = [{ 'data': 'created_at' }, { 'data': 'job_title' }, { 'data': 'type' }, { 'data': 'degree' }, { 'data': 'major' }, { 'data': 'work_time' }, { 'data': 'active_date' }, { 'data': 'status' }];
+
+			columnDefs = [{
+				"targets": 2,
+				"data": "type",
+				"render": function render(data, type, full, meta) {
+					var data = '';
+					if (full.type == 1) {
+						data = 'Full Time';
+					} else {
+						data = 'Intership';
+					}
+					return data;
+				}
+			}, {
+				"targets": 3,
+				"data": "degree",
+				"render": function render(data, type, full, meta) {
+					var data = '';
+					if (full.degree == 1) {
+						data = 'D3';
+					} else if (full.degree == 2) {
+						data = 'S1';
+					} else {
+						data = "S2";
+					}
+					return data;
+				}
+			}, {
+				"targets": 3,
+				"data": "degree",
+				"render": function render(data, type, full, meta) {
+					var data = '';
+					if (full.degree == 1) {
+						data = 'D3';
+					} else if (full.degree == 2) {
+						data = 'S1';
+					} else {
+						data = "S2";
+					}
+					return data;
+				}
+			}, {
+				"targets": 7,
+				"data": "status",
+				"render": function render(data, type, full, meta) {
+					var data = '';
+					if (full.status == 1) {
+						data = '<strong>Publised</strong>';
+					} else {
+						data = "<p>Deaktif</p>";
+					}
+					return data;
+				}
+			}, {
+				"targets": 8,
+				"data": "id",
+				"className": "action-poster-news",
+				"render": function render(data, type, full, meta) {
+					var id = encodeURIComponent(window.btoa(full.job_id));
+					var konfirm = '';
+					var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/vacancy/detail-vacancy/' + id + '"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Vacancy"> Edit&nbsp</a></button>';
+					if (full.status == '1') {
+						konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy edit-table"><img style="margin-right: 1px;" src="/image/icon/main/deactive.svg" title="Deaktif Vacancy">Deactive</button>';
+					} else {
+						konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy edit-table"><img style="margin-right: 1px;" src="/image/icon/main/active.svg" title="Aktifkan Vacancy">Active</button>';
+					}
+					var hasil = data + konfirm;
+					return hasil;
+				}
+			}];
+
+			table.serverSide('tableVacancy', column, 'HR/vacancy/list-vacancy', null, columnDefs);
+		}
+	},
+	filter: function filter(id, value) {
+		var imageDetail = '../image/icon/main/eye-solid.png';
+		var imageEdit = '../image/icon/main/pen-square-solid.png';
+		var imageDeactive = '../image/icon/main/deactive.png';
+		var imageActive = '../image/icon/main/activae.png';
+
+		$('.modal').modal('hide'); // ketika fitur filternya menggunakan modal
+
+		if (id == 'filterSearchList' || id == 'filterJobList') {
+			$('.loadMoreJob').hide();
+			_ajax.getData('/job-more', 'post', { value: value }, function (data) {
+				$('#loadJobs').empty();
+				if (data.length > 0) {
+					for (var i = 0; i < data.length; i++) {
+						var id = encodeURIComponent(window.btoa(data[i]['job_id']));
+
+						if (data[i]['type'] == 1) {
+							var type = '<div class="fulltime-badge mb-3">Full-time</div>';
+						} else if (data[i]['type'] == 2) {
+							var type = '<div class="internship-badge mb-3">Internship</div>';
+						}
+
+						var option = '<div class="col-lg-4 col-md-6 col-sm-12 my-3">' + '<div class="card card-job-list">' + '<a href="/job/detail/' + id + '" class="text-decoration-none">' + '<div class="card-body">' + type + '<label class="label-no-margin mb-1">' + data[i]['lokasi'] + ', Indonesia</label>' + '<h4 class="candidate-page-subtitle mb-3">' + data[i]['job_title'] + '</h4>' + '<div class="d-flex align-items-center job-list-detail mb-1">' + '<div class="icon-wrapper">' + '<img src="/image/icon/homepage/icon-graduate.svg" alt="icon">' + '</div>' + '<p class="text">' + data[i]['education_req'] + '</p>' + '</div>' + '<div class="d-flex align-items-center job-list-detail">' + '<div class="icon-wrapper">' + '<img src="/image/icon/homepage/icon-book.svg" alt="icon">' + '</div>' + '<p class="text">' + data[i]['major'] + '</p>' + '</div>' + '</div>' + '</a>' + '</div>' + '</div>';
+
+						$('#loadJobs').append(option);
+					}
+				} else {
+					var option = '<div class="col-12 my-3">' + '<div class="card card-job-list">' + '<p style="font-size: 23px;margin: 2rem 0px;text-align: center;">Data Not Found</p>' + '</div>' + '</div>';
+
+					$('#loadJobs').append(option);
+				}
+			});
+		}
+
+		if (id == 'filterCabang') {
+			var column = [{ 'data': 'kode_cabang' }, { 'data': 'nama_cabang' }, { 'data': 'alamat' }, { 'data': 'kota' }, { 'data': 'provinsi' }, { 'data': 'no_telp' }, { 'data': null }];
+
+			columnDefs = [{
+				"targets": 6,
+				"data": "status",
+				"render": function render(data, type, full, meta) {
+					var data = '';
+					if (full.status == 'Deactive') {
+						data = '<span class="badge-table badge-grey">Deactive</span>';
+					} else if (full.status == 'Active') {
+						data = '<span class="badge-table badge-blue">Active</span>';
+					}
+					return data;
+				}
+			}, {
+				"targets": 7,
+				"data": "id",
+				"render": function render(data, type, full, meta) {
+					var id = encodeURIComponent(window.btoa(full.id));
+					if (full.status == "Active") {
+						var link_item = '<a class="dropdown-item deactiveCabang" href="#">' + '<div class="icon-dropdown-menu d-inline-block">' + '<img src="' + imageDeactive + '" />' + '</div>' + '<span class="ml-2 d-inline-block">Deactive</span>' + '</a>';
+					} else {
+						var link_item = '<a class="dropdown-item activeCabang" href="#">' + '<div class="icon-dropdown-menu d-inline-block">' + '<img src="' + imageActive + '" />' + '</div>' + '<span class="ml-2 d-inline-block">Active</span>' + '</a>';
+					}
+					var data = '<div class="dropleft">' + '<button type="button" class="dropdown-toggle table-dropdown-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' + '<i class="fa fa-ellipsis-v"></i>' + '</button>' + '<div class="dropdown-menu dropdown-menu-table py-2">' + '<a class="dropdown-item detailCabang" href="#" type="button">' + '<div class="icon-dropdown-menu d-inline-block">' + '<img src="' + imageDetail + '" />' + '</div>' + '<span class="ml-2 d-inline-block">Detail</span>' + '</a>' + '<a class="dropdown-item" href="/cabang/edit-cabang/' + id + '">' + '<div class="icon-dropdown-menu d-inline-block">' + '<img src="' + imageEdit + '" />' + '</div>' + '<span class="ml-2 d-inline-block">Edit</span>' + '</a>' + link_item + '</div>' + '</div>';
+					return data;
+				}
+			}];
+
+			table.serverSide('tableCabang', column, 'cabang/get-cabang', value, columnDefs);
+		}
+	},
+	getData: function getData(url, params, callback) {
+		$.ajax({
+			url: url,
+			type: 'post',
+			data: params,
+			success: function success(result) {
+				if (!result.error) {
+					callback(null, result.data);
+				} else {
+					callback(data);
+				}
+			}
+		});
+	},
+	clear: function clear(id) {
+		var tbody = $('#' + id).find('tbody');
+		tbody.html('');
+	},
+	serverSide: function serverSide(id, columns, url) {
+		var custParam = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+		var columnDefs = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
+
+		var urutan = [0, 'desc'];
+		var ordering = true;
+
+		if (id == "tableVacancy") {
+			urutan = false;
+			ordering = false;
+		}
+
+		var search = true;
+
+		var svrTable = $("#" + id).DataTable({
+			// "drawCallback": function( settings ) {
+			// 	if (id == "tableVacancy") {
+			// 		$('.dataTables_scrollHead').remove()
+			// 		$('.dataTables_scrollBody table thead').hide()
+			// 	}
+			// },
+			// processing:true,
+			scrollY: "325px",
+			scrollCollapse: true,
+			serverSide: true,
+			columnDefs: columnDefs,
+			columns: columns,
+			responsive: false,
+			scrollX: true,
+			// scrollY: true,
+			ajax: function ajax(data, callback, settings) {
+				data.param = custParam;
+				_ajax.getData(url, 'post', data, function (result) {
+					console.log(result);
+					if (result.status == 'reload') {
+						ui.popup.show('confirm', result.messages.title, result.messages.message, 'refresh');
+					} else if (result.status == 'logout') {
+						ui.popup.alert(result.messages.title, result.messages.message, 'logout');
+					} else {
+						// if untuk menampilkan respon summary ketika servicenya jadi 1
+						if (id == 'tableReport') {
+							$('#summary_unpaid').html(result.summary.unpaid);
+							$('#summary_paid').html(result.summary.paid);
+							$('#summary_expired').html(result.summary.expired);
+						}
+						callback(result);
+					}
+				});
+			},
+			bDestroy: true,
+			searching: search,
+			order: urutan,
+			ordering: ordering
+		});
+
+		$('div.dataTables_filter input').unbind();
+		$('div.dataTables_filter input').bind('keyup', function (e) {
+			if (e.keyCode == 13) {
+				svrTable.search(this.value).draw();
+			}
+		});
+	},
+	setAndPopulate: function setAndPopulate(id, columns, data, columnDefs, ops, order) {
+		var _option;
+
+		var orderby = order ? order : [0, "asc"];
+		var option = (_option = {
+			"data": data,
+			"drawCallback": function drawCallback(settings) {},
+			tableTools: {
+				"sSwfPath": "assets/plugins/datatables/TableTools/swf/copy_csv_xls_pdf.swf",
+				"aButtons": ["xls", "csv", "pdf"]
+			},
+			"columns": columns,
+			"pageLength": 10,
+			"order": [orderby],
+			"bDestroy": true,
+			"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+			"aoColumnDefs": columnDefs,
+			"scrollX": true,
+			"scrollY": true
+		}, _defineProperty(_option, 'lengthMenu', [[10, 25, 50, -1], [10, 25, 50, "All"]]), _defineProperty(_option, "buttons", ['csv', 'pdf']), _defineProperty(_option, "rowCallback", function rowCallback(row, data) {
+			if (id == "tbl_notification") {
+				if (data.read == "1") {
+					$(row).css('background-color', '#D4D4D4');
+				}
+			}
+			if (id == "tbl_mitra" || id == "tbl_user" || id == "tbl_agent_approved") {
+				if (data.status == "0") {
+					$(row).css('background-color', '#FF7A7A');
+				}
+			}
+		}), _option);
+		if (ops != null) {
+			$.extend(option, ops);
+		}
+		var tbody = $('#' + id).find('tbody');
+
+		var t = $('#' + id).DataTable(option);
+		t.on('order.dt search.dt', function () {
+			if (id == 'tableFitur') {} else {
+				t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+					cell.innerHTML = i + 1;
+				});
+			}
+		}).draw();
+	}
+};
+
+$('#tableNewsEvent tbody').on('click', 'button.konfirmNewsEvent', function (e) {
+	var table = $('#tableNewsEvent').DataTable();
+	var dataRow = table.row($(this).closest('tr')).data();
+
+	if (dataRow.status == '1') {
+		$('#titleKonfirmasiEventNews').html('Apakah Anda yakin akan menonaktifkan News/Event "' + dataRow.title + '" ?');
+		$('#tipeDeleteNewsEvent').val('0');
+		$('#titleModalKonfirmEventNews').html('Nonaktifkan News/Event');
+		$('#btnKonfirmasiNewsEvent').html('Nonaktifkan');
+		document.getElementById("btnKonfirmasiNewsEvent").classList.remove('btn-submit-modal');
+		document.getElementById("btnKonfirmasiNewsEvent").classList.add('btn-hapus-modal');
+	} else if (dataRow.status == '0') {
+		$('#titleKonfirmasiEventNews').html('Apakah Anda yakin akan mengaktifkan News/Event "' + dataRow.title + '" ?');
+		$('#tipeDeleteNewsEvent').val('1');
+		$('#titleModalKonfirmEventNews').html('Aktifkan News/Event');
+		$('#btnKonfirmasiNewsEvent').html('Aktifkan');
+		document.getElementById("btnKonfirmasiNewsEvent").classList.remove('btn-hapus-modal');
+		document.getElementById("btnKonfirmasiNewsEvent").classList.add('btn-submit-modal');
+	}
+
+	$('#idDeleteNewsEvent').val(dataRow.id);
+
+	$('#modalKonfirmEventNews').modal('show');
+});
+
+$('#tableVacancy tbody').on('click', 'button.konfirmVacancy', function (e) {
+	var table = $('#tableVacancy').DataTable();
+	var dataRow = table.row($(this).closest('tr')).data();
+
+	if (dataRow.status == '1') {
+		$('#titleKonfirmasiVacancy').html('Apakah Anda yakin akan menonaktifkan Vacancy "' + dataRow.job_title + '" ?');
+		$('#tipeDeleteVacancy').val('0');
+		$('#titleModalKonfirmVacancy').html('Nonaktifkan Vacancy');
+		$('#btnKonfirmasiVacancy').html('Nonaktifkan');
+		document.getElementById("btnKonfirmasiVacancy").classList.remove('btn-submit-modal');
+		document.getElementById("btnKonfirmasiVacancy").classList.add('btn-hapus-modal');
+	} else if (dataRow.status == '0') {
+		$('#titleKonfirmasiVacancy').html('Apakah Anda yakin akan mengaktifkan Vacancy "' + dataRow.job_title + '" ?');
+		$('#tipeDeleteVacancy').val('1');
+		$('#titleModalKonfirmVacancy').html('Aktifkan Vacancy');
+		$('#btnKonfirmasiVacancy').html('Aktifkan');
+		document.getElementById("btnKonfirmasiVacancy").classList.remove('btn-hapus-modal');
+		document.getElementById("btnKonfirmasiVacancy").classList.add('btn-submit-modal');
+	}
+
+	$('#idDeleteVacancy').val(dataRow.job_id);
+
+	$('#modalKonfirmVacancy').modal('show');
+});
+
+var ui = {
+	popup: {
+		show: function show(type, message, url) {
+			if (type == 'error') {
+				Swal.fire({
+					title: message,
+					type: type,
+					confirmButtonText: 'OK',
+					allowOutsideClick: false
+				});
+			} else if (type == 'success') {
+				if (url == 'close') {
+					Swal.fire({
+						title: message,
+						type: type,
+						confirmButtonText: 'OK',
+						allowOutsideClick: false
+					});
+				} else {
+					Swal.fire({
+						title: message,
+						type: type,
+						confirmButtonText: 'OK',
+						allowOutsideClick: false
+					}).then(function () {
+						window.location = url;
+					});
+				}
+			} else if (type == 'initActivation') {
+				Swal.fire({
+					html: message,
+					showConfirmButton: true,
+					confirmButtonText: 'Submit',
+					showCancelButton: true,
+					cancelButtonText: 'Tutup',
+					allowOutsideClick: false
+				});
+			} else if (type == 'warning') {
+				if (url == 'close') {
+					Swal.fire({
+						title: message,
+						type: type,
+						confirmButtonText: 'OK',
+						allowOutsideClick: false
+					});
+				} else {
+					Swal.fire({
+						title: message,
+						type: type,
+						confirmButtonText: 'OK',
+						allowOutsideClick: false
+					}).then(function () {
+						window.location = url;
+					});
+				}
+			} else {
+				Swal.fire({
+					title: message,
+					type: type,
+					confirmButtonText: 'OK',
+					allowOutsideClick: false
+				});
+			}
+		},
+		showLoader: function showLoader() {
+			$("#loading-overlay").addClass("active");
+			$("body").addClass("modal-open");
+		},
+		hideLoader: function hideLoader() {
+			$("#loading-overlay").removeClass("active");
+			$("body").removeClass("modal-open");
+		},
+		hide: function hide(id) {
+			$('.' + id).toggleClass('submitted');
+		}
+
+	},
+	slide: {
+		init: function init() {
+			$('.carousel-control').on('click', function (e) {
+				e.preventDefault();
+				var control = $(this);
+
+				var item = control.parent();
+
+				if (control.hasClass('right')) {
+					ui.slide.next(item);
+				} else {
+					ui.slide.prev(item);
+				}
+			});
+			$('.slideBtn').on('click', function (e) {
+				e.preventDefault();
+				var control = $(this);
+				var item = $("#" + control.attr('for'));
+
+				if (item[0].id === 'page-1') {
+					$('.tracking-line div').removeClass();
+					$('.education-information img').attr('src', '/image/icon/homepage/track-toga-red.svg');
+					$('.personal-information').removeClass('active');
+					$('.education-information').addClass('active');
+					$('.tracking-line div:first-child').addClass('red-line');
+					$('.tracking-line div:last-child').addClass('gray-line');
+				} else if (item[0].id === 'page-2') {
+					$('.tracking-line div').removeClass();
+					$('.other-information img').attr('src', '/image/icon/homepage/track-pin-red.svg');
+					$('.education-information').removeClass('active');
+					$('.other-information').addClass('active');
+					$('.tracking-line div:first-child').addClass('red-line');
+					$('.tracking-line div:last-child').addClass('red-line');
+				} else {
+					$('.tracking-line div').removeClass();
+					$('.tracking-line div:first-child').addClass('red-line');
+					$('.tracking-line div:last-child').addClass('red-line');
+				}
+
+				if (control.hasClass('btn-next')) {
+					ui.slide.next(item);
+				} else {
+					ui.slide.prev(item);
+				}
+			});
+		},
+		next: function next(item) {
+			var nextItem = item.next();
+			item.toggle({ 'slide': {
+					direction: 'left'
+				} });
+			nextItem.toggle({ 'slide': {
+					direction: 'right'
+				} });
+		},
+		prev: function prev(item) {
+			var prevItem = item.prev();
+			item.toggle({ 'slide': {
+					direction: 'right'
+				} });
+			prevItem.toggle({ 'slide': {
+					direction: 'left'
+				} });
+		}
+	}
+};
+
+var formrules = {
+	// contoh validasi id form
+	'formLoginAdmin': {
+		ignore: null,
+		rules: {
+			'email': 'required',
+			'password': 'required'
+		},
+		submitHandler: false,
+		messages: {
+			email: {
+				required: 'Mohon isi email'
+			},
+			password: {
+				required: 'Mohon isi password'
+			}
+		}
+	},
+
+	'formAddEventNews': {
+		ignore: null,
+		rules: {
+			'imageNewsEvent': {
+				required: true
+			},
+			'titleNewsEvent': {
+				required: true
+			},
+			'tipeNewsEvent': {
+				required: true
+			},
+			'tglMulaiNewsEvent': {
+				required: true
+			},
+			'tglSelesaiNewsEvent': {
+				required: true
+			},
+			'descriptionNewsEvent': {
+				required: true
+			}
+		},
+		submitHandler: false,
+		messages: {
+			imageNewsEvent: {
+				required: 'Mohon isi Image'
+			},
+			titleNewsEvent: {
+				required: 'Mohon isi Title'
+			},
+			tipeNewsEvent: {
+				required: 'Mohon pilih Tipe'
+			},
+			tglMulaiNewsEvent: {
+				required: 'Mohon isi Start Date'
+			},
+			tglSelesaiNewsEvent: {
+				required: 'Mohon isi Start Date'
+			},
+			descriptionNewsEvent: {
+				required: 'Mohon isi Description'
+			}
+		},
+		errorPlacement: function errorPlacement(error, element) {
+			if (element.is("#tipeNewsEvent")) {
+				error.appendTo(element.parents('#tipeNewsEventDiv'));
+			} else {
+				// This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+	},
+
+	'formEditEventNews': {
+		ignore: null,
+		rules: {
+			'titleNewsEvent': {
+				required: true
+			},
+			'tipeNewsEvent': {
+				required: true
+			},
+			'tglMulaiNewsEvent': {
+				required: true
+			},
+			'tglSelesaiNewsEvent': {
+				required: true
+			},
+			'descriptionNewsEvent': {
+				required: true
+			}
+		},
+		submitHandler: false,
+		messages: {
+			titleNewsEvent: {
+				required: 'Mohon isi Title'
+			},
+			tipeNewsEvent: {
+				required: 'Mohon pilih Tipe'
+			},
+			tglMulaiNewsEvent: {
+				required: 'Mohon isi Start Date'
+			},
+			tglSelesaiNewsEvent: {
+				required: 'Mohon isi Start Date'
+			},
+			descriptionNewsEvent: {
+				required: 'Mohon isi Description'
+			}
+		},
+		errorPlacement: function errorPlacement(error, element) {
+			if (element.is("#tipeNewsEvent")) {
+				error.appendTo(element.parents('#tipeNewsEventDiv'));
+			} else {
+				// This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+	},
+
+	'formAddVacancy': {
+		ignore: null,
+		rules: {
+			'titleVacancy': {
+				required: true
+			},
+			'locationVacancy': {
+				required: true
+			},
+			'degreeVacancy': {
+				required: true
+			},
+			'typeVacancy': {
+				required: true
+			},
+			'workingTimeVacancy': {
+				required: true
+			},
+			'activatedDate': {
+				required: true
+			},
+			'majorVacancy': {
+				required: true
+			},
+			'descriptionVacancy': {
+				required: true
+			}
+		},
+		submitHandler: false,
+		messages: {
+			titleVacancy: {
+				required: 'Mohon isi Title'
+			},
+			locationVacancy: {
+				required: 'Mohon Pilih Lokasi'
+			},
+			degreeVacancy: {
+				required: 'Mohon pilih Degree'
+			},
+			typeVacancy: {
+				required: 'Mohon pilih Tipe'
+			},
+			workingTimeVacancy: {
+				required: 'Mohon isi Working Time'
+			},
+			activatedDate: {
+				required: 'Mohon isi Active Date'
+			},
+			majorVacancy: {
+				required: 'Mohon pilih Major'
+			},
+			descriptionVacancy: {
+				required: 'Mohon isi Description'
+			}
+		},
+		errorPlacement: function errorPlacement(error, element) {
+			if (element.is("#locationVacancy")) {
+				error.appendTo(element.parents('#locationVacancyDiv'));
+			} else if (element.is("#degreeVacancy")) {
+				error.appendTo(element.parents('#degreeVacancyDiv'));
+			} else if (element.is("#typeVacancy")) {
+				error.appendTo(element.parents('#typeVacancyDiv'));
+			} else if (element.is("#majorVacancy")) {
+				error.appendTo(element.parents('#majorVacancyDiv'));
+			} else {
+				// This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+	},
+
+	'formFirstLogin': {
+		ignore: null,
+		rules: {
+			'photoProfile': {
+				required: true
+			},
+			'firstName': {
+				required: true,
+				STD_VAL_WEB_3: true
+			},
+			'lastName': {
+				STD_VAL_WEB_3: true
+			},
+			'birthDate': {
+				required: true,
+				STD_VAL_WEB_11: true
+			},
+			'gender': {
+				required: true
+			},
+			'phoneNumber': {
+				required: true,
+				STD_VAL_WEB_8: true
+			},
+			'myLocation': {
+				required: true
+			},
+			'lingkedInLink': {
+				STD_VAL_WEB_20: true
+			},
+			'university': {
+				required: true,
+				STD_VAL_WEB_25: true
+			},
+			'degree': {
+				required: true
+			},
+			'faculty': {
+				required: true,
+				STD_VAL_WEB_25: true
+			},
+			'major': {
+				required: true
+			},
+			'startDateEducation': {
+				required: true
+			},
+			'endDateEducation': {
+				required: true
+			},
+			'gpa': {
+				required: true
+			},
+			'certificate': {
+				required: true
+			}
+			// 'coverLetter':{
+			// 	STD_VAL_WEB_20:true,
+			// },
+			// 'resume':{
+			// 	STD_VAL_WEB_20:true,
+			// },
+			// 'portofolio':{
+			// 	STD_VAL_WEB_20:true,
+			// },
+			// 'skill':{
+			// 	STD_VAL_WEB_20:true,
+			// },
+		},
+		submitHandler: false,
+		messages: {
+			titleNewsEvent: {
+				required: 'Mohon isi Title'
+			},
+			tipeNewsEvent: {
+				required: 'Mohon pilih Tipe'
+			},
+			tglMulaiNewsEvent: {
+				required: 'Mohon isi Start Date'
+			},
+			tglSelesaiNewsEvent: {
+				required: 'Mohon isi Start Date'
+			},
+			descriptionNewsEvent: {
+				required: 'Mohon isi Description'
+			}
+		},
+		errorPlacement: function errorPlacement(error, element) {
+			if (element.is("#tipeNewsEvent")) {
+				error.appendTo(element.parents('#tipeNewsEventDiv'));
+			} else {
+				// This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+	},
+
+	'formEditPassword': {
+		ignore: null,
+		rules: {
+			'oldPassword': {
+				required: true
+			},
+			'newPassword': {
+				required: true
+			},
+			'newPasswordConfirm': {
+				required: true,
+				equalTo: '#newPassword'
+			}
+		},
+		submitHandler: false,
+		messages: {
+			oldPassword: {
+				required: 'Mohon isi password lama'
+			},
+			newPassword: {
+				required: 'Mohon isi password baru'
+			},
+			newPasswordConfirm: {
+				required: 'Mohon isi konfirmasi password baru'
+			}
+		},
+		errorPlacement: function errorPlacement(error, element) {
+			if (element.is("#tipeNewsEvent")) {
+				error.appendTo(element.parents('#tipeNewsEventDiv'));
+			} else {
+				// This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+	},
+
+	'formEditPersonalInformation': {
+		ignore: null,
+		rules: {
+			'firstName': {
+				required: true,
+				STD_VAL_WEB_3: true
+			},
+			'lastName': {
+				required: true,
+				STD_VAL_WEB_3: true
+			},
+			'birthDate': {
+				required: true,
+				STD_VAL_WEB_11: true
+			},
+			'gender': {
+				required: true
+			},
+			'phoneNumber': {
+				required: true,
+				STD_VAL_WEB_8: true
+			},
+			'myLocation': {
+				required: true
+			},
+			'lingkedInLink': {
+				required: true,
+				STD_VAL_WEB_20: true
+			}
+		},
+		submitHandler: false,
+		errorPlacement: function errorPlacement(error, element) {
+			if (element.is("#myLocation")) {
+				error.appendTo(element.parents('#myLocationDiv'));
+			} else if (element.is("#gender")) {
+				error.appendTo(element.parents('#genderDiv'));
+			} else {
+				// This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+	}
+
+};
+
+var validation = {
+	messages: {
+		required: function required() {
+			return '<i class="fa fa-exclamation-circle"></i> Mohon isi kolom ini';
+		},
+		minlength: function minlength(length) {
+			return '<i class="fa fa-exclamation-circle"></i> Isi dengan minimum ' + length;
+		},
+		maxlength: function maxlength(length) {
+			return '<i class="fa fa-exclamation-circle"></i> Isi dengan maximum ' + length;
+		},
+		max: function max(message, length) {
+			return '<i class="fa fa-exclamation-circle"></i> ' + message + length;
+		},
+		email: function email() {
+			return '<i class="fa fa-exclamation-circle"></i> Email Anda salah. Email harus terdiri dari @ dan domain';
+		},
+		digits: function digits() {
+			return '<i class="fa fa-exclamation-circle"></i> Mohon isi hanya dengan nomor';
+		},
+		numbers2: function numbers2() {
+			return '<i class="fa fa-exclamation-circle"></i> Mohon isi hanya dengan nomor';
+		},
+		nameCheck: function nameCheck() {
+			return '<i class="fa fa-exclamation-circle"></i> Nama hanya boleh mengandung A-Z dan \'';
+		},
+		numericsSlash: function numericsSlash() {
+			return '<i class="fa fa-exclamation-circle"></i> Nama hanya boleh mengandung 0-9 dan /';
+		},
+		alphaNumeric: function alphaNumeric() {
+			return '<i class="fa fa-exclamation-circle"></i> Nama hanya boleh mengandung 0-9, A-Z dan spasi';
+		},
+		alphaNumericNS: function alphaNumericNS() {
+			return '<i class="fa fa-exclamation-circle"></i> Nama hanya boleh mengandung 0-9 dan A-Z';
+		},
+		alpha: function alpha() {
+			return '<i class="fa fa-exclamation-circle"></i> Nama hanya boleh mengandung A-Z dan spasi';
+		},
+		alphaNS: function alphaNS() {
+			return '<i class="fa fa-exclamation-circle"></i> Nama hanya boleh mengandung A-Z';
+		},
+		equalTo: function equalTo() {
+			return '<i class="fa fa-exclamation-circle"></i> Mohon mengisi dengan isian yang sama';
+		},
+		addresscheck: function addresscheck() {
+			return '<i class="fa fa-exclamation-circle"></i> Input harus mengandung satu nomor, satu huruf kecil dan satu huruf besar';
+		},
+		pwcheck: function pwcheck() {
+			return '<i class="fa fa-exclamation-circle"></i> Input minimum 8 dan mengandung satu nomor, satu huruf kecil dan satu huruf besar';
+		},
+		pwcheck_alfanum: function pwcheck_alfanum() {
+			return '<i class="fa fa-exclamation-circle"></i> Input antara 8-14 karakter dan harus merupakan kombinasi antara angka dan huruf';
+		},
+		pwcheck2: function pwcheck2() {
+			return '<i class="fa fa-exclamation-circle"></i> Input antara 8-14 karakter dan harus mengandung nomor, huruf kecil, huruf besar dan simbol kecuali ("#<>\/\\=\')';
+		},
+		notEqual: function notEqual(message) {
+			return '<i class="fa fa-exclamation-circle"></i> ' + message;
+		},
+		checkDate: function checkDate() {
+			return '<i class="fa fa-exclamation-circle"></i> Format tanggal salah';
+		},
+		checkTime: function checkTime() {
+			return '<i class="fa fa-exclamation-circle"></i> Format time (HH:mm) salah';
+		},
+		formatSeparator: function formatSeparator() {
+			return '<i class="fa fa-exclamation-circle"></i> Contoh format: Ibu rumah tangga, pedagang, tukang jahit';
+		},
+		acceptImage: function acceptImage() {
+			return '<i class="fa fa-exclamation-circle"></i> Mohon upload hanya gambar';
+		},
+		filesize: function filesize(size) {
+			return '<i class="fa fa-exclamation-circle"></i> Max file size: ' + size;
+		},
+		extension: function extension(format) {
+			return '<i class="fa fa-exclamation-circle"></i> Format yang Anda pilih tidak sesuai';
+		},
+		minValue: function minValue(_minValue) {
+			return '<i class="fa fa-exclamation-circle"></i> Minimal Amount: ' + _minValue;
+		},
+		ageCheck: function ageCheck(age) {
+			return '<i class="fa fa-exclamation-circle"></i> Minimal Age ' + age;
+		},
+		checkDateyyyymmdd: function checkDateyyyymmdd() {
+			return '<i class="fa fa-exclamation-circle></i> Format tanggal YYYY-MM-DD, contoh: 2016-01-30';
+		},
+		checkDateddmmyyyy: function checkDateddmmyyyy() {
+			return '<i class="fa fa-exclamation-circle></i> Format tanggal DD/MM/YYYY, contoh: 17/08/1945';
+		}
+	},
+	addMethods: function addMethods() {
+		// alert('method')
+		// jQuery.validator.addMethod("maxDateRange",
+		jQuery.extend(jQuery.validator.messages, {
+			required: "Mohon isi kolom ini.",
+			remote: "Please fix this field.",
+			email: "Email Anda salah. Email harus terdiri dari @ dan domain.",
+			url: "Please enter a valid URL.",
+			date: "Please enter a valid date.",
+			dateISO: "Please enter a valid date (ISO).",
+			number: "Please enter a valid number.",
+			digits: "Mohon isi hanya dengan angka.",
+			creditcard: "Please enter a valid credit card number.",
+			equalTo: "Mohon isi dengan value yang sama.",
+			accept: "Format yang Anda pilih tidak sesuai.",
+			maxlength: jQuery.validator.format("Mohon isi dengan tidak melebihi {0} karakter."),
+			minlength: jQuery.validator.format("Mohon isi dengan minimal {0} karakter."),
+			rangelength: jQuery.validator.format("Please enter a value between {0} and {1} characters long."),
+			range: jQuery.validator.format("Please enter a value between {0} and {1}."),
+			max: jQuery.validator.format("Mohon isi tidak melebihi {0}."),
+			min: jQuery.validator.format("Mohon isi minimal {0}."),
+			extension: "Format yang Anda pilih tidak sesuai.",
+			alphaNumeric: "Hanya boleh mengandung 0-9, A-Z dan spasi"
+			// addresscheck:"Input harus mengandung satu nomor, satu huruf kecil dan satu huruf besar"
+		});
+
+		$.validator.addMethod("maxDateRange", function (value, element, params) {
+			var end = new Date(value);
+			var start = new Date($(params[0]).val());
+			var range = (end - start) / 86400000;
+			if (!/Invalid|NaN/.test(new Date(value))) {
+
+				return range <= params[1];
+			}
+
+			return isNaN(value) && isNaN($(params[0]).val()) || range <= params[1];
+		}, 'Melebihi maksimal range {1} hari.');
+		jQuery.validator.addMethod("greaterThan", function (value, element, params) {
+			console.log(value, element, params);
+			if (!/Invalid|NaN/.test(new Date(value))) {
+				return new Date(value) > new Date($(params).val());
+			}
+
+			return isNaN(value) && isNaN($(params).val()) || Number(value) > Number($(params).val());
+		}, 'Must be greater than {0}.');
+		$.validator.addMethod("ageCheck", function (value, element, param) {
+			var now = moment();
+			//return now;
+			function parseNewDate(date) {
+				var split = date.split('-');
+				var b = moment([split[2], split[1] - 1, split[0]]);
+				return b;
+			}
+			var difference = now.diff(parseNewDate(value), 'years');
+			return difference >= param;
+		}, "Check Umur");
+		jQuery.validator.addMethod("numbers2", function (value, element) {
+			return this.optional(element) || /^-?(?!0)(?:\d+|\d{1,3}(?:\.\d{3})+)$/.test(value);
+		}, "Mohon isi hanya dengan nomor");
+
+		jQuery.validator.addMethod("nameCheck", function (value, element) {
+			return this.optional(element) || /^([a-zA-Z' ]+)$/.test(value);
+		}, "Nama hanya boleh mengandung A-Z dan '");
+
+		jQuery.validator.addMethod("numericsSlash", function (value, element) {
+			return this.optional(element) || /^([0-9/]+)$/.test(value);
+		}, "Nama hanya boleh mengandung 0-9 dan /");
+
+		jQuery.validator.addMethod("numericDot", function (value, element) {
+			return this.optional(element) || /^([0-9.]+)$/.test(value);
+		}, "Nama hanya boleh mengandung 0-9 dan .");
+
+		jQuery.validator.addMethod("numericKoma", function (value, element) {
+			return this.optional(element) || /^([0-9,]+)$/.test(value);
+		}, "Nama hanya boleh mengandung 0-9 dan ,");
+
+		jQuery.validator.addMethod("alphaNumeric", function (value, element) {
+			return this.optional(element) || /^[a-zA-Z0-9. ]*$/.test(value);
+		}, "Hanya boleh mengandung 0-9, A-Z, Titik dan spasi");
+
+		jQuery.validator.addMethod("alphaNumericNS", function (value, element) {
+			return this.optional(element) || /^[a-zA-Z0-9]*$/.test(value);
+		}, "Nama hanya boleh mengandung 0-9 dan A-Z");
+
+		jQuery.validator.addMethod("alamatFormat", function (value, element) {
+			return this.optional(element) || /^[a-zA-Z0-9 .,-/]*$/.test(value);
+		}, "Nama hanya boleh mengandung A-Z, 0-9, titik, koma, dan strip");
+
+		jQuery.validator.addMethod("defaultText", function (value, element) {
+			return this.optional(element) || /^[a-zA-Z0-9 ',-.:/?!&%()+=_\n]*$/.test(value);
+		}, "Inputan hanya boleh mengandung A-Z, 0-9, spasi dan simbol .,:'/?!&%()-+=_");
+
+		jQuery.validator.addMethod("defaultName", function (value, element) {
+			return this.optional(element) || /^[a-zA-Z0-9 .']*$/.test(value);
+		}, "Inputan hanya boleh mengandung A-Z, 0-9, spasi dan simbol .'");
+
+		jQuery.validator.addMethod("arabic", function (value, element) {
+			return this.optional(element) || /^[\u0600-\u06FF\u0750-\u077F ]*$/.test(value);
+		}, "Inputan hanya boleh bahasa Arab.");
+
+		jQuery.validator.addMethod("defaultPhone", function (value, element) {
+			return this.optional(element) || /^[0-9-/']*$/.test(value);
+		}, "Inputan hanya boleh mengandung 0-9, spasi, dan simbol-/'");
+
+		jQuery.validator.addMethod("alpha", function (value, element) {
+			return this.optional(element) || /^[a-zA-Z ]*$/.test(value);
+		}, "Nama hanya boleh mengandung A-Z dan spasi");
+
+		jQuery.validator.addMethod("alphaNS", function (value, element) {
+			return this.optional(element) || /^[a-zA-Z]*$/.test(value);
+		}, "Nama hanya boleh mengandung A-Z");
+
+		jQuery.validator.addMethod("addresscheck", function (value, element) {
+			return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\s).{8,}$/.test(value);
+		}, "Input harus mengandung satu nomor, satu huruf kecil dan satu huruf besar");
+
+		jQuery.validator.addMethod("pwcheck", function (value, element) {
+			return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$/.test(value);
+		}, "Input harus mengandung satu nomor, satu huruf kecil dan satu huruf besar");
+
+		jQuery.validator.addMethod("pwcheck_alfanum", function (value, element) {
+			return this.optional(element) || /^(?=.*\d)(?=.*\D)(?!.*\s).{8,14}$/.test(value);
+		}, "Input harus merupakan kombinasi antara angka dan huruf");
+
+		jQuery.validator.addMethod("pwcheck2", function (value, element) {
+			return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w])(?!.*[#<>\/\\=”’"'])(?!.*\s).{8,14}$/.test(value);
+		}, "Input harus mengandung satu nomor, satu huruf kecil, satu huruf besar, simbol kecuali \"#<>\/\\=\"'");
+
+		jQuery.validator.addMethod("pwcheck3", function (value, element) {
+			return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w])(?!.*\s).{8,12}$/.test(value);
+		}, "Input harus mengandung satu nomor, satu huruf kecil, satu huruf besar, simbol");
+
+		jQuery.validator.addMethod("max", function (value, element, param) {
+			var val = parseFloat(value.replace(/\./g, ""));
+			return this.optional(element) || val <= param;
+		}, jQuery.validator.format("Maksimal {0}"));
+
+		jQuery.validator.addMethod("maxDec", function (value, element, param) {
+			var data = value.replace(',', '.');
+			return this.optional(element) || data <= param;
+		}, jQuery.validator.format("Maksimal {0}"));
+
+		jQuery.validator.addMethod("maxDecMargin", function (value, element, param) {
+			var data = value.replace(',', '.');
+			return this.optional(element) || data <= param;
+		}, jQuery.validator.format("Margin tidak valid"));
+
+		jQuery.validator.addMethod("notEqual", function (value, element, param) {
+			return this.optional(element) || value != $(param).val();
+		}, "This has to be different...");
+
+		jQuery.validator.addMethod("notZero", function (value, element, param) {
+			var val = parseFloat(value.replace(/\./g, ""));
+			var nol = value.substr(0, 1);
+			return this.optional(element) || val != param;
+		}, jQuery.validator.format("Value Tidak Boleh 0"));
+
+		jQuery.validator.addMethod("zeroValid", function (value, element, param) {
+			var nol = value.substr(0, 1);
+			var val = parseFloat(value.replace(/\./g, ""));
+			if (value.length == 1) {
+				return this.optional(element) || val == nol;
+			} else {
+				return this.optional(element) || nol != param;
+			}
+		}, jQuery.validator.format("Angka pertama tidak boleh 0"));
+
+		jQuery.validator.addMethod("minValue", function (value, element, param) {
+			return value >= param;
+		}, "Min Value needed");
+
+		jQuery.validator.addMethod("checkDate", function (value, element) {
+			return this.optional(element) || /^(((0[1-9]|[12]\d|3[01])\-(0[13578]|1[02])\-((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\-(0[13456789]|1[012])\-((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\-02\-((19|[2-9]\d)\d{2}))|(29\-02\-((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/.test(value);
+		}, "Format tanggal salah");
+
+		jQuery.validator.addMethod("checkTime", function (value, element) {
+			return this.optional(element) || /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(value);
+		}, "Format time (HH:mm) salah");
+
+		jQuery.validator.addMethod("formatSeparator", function (value, element) {
+			return this.optional(element) || /^[A-Za-z ]+(,[A-Za-z ]+){0,2}$/.test(value);
+		}, "Contoh format: Ibu rumah tangga,pedagang,tukang jahit");
+
+		jQuery.validator.addMethod("checkDateyyyymmdd", function (value, element) {
+			return this.optional(element) || /^\d{4}-((0\d)|(1[012]))-(([012]\d)|3[01])$/.test(value);
+		}, "Format tanggal YYYY-MM-DD, contoh: 2016-01-30");
+
+		jQuery.validator.addMethod("checkDateddmmyyyy", function (value, element) {
+			return this.optional(element) || /^\d{2}\/\d{2}\/\d{4}$/.test(value);
+		}, "Format tanggal Bulan/Tanggal/Tahun, contoh: 06/08/1945");
+
+		jQuery.validator.addMethod("emailType", function (value, element) {
+			value = value.toLowerCase();
+			return this.optional(element) || /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
+		}, "Email Anda salah. Email harus terdiri dari @ dan domain");
+
+		jQuery.validator.addMethod("symbol", function (value, element) {
+			return this.optional(element) || /^[a-zA-Z0-9!@#$%^&()]*$/.test(value);
+		}, "Password hanya boleh mengandung A-Z, a-z, 0-9 dan simbol dari 0-9");
+		jQuery.validator.addMethod('filesize', function (value, element, param) {
+			return this.optional(element) || element.files[0].size <= param;
+		}, "Ukuran Maksimal Gambar 1 MB");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_1", function (value, element) {
+			return this.optional(element) || /^(?=.*\d)([a-zA-Z0-9]+)(?!.*[ #<>\/\\=”’"'!@#$%^&()]).{6,10}$/.test(value);
+		}, "Username yang Anda masukkan harus terdiri dari 6-10 karakter alfanumerik tanpa spasi");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_2", function (value, element) {
+			// 3x salah blokir
+			return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w])(?!.*\s).{8,12}$/.test(value);
+		}, "Password kombinasi huruf kapital, huruf kecil, angka, dan karakter non-alphabetic");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_3", function (value, element) {
+			return this.optional(element) || /^[a-zA-Z.' ]*$/.test(value);
+		}, "Nama harus terdiri dari alfabet, titik (.) dan single quote (')");
+
+		// STD_VAL_WEB_4 Jenis Kelamin (kemungkinan select option)
+
+		jQuery.validator.addMethod("STD_VAL_WEB_5", function (value, element) {
+			value = value.toLowerCase();
+			return this.optional(element) || /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
+		}, "Email Anda salah. Email harus terdiri dari @ dan domain");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_6", function (value, element) {
+			return this.optional(element) || /^\d{16}$/.test(value);
+		}, "Nomor KTP yang Anda masukkan salah. Harus terdiri dari 16 karakter");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_7", function (value, element) {
+			return this.optional(element) || /^\d{15}$/.test(value);
+		}, "NPWP yang Anda masukkan salah. Harus terdiri dari 15 karakter tanpa spasi dan symbol");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_8", function (value, element) {
+			return this.optional(element) || /^\d{11,13}$/.test(value);
+		}, "Nomor HP yang Anda masukkan salah");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_9", function (value, element) {
+			// 3x salah blokir
+			return this.optional(element) || /^\d{6}$/.test(value);
+		}, "Pin yang anda masukkan salah. Jika salah hingga 3x akan otomatis terblokir");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_10", function (value, element) {
+			return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\s).{6,255}$/.test(value);
+		}, "Alamat yang anda masukkan salah");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_11", function (value, element) {
+			return this.optional(element) || /^(((0[1-9]|[12]\d|3[01])\-(0[13578]|1[02])\-((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\-(0[13456789]|1[012])\-((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\-02\-((19|[2-9]\d)\d{2}))|(29\-02\-((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/.test(value);
+		}, "Masukkan format tanggal yang sesuai");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_12", function (value, element) {
+			return this.optional(element) || /^([1-9]|([012][0-9])|(3[01]))-([0]{0,1}[1-9]|1[012])-\d\d\d\d [012]{0,1}[0-9]:[0-6][0-9]:[0-6][0-9]$/.test(value);
+		}, "Masukkan format tanggal yang sesuai");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_13", function (value, element) {
+			// 3x salah blokir, expired 3 menit, 1 menit untuk retry
+			return this.optional(element) || /^\d{6}$/.test(value);
+		}, "OTP yang Anda masukkan salah");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_14", function (value, element) {
+			return this.optional(element) || /^[a-zA-Z0-9]{8,12}$/.test(value);
+		}, "MPIN yang Anda masukkan salah");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_15", function (value, element) {
+			// setelah 4 input angka otomatis spasi (tambahkan pada masking)
+			return this.optional(element) || /^[0-9 ]{19}$/.test(value);
+		}, "Nomor kartu yang Anda masukkan tidak valid/salah");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_16", function (value, element) {
+			// Saat input otomatis masking
+			return this.optional(element) || /^\d{3}$/.test(value);
+		}, "CVV yang Anda masukkan tidak valid/salah");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_17", function (value, element) {
+			// Maxlength sesuai kebutuhan
+			return this.optional(element) || /^[0-9]*$/.test(value);
+		}, "Virtual Account Number yang anda masukkan tidak valid");
+
+		jQuery.validator.addMethod('STD_VAL_WEB_18', function (value, element, param) {
+			param = typeof param === "string" ? param.replace(/,/g, "|") : "png|jpeg|png";
+			return this.optional(element) || element.files[0].size <= 1000000 && value.match(new RegExp("\\.(" + param + ")$", "i"));
+		}, "Upload gambar maksimal 1MB");
+
+		jQuery.validator.addMethod('STD_VAL_WEB_19', function (value, element, param) {
+			param = typeof param === "string" ? param.replace(/,/g, "|") : "doc|docx|xls|xlsx|csv";
+			return this.optional(element) || element.files[0].size <= 5000000 && value.match(new RegExp("\\.(" + param + ")$", "i"));
+		}, "Upload file maksimal 5MB");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_20", function (value, element) {
+			return this.optional(element) || /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/.test(value);
+		}, "URL yang Anda masukkan tidak valid");
+
+		// STD_VAL_WEB_21 Accepted (kemungkinan checkbox)
+		// STD_VAL_WEB_22 Active_url 
+
+		jQuery.validator.addMethod("STD_VAL_WEB_23", function (value, element) {
+			return this.optional(element) || /^[a-zA-Z ]*$/.test(value);
+		}, "Input harus a-z A-Z");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_24", function (value, element) {
+			return this.optional(element) || /^([0-9]+)$/.test(value);
+		}, "Input harus 0-9");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_25", function (value, element) {
+			return this.optional(element) || /^[a-zA-Z0-9 ]*$/.test(value);
+		}, "Input harus 0-9, a-z, A-Z");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_26", function (value, element) {
+			return this.optional(element) || /^[a-zA-Z0-9-_]*$/.test(value);
+		}, "Input harus 0-9, a-z, A-Z, -, _");
+
+		// STD_VAL_WEB_27 array 
+		// STD_VAL_WEB_28 boolean (radio button) 
+
+		jQuery.validator.addMethod("STD_VAL_WEB_29", function (value, element, param) {
+			return this.optional(element) || value == $(param).val();
+		}, "Input tidak cocok");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_30", function (value, element) {
+			return this.optional(element) || /^\d+$/.test(value);
+		}, "Input harus digit");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_31", function (value, element, param) {
+			return this.optional(element) || value >= param[0] && value <= param[1];
+		}, "Input harus berdasarkan range");
+
+		// STD_VAL_WEB_32 
+		// STD_VAL_WEB_33 
+
+		jQuery.validator.addMethod("STD_VAL_WEB_34", function (value, element) {
+			return this.optional(element) || /^-?\d+$/.test(value);
+		}, "Input harus bilangan bulat");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_35", function (value, element) {
+			return this.optional(element) || /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(value);
+		}, "Input harus valid IP");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_36", function (value, element) {
+			return this.optional(element) || /^(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)$/i.test(value);
+		}, "Input harus ipv4");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_37", function (value, element) {
+			return this.optional(element) || /^((([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){5}:([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){4}:([0-9A-Fa-f]{1,4}:){0,2}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){3}:([0-9A-Fa-f]{1,4}:){0,3}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){2}:([0-9A-Fa-f]{1,4}:){0,4}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(([0-9A-Fa-f]{1,4}:){0,5}:((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(::([0-9A-Fa-f]{1,4}:){0,5}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|([0-9A-Fa-f]{1,4}::([0-9A-Fa-f]{1,4}:){0,5}[0-9A-Fa-f]{1,4})|(::([0-9A-Fa-f]{1,4}:){0,6}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,7}:))$/i.test(value);
+		}, "Input harus ipv6");
+
+		jQuery.validator.addMethod("STD_VAL_WEB_38", function (value, element, param) {
+			return this.optional(element) || /^[\],:{}\s]*$/.test(text.replace(/\\["\\\/bfnrtu]/g, '@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').replace(/(?:^|:|,)(?:\s*\[)+/g, ''));
+			// function isValidJSON(param) {
+			//     try {
+			//         JSON.parse(param);
+			//     } catch (e) {
+			//         return false;
+			//     }
+
+			//     return true;
+			// }
+		}, "Input harus string json");
+	},
+	validateMe: function validateMe(id, valRules, valMessages) {
+
+		validation.addMethods();
+
+		$("#" + id).validate({
+			rules: valRules,
+			messages: valMessages,
+			errorPlacement: function errorPlacement(error, element) {
+				var ele = element.parents('.input');
+				element.parents('.inputGroup').children('.alert.error').remove();
+				error.insertAfter(ele);
+				error.addClass('alert error');
+			},
+			success: function success(error) {
+				error.parents('span.alert.error').remove();
+			},
+			wrapper: 'span'
+		});
+	},
+	/* CR17682 OTP START */
+	validateMultiple: function validateMultiple(id, valRules, valMessages) {
+		validation.addMethods();
+
+		$("#" + id).removeData("validator");
+		$("#" + id).removeData("check");
+		$("#" + id).removeData("confirm");
+		$("#" + id).find('input').removeClass('error');
+
+		var validator = $("#" + id).validate({
+			rules: valRules,
+			messages: valMessages,
+			errorPlacement: function errorPlacement(error, element) {
+				var ele = element.parents('.input');
+				element.parents('.inputGroup').children('.alert.error').remove();
+				error.insertAfter(ele);
+				error.addClass('alert error');
+			},
+			success: function success(error) {
+				error.parents('span.alert.error').remove();
+			},
+			wrapper: 'span'
+		});
+
+		validator.resetForm();
+	},
+	/* CR17682 OTP END*/
+	submitTry: function submitTry(id) {
+		if ($('.nio_select').length) {
+			$('.nio_select').show();
+		}
+		if ($('.added_photo').length && !$('.imageAttachmentWrap.noApi').length) {
+			$('.added_photo').show();
+		}
+		if ($('.tinymce').length) {
+			$('.tinymce').show();
+		}
+		if ($('.stepForm').length) {
+			var curr = $('.stepForm.active').index() + 1;
+			$('.stepForm').addClass('active');
+		}
+
+		//after valid (have to make fn if not working)
+
+		if ($('#' + id).valid()) {
+			$('.nio_select').hide();
+			$('.tinymce').hide();
+			if (validation.FileApiSupported()) {
+				$('.added_photo').hide();
+			}
+			return 'vPassed';
+		} else {
+			$('.nio_select').hide();
+			$('.tinymce').hide();
+			if (validation.FileApiSupported()) {
+				$('.added_photo').hide();
+			}
+			return 'vError';
+		}
+	},
+	FileApiSupported: function FileApiSupported() {
+		return !!(window.File && window.FileReader && window.FileList && window.Blob);
+	}
+};

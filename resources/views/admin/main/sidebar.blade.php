@@ -29,7 +29,7 @@
                             <img src="{{asset('image/icon/sidebar/icon_menu_news_event.svg')}}" alt="" width="25px" class="right-icon-sidebar icon-sidebar-mobile">
                         </div>
                         <div class="col-md-10">
-                            <span class="font-color-sidebar">Manage News&Event</span>
+                            <span class="font-color-sidebar">Manage News & Event</span>
                         </div>
                     </div>
                 </a>

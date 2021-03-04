@@ -59,8 +59,13 @@ class NewsEventController extends Controller
     }
 
     public function viewNewsEventAdd(){
-        
-        return view('admin.news_event.news_event-add')->with(['pageTitle' => 'Manajemen News/Event', 'title' => 'Manajemen News/Event', 'sidebar' => 'manajemen_news_event']);
+        $breadcrumb = [
+            'route' => '/HR/news_event',
+            'page' => 'Manage News & Event',
+            'detail' => 'Create News & Event',
+        ];
+
+        return view('admin.news_event.news_event-add')->with(['pageTitle' => 'Manajemen News/Event', 'title' => 'Manajemen News/Event', 'sidebar' => 'manajemen_news_event', 'breadcrumb' => $breadcrumb]);
     }
 
     public function addNewsEvent(){
@@ -125,7 +130,13 @@ class NewsEventController extends Controller
         $dataNewsEvent = NewsEvent::where('id', $idNewsEvent)->get()->toArray();
         
         if ($dataNewsEvent) {
-            return view('admin.news_event.news_event-edit')->with(['pageTitle' => 'Manajemen News/Event', 'title' => 'Manajemen News/Event', 'sidebar' => 'manajemen_news_event', 'data'=>$dataNewsEvent[0]]);
+            $breadcrumb = [
+                'route' => '/HR/news_event',
+                'page' => 'Manage News & Event',
+                'detail' => 'Update News & Event',
+            ];
+
+            return view('admin.news_event.news_event-edit')->with(['pageTitle' => 'Manajemen News/Event', 'title' => 'Manajemen News/Event', 'sidebar' => 'manajemen_news_event', 'data'=>$dataNewsEvent[0], 'breadcrumb'=>$breadcrumb]);
         } else {
             $messages = [
                 'status' => 'error',
