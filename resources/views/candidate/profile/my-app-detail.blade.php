@@ -66,7 +66,7 @@
             <div class="card-accordion-body">
                 <div class="track-applican-line">
                     @if($history['online_test'] != [])
-                        <div class="green-line long"></div>
+                        <div class="green-line"></div>
                     @else
                         <div class="gray-line"></div>
                     @endif
@@ -78,7 +78,7 @@
                     @endif
 
                     @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['user_interview'] != [])
-                        <div class="green-line long"></div>
+                        <div class="green-line"></div>
                     @else
                         <div class="gray-line"></div>
                     @endif
@@ -88,15 +88,9 @@
                     @else
                         <div class="gray-line"></div>
                     @endif
-
-                    @if($history['document_sign'] != [])
-                        <div class="green-line long"></div>
-                    @else
-                        <div class="gray-line long"></div>
-                    @endif
                 </div>
                 <div class="track-applican">
-                    <div class="track-item">
+                    <div class="track-item active">
                         <img src="{{$history['apply'] != [] ? asset('image/icon/homepage/track/track-resume-red.svg') : asset('image/icon/homepage/track/track-resume.svg') }}" alt="icon">
                         <div class="track-text">
                             <p class="title">Resume Application</p>
@@ -107,7 +101,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="track-item">
+                    <div class="track-item active">
                         <img src="{{$history['online_test'] != [] ? asset('image/icon/homepage/track/track-online-test-red.svg') : asset('image/icon/homepage/track/track-online-test.svg') }}" alt="icon">
                         <div class="track-text">
                             <p class="title">Online Test </p>

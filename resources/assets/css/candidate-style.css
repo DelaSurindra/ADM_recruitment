@@ -687,12 +687,12 @@ label.error {
     margin-left: 21px;
 }
 .track-applican-line .green-line {
-    height: 82px;
+    height: 105px;
     width: 4px;
     background-color: #0CA035;
 }
 .track-applican-line .gray-line {
-    height: 82px;
+    height: 105px;
     width: 4px;
     background-color: #E0E0E0;
 }
@@ -707,10 +707,11 @@ label.error {
 .track-item {
     display: flex;
     align-items: flex-start;
+    height: 80px;
 }
 .track-item .track-text {
     margin-left: 1rem;
-    padding-bottom: 2rem;
+    /* padding-bottom: 1.5rem; */
 }
 .track-item .track-text .title {
     font-style: normal;
