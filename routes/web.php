@@ -72,7 +72,7 @@ Route::middleware('authcandidate')->group(function(){
 			Route::post('/post-edit-password', 'Candidate\ProfileController@postEditPassword')->name('post.profile.edit-password');
 	
 			Route::get('/my-app', 'Candidate\ProfileController@myApp')->name('get.profile.my-app');
-			Route::get('/my-app-detail', 'Candidate\ProfileController@myAppDetail')->name('get.profile.my-app-detail');
+			Route::get('/my-app-detail/{id}', 'Candidate\ProfileController@myAppDetail')->name('get.profile.my-app-detail');
 		});
 	});
 

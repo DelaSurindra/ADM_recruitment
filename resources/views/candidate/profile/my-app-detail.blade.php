@@ -6,41 +6,48 @@
 @section('app')
 <div class="breadcrumb-candidate">
     <a class="bread active" href="{{ route('get.profile.my-app') }}">My Application</a>
-    <p class="bread">/Pre Sales Solution Architect</p>
+    <p class="bread">&nbsp/ Pre Sales Solution Architect</p>
 </div>
-<div class="fulltime-badge mb-2">Full-time</div>
-<h2 class="candidate-page-title">Pre Sales Solution Architect</h2>
+<div class="fulltime-badge mb-2">{{$vacancy["type"] == "1" ? "Full-time":"Intership"}}</div>
+<h2 class="candidate-page-title">{{$vacancy['job_title']}}</h2>
 <div class="row mt-4">
     <div class="col-12">
         <div class="d-flex align-items-center applican-detail">
             <div class="icon-wrapper">
                 <img src="{{ asset('image/icon/homepage/icon-map.svg') }}" alt="icon">
             </div>
-            <p>Banten, Indonesia</p>
+            <p>{{$vacancy['lokasi']}}, Indonesia</p>
         </div>
         <div class="d-flex align-items-center applican-detail">
             <div class="icon-wrapper">
                 <img src="{{ asset('image/icon/homepage/icon-graduate.svg') }}" alt="icon">
             </div>
-            <p>Diploma, Bachelor's Degree in Engineering</p>
+            @if($vacancy['degree'] == '1')
+                <p>Diploma's Degree</p>
+            @elseif($vacancy['degree'] == '2')
+                <p>Bachelor's Degree</p>
+            @else
+                <p>Master's Degree</p>
+            @endif
         </div>
         <div class="d-flex align-items-center applican-detail">
             <div class="icon-wrapper">
                 <img src="{{ asset('image/icon/homepage/icon-book.svg') }}" alt="icon">
             </div>
-            <p>DevOps & Cloud Management Software, Enterprise Resource Planning</p>
+            <p>{{$vacancy['major']}}</p>
         </div>
         <div class="d-flex align-items-center applican-detail">
             <div class="icon-wrapper">
                 <img src="{{ asset('image/icon/homepage/icon-clock.svg') }}" alt="icon">
             </div>
-            <h6>Sunday - Saturday 08:00 - 16:00</h6>
+            <h6>{{$vacancy['work_time']}}</h6>
         </div>
     </div>
 </div>
 <div class="row mt-4">
     <div class="col-lg-7 col-md-12 d-flex align-items-center">
-        <p class="last-update-detail">Last Updated : <span>12 February 2021 18:02</span></p>
+        
+        <p class="last-update-detail">Last Updated : <span>{{$history['last_update']}}</span></p>
     </div>
     <div class="col-lg-5 col-md-12">
         <button class="btn btn-red btn-block"type="button" data-toggle="modal" data-target="#modalOnlineTest">Check Online Test</button>
@@ -58,51 +65,101 @@
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
             <div class="card-accordion-body">
                 <div class="track-applican-line">
-                    <div class="green-line"></div>
-                    <div class="gray-line long"></div>
-                    <div class="gray-line"></div>
-                    <div class="gray-line"></div>
-                    <div class="gray-line"></div>
+                    @if($history['online_test'] != [])
+                        <div class="green-line long"></div>
+                    @else
+                        <div class="gray-line"></div>
+                    @endif
+
+                    @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['user_interview'] != [] || $history['hr_interview'] != [])
+                        <div class="green-line"></div>
+                    @else
+                        <div class="gray-line"></div>
+                    @endif
+
+                    @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['user_interview'] != [])
+                        <div class="green-line long"></div>
+                    @else
+                        <div class="gray-line"></div>
+                    @endif
+
+                    @if($history['document_sign'] != [] || $history['mcu'] != [])
+                        <div class="green-line"></div>
+                    @else
+                        <div class="gray-line"></div>
+                    @endif
+
+                    @if($history['document_sign'] != [])
+                        <div class="green-line long"></div>
+                    @else
+                        <div class="gray-line long"></div>
+                    @endif
                 </div>
                 <div class="track-applican">
-                    <div class="track-item active">
-                        <img src="{{ asset('image/icon/homepage/track/track-resume-red.svg') }}" alt="icon">
+                    <div class="track-item">
+                        <img src="{{$history['apply'] != [] ? asset('image/icon/homepage/track/track-resume-red.svg') : asset('image/icon/homepage/track/track-resume.svg') }}" alt="icon">
                         <div class="track-text">
                             <p class="title">Resume Application</p>
-                            <p class="subtitle">2 February 2021 18:02</p>
-                            <div class="track-status red">Success</div>
+                            @if($history['apply'] != [])
+                            <p class="subtitle">{{last($history['apply'])}}</p>
+                            @else
+                            <p class="subtitle"></p>
+                            @endif
                         </div>
                     </div>
-                    <div class="track-item active">
-                        <img src="{{ asset('image/icon/homepage/track/track-online-test-red.svg') }}" alt="icon">
+                    <div class="track-item">
+                        <img src="{{$history['online_test'] != [] ? asset('image/icon/homepage/track/track-online-test-red.svg') : asset('image/icon/homepage/track/track-online-test.svg') }}" alt="icon">
                         <div class="track-text">
                             <p class="title">Online Test </p>
-                            <p class="subtitle">2 February 2021 18:02</p>
-                            <div class="track-status yellow">Need to Check</div>
+                            @if($history['online_test'] != [])
+                            <p class="subtitle">{{last($history['online_test'])}}</p>
+                            @else
+                            <p class="subtitle"></p>
+                            @endif
                         </div>
                     </div>
                     <div class="track-item">
-                        <img src="{{ asset('image/icon/homepage/track/track-user-interview.svg') }}" alt="icon">
-                        <div class="track-text">
-                            <p class="title">User Interview</p>
-                        </div>
-                    </div>
-                    <div class="track-item">
-                        <img src="{{ asset('image/icon/homepage/track/track-hr-interview.svg') }}" alt="icon">
+                        <img src="{{$history['hr_interview'] != [] ? asset('image/icon/homepage/track/track-hr-interview-red.svg') : asset('image/icon/homepage/track/track-hr-interview.svg') }}" alt="icon">
                         <div class="track-text">
                             <p class="title">HR Interview</p>
+                            @if($history['hr_interview'] != [])
+                            <p class="subtitle">{{last($history['hr_interview'])}}</p>
+                            @else
+                            <p class="subtitle"></p>
+                            @endif
                         </div>
                     </div>
                     <div class="track-item">
-                        <img src="{{ asset('image/icon/homepage/track/track-medical-checkup.svg') }}" alt="icon">
+                        <img src="{{$history['user_interview'] != [] ? asset('image/icon/homepage/track/track-user-interview-red.svg') : asset('image/icon/homepage/track/track-user-interview.svg') }}" alt="icon">
+                        <div class="track-text">
+                            <p class="title">User Interview</p>
+                            @if($history['user_interview'] != [])
+                            <p class="subtitle">{{last($history['user_interview'])}}</p>
+                            @else
+                            <p class="subtitle"></p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="track-item">
+                        <img src="{{$history['mcu'] != [] ? asset('image/icon/homepage/track/track-medical-checkup-red.svg') : asset('image/icon/homepage/track/track-medical-checkup.svg') }}" alt="icon">
                         <div class="track-text">
                             <p class="title">Medical Checkup</p>
+                            @if($history['mcu'] != [])
+                            <p class="subtitle">{{last($history['mcu'])}}</p>
+                            @else
+                            <p class="subtitle"></p>
+                            @endif
                         </div>
                     </div>
                     <div class="track-item">
-                        <img src="{{ asset('image/icon/homepage/track/track-document-sign.svg') }}" alt="icon">
+                        <img src="{{$history['document_sign'] != [] ? asset('image/icon/homepage/track/track-document-sign-red.svg') : asset('image/icon/homepage/track/track-document-sign.svg') }}" alt="icon">
                         <div class="track-text">
                             <p class="title">Document Sign and Contract</p>
+                            @if($history['document_sign'] != [])
+                            <p class="subtitle">{{last($history['document_sign'])}}</p>
+                            @else
+                            <p class="subtitle"></p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -116,7 +173,7 @@
         </div>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
             <div class="card-accordion-body">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                {!! $vacancy['job_requirement'] !!}
             </div>
         </div>
     </div>

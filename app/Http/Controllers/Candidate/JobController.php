@@ -182,13 +182,13 @@ class JobController extends Controller
                 $apply = Job_Application::insertGetId([
                     'interview_count' => '',
                     'referensi' => '',
-                    'status' => 1,
+                    'status' => 0,
                     'kandidat_id' => Session::get('session_candidate')['id'],
                     'vacancy_id' => $data['idJob']
                 ]);
 
                 if ($apply) {
-                    $track = $this->statusTrackApply($apply, 1);
+                    $track = $this->statusTrackApply($apply, 0);
 
                     return [
                         'status' => 'success',

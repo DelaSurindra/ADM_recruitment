@@ -85,7 +85,7 @@
                             <img src="{{ asset('image/icon/homepage/edit-password-icon.svg') }}" alt="icon"> Edit Password
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{route('get.profile.my-app')}}">
                             <img src="{{ asset('image/icon/homepage/myapp-icon.svg') }}" alt="icon"> My Application
                         </a>
                         <div class="dropdown-divider"></div>

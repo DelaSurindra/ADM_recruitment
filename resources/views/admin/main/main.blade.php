@@ -39,9 +39,9 @@
         <div class="content-wrapper">
             @yield('content')
         </div>
-        <div class="content-footer main-header content-footer-tab">
+        <!-- <div class="content-footer main-header content-footer-tab">
             @include('admin.main.footer')
-        </div>
+        </div> -->
     </div>
     <div id="modalSession" class="modal fade" role="dialog">
         <div class="modal-dialog">

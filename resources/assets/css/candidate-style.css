@@ -522,13 +522,23 @@ label.error {
 .card-head-my-app.reject {
     background: #fde7ea;
 }
+.card-head-my-app.other {
+    background: #e8e8e8;
+}
 .card-head-my-app.success p {
     color: #2E61AF;
 }
 .card-head-my-app.reject p {
     color: #DF0E2C;
 }
+.card-head-my-app.other p {
+    color: #a4a1a1;
+}
+.card-head-my-app.other span {
+    color: #050401;
+}
 .card-head-my-app p {
+    font-family: 'inter_semibold', sans-serif !important;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -677,7 +687,7 @@ label.error {
     margin-left: 21px;
 }
 .track-applican-line .green-line {
-    height: 124px;
+    height: 82px;
     width: 4px;
     background-color: #0CA035;
 }
@@ -690,13 +700,17 @@ label.error {
     height: 124px;
 }
 
+.track-applican-line .green-line.long {
+    height: 124px;
+}
+
 .track-item {
     display: flex;
     align-items: flex-start;
 }
 .track-item .track-text {
     margin-left: 1rem;
-    padding-bottom: 2.5rem;
+    padding-bottom: 2rem;
 }
 .track-item .track-text .title {
     font-style: normal;

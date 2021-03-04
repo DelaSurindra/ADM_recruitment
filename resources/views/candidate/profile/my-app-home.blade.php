@@ -17,60 +17,31 @@
                 @if(count($job_apply) > 0)
                     @foreach($job_apply as $apply)
                     <div class="card-list-my-app">
-                        <div class="card-head-my-app success d-flex justify-content-center">
-                            <p>Success</p>
+                        <div class="card-head-my-app {{$apply['status_css']}} d-flex justify-content-center">
+                            @if($apply['status'] >= 0 && $apply['status'] < 11)
+                                <p>Onprocess : <span>{{$apply['status_text']}}</span> </p>
+                            @else
+                                <p>{{$apply['status_text']}}</p>
+                            @endif
                         </div>
                         <div class="card-body-my-app p-4">
                             <div class="row m-1">
                                 <div class="col-lg-8 col-md-12">
-                                    <div class="fulltime-badge mb-3">Full-time</div>
-                                    <label class="label-no-margin mb-1">Banten, Indonesia</label>
-                                    <h4 class="candidate-page-subtitle mb-0">Pre Sales Solution Architect</h4>
+                                    <div class="fulltime-badge mb-3">{{$apply["type"] == "1" ? "Full-time":"Intership"}}</div>
+                                    <label class="label-no-margin mb-1">{{$apply['lokasi']}}, Indonesia</label>
+                                    <h4 class="candidate-page-subtitle mb-0">{{$apply['job_title']}}</h4>
                                 </div>
                                 <div class="col-lg-4 col-md-12 border-left1">
-                                    <a href="{{ route('get.profile.my-app-detail') }}" class="btn btn-white btn-block">View Detail</a>
+                                    <a href="{{route('get.profile.my-app-detail', base64_encode(urlencode($apply['id'])))}}" class="btn btn-white btn-block">View Detail</a>
+                                    @if($apply['button'] == "Y")
                                     <button class="btn btn-red btn-block">Doc. Sign & Contract</button>
+                                    @else
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </div>
                     @endforeach
-                <!-- <div class="card-list-my-app">
-                    <div class="card-head-my-app success d-flex justify-content-center">
-                        <p>Success</p>
-                    </div>
-                    <div class="card-body-my-app p-4">
-                        <div class="row m-1">
-                            <div class="col-lg-8 col-md-12">
-                                <div class="fulltime-badge mb-3">Full-time</div>
-                                <label class="label-no-margin mb-1">Banten, Indonesia</label>
-                                <h4 class="candidate-page-subtitle mb-0">Pre Sales Solution Architect</h4>
-                            </div>
-                            <div class="col-lg-4 col-md-12 border-left1">
-                                <a href="{{ route('get.profile.my-app-detail') }}" class="btn btn-white btn-block">View Detail</a>
-                                <button class="btn btn-red btn-block">Doc. Sign & Contract</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-list-my-app">
-                    <div class="card-head-my-app reject d-flex justify-content-center">
-                        <p>Reject</p>
-                    </div>
-                    <div class="card-body-my-app p-4">
-                        <div class="row m-1">
-                            <div class="col-lg-8 col-md-12">
-                                <div class="internship-badge mb-3">Internship</div>
-                                <label class="label-no-margin mb-1">Banten, Indonesia</label>
-                                <h4 class="candidate-page-subtitle mb-0">Pre Sales Solution Architect</h4>
-                            </div>
-                            <div class="col-lg-4 col-md-12 border-left1">
-                                <button class="btn btn-white btn-block">View Detail</button>
-                                <button class="btn btn-red btn-block">Doc. Sign & Contract</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
                 @else
                 <!-- Ketika data kosong -->
                 <div class="card">
