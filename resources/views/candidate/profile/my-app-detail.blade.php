@@ -90,7 +90,7 @@
                     @endif
                 </div>
                 <div class="track-applican">
-                    <div class="track-item active">
+                    <div class="track-item {{ $history['apply'] != [] ? 'active' : '' }}">
                         <img src="{{$history['apply'] != [] ? asset('image/icon/homepage/track/track-resume-red.svg') : asset('image/icon/homepage/track/track-resume.svg') }}" alt="icon">
                         <div class="track-text">
                             <p class="title">Resume Application</p>
@@ -101,7 +101,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="track-item active">
+                    <div class="track-item {{ $history['online_test'] != [] ? 'active' : '' }}">
                         <img src="{{$history['online_test'] != [] ? asset('image/icon/homepage/track/track-online-test-red.svg') : asset('image/icon/homepage/track/track-online-test.svg') }}" alt="icon">
                         <div class="track-text">
                             <p class="title">Online Test </p>
@@ -112,7 +112,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="track-item">
+                    <div class="track-item {{ $history['hr_interview'] != [] ? 'active' : '' }}">
                         <img src="{{$history['hr_interview'] != [] ? asset('image/icon/homepage/track/track-hr-interview-red.svg') : asset('image/icon/homepage/track/track-hr-interview.svg') }}" alt="icon">
                         <div class="track-text">
                             <p class="title">HR Interview</p>
@@ -123,7 +123,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="track-item">
+                    <div class="track-item {{ $history['user_interview'] != [] ? 'active' : '' }}">
                         <img src="{{$history['user_interview'] != [] ? asset('image/icon/homepage/track/track-user-interview-red.svg') : asset('image/icon/homepage/track/track-user-interview.svg') }}" alt="icon">
                         <div class="track-text">
                             <p class="title">User Interview</p>
@@ -134,7 +134,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="track-item">
+                    <div class="track-item {{ $history['mcu'] != [] ? 'active' : '' }}">
                         <img src="{{$history['mcu'] != [] ? asset('image/icon/homepage/track/track-medical-checkup-red.svg') : asset('image/icon/homepage/track/track-medical-checkup.svg') }}" alt="icon">
                         <div class="track-text">
                             <p class="title">Medical Checkup</p>
@@ -145,7 +145,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="track-item">
+                    <div class="track-item {{ $history['document_sign'] != [] ? 'active' : '' }}">
                         <img src="{{$history['document_sign'] != [] ? asset('image/icon/homepage/track/track-document-sign-red.svg') : asset('image/icon/homepage/track/track-document-sign.svg') }}" alt="icon">
                         <div class="track-text">
                             <p class="title">Document Sign and Contract</p>
