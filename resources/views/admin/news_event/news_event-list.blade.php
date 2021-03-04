@@ -6,10 +6,10 @@
 <div class="card clear margin-right-20">
     <div class="row">
         <div class="col-md-6">
-            <p class="title-page"><img src="{{asset('image/icon/main/icon_title_candidate.svg')}}" alt=""> Manage News&Event</p>
+            <p class="title-page"><img src="{{asset('image/icon/main/icon_title_candidate.svg')}}" alt=""> Manage News & Event</p>
         </div>
         <div class="col-md-6">
-            <a href="{{route('get.news.event.add')}}"><button type="button" class="btn btn-red right">Add News&Event</button></a>
+            <a href="{{route('get.news.event.add')}}"><button type="button" class="btn btn-red right">Add News & Event</button></a>
         </div>
     </div>
     <div class="row">
