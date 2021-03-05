@@ -3,17 +3,20 @@
     <div class="col-12">
         <ul class="nav nav-pills mb-3 tabs-my-app" id="pills-tab" role="tablist">
             <li class="nav-item pr-2" role="presentation">
-                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">All</a>
+                <a class="nav-link active" id="pills-all-myapp-tab" data-toggle="pill" href="#pills-all-myapp" role="tab" aria-controls="pills-all-myapp" aria-selected="true">All</a>
             </li>
             <li class="nav-item px-2" role="presentation">
-                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Successed</a>
+                <a class="nav-link" id="pills-onprocess-myapp-tab" data-toggle="pill" href="#pills-onprocess-myapp" role="tab" aria-controls="pills-onprocess-myapp" aria-selected="false">Onprocess</a>
             </li>
             <li class="nav-item px-2" role="presentation">
-                <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Rejected</a>
+                <a class="nav-link" id="pills-hired-myapp-tab" data-toggle="pill" href="#pills-hired-myapp" role="tab" aria-controls="pills-hired-myapp" aria-selected="false">Hired</a>
+            </li>
+            <li class="nav-item px-2" role="presentation">
+                <a class="nav-link" id="pills-failed-myapp-tab" data-toggle="pill" href="#pills-failed-myapp" role="tab" aria-controls="pills-failed-myapp" aria-selected="false">Failed</a>
             </li>
         </ul>
         <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div class="tab-pane fade show active" id="pills-all-myapp" role="tabpanel" aria-labelledby="pills-all-myapp-tab">
                 @if(count($job_apply) > 0)
                     @foreach($job_apply as $apply)
                     <div class="card-list-my-app">
@@ -54,8 +57,9 @@
                 </div>
                 @endif
             </div>
-            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
-            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+            <div class="tab-pane fade" id="pills-onprocess-myapp" role="tabpanel" aria-labelledby="pills-onprocess-myapp-tab">...</div>
+            <div class="tab-pane fade" id="pills-hired-myapp" role="tabpanel" aria-labelledby="pills-hired-myapp-tab">...</div>
+            <div class="tab-pane fade" id="pills-failed-myapp" role="tabpanel" aria-labelledby="pills-failed-myapp-tab">...</div>
         </div>
     </div>
 </div>

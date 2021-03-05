@@ -89,7 +89,7 @@ class JobController extends Controller
             }
             // Filter Major
             if (isset($filter['majorFilter']) && !empty($filter['majorFilter'])) {
-                $sql = $sql->where('major', $filter['majorFilter']);
+                $sql = $sql->where('major', 'like','%'.$filter['majorFilter'].'%');
             }
 
             $job = $sql->orderBy('created_at', 'desc')->get()->toArray();
