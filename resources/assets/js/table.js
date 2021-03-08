@@ -174,6 +174,45 @@ var table = {
 		 	table.serverSide('tableVacancy',column,'HR/vacancy/list-vacancy',null,columnDefs)
         }
 
+		if ($('#tableCandidate').length) {
+			var column = [
+				{'data':'created_at'},
+				{'data':'jobapp_created_at'},
+				{'data':'first_name'},
+				{'data':'tanggal_lahir'},
+				{'data':'pendidikan_user.gelar'},
+				{'data':'pendidikan_user.universitas'},
+				{'data':'pendidikan_user.fakultas'},
+				{'data':'pendidikan_user.jurusan'},
+				{'data':'pendidikan_user.gpa'},
+				{'data':'pendidikan_user.end_year'},
+				{'data':'job_title'},
+				{'data':'lokasi'},
+				{'data':'jobapp_status'},
+			];
+
+			columnDefs = [
+				{
+					"targets": 13,
+					"data": "id",
+					"className": "action-poster-news",
+					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.job_id));
+						var konfirm = '';
+						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/vacancy/detail-vacancy/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Vacancy"> Edit&nbsp</a></button>';
+						if (full.status == '1') {
+							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy edit-table"><img style="margin-right: 1px;" src="/image/icon/main/deactive.svg" title="Deaktif Vacancy">Deactive</button>';
+						} else {
+							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy edit-table"><img style="margin-right: 1px;" src="/image/icon/main/active.svg" title="Aktifkan Vacancy">Active</button>';
+						}
+						var hasil = data+konfirm
+		               	return hasil;
+					}
+				}
+			];
+
+		 	table.serverSide('tableCandidate',column,'HR/candidate/list-candidate',null,columnDefs)
+        }
 
 	},
 	filter:function(id,value){
