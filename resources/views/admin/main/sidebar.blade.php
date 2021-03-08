@@ -36,6 +36,18 @@
             </li>
             <p class="text-title title-bottom">RECRUITMENT</p>
             <li class="tree-menu custom-height-menu-sidebar">
+                <a href="{{ route('get.candidate') }}" class="menu {{($sidebar== 'manajemen_candidate'?'active':'')}}">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="{{ $sidebar== 'manajemen_candidate' ? asset('image/icon/sidebar/icon_menu_candidate_active.svg') : asset('image/icon/sidebar/icon_menu_candidate.svg')}}" alt="" width="25px" class="right-icon-sidebar icon-sidebar-mobile">
+                        </div>
+                        <div class="col-md-10">
+                            <span class="font-color-sidebar">Manage Candidate</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="tree-menu custom-height-menu-sidebar">
                 <a href="{{ route('get.vacancy') }}" class="menu {{($sidebar== 'manajemen_vacancy'?'active':'')}}">
                     <div class="row">
                         <div class="col-md-2">

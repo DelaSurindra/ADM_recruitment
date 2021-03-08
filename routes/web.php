@@ -49,12 +49,20 @@ Route::prefix('HR')->group(function(){
 
 		Route::prefix('question_bank')->group(function () {
 			Route::get('/', 'Admin\QuestionController@viewQuestionBank')->name('get.question-bank');
-			Route::post('/list-vacancy','Admin\VacancyController@listVacancy')->name('post.vacancy.list');
-			Route::get('/add-vacancy', 'Admin\VacancyController@viewVacancyAdd')->name('get.vacancy.add');
-			Route::post('/post-vacancy','Admin\VacancyController@addVacancy')->name('post.vacancy.add');
-			Route::get('/detail-vacancy/{id}', 'Admin\VacancyController@viewVacancyDetail')->name('get.vacancy.detail');
-			Route::post('/edit-vacancy','Admin\VacancyController@editVacancy')->name('post.vacancy.edit');
-			Route::post('/delete-vacancy','Admin\VacancyController@deleteVacancy')->name('post.vacancy.delete');
+			// Route::post('/list-vacancy','Admin\VacancyController@listVacancy')->name('post.vacancy.list');
+			// Route::get('/add-vacancy', 'Admin\VacancyController@viewVacancyAdd')->name('get.vacancy.add');
+			// Route::post('/post-vacancy','Admin\VacancyController@addVacancy')->name('post.vacancy.add');
+			// Route::get('/detail-vacancy/{id}', 'Admin\VacancyController@viewVacancyDetail')->name('get.vacancy.detail');
+			// Route::post('/edit-vacancy','Admin\VacancyController@editVacancy')->name('post.vacancy.edit');
+			// Route::post('/delete-vacancy','Admin\VacancyController@deleteVacancy')->name('post.vacancy.delete');
+		});
+		
+		Route::prefix('candidate')->group(function () {
+			Route::get('/', 'Admin\CandidateController@viewCandidate')->name('get.candidate');
+			Route::post('/list-candidate','Admin\CandidateController@listCandidate')->name('post.candidate.list');
+			Route::get('/detail-candidate/{id}', 'Admin\CandidateController@viewCandidateDetail')->name('get.candidate.detail');
+			Route::post('/edit-candidate','Admin\CandidateController@editCandidate')->name('post.candidate.edit');
+			Route::post('/delete-candidate','Admin\CandidateController@deleteCandidate')->name('post.candidate.delete');
 		});
 	});
 });

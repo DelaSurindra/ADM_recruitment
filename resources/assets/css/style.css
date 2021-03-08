@@ -1,3 +1,22 @@
+.btn-bulk-candidate{
+    background: #FFFFFF;
+    border-radius: 8px;
+    font-family: 'inter_semibold', sans-serif !important;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    color: #DF0E2C;
+    width: auto;
+    height: 45px;
+    border: 1px solid #BDBDBD;
+    box-sizing: border-box;
+}
+
+.btn-bulk-candidate:hover{
+    color: #DF0E2C;
+}
+
 .profile-access {
     display: flex;
     align-items: center;
