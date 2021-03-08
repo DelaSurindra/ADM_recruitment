@@ -106,6 +106,15 @@ class CandidateController extends Controller
         return $response;
     }
 
+    public function viewCandidateEdit($id){
+        $breadcrumb = [
+            "page"      => "Manage Candidate",
+            "detail"    => "Edit Candidate",
+            "route"     => "/HR/candidate"
+        ];
+        return view('admin.candidate.candidate-edit')->with(['pageTitle' => 'Manajemen Candidate', 'title' => 'Manajemen Candidate', 'sidebar' => 'manajemen_candidate', 'breadcrumb' => $breadcrumb]);
+    }
+
     public function viewCandidateDetail($id){
         $breadcrumb = [
             "page"      => "Manage Candidate",

@@ -3,69 +3,202 @@
 @section('title',$title)
 @section('content')
 
-<form action="" class="form stacked" method="POST" id="formEditCandidate" ajax="true">
-    @csrf
-    <div class="card clear">
-        <div class="card-body">
-            <div class="row mb-4">
-                <div class="col-md-12">
-                    <p class="text-title-page-small">Edit</p>
-                    <p class="text-title-page-big">Application Information</p>
+<div style="margin:20px 0px;">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link border-red active" id="detailCandidate1-tab" data-toggle="tab" href="#detailCandidate1" role="tab" aria-controls="detailCandidate1" aria-selected="true">Candidate Information</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link border-red" id="detailCandidate2-tab" data-toggle="tab" href="#detailCandidate2" role="tab" aria-controls="detailCandidate2" aria-selected="false">Recruitment Result</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="detailCandidate1" role="tabpanel" aria-labelledby="detailCandidate1-tab">
+            <div class="card card-detail-candidate">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-11 col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="text-title-page-small">View</p>
+                                    <p class="text-title-page-big">Personal Information</p>
+                                </div>
+                            </div>
+                            <div class="row detail-candidate-text">
+                                <div class="col-md-12">
+                                    <img src="{{ asset('image/icon/homepage/dummy-profile.svg') }}" alt="img" class="img-fluid img-profile-detail">
+                                </div>
+                                <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                    <label for="">First Name</label>
+                                    <p class="detail">Sahadi</p>
+                                </div>
+                                <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                    <label for="">Last Name</label>
+                                    <p class="detail">Ilaihi Zamani</p>
+                                </div>
+                                <div class="distance col-md-12">
+                                    <label for="">Date of Birth</label>
+                                    <p class="detail">17 Agustus 2020</p>
+                                </div>
+                                <div class="distance col-md-12">
+                                    <label for="">Gender</label>
+                                    <p class="detail">Male</p>
+                                </div>
+                                <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                    <label for="">Email</label>
+                                    <p class="detail">sahadilalalhi@gmail.com</p>
+                                </div>
+                                <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                    <label for="">Phone Number</label>
+                                    <p class="detail">081234567899</p>
+                                </div>
+                                <div class="distance col-md-12">
+                                    <label for="">Location</label>
+                                    <p class="detail">Surabaya, East Java</p>
+                                </div>
+                                <div class="distance col-lg-5 col-md-6 col-sm-12 d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <label for="">Linkedin Profile</label>
+                                        <p class="detail">www.linkedin.com/example</p>
+                                    </div>
+                                    <a href="#">
+                                        <img class="image-copy" src="{{ asset('image/icon/homepage/icon-copy.svg') }}" alt="icon">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-xl-10 col-md-12">
-                            <div class="row">
-                                <div class="col-xl-6 col-md-6 col-sm-12">
-                                    <div class="form-group" >
-                                        <label class="label-hr">Submit Date</label>
-                                        <input type="text" class="form-control form-hr" name="submitDate" id="submitDate" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-md-6 col-sm-12">
-                                    <div class="form-group" >
-                                        <label class="label-hr">Job Position</label>
-                                        <input type="text" class="form-control form-hr" name="jobPosition" id="jobPosition" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-10 col-md-12">
-                            <div class="row">
-                                <div class="col-xl-6 col-md-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label class="label-hr">Area</label>
-                                        <input id="area" name="area" class="form-control form-hr" type="text" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-md-6 col-sm-12" id="aplicationStatusDiv">
-                                    <label class="label-hr">Application Status</label>
-                                    <select class="select2 tex-center select2-width" id="aplicationStatus" name="aplicationStatus">
-                                        <option value="">-- Pilih Status --</option>
 
-                                    </select>
+            <div class="card card-detail-candidate">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-11 col-md-12">
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <p class="text-title-page-small">View</p>
+                                    <p class="text-title-page-big">Education Information</p>
+                                </div>
+                            </div>
+                            <div class="row detail-candidate-text">
+                                <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                    <label for="">School/University</label>
+                                    <p class="detail">UPN “Veteran” Jawa Timur</p>
+                                </div>
+                                <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                    <label for="">Degree</label>
+                                    <p class="detail">S1</p>
+                                </div>
+                                <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                    <label for="">Faculty</label>
+                                    <p class="detail">Computer Science Faculty</p>
+                                </div>
+                                <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                    <label for="">Major</label>
+                                    <p class="detail">Informatic Engineering</p>
+                                </div>
+                                <div class="distance col-md-12">
+                                    <label for="">Education Year</label>
+                                    <p class="detail">2015 - 2019</p>
+                                </div>
+                                <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                    <label for="">GPA</label>
+                                    <p class="detail">3,5</p>
+                                </div>
+                                <div class="distance col-lg-5 col-md-6 col-sm-12 d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <label for="">Certificate of Study</label>
+                                        <p class="detail">ijazahupn.jpg</p>
+                                    </div>
+                                    <a href="#">
+                                        <img class="image-copy" src="{{ asset('image/icon/main/icon_donwload.svg') }}" alt="icon">
+                                    </a>
+                                </div>
+
+                                <div class="col-12">
+                                    <hr class="divider">
+                                </div>
+
+                                <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                    <label for="">School/University</label>
+                                    <p class="detail">UPN “Veteran” Jawa Timur</p>
+                                </div>
+                                <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                    <label for="">Degree</label>
+                                    <p class="detail">S1</p>
+                                </div>
+                                <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                    <label for="">Faculty</label>
+                                    <p class="detail">Computer Science Faculty</p>
+                                </div>
+                                <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                    <label for="">Major</label>
+                                    <p class="detail">Informatic Engineering</p>
+                                </div>
+                                <div class="distance col-md-12">
+                                    <label for="">Education Year</label>
+                                    <p class="detail">2015 - 2019</p>
+                                </div>
+                                <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                    <label for="">GPA</label>
+                                    <p class="detail">3,5</p>
+                                </div>
+                                <div class="distance col-lg-5 col-md-6 col-sm-12 d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <label for="">Certificate of Study</label>
+                                        <p class="detail">ijazahupn.jpg</p>
+                                    </div>
+                                    <a href="#">
+                                        <img class="image-copy" src="{{ asset('image/icon/main/icon_donwload.svg') }}" alt="icon">
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="card card-detail-candidate">
+                <div class="card-body">
                     <div class="row">
-                        <div class="col-xl-10 col-md-12">
+                        <div class="col-lg-11 col-md-12">
                             <div class="row">
-                                <div class="col-xl-6 col-md-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label class="label-hr">Name</label>
-                                        <input id="name" name="name" class="form-control form-hr" type="text" disabled>
-                                    </div>
+                                <div class="col-md-12 mb-3">
+                                    <p class="text-title-page-small">View</p>
+                                    <p class="text-title-page-big">Other Information</p>
                                 </div>
-                                <div class="col-xl-6 col-md-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label class="label-hr">Age</label>
-                                        <input id="age" name="age" class="form-control form-hr" type="text" disabled>
+                            </div>
+                            <div class="row detail-candidate-text">
+                                <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                    <label for="">Cover Letter</label>
+                                    <p class="detail text-red">No Data</p>
+                                </div>
+                                <div class="distance col-lg-5 col-md-6 col-sm-12 d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <label for="">Resume</label>
+                                        <p class="detail">Resume2020.jpg</p>
                                     </div>
+                                    <a href="#">
+                                        <img class="image-copy" src="{{ asset('image/icon/main/icon_donwload.svg') }}" alt="icon">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row detail-candidate-text">
+                                <div class="distance col-lg-5 col-md-6 col-sm-12 d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <label for="">Portofolio</label>
+                                        <p class="detail">Porto2020.jpg</p>
+                                    </div>
+                                    <a href="#">
+                                        <img class="image-copy" src="{{ asset('image/icon/main/icon_donwload.svg') }}" alt="icon">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row detail-candidate-text">
+                                <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                    <label for="">Skill</label>
+                                    <p class="detail">Editing, After Effect, Design, Public Speaking</p>
                                 </div>
                             </div>
                         </div>
@@ -73,165 +206,14 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="card clear">
-        <div class="card-body">
-            <div class="row mb-4">
-                <div class="col-md-12">
-                    <p class="text-title-page-small">Edit</p>
-                    <p class="text-title-page-big">Education Information</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-xl-10 col-md-12">
-                            <div class="row">
-                            <div class="col-xl-6 col-md-6 col-sm-12" id="universitasDiv">
-                                    <label class="label-hr">School/University<span class="required-sign">*</span></label>
-                                    <select class="select2 tex-center select2-width" id="universitas" name="universitas">
-                                        <option value="">-- Pilih Universitas --</option>
-
-                                    </select>
-                                </div>
-                                <div class="col-xl-6 col-md-6 col-sm-12">
-                                    <div class="form-group" >
-                                        <label class="label-hr">Degree</label>
-                                        <input type="text" class="form-control form-hr" name="degree" id="degree" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-10 col-md-12">
-                            <div class="row">
-                                <div class="col-xl-6 col-md-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label class="label-hr">Faculty<span class="required-sign">*</span></label>
-                                        <input id="faculty" name="faculty" class="form-control form-hr" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-md-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label class="label-hr">Major<span class="required-sign">*</span></label>
-                                        <input id="Major" name="Major" class="form-control form-hr" type="text">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-10 col-md-12">
-                            <div class="row">
-                                <div class="col-xl-6 col-md-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label class="label-hr">Start Year<span class="required-sign">*</span></label>
-                                        <input id="start_year" name="start_year" class="form-control form-hr" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-md-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label class="label-hr">End Year<span class="required-sign">*</span></label>
-                                        <input id="end_year" name="end_year" class="form-control form-hr" type="text">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-10 col-md-12">
-                            <div class="row">
-                                <div class="col-xl-6 col-md-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label class="label-hr">GPA<span class="required-sign">*</span></label>
-                                        <input id="gpa" name="gpa" class="form-control form-hr" type="text" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-xl-10 col-md-12">
-                            <div class="row">
-                            <div class="col-xl-6 col-md-6 col-sm-12" id="universitasDiv">
-                                    <label class="label-hr">School/University<span class="required-sign">*</span></label>
-                                    <select class="select2 tex-center select2-width" id="universitas" name="universitas">
-                                        <option value="">-- Pilih Universitas --</option>
-
-                                    </select>
-                                </div>
-                                <div class="col-xl-6 col-md-6 col-sm-12">
-                                    <div class="form-group" >
-                                        <label class="label-hr">Degree</label>
-                                        <input type="text" class="form-control form-hr" name="degree" id="degree" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-10 col-md-12">
-                            <div class="row">
-                                <div class="col-xl-6 col-md-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label class="label-hr">Faculty<span class="required-sign">*</span></label>
-                                        <input id="faculty" name="faculty" class="form-control form-hr" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-md-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label class="label-hr">Major<span class="required-sign">*</span></label>
-                                        <input id="Major" name="Major" class="form-control form-hr" type="text">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-10 col-md-12">
-                            <div class="row">
-                                <div class="col-xl-6 col-md-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label class="label-hr">Start Year<span class="required-sign">*</span></label>
-                                        <input id="start_year" name="start_year" class="form-control form-hr" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-md-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label class="label-hr">End Year<span class="required-sign">*</span></label>
-                                        <input id="end_year" name="end_year" class="form-control form-hr" type="text">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-10 col-md-12">
-                            <div class="row">
-                                <div class="col-xl-6 col-md-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label class="label-hr">GPA<span class="required-sign">*</span></label>
-                                        <input id="gpa" name="gpa" class="form-control form-hr" type="text" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="tab-pane fade show" id="detailCandidate2" role="tabpanel" aria-labelledby="detailCandidate2-tab">
+            <div class="card">
+                <div class="card-body">
+                    aaaa
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <button type="submit" class="btn btn-red w-100">Save</button>
-        </div>
-    </div>
-</form>
+</div>
 
 @endsection

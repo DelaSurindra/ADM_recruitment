@@ -61,7 +61,8 @@ Route::prefix('HR')->group(function(){
 			Route::get('/', 'Admin\CandidateController@viewCandidate')->name('get.candidate');
 			Route::post('/list-candidate','Admin\CandidateController@listCandidate')->name('post.candidate.list');
 			Route::get('/detail-candidate/{id}', 'Admin\CandidateController@viewCandidateDetail')->name('get.candidate.detail');
-			Route::post('/edit-candidate','Admin\CandidateController@editCandidate')->name('post.candidate.edit');
+			Route::get('/edit-candidate/{id}', 'Admin\CandidateController@viewCandidateEdit')->name('get.candidate.edit');
+			Route::post('/post-edit-candidate','Admin\CandidateController@editCandidate')->name('post.candidate.edit');
 			Route::post('/delete-candidate','Admin\CandidateController@deleteCandidate')->name('post.candidate.delete');
 		});
 	});

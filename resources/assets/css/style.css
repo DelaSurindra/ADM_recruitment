@@ -3351,3 +3351,40 @@ and (max-device-width: 1024px)  {
 .accordion-question-bank .card-question-inside .dropdown-menu-question .dropdown-item p.delete {
     color: #DF0E2C;
 }
+
+.card-detail-candidate {
+    background: #FFFFFF;
+    border-radius: 10px;
+    border: none;
+}
+.detail-candidate-text .img-profile-detail {
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    margin-top: 1.4rem;
+    margin-bottom: 1.5rem;
+}
+.detail-candidate-text .distance {
+    margin-bottom: 1rem;
+}
+.detail-candidate-text label {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #828282;
+}
+.detail-candidate-text .detail {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #050401;
+}
+.detail-candidate-text .devider {
+    margin-top: .3rem;
+    margin-bottom: 1.7rem;
+    border-top: 1px solid #BDBDBD;
+}

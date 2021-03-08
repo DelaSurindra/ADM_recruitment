@@ -46,6 +46,9 @@ body {
 .f-right {
   float: right;
 }
+.text-red {
+  color: #DF0E2C;
+}
 
 .main-header {
   max-height: 100px;
