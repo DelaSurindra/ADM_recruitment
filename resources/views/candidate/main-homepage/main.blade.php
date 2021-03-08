@@ -35,6 +35,12 @@
         </div>
         @endif
 
+        @php $notifModal = session('notifModal'); @endphp
+        @if ($notifModal)
+        <div id="notifModal" data-status="{!! $notifModal['status'] !!}" data-message="{!! $notifModal['message'] !!}" data-url="{!! $notifModal['url'] !!}">
+        </div>
+        @endif
+
         @php $mustLogin = session('mustLogin'); @endphp
         @if ($mustLogin)
         <div id="mustLogin">
@@ -66,6 +72,56 @@
                                 <button class="btn btn-success" id="btnSession" onclick="reload();">Login</button>
                             </center>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Notif For SUCCESS -->
+    <div class="modal fade" id="modalNotifForSuccess" tabindex="-1" aria-labelledby="modalNotifForSuccessLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm modal-for-notif">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-icon-notif d-flex justify-content-between align-items-start">
+                        <div class="ilustrasi">
+                            <img src="{{ asset('image/icon/homepage/ilustrasi-sukses.svg') }}" class="img-fluid" alt="ilustrasi">
+                        </div>
+                        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis m-0" alt="icon">
+                        </button> -->
+                    </div>
+
+                    <div class="modal-content-notif">
+                        <h4 id="titleSuccessNotif" class="candidate-page-subtitle mb-2">Your Password Saved</h4>
+                        <p id="subtitleSuccessNotif" class="mb-0"></p>
+                        <div id="changeBtnNotif">
+                            <a href="#" class="btn btn-red btn-block mt-4 d-none">Okay</a>
+                            <button class="btn btn-red btn-block mt-4" data-dismiss="modal" type="button">Okay</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Notif For ERROR -->
+    <div class="modal fade" id="modalNotifForError" tabindex="-1" aria-labelledby="modalNotifForErrorLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm modal-for-notif">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-icon-notif d-flex justify-content-between align-items-start">
+                        <div class="ilustrasi">
+                            <img src="{{ asset('image/icon/homepage/ilustrasi-gagal.svg') }}" class="img-fluid" alt="ilustrasi">
+                        </div>
+                        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis m-0" alt="icon">
+                        </button> -->
+                    </div>
+
+                    <div class="modal-content-notif">
+                        <h4 id="titleErrorNotif" class="candidate-page-subtitle mb-2">Edit Password Failed</h4>
+                        <p id="subtitleErrorNotif" class="mb-0"></p>
+                        <button class="btn btn-red btn-block mt-4" data-dismiss="modal" type="button">Okay</button>
                     </div>
                 </div>
             </div>

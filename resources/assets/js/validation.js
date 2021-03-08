@@ -240,7 +240,7 @@ const formrules = {
 			'gpa':{
 				required:true,
 			},
-			'certificate':{
+			'certificate[]':{
 				required:true,
 			},
 			// 'coverLetter':{
@@ -275,10 +275,15 @@ const formrules = {
             }
         },
         errorPlacement: function (error, element) {
-			if (element.is("#tipeNewsEvent")) {
-				error.appendTo(element.parents('#tipeNewsEventDiv'));
-			}
-			else { // This is the default behavior
+			if (element.is("#photoProfile")) {
+				error.appendTo(element.parent().parent().parent());
+			} else if (element.is("input[type=radio]") || element.is("input[type=checkbox]")) {
+				error.appendTo(element.parents('.form-group'));
+			} else if (element.hasClass("select2")) {
+				error.appendTo(element.parents('.form-group'));
+			} else if (element.is("#certificate")) {
+				error.appendTo(element.parents('.form-group'));
+			} else { // This is the default behavior
 				error.insertAfter(element);
 			}
 		}

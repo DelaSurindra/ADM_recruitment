@@ -27,13 +27,13 @@
                         <div class="icon-wrapper">
                             <img src="{{ asset('image/icon/homepage/icon-graduate.svg') }}" alt="icon">
                         </div>
-                        <p>{{ $jobDetail['degree'] }}</p>
+                        <p>{{ $jobDetail['education_req'] }}</p>
                     </div>
                     <div class="d-flex align-items-center applican-detail">
                         <div class="icon-wrapper">
                             <img src="{{ asset('image/icon/homepage/icon-book.svg') }}" alt="icon">
                         </div>
-                        <p>{{ $jobDetail['education_req'] }}</p>
+                        <p>{{ $jobDetail['major'] }}</p>
                     </div>
                     <div class="d-flex align-items-center applican-detail">
                         <div class="icon-wrapper">

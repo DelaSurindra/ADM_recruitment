@@ -89,6 +89,7 @@ var ajax = {
 							if (result.status == 'success') {
 								$('.modal').modal('hide');
 								ui.popup.hideLoader();
+								
 								if (result.callback == 'redirect') {
 									ui.popup.show(result.status, result.message, result.url);
 								} else if(result.callback == 'login') {
@@ -109,6 +110,17 @@ var ajax = {
 											window.location = '/profile';
 										}
 									, 2000);
+								} else if(result.callback == 'modal') {
+									if (result.url) {
+										$('#changeBtnNotif button').hide()
+										$('#changeBtnNotif a').removeClass('d-none')
+										$('#changeBtnNotif a').attr('href', result.url)
+										$('#titleSuccessNotif').html(result.message)
+										$('#modalNotifForSuccess').modal('show')
+									} else {
+										$('#titleSuccessNotif').html(result.message)
+										$('#modalNotifForSuccess').modal('show')
+									}
 								}
 							}else if(result.status == 'info'){
 								ui.popup.hideLoader();
@@ -121,6 +133,9 @@ var ajax = {
 								} else if (result.callback == 'mustLogin') {
 									$('#modalNotifForLogin').modal('show')
 								}
+
+								$('#titleErrorNotif').html(result.message)
+								$('#modalNotifForError').modal('show')
 							}else{
 								if(result.messages == '<p>Error: Validation</p>') {
 									ui.popup.hideLoader();

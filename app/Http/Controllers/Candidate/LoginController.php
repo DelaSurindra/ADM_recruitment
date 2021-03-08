@@ -30,7 +30,7 @@ class LoginController extends Controller
         // dd($searchEmail);
         if ($searchEmail) {
             return [
-                'status'  => 'error',
+                'status'  => 'warning',
                 'message' => 'Email Sudah Terdaftar'
             ];
         } else {
@@ -79,11 +79,11 @@ class LoginController extends Controller
                     'status'   => 'success',
                     'message'  => 'Berhasil Melakukan Registrasi',
                     'url'      => '/complete-account',
-                    'callback' => 'redirect'
+                    'callback' => 'modal'
                 ];
             }else{
                 return[
-                    'status'    => 'error',
+                    'status'    => 'warning',
                     'message'   => 'Gagal Melakukan Registrasi'
                 ];
             }
@@ -133,13 +133,13 @@ class LoginController extends Controller
                 ];
             } else {
                 return [
-                    'status'  => 'error',
+                    'status'  => 'warning',
                     'message' => 'Email dan Password tidak sesuai'
                 ];
             }
         } else {
             return [
-                'status'  => 'error',
+                'status'  => 'warning',
                 'message' => 'Email dan Password tidak sesuai'
             ];
         }

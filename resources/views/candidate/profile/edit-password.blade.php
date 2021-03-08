@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-lg-11 col-md-12 with-icon">
                         <input type="password" class="form-control" id="oldPassword" name="oldPassword" placeholder="Enter Old Password">
-                        <img src="{{ asset('image/icon/homepage/icon-eye.svg') }}" class="this-icon" alt="icon">
+                        <img src="{{ asset('image/icon/homepage/icon-eye.svg') }}" class="this-icon thisIconEye" alt="icon">
                     </div>
                 </div>
             </div>
@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col-lg-11 col-md-12 with-icon">
                         <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Enter New Password">
-                        <img src="{{ asset('image/icon/homepage/icon-eye.svg') }}" class="this-icon" alt="icon">
+                        <img src="{{ asset('image/icon/homepage/icon-eye.svg') }}" class="this-icon thisIconEye" alt="icon">
                     </div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                 <div class="row">
                     <div class="col-lg-11 col-md-12 with-icon">
                         <input type="password" class="form-control" id="newPasswordConfirm" name="newPasswordConfirm" placeholder="Enter New Password">
-                        <img src="{{ asset('image/icon/homepage/icon-eye.svg') }}" class="this-icon" alt="icon">
+                        <img src="{{ asset('image/icon/homepage/icon-eye.svg') }}" class="this-icon thisIconEye" alt="icon">
                     </div>
                 </div>
             </div>

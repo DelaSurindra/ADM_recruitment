@@ -43,6 +43,9 @@ label.error {
 .goToRegister {
     cursor: pointer;
 }
+.thisIconEye {
+    cursor: pointer;
+}
 
 .candidate-page-title {
     font-family: 'inter_bold', sans-serif;

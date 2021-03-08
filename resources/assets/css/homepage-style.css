@@ -541,6 +541,11 @@ ul.location-list li p {
     border: 1px solid #E0E0E0;
     box-sizing: border-box;
     border-radius: 10px;
+    transition: box-shadow .5s, border .8s;
+}
+.card-job-list:hover {
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+    border: 1px solid #FFFFFF;
 }
 .job-list-detail .icon-wrapper {
     width: 22px;

@@ -168,6 +168,18 @@ var form = {
 }
 
 
+$('.thisIconEye').click(function(){
+	var item = $(this).parent().find('.form-control')
+	var attr = item.attr('type');
+	console.log(attr)
+	if (attr == 'password') {
+		item.attr('type', 'text');
+	} else {
+		item.attr('type', 'password');
+	}
+});
+
+
 // Fungsi Format rupiah untuk form
 function formatRupiahRp(angka) {
 	var number_string = angka.replace(/[^,\d]/g, "").toString(),
