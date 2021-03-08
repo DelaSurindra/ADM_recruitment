@@ -46,6 +46,16 @@ Route::prefix('HR')->group(function(){
 			Route::post('/edit-vacancy','Admin\VacancyController@editVacancy')->name('post.vacancy.edit');
 			Route::post('/delete-vacancy','Admin\VacancyController@deleteVacancy')->name('post.vacancy.delete');
 		});
+
+		Route::prefix('question_bank')->group(function () {
+			Route::get('/', 'Admin\QuestionController@viewQuestionBank')->name('get.question-bank');
+			Route::post('/list-vacancy','Admin\VacancyController@listVacancy')->name('post.vacancy.list');
+			Route::get('/add-vacancy', 'Admin\VacancyController@viewVacancyAdd')->name('get.vacancy.add');
+			Route::post('/post-vacancy','Admin\VacancyController@addVacancy')->name('post.vacancy.add');
+			Route::get('/detail-vacancy/{id}', 'Admin\VacancyController@viewVacancyDetail')->name('get.vacancy.detail');
+			Route::post('/edit-vacancy','Admin\VacancyController@editVacancy')->name('post.vacancy.edit');
+			Route::post('/delete-vacancy','Admin\VacancyController@deleteVacancy')->name('post.vacancy.delete');
+		});
 	});
 });
 
