@@ -49,6 +49,19 @@ $(document).ready(function () {
 
         ui.popup.show(status, message, url)
     }
+    if ($('#notifModal').length) {
+        const status = $('#notifModal').data('status')
+        const message = $('#notifModal').data('message')
+        const url = $('#notifModal').data('url')
+
+        if (status == 'success') {
+            $('#titleSuccessNotif').html(message)
+            $('#modalNotifForSuccess').modal('show')
+        } else {
+            $('#titleErrorNotif').html(message)
+			$('#modalNotifForError').modal('show')
+        }
+    }
     if ($('#mustLogin').length) {
         $('.modal').modal('hide');
 	    ui.popup.hideLoader();

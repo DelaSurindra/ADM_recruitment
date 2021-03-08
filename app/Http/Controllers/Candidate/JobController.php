@@ -34,10 +34,7 @@ class JobController extends Controller
                 $degree = "";
             }
 
-            $major = explode(',', $job[$i]['major']);
-            foreach ($major as $value) {
-                $job[$i]['education_req'] = $degree.' in '.$value;
-            }
+            $job[$i]['education_req'] = $degree;
         }
         // dd($job);
         return view('candidate.job_list.job-list')->with(['topbar'=>'job', 'job'=>$job, 'wilayah'=>$wilayah]);
@@ -89,7 +86,7 @@ class JobController extends Controller
             }
             // Filter Major
             if (isset($filter['majorFilter']) && !empty($filter['majorFilter'])) {
-                $sql = $sql->where('major', $filter['majorFilter']);
+                $sql = $sql->where('major', 'like','%'.$filter['majorFilter'].'%');
             }
 
             $job = $sql->orderBy('created_at', 'desc')->get()->toArray();
@@ -106,10 +103,7 @@ class JobController extends Controller
                 $degree = "Master's Degree";
             }
 
-            $major = explode(',', $job[$i]['major']);
-            foreach ($major as $value) {
-                $job[$i]['education_req'] = $degree.' in '.$value;
-            }
+            $job[$i]['education_req'] = $degree;
         }
         // dd($job);
         return response()->json($job);
@@ -131,10 +125,7 @@ class JobController extends Controller
                 $degree = "";
             }
 
-            $major = explode(',', $job[$i]['major']);
-            foreach ($major as $value) {
-                $job[$i]['education_req'] = $degree.' in '.$value;
-            }
+            $job[$i]['education_req'] = $degree;
         }
 
         $jobDetail = Vacancy::where('job_id', $id)->first()->toArray();
@@ -147,10 +138,7 @@ class JobController extends Controller
             $degree = "Master's Degree";
         }
 
-        $major = explode(',', $jobDetail['major']);
-        foreach ($major as $value) {
-            $jobDetail['education_req'] = $degree.' in '.$value;
-        }
+        $jobDetail['education_req'] = $degree;
 
         return view('candidate.job_list.job-detail')->with(['topbar'=>'job', 'job'=>$job, 'jobDetail'=>$jobDetail]);
     }
@@ -198,13 +186,13 @@ class JobController extends Controller
                     ];
                 } else {
                     return [
-                        'status' => 'error',
+                        'status' => 'warning',
                         'message' => 'Job Requirement Not Match',
                     ];
                 }
             } else {
                 return [
-                    'status' => 'error',
+                    'status' => 'warning',
                     'message' => 'Job Requirement Not Match',
                 ];
             }
@@ -233,7 +221,7 @@ class JobController extends Controller
             ];
         } else {
             return [
-                'status' => 'error',
+                'status' => 'warning',
                 'message' => 'Error Save Tell Me',
             ];
         }

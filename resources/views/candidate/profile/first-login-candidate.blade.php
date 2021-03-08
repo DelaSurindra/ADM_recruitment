@@ -342,7 +342,7 @@
                         <label for="">Cover Letter</label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <input type="text" name="coverLetterLink" id="coverLetterLink" class="form-control" placeholder="You can attach file or send a link direct to your file">
+                                <input type="text" name="coverLetterLink" id="coverLetterLink" class="form-control" placeholder="Attach file Here" disabled>
                                 <p id="filenameCertificateStudy" class="m-1"></p>
                                 <span class="btn btn-file pl-1 mb-2">
                                     Upload File <input type="file" name="coverLetter" id="coverLetter">
@@ -358,7 +358,7 @@
                         <label for="">Resume</label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <input type="text" name="resumeLink" id="resumeLink" class="form-control" placeholder="You can attach file or send a link direct to your file">
+                                <input type="text" name="resumeLink" id="resumeLink" class="form-control" placeholder="Attach file Here" disabled>
                                 <p id="filenameCertificateStudy" class="m-1"></p>
                                 <span class="btn btn-file pl-1 mb-2">
                                     Upload File <input type="file" name="resume" id="resume">

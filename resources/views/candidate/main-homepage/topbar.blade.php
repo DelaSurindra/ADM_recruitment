@@ -134,7 +134,7 @@
                     <div class="form-group">
                         <div class="with-icon">
                             <input type="password" name="passwordCandidate" id="passwordCandidate" class="form-control" placeholder="Password">
-                            <img src="{{ asset('image/icon/homepage/icon-eye.svg') }}" class="this-icon" alt="icon" style="right: 13px;">
+                            <img src="{{ asset('image/icon/homepage/icon-eye.svg') }}" class="this-icon thisIconEye" alt="icon" style="right: 13px;">
                         </div>
                     </div>
                     <!-- <div class="form-group d-flex align-items-center justify-content-between my-4">
@@ -175,7 +175,7 @@
                     <div class="form-group">
                         <div class="with-icon">
                             <input type="password" name="password" id="password" class="form-control" placeholder="Password">
-                            <img src="{{ asset('image/icon/homepage/icon-eye.svg') }}" class="this-icon" alt="icon" style="right: 13px;">
+                            <img src="{{ asset('image/icon/homepage/icon-eye.svg') }}" class="this-icon thisIconEye" alt="icon" style="right: 13px;">
                         </div>
                     </div>
                     <div class="form-group d-flex align-items-center justify-content-between my-4">

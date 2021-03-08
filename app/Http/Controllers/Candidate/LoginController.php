@@ -27,9 +27,10 @@ class LoginController extends Controller
     	$data = $encrypt->fnDecrypt(Request::input('data'),true);
         // dd($data);
         $searchEmail = User::where('email', $data['emailCandidate'])->first();
+        // dd($searchEmail);
         if ($searchEmail) {
             return [
-                'status'  => 'error',
+                'status'  => 'warning',
                 'message' => 'Email Sudah Terdaftar'
             ];
         } else {
@@ -48,7 +49,7 @@ class LoginController extends Controller
             if ($insertCandidate) {
                 $user = User::select('kandidat.*', 'users.email', 'users.password', 'users.type', 'users.status')
                 ->join('kandidat', 'users.id', 'kandidat.user_id')
-                ->where('users.id', $cekEmail->id)->first()->toArray();
+                ->where('users.id', $insertUser)->first()->toArray();
                 $education = Education::where('kandidat_id', $user['id'])->get()->toArray();
                 // dd($user, $education);
                 $session = [
@@ -78,11 +79,11 @@ class LoginController extends Controller
                     'status'   => 'success',
                     'message'  => 'Berhasil Melakukan Registrasi',
                     'url'      => '/complete-account',
-                    'callback' => 'redirect'
+                    'callback' => 'modal'
                 ];
             }else{
                 return[
-                    'status'    => 'error',
+                    'status'    => 'warning',
                     'message'   => 'Gagal Melakukan Registrasi'
                 ];
             }
@@ -132,13 +133,13 @@ class LoginController extends Controller
                 ];
             } else {
                 return [
-                    'status'  => 'error',
+                    'status'  => 'warning',
                     'message' => 'Email dan Password tidak sesuai'
                 ];
             }
         } else {
             return [
-                'status'  => 'error',
+                'status'  => 'warning',
                 'message' => 'Email dan Password tidak sesuai'
             ];
         }

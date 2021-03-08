@@ -168,7 +168,7 @@ class ProfileController extends Controller
                 'url' => 'close'
             ];
 
-            return back()->with('notif', $messages);
+            return back()->with('notifModal', $messages);
         }
     }
 
@@ -295,7 +295,7 @@ class ProfileController extends Controller
                 'url' => 'close'
             ];
 
-            return redirect('/profile')->with('notif', $messages);
+            return redirect('/profile')->with('notifModal', $messages);
         } else {
             $messages = [
                 'status' => 'error',
@@ -303,7 +303,7 @@ class ProfileController extends Controller
                 'url' => 'close'
             ];
 
-            return back()->with('notif', $messages);
+            return back()->with('notifModal', $messages);
         }
     }
 
@@ -387,7 +387,7 @@ class ProfileController extends Controller
                 'url' => 'close'
             ];
 
-            return redirect('/profile')->with('notif', $messages);
+            return redirect('/profile')->with('notifModal', $messages);
         } else {
             $messages = [
                 'status' => 'error',
@@ -395,7 +395,7 @@ class ProfileController extends Controller
                 'url' => 'close'
             ];
 
-            return back()->with('notif', $messages);
+            return back()->with('notifModal', $messages);
         }
     }
 
@@ -576,7 +576,7 @@ class ProfileController extends Controller
                 'url' => 'close'
             ];
 
-            return redirect('/profile')->with('notif', $messages);
+            return redirect('/profile')->with('notifModal', $messages);
         } else {
             $messages = [
                 'status' => 'error',
@@ -584,7 +584,7 @@ class ProfileController extends Controller
                 'url' => 'close'
             ];
 
-            return back()->with('notif', $messages);
+            return back()->with('notifModal', $messages);
         }
     }
 
@@ -659,17 +659,17 @@ class ProfileController extends Controller
                     'status'   => 'success',
                     'message'  => 'Change Password Success, Please Login Again',
                     'url'      => '/signout',
-                    'callback' => 'redirect'
+                    'callback' => 'modal'
                 ];
             }else{
                 return [
-                    'status'   => 'error',
+                    'status'   => 'warning',
                     'message'  => 'Change Password Failed',
                 ];
             }
         } else {
             return [
-                'status'   => 'error',
+                'status'   => 'warning',
                 'message'  => 'Old Password does not Match',
             ];
         }
