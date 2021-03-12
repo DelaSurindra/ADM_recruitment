@@ -125,6 +125,21 @@ table.dataTable.no-footer{
     padding-left: 10px !important;
 }
 
+.table-hr .width-checkbox{
+	min-width: 15px !important;
+}
+
+.table-hr .width-edit{
+	min-width: 45px !important;
+}
+
+.img-candidate{
+	width: 30px;
+	height: 30px;
+	object-fit: cover;
+	border-radius: 50px;
+}
+
 .table-hr.dataTable.stripe tbody tr.odd{
 	background: #EDFCF3 !important;
 }

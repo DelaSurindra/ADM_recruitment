@@ -63,7 +63,7 @@ Route::prefix('HR')->group(function(){
 			Route::get('/detail-candidate/{id}', 'Admin\CandidateController@viewCandidateDetail')->name('get.candidate.detail');
 			Route::get('/edit-candidate/{id}', 'Admin\CandidateController@viewCandidateEdit')->name('get.candidate.edit');
 			Route::post('/post-edit-candidate','Admin\CandidateController@editCandidate')->name('post.candidate.edit');
-			Route::post('/delete-candidate','Admin\CandidateController@deleteCandidate')->name('post.candidate.delete');
+			Route::get('/download-file/{file}','Admin\CandidateController@downloadFile')->name('post.download.file');
 		});
 	});
 });

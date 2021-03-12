@@ -1178,3 +1178,34 @@ $('.loadMoreJob').click(function(){
 		}
 	})
 })
+
+if ($('#filterCandidate').length) {
+	
+	$('#usia').mask('0000', {
+		reverse: true
+	});
+	
+	$('#tahunLulus').mask('0000', {
+		reverse: true
+	});
+
+	$('#ipkMinimum').mask('0.00', {
+		reverse: true
+	});
+}
+
+if($("#formEditCandidate").length){
+	$(".year_date").datetimepicker({
+		format: 'YYYY',
+	});
+}
+
+if ($("#detailCandidate1").length) {
+	$("#copyLinkedin").click(function(){
+		var copyText = document.getElementById("linkedin");
+		copyText.select();
+		copyText.setSelectionRange(0, 99999)
+		document.execCommand("copy");
+		
+	})
+}

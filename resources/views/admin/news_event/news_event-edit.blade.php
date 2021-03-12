@@ -3,7 +3,7 @@
 @section('title',$title)
 @section('content')
 
-<form action="{{ route('post.news.event.edit') }}" class="form stacked" method="POST" id="formEditEventNews" enctype="multipart/form-data">
+<form action="{{ route('post.news.event.edit') }}" class="form stacked form-hr" method="POST" id="formEditEventNews" enctype="multipart/form-data">
     <div class="row">
         <div class="col-12">
             <div class="card clear">
@@ -50,7 +50,7 @@
                                 <div class="col-lg-11 col-md-12">
                                     <div class="form-group">
                                         <label>Title<span class="required-sign">*</span></label>
-                                        <input id="titleNewsEvent" name="titleNewsEvent" class="form-control form-hr" type="text" placeholder="Add a News & Event titles" value="{{$data['title']}}">
+                                        <input id="titleNewsEvent" name="titleNewsEvent" class="form-control" type="text" placeholder="Add a News & Event titles" value="{{$data['title']}}">
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                                                 <label>Activate Date<span class="required-sign">*</span></label>
                                                 <div class="row">
                                                     <div class="col-12">
-                                                        <input id="tglMulaiNewsEvent" name="tglMulaiNewsEvent" class="form-control form-hr datepicker dateNewsEvent" type="text" value="{{$data['start_date']}}" {{$data['type'] == '1' ? 'disabled':''}}>
+                                                        <input id="tglMulaiNewsEvent" name="tglMulaiNewsEvent" class="form-control datepicker dateNewsEvent" type="text" value="{{$data['start_date']}}" {{$data['type'] == '1' ? 'disabled':''}}>
                                                     </div>
                                                 </div>
                                             </div>
@@ -82,7 +82,7 @@
                                                 <label class="text-white">End Date News/Event</label>
                                                 <div class="row mt-1">
                                                     <div class="col-12">
-                                                        <input id="tglSelesaiNewsEvent" name="tglSelesaiNewsEvent" class="form-control form-hr datepicker dateNewsEvent" type="text" value="{{$data['end_date']}}" {{$data['type'] == '1' ? 'disabled':''}}>
+                                                        <input id="tglSelesaiNewsEvent" name="tglSelesaiNewsEvent" class="form-control datepicker dateNewsEvent" type="text" value="{{$data['end_date']}}" {{$data['type'] == '1' ? 'disabled':''}}>
                                                     </div>
                                                 </div>
                                             </div>

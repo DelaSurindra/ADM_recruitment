@@ -1,3 +1,294 @@
+.input-linkedin{
+    border: none;
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #050401;
+}
+
+.input-linkedin:focus{
+    border: none;
+    border-color: red;
+    box-shadow: none;
+    outline-width: 0;
+}
+
+.btn-copy:active .btn-copy:focus{
+    border: none !important;
+    box-shadow: none !important;
+    border-color: white;
+}
+
+.name-candidate{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 130%;
+    display: flex;
+    align-items: center;
+    color: #050401;
+    text-decoration: none;
+}
+
+.name-candidate:hover{
+    color: #050401;
+    text-decoration: none;
+}
+
+.dropdown-candidate{
+    min-height: 400px;
+    height: 408px;
+    transform: translate3d(-238px, 12px, 0px) !important;
+    overflow-y: auto;
+}
+
+.dropdown-candidate::-webkit-scrollbar-track {
+    background: #F6F6F6;
+}
+.dropdown-candidate::-webkit-scrollbar {
+    height: 6px !important;
+	width: 6px !important;
+}
+.dropdown-candidate::-webkit-scrollbar-thumb {
+    background: #DF0E2C;
+    border-radius: 3px;
+}
+
+.job-search-wrapper {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.job-search-wrapper p {
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    color: #DF0E2C;
+    margin-bottom: 0px;
+    margin-left: .5rem;
+}
+.job-search .dropdown-menu {
+    background: #FFFFFF;
+    border: 0.2px solid #E0E0E0;
+    box-sizing: border-box;
+    box-shadow: 0px 7px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    padding: 0px;
+    top: 15px !important;
+}
+.job-search .dropdown-menu:before {
+    content: "";
+    border-bottom: 13.2px solid #E0E0E0;
+    border-right: 10.2px solid transparent;
+    border-left: 10.2px solid transparent;
+    position: absolute;
+    top: -13px;
+    right: 13.5px;
+    z-index: 1001;
+}
+.job-search .dropdown-menu:after {
+    content: "";
+    border-bottom: 13px solid #fff;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    position: absolute;
+    top: -12.1px;
+    right: 13.3px;
+    z-index: 1002;
+}
+.job-search .dropdown-menu.search {
+    min-width: 300px;
+}
+.job-search .dropdown-menu.search .submit-filter {
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 113.2%;
+    color: #DF0E2C;
+    margin-left: .3rem;
+}
+.job-search .dropdown-menu.filter {
+    min-width: 300px;
+}
+.job-search .dropdown-menu .dropdown-item {
+    padding: 1rem;
+}
+.job-search .dropdown-menu .dropdown-divider {
+    margin: 0px;
+    border-top: 1px solid #BDBDBD;
+}
+.job-search .dropdown-menu .dropdown-item:hover {
+    background-color: transparent;
+}
+.job-search .dropdown-menu .dropdown-item:active {
+    background-color: transparent;
+}
+.job-search .dropdown-menu.filter .dropdown-item .clear-filter {
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 113.2%;
+    color: #828282;
+}
+.job-search .dropdown-menu.filter .dropdown-item .submit-filter {
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 113.2%;
+    color: #DF0E2C;
+}
+.job-search .dropdown-menu h6 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 113.2%;
+    color: #050401;
+}
+.job-search .dropdown-menu.filter .list-type-job {
+    display: flex;
+    align-items: center;
+}
+
+.job-type-select {
+    cursor: pointer;
+}
+
+.modal-hr .modal-content {
+    background: #FFFFFF;
+    box-shadow: 50px 50px 100px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+.modal-hr .modal-content .modal-body {
+    padding: 2.1rem 1.8rem;
+}
+.modal-hr .modal-up {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+}
+
+.modal-hr .modal-hr-title{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 130%;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+    color: #050401;
+}
+
+.modal-hr p{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #4F4F4F;
+}
+
+.fulltime-badge {
+    background: rgba(240, 29, 38, 0.75);
+    border: 2px solid #DF0E2C;
+    box-sizing: border-box;
+    border-radius: 13.5px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #E8F7EE;
+    padding: 2px 6px;
+    width: fit-content;
+}
+.internship-badge {
+    background: rgba(12, 84, 160, 0.75);
+    border: 2px solid #2E61AF;
+    box-sizing: border-box;
+    border-radius: 13.5px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #E8F7EE;
+    padding: 2px 6px;
+    width: fit-content;
+}
+.fulltime-badge.not-active {
+    background: transparent;
+    border: 2px solid #DF0E2C;
+    box-sizing: border-box;
+    border-radius: 13.5px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #DF0E2C;
+    padding: 2px 6px;
+    width: fit-content;
+}
+.internship-badge.not-active {
+    background: transparent;
+    border: 2px solid #2E61AF;
+    box-sizing: border-box;
+    border-radius: 13.5px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #2E61AF;
+    padding: 2px 6px;
+    width: fit-content;
+}
+
+.container-custom-checked {
+    display: block;
+    position: relative;
+    padding-left: 27px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-style: normal;
+    font-weight: normal !important;
+    font-size: 12px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #333333;
+}
+
+/* Hide the browser's default checkbox */
+.container-custom-checked input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
 .btn-bulk-candidate{
     background: #FFFFFF;
     border-radius: 8px;
@@ -352,26 +643,72 @@
     background: #E8F7EE !important;
 }
 
-.form-hr{
-    background: #E8F7EE;
-    border-radius: 4px;
-}
-
 .form-hr:focus{
     background: #E8F7EE;
     border-radius: 4px;
 }
 
-.label-hr{
+.form-hr label{
     font-family: 'inter_semibold', sans-serif !important;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 14px;
     line-height: 130%;
-    display: flex;
-    align-items: center;
     letter-spacing: -0.02em;
     color: #333333;
+    margin-bottom: .8rem;
+}
+.form-hr .with-icon {
+    position: relative;
+}
+.form-hr .with-icon .this-icon {
+    position: absolute;
+    top: 9px;
+    right: 33px;
+}
+.form-hr .with-icon .this-icon.click {
+    cursor: pointer;
+}
+.form-hr .form-group {
+    margin-bottom: 1.2rem;
+}
+.form-hr .form-control {
+    background-color: #E8F7EE;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #333333;
+    height: 40px;
+    border: none;
+}
+.form-hr textarea.form-control {
+    height: 100%;
+}
+.form-hr .form-control:focus {
+    box-shadow: inset 0 -1px 0 #ddd;
+    background: #E8F7EE;
+}
+.form-hr .form-control:disabled, .form-control[readonly]{
+    background: #BDBDBD;
+    border-radius: 4px;
+}
+.form-hr .select2-selection.select2-selection--single {
+    background-color: #E8F7EE;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #333333;
+    height: 40px;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+.form-hr .select2-selection.select2-selection--single .select2-selection__arrow {
+    top: 7px;
 }
 
 .required-sign {
@@ -585,45 +922,43 @@
     left: 0;
     height: 20px;
     width: 20px;
-    /*background-color: white;*/
-    border: 1px solid grey;
-    border-radius: 50%;
+    background-color: #eee;
+    border-radius: 4px;
 }
-  
-  /* On mouse-over, add a grey background color */
-.custome-radio:hover input ~ .checkmark {
-    background-color: white;
+
+/* On mouse-over, add a grey background color */
+.container-custom-checked:hover input ~ .checkmark {
+background-color: #ccc;
 }
-  
-  /* When the radio button is checked, add a blue background */
-.custome-radio input:checked ~ .checkmark {
-    background-color: white;
+
+/* When the checkbox is checked, add a blue background */
+.container-custom-checked input:checked ~ .checkmark {
+    background-color: #DF0E2C;
 }
-  
-  /* Create the indicator (the dot/circle - hidden when not checked) */
+
+/* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
     content: "";
     position: absolute;
     display: none;
 }
-  
-  /* Show the indicator (dot/circle) when checked */
-.custome-radio input:checked ~ .checkmark:after {
+
+/* Show the checkmark when checked */
+.container-custom-checked input:checked ~ .checkmark:after {
     display: block;
 }
-  
-  /* Style the indicator (dot/circle) */
-.custome-radio .checkmark:after {
+
+/* Style the checkmark/indicator */
+.container-custom-checked .checkmark:after {
+    left: 8px;
     top: 4px;
-	left: 4px;
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	background: #2795F8;
-}
-  
-.custome-radio input:disabled ~ .checkmark {
-    background-color : #ccc;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 
 .table-limit-nominal{

@@ -26,23 +26,27 @@
                             </div>
                             <div class="row detail-candidate-text">
                                 <div class="col-md-12">
+                                @if($data['foto_profil'] == null || $data['foto_profil'] == "")
                                     <img src="{{ asset('image/icon/homepage/dummy-profile.svg') }}" alt="img" class="img-fluid img-profile-detail">
+                                @else
+                                    <img src="{{asset('storage/').'/'.$data['foto_profil'] }}" alt="img" class="img-fluid img-profile-detail">
+                                @endif
                                 </div>
                                 <div class="distance col-lg-5 col-md-6 col-sm-12">
                                     <label for="">First Name</label>
-                                    <p class="detail">Sahadi</p>
+                                    <p class="detail">{{$data['first_name']}}</p>
                                 </div>
                                 <div class="distance col-lg-5 col-md-6 col-sm-12">
                                     <label for="">Last Name</label>
-                                    <p class="detail">Ilaihi Zamani</p>
+                                    <p class="detail">{{$data['last_name']}}</p>
                                 </div>
                                 <div class="distance col-md-12">
                                     <label for="">Date of Birth</label>
-                                    <p class="detail">17 Agustus 2020</p>
+                                    <p class="detail">{{$data['tanggal_lahir']}}</p>
                                 </div>
                                 <div class="distance col-md-12">
                                     <label for="">Gender</label>
-                                    <p class="detail">Male</p>
+                                    <p class="detail">{{$data['gender'] == "1" ? 'Male':'Female'}}</p>
                                 </div>
                                 <div class="distance col-lg-5 col-md-6 col-sm-12">
                                     <label for="">Email</label>
@@ -50,20 +54,20 @@
                                 </div>
                                 <div class="distance col-lg-5 col-md-6 col-sm-12">
                                     <label for="">Phone Number</label>
-                                    <p class="detail">081234567899</p>
+                                    <p class="detail">{{$data['telp']}}</p>
                                 </div>
                                 <div class="distance col-md-12">
                                     <label for="">Location</label>
-                                    <p class="detail">Surabaya, East Java</p>
+                                    <p class="detail">{{$data['kota']}}</p>
                                 </div>
                                 <div class="distance col-lg-5 col-md-6 col-sm-12 d-flex justify-content-between align-items-center">
                                     <div>
                                         <label for="">Linkedin Profile</label>
-                                        <p class="detail">www.linkedin.com/example</p>
+                                        <input type="text" id="linkedin" class="input-linkedin" readonly value="{{$data['linkedin']}}">
                                     </div>
-                                    <a href="#">
+                                    <button type="button" class="btn btn-copy" id="copyLinkedin">
                                         <img class="image-copy" src="{{ asset('image/icon/homepage/icon-copy.svg') }}" alt="icon">
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -82,77 +86,53 @@
                                 </div>
                             </div>
                             <div class="row detail-candidate-text">
-                                <div class="distance col-lg-5 col-md-6 col-sm-12">
-                                    <label for="">School/University</label>
-                                    <p class="detail">UPN “Veteran” Jawa Timur</p>
-                                </div>
-                                <div class="distance col-lg-5 col-md-6 col-sm-12">
-                                    <label for="">Degree</label>
-                                    <p class="detail">S1</p>
-                                </div>
-                                <div class="distance col-lg-5 col-md-6 col-sm-12">
-                                    <label for="">Faculty</label>
-                                    <p class="detail">Computer Science Faculty</p>
-                                </div>
-                                <div class="distance col-lg-5 col-md-6 col-sm-12">
-                                    <label for="">Major</label>
-                                    <p class="detail">Informatic Engineering</p>
-                                </div>
-                                <div class="distance col-md-12">
-                                    <label for="">Education Year</label>
-                                    <p class="detail">2015 - 2019</p>
-                                </div>
-                                <div class="distance col-lg-5 col-md-6 col-sm-12">
-                                    <label for="">GPA</label>
-                                    <p class="detail">3,5</p>
-                                </div>
-                                <div class="distance col-lg-5 col-md-6 col-sm-12 d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <label for="">Certificate of Study</label>
-                                        <p class="detail">ijazahupn.jpg</p>
+                                @if($data['pendidikan'] != [])
+                                @foreach($data['pendidikan'] as $pendidikan)
+                                    <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                        <label for="">School/University</label>
+                                        <p class="detail">{{$pendidikan['universitas']}}</p>
                                     </div>
-                                    <a href="#">
-                                        <img class="image-copy" src="{{ asset('image/icon/main/icon_donwload.svg') }}" alt="icon">
-                                    </a>
-                                </div>
-
-                                <div class="col-12">
-                                    <hr class="divider">
-                                </div>
-
-                                <div class="distance col-lg-5 col-md-6 col-sm-12">
-                                    <label for="">School/University</label>
-                                    <p class="detail">UPN “Veteran” Jawa Timur</p>
-                                </div>
-                                <div class="distance col-lg-5 col-md-6 col-sm-12">
-                                    <label for="">Degree</label>
-                                    <p class="detail">S1</p>
-                                </div>
-                                <div class="distance col-lg-5 col-md-6 col-sm-12">
-                                    <label for="">Faculty</label>
-                                    <p class="detail">Computer Science Faculty</p>
-                                </div>
-                                <div class="distance col-lg-5 col-md-6 col-sm-12">
-                                    <label for="">Major</label>
-                                    <p class="detail">Informatic Engineering</p>
-                                </div>
-                                <div class="distance col-md-12">
-                                    <label for="">Education Year</label>
-                                    <p class="detail">2015 - 2019</p>
-                                </div>
-                                <div class="distance col-lg-5 col-md-6 col-sm-12">
-                                    <label for="">GPA</label>
-                                    <p class="detail">3,5</p>
-                                </div>
-                                <div class="distance col-lg-5 col-md-6 col-sm-12 d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <label for="">Certificate of Study</label>
-                                        <p class="detail">ijazahupn.jpg</p>
+                                    <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                        <label for="">Degree</label>
+                                        @if($pendidikan['gelar'] == "1")
+                                        <p class="detail">D3</p>
+                                        @elseif($pendidikan['gelar'] == "2")
+                                        <p class="detail">S1</p>
+                                        @else
+                                        <p class="detail">S2</p>
+                                        @endif
                                     </div>
-                                    <a href="#">
-                                        <img class="image-copy" src="{{ asset('image/icon/main/icon_donwload.svg') }}" alt="icon">
-                                    </a>
-                                </div>
+                                    <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                        <label for="">Faculty</label>
+                                        <p class="detail">{{$pendidikan['fakultas']}}</p>
+                                    </div>
+                                    <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                        <label for="">Major</label>
+                                        <p class="detail">{{$pendidikan['jurusan']}}</p>
+                                    </div>
+                                    <div class="distance col-md-12">
+                                        <label for="">Education Year</label>
+                                        <p class="detail">{{$pendidikan['start_year']}} - {{$pendidikan['end_year']}}</p>
+                                    </div>
+                                    <div class="distance col-lg-5 col-md-6 col-sm-12">
+                                        <label for="">GPA</label>
+                                        <p class="detail">{{$pendidikan['gpa']}}</p>
+                                    </div>
+                                    <div class="distance col-lg-5 col-md-6 col-sm-12 d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <label for="">Certificate of Study</label>
+                                            <p class="detail">{{$pendidikan['ijazah']}}</p>
+                                        </div>
+                                        <a href="{{route('post.download.file', base64_encode(urlencode($pendidikan['ijazah'])))}}">
+                                            <img class="image-copy" src="{{ asset('image/icon/main/icon_donwload.svg') }}" alt="icon">
+                                        </a>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <hr class="divider">
+                                    </div>
+                                @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -170,16 +150,21 @@
                                 </div>
                             </div>
                             <div class="row detail-candidate-text">
-                                <div class="distance col-lg-5 col-md-6 col-sm-12">
-                                    <label for="">Cover Letter</label>
-                                    <p class="detail text-red">No Data</p>
+                                <div class="distance col-lg-5 col-md-6 col-sm-12 d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <label for="">Cover Letter</label>
+                                        <p class="detail">{{$data['cover_letter']}}</p>
+                                    </div>
+                                    <a href="{{route('post.download.file', base64_encode(urlencode($data['cover_letter'])))}}">
+                                        <img class="image-copy" src="{{ asset('image/icon/main/icon_donwload.svg') }}" alt="icon">
+                                    </a>
                                 </div>
                                 <div class="distance col-lg-5 col-md-6 col-sm-12 d-flex justify-content-between align-items-center">
                                     <div>
                                         <label for="">Resume</label>
-                                        <p class="detail">Resume2020.jpg</p>
+                                        <p class="detail">{{$data['resume']}}</p>
                                     </div>
-                                    <a href="#">
+                                    <a href="{{route('post.download.file', base64_encode(urlencode($data['resume'])))}}">
                                         <img class="image-copy" src="{{ asset('image/icon/main/icon_donwload.svg') }}" alt="icon">
                                     </a>
                                 </div>
@@ -188,9 +173,9 @@
                                 <div class="distance col-lg-5 col-md-6 col-sm-12 d-flex justify-content-between align-items-center">
                                     <div>
                                         <label for="">Portofolio</label>
-                                        <p class="detail">Porto2020.jpg</p>
+                                        <p class="detail">{{$data['protofolio']}}</p>
                                     </div>
-                                    <a href="#">
+                                    <a href="{{route('post.download.file', base64_encode(urlencode($data['protofolio'])))}}">
                                         <img class="image-copy" src="{{ asset('image/icon/main/icon_donwload.svg') }}" alt="icon">
                                     </a>
                                 </div>
@@ -198,7 +183,7 @@
                             <div class="row detail-candidate-text">
                                 <div class="distance col-lg-5 col-md-6 col-sm-12">
                                     <label for="">Skill</label>
-                                    <p class="detail">Editing, After Effect, Design, Public Speaking</p>
+                                    <p class="detail">{{$data['skill']}}</p>
                                 </div>
                             </div>
                         </div>

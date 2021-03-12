@@ -13,7 +13,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <form action="{{ route('post.vacancy.edit') }}" class="form stacked" method="POST" id="formEditVacancy" ajax="true">
+                <form action="{{ route('post.vacancy.edit') }}" class="form stacked form-hr" method="POST" id="formEditVacancy" ajax="true">
                     @csrf
                     <input type="hidden" name="idVacancy" value="{{$data['job_id']}}">
                     <div class="row">
@@ -21,12 +21,12 @@
                             <div class="row">
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group" >
-                                        <label class="label-hr">Job Title<span class="required-sign">*</span></label>
-                                        <input type="text" class="form-control form-hr" name="titleVacancy" id="titleVacancy" placeholder="Add a vacancy titles..." value="{{$data['job_title']}}">
+                                        <label>Job Title<span class="required-sign">*</span></label>
+                                        <input type="text" class="form-control" name="titleVacancy" id="titleVacancy" placeholder="Add a vacancy titles..." value="{{$data['job_title']}}">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-md-6 col-sm-12" id="typeVacancyDiv">
-                                    <label class="label-hr">Type<span class="required-sign">*</span></label>
+                                    <label>Type<span class="required-sign">*</span></label>
                                     <select class="select2 tex-center select2-width" id="typeVacancy" name="typeVacancy">
                                         <option value="">Type</option>
                                         <option {{$data['type'] == '1' ? 'selected':''}} value="1">Full Time</option>
@@ -40,7 +40,7 @@
                         <div class="col-xl-10 col-md-12">
                             <div class="row">
                                 <div class="col-xl-6 col-md-6 col-sm-12" id="locationVacancyDiv">
-                                    <label class="label-hr">Location<span class="required-sign">*</span></label>
+                                    <label>Location<span class="required-sign">*</span></label>
                                     <select class="select2 tex-center select2-width" id="locationVacancy" name="locationVacancy">
                                         <option value="">-- Pilih Location --</option>
                                         @foreach($wilayah as $dataWilayah)
@@ -50,8 +50,8 @@
                                 </div>
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group">
-                                        <label class="label-hr">Working Time<span class="required-sign">*</span></label>
-                                        <input id="workingTimeVacancy" name="workingTimeVacancy" class="form-control form-hr" type="text" placeholder="Working Time" value="{{$data['work_time']}}">
+                                        <label>Working Time<span class="required-sign">*</span></label>
+                                        <input id="workingTimeVacancy" name="workingTimeVacancy" class="form-control" type="text" placeholder="Working Time" value="{{$data['work_time']}}">
                                     </div>
                                 </div>
                             </div>
@@ -62,12 +62,12 @@
                             <div class="row">
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group" >
-                                        <label class="label-hr">Activated Date<span class="required-sign">*</span></label>
-                                        <input id="activatedDate" name="activatedDate" class="form-control form-hr" type="text" placeholder="Activated Date" value="{{$data['active_date']}}">
+                                        <label>Activated Date<span class="required-sign">*</span></label>
+                                        <input id="activatedDate" name="activatedDate" class="form-control" type="text" placeholder="Activated Date" value="{{$data['active_date']}}">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-md-6 col-sm-12" id="degreeVacancyDiv">
-                                    <label class="label-hr">Degree<span class="required-sign">*</span></label>
+                                    <label>Degree<span class="required-sign">*</span></label>
                                     <select class="select2 tex-center select2-width" id="degreeVacancy" name="degreeVacancy">
                                         <option value="">Degree</option>
                                         <option {{$data['degree'] == '1' ? 'selected':''}} value="1">D3</option>

@@ -229,7 +229,56 @@ class ProfileController extends Controller
     public function editPersonalInformation(){
         $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
 
-        $job_apply = Job_Application::where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
+        $job_apply = Job_Application::select('job_application.*', 'vacancies.job_title', 'vacancies.type', 'vacancies.lokasi')
+                                ->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')
+                                ->where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
+        for ($i=0; $i < count($job_apply); $i++) { 
+            if($job_apply[$i]['status'] >= 0 && $job_apply[$i]['status'] < 11){
+                if ($job_apply[$i]['status'] == 0) {
+                    $job_apply[$i]['status_text'] = "Application Resume";
+                    $job_apply[$i]['button'] = "N";
+                }elseif ($job_apply[$i]['status'] == 1) {
+                    $job_apply[$i]['status_text'] = "Proses to Written Test";
+                    $job_apply[$i]['button'] = "N";
+                }elseif ($job_apply[$i]['status'] == 2) {
+                    $job_apply[$i]['status_text'] = "Scheduled to Written Test";
+                    $job_apply[$i]['button'] = "Y";
+                }elseif ($job_apply[$i]['status'] == 3) {
+                    $job_apply[$i]['status_text'] = "Written Test Pass";
+                    $job_apply[$i]['button'] = "N";
+                }elseif ($job_apply[$i]['status'] == 4) {
+                    $job_apply[$i]['status_text'] = "Written Test failed";
+                    $job_apply[$i]['button'] = "N";
+                }elseif ($job_apply[$i]['status'] == 5) {
+                    $job_apply[$i]['status_text'] = "Process to HR interview";
+                    $job_apply[$i]['button'] = "Y";
+                }elseif ($job_apply[$i]['status'] == 6) {
+                    $job_apply[$i]['status_text'] = "Process to User Interview 1";
+                    $job_apply[$i]['button'] = "Y";
+                }elseif ($job_apply[$i]['status'] == 7) {
+                    $job_apply[$i]['status_text'] = "Process to User Interview 2";
+                    $job_apply[$i]['button'] = "Y";
+                }elseif ($job_apply[$i]['status'] == 8) {
+                    $job_apply[$i]['status_text'] = "Process to User Interview 3";
+                    $job_apply[$i]['button'] = "Y";
+                }elseif ($job_apply[$i]['status'] == 9) {
+                    $job_apply[$i]['status_text'] = "Process to MCU";
+                    $job_apply[$i]['button'] = "Y";
+                }elseif ($job_apply[$i]['status'] == 10) {
+                    $job_apply[$i]['status_text'] = "Process to Doc Sign";
+                    $job_apply[$i]['button'] = "Y";
+                }
+                $job_apply[$i]['status_css'] = 'other';
+            }elseif($job_apply[$i]['status'] == 11){
+                $job_apply[$i]['status_text'] = "Failed";
+                $job_apply[$i]['status_css'] = 'failed';
+                $job_apply[$i]['button'] = "N";
+            }else{
+                $job_apply[$i]['status_text'] = "Hired";
+                $job_apply[$i]['status_css'] = 'success';
+                $job_apply[$i]['button'] = "N";
+            }
+        }
 
         return view('candidate.profile.personal-information')->with(['topbar'=>'personal_information', 'tab_profile'=>'profile-home', 'wilayah'=>$wilayah, 'job_apply'=>$job_apply]);
     }
@@ -308,7 +357,56 @@ class ProfileController extends Controller
     }
 
     public function editOtherInformation(){
-        $job_apply = Job_Application::where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
+        $job_apply = Job_Application::select('job_application.*', 'vacancies.job_title', 'vacancies.type', 'vacancies.lokasi')
+                                ->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')
+                                ->where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
+        for ($i=0; $i < count($job_apply); $i++) { 
+            if($job_apply[$i]['status'] >= 0 && $job_apply[$i]['status'] < 11){
+                if ($job_apply[$i]['status'] == 0) {
+                    $job_apply[$i]['status_text'] = "Application Resume";
+                    $job_apply[$i]['button'] = "N";
+                }elseif ($job_apply[$i]['status'] == 1) {
+                    $job_apply[$i]['status_text'] = "Proses to Written Test";
+                    $job_apply[$i]['button'] = "N";
+                }elseif ($job_apply[$i]['status'] == 2) {
+                    $job_apply[$i]['status_text'] = "Scheduled to Written Test";
+                    $job_apply[$i]['button'] = "Y";
+                }elseif ($job_apply[$i]['status'] == 3) {
+                    $job_apply[$i]['status_text'] = "Written Test Pass";
+                    $job_apply[$i]['button'] = "N";
+                }elseif ($job_apply[$i]['status'] == 4) {
+                    $job_apply[$i]['status_text'] = "Written Test failed";
+                    $job_apply[$i]['button'] = "N";
+                }elseif ($job_apply[$i]['status'] == 5) {
+                    $job_apply[$i]['status_text'] = "Process to HR interview";
+                    $job_apply[$i]['button'] = "Y";
+                }elseif ($job_apply[$i]['status'] == 6) {
+                    $job_apply[$i]['status_text'] = "Process to User Interview 1";
+                    $job_apply[$i]['button'] = "Y";
+                }elseif ($job_apply[$i]['status'] == 7) {
+                    $job_apply[$i]['status_text'] = "Process to User Interview 2";
+                    $job_apply[$i]['button'] = "Y";
+                }elseif ($job_apply[$i]['status'] == 8) {
+                    $job_apply[$i]['status_text'] = "Process to User Interview 3";
+                    $job_apply[$i]['button'] = "Y";
+                }elseif ($job_apply[$i]['status'] == 9) {
+                    $job_apply[$i]['status_text'] = "Process to MCU";
+                    $job_apply[$i]['button'] = "Y";
+                }elseif ($job_apply[$i]['status'] == 10) {
+                    $job_apply[$i]['status_text'] = "Process to Doc Sign";
+                    $job_apply[$i]['button'] = "Y";
+                }
+                $job_apply[$i]['status_css'] = 'other';
+            }elseif($job_apply[$i]['status'] == 11){
+                $job_apply[$i]['status_text'] = "Failed";
+                $job_apply[$i]['status_css'] = 'failed';
+                $job_apply[$i]['button'] = "N";
+            }else{
+                $job_apply[$i]['status_text'] = "Hired";
+                $job_apply[$i]['status_css'] = 'success';
+                $job_apply[$i]['button'] = "N";
+            }
+        }
 
         return view('candidate.profile.other-information')->with(['topbar'=>'other_information', 'tab_profile'=>'profile-home', 'job_apply'=>$job_apply]);
     }
@@ -400,7 +498,56 @@ class ProfileController extends Controller
     }
 
     public function editEducationInformation(){
-        $job_apply = Job_Application::where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
+        $job_apply = Job_Application::select('job_application.*', 'vacancies.job_title', 'vacancies.type', 'vacancies.lokasi')
+                                ->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')
+                                ->where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
+        for ($i=0; $i < count($job_apply); $i++) { 
+            if($job_apply[$i]['status'] >= 0 && $job_apply[$i]['status'] < 11){
+                if ($job_apply[$i]['status'] == 0) {
+                    $job_apply[$i]['status_text'] = "Application Resume";
+                    $job_apply[$i]['button'] = "N";
+                }elseif ($job_apply[$i]['status'] == 1) {
+                    $job_apply[$i]['status_text'] = "Proses to Written Test";
+                    $job_apply[$i]['button'] = "N";
+                }elseif ($job_apply[$i]['status'] == 2) {
+                    $job_apply[$i]['status_text'] = "Scheduled to Written Test";
+                    $job_apply[$i]['button'] = "Y";
+                }elseif ($job_apply[$i]['status'] == 3) {
+                    $job_apply[$i]['status_text'] = "Written Test Pass";
+                    $job_apply[$i]['button'] = "N";
+                }elseif ($job_apply[$i]['status'] == 4) {
+                    $job_apply[$i]['status_text'] = "Written Test failed";
+                    $job_apply[$i]['button'] = "N";
+                }elseif ($job_apply[$i]['status'] == 5) {
+                    $job_apply[$i]['status_text'] = "Process to HR interview";
+                    $job_apply[$i]['button'] = "Y";
+                }elseif ($job_apply[$i]['status'] == 6) {
+                    $job_apply[$i]['status_text'] = "Process to User Interview 1";
+                    $job_apply[$i]['button'] = "Y";
+                }elseif ($job_apply[$i]['status'] == 7) {
+                    $job_apply[$i]['status_text'] = "Process to User Interview 2";
+                    $job_apply[$i]['button'] = "Y";
+                }elseif ($job_apply[$i]['status'] == 8) {
+                    $job_apply[$i]['status_text'] = "Process to User Interview 3";
+                    $job_apply[$i]['button'] = "Y";
+                }elseif ($job_apply[$i]['status'] == 9) {
+                    $job_apply[$i]['status_text'] = "Process to MCU";
+                    $job_apply[$i]['button'] = "Y";
+                }elseif ($job_apply[$i]['status'] == 10) {
+                    $job_apply[$i]['status_text'] = "Process to Doc Sign";
+                    $job_apply[$i]['button'] = "Y";
+                }
+                $job_apply[$i]['status_css'] = 'other';
+            }elseif($job_apply[$i]['status'] == 11){
+                $job_apply[$i]['status_text'] = "Failed";
+                $job_apply[$i]['status_css'] = 'failed';
+                $job_apply[$i]['button'] = "N";
+            }else{
+                $job_apply[$i]['status_text'] = "Hired";
+                $job_apply[$i]['status_css'] = 'success';
+                $job_apply[$i]['button'] = "N";
+            }
+        }
 
         return view('candidate.profile.education-information')->with(['topbar'=>'education_information', 'tab_profile'=>'profile-home', 'job_apply'=>$job_apply]);
     }

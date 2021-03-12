@@ -13,19 +13,19 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <form action="{{ route('post.vacancy.add') }}" class="form stacked" method="POST" id="formAddVacancy" ajax="true">
+                <form action="{{ route('post.vacancy.add') }}" class="form stacked form-hr" method="POST" id="formAddVacancy" ajax="true">
                     @csrf
                     <div class="row">
                         <div class="col-xl-10 col-md-12">
                             <div class="row">
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group" >
-                                        <label class="label-hr">Job Title<span class="required-sign">*</span></label>
-                                        <input type="text" class="form-control form-hr" name="titleVacancy" id="titleVacancy" placeholder="Add a vacancy titles...">
+                                        <label>Job Title<span class="required-sign">*</span></label>
+                                        <input type="text" class="form-control" name="titleVacancy" id="titleVacancy" placeholder="Add a vacancy titles...">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-md-6 col-sm-12" id="typeVacancyDiv">
-                                    <label class="label-hr">Type<span class="required-sign">*</span></label>
+                                    <label>Type<span class="required-sign">*</span></label>
                                     <select class="select2 tex-center select2-width" id="typeVacancy" name="typeVacancy">
                                         <option value="">Type</option>
                                         <option value="1">Full Time</option>
@@ -39,7 +39,7 @@
                         <div class="col-xl-10 col-md-12">
                             <div class="row">
                                 <div class="col-xl-6 col-md-6 col-sm-12" id="locationVacancyDiv">
-                                    <label class="label-hr">Location<span class="required-sign">*</span></label>
+                                    <label>Location<span class="required-sign">*</span></label>
                                     <select class="select2 tex-center select2-width" id="locationVacancy" name="locationVacancy">
                                         <option value="">-- Pilih Location --</option>
                                         @foreach($wilayah as $dataWilayah)
@@ -49,8 +49,8 @@
                                 </div>
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group">
-                                        <label class="label-hr">Working Time<span class="required-sign">*</span></label>
-                                        <input id="workingTimeVacancy" name="workingTimeVacancy" class="form-control form-hr" type="text" placeholder="Working Time">
+                                        <label>Working Time<span class="required-sign">*</span></label>
+                                        <input id="workingTimeVacancy" name="workingTimeVacancy" class="form-control" type="text" placeholder="Working Time">
                                     </div>
                                 </div>
                             </div>
@@ -61,12 +61,12 @@
                             <div class="row">
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group" >
-                                        <label class="label-hr">Activated Date<span class="required-sign">*</span></label>
-                                        <input id="activatedDate" name="activatedDate" class="form-control form-hr" type="text" placeholder="Activated Date">
+                                        <label>Activated Date<span class="required-sign">*</span></label>
+                                        <input id="activatedDate" name="activatedDate" class="form-control" type="text" placeholder="Activated Date">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-md-6 col-sm-12" id="degreeVacancyDiv">
-                                    <label class="label-hr">Degree<span class="required-sign">*</span></label>
+                                    <label>Degree<span class="required-sign">*</span></label>
                                     <select class="select2 tex-center select2-width" id="degreeVacancy" name="degreeVacancy">
                                         <option value="">Degree</option>
                                         <option value="1">D3</option>
@@ -83,7 +83,7 @@
                             <div class="row">
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group" id="majorVacancyDiv">
-                                        <label class="label-hr">Major<span class="required-sign">*</span></label>
+                                        <label>Major<span class="required-sign">*</span></label>
                                         <div id="fieldMajorDiv1">
                                             <select class="select2 min-width" id="field-syarat1" name="majorVacancy">
                                                 <option value="">-- Pilih Major --</option>
@@ -100,7 +100,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label class="label-hr">Description Vacancy<span class="required-sign">*</span></label>
+                                <label>Description Vacancy<span class="required-sign">*</span></label>
                                 <div class="summernote-news-wrapper">
                                     <textarea name="descriptionVacancy" id="descriptionVacancy" class="form-control" placeholder="Input Description"></textarea>
                                 </div>
