@@ -198,7 +198,7 @@ var table = {
 					"orderable": false,
 					"data": "job_application_id",
 					"render": function(data, type, full, meta){
-						var data = '<input type="checkbox">';
+						var data = '<input class="check box'+full.status+'" type="checkbox" id="job_'+full.job_application_id+'_'+full.kandidat_id+'">';
 						return data;
 					}
 				},
@@ -645,3 +645,33 @@ $('#tableVacancy tbody').on( 'click', 'button.konfirmVacancy', function (e) {
 	$('#modalKonfirmVacancy').modal('show');
 	
 });
+
+
+$("#tableCandidate tbody").on('click', 'input', function(e) {
+	var table = $('#tableCandidate').DataTable();
+	var dataRow = table.row($(this).closest('tr')).data();
+	var count = $("#countCheck").val();
+	var jumlah = "";
+	$('.check').attr('disabled', true)
+	$('.box'+dataRow.status).attr('disabled', false)
+	if ($("#job_"+dataRow.job_application_id+"_"+dataRow.kandidat_id).is(":checked")) {
+		jumlah = parseInt(count)+1;
+		$("#countCheck").val(jumlah);
+		$("#inputID").append('<input type="hidden" id="input_'+dataRow.job_application_id+'_'+dataRow.kandidat_id+'" name="idJob[]" value="'+dataRow.job_application_id+'_'+dataRow.kandidat_id+'">')
+	} else {
+		jumlah = parseInt(count)-1;
+		$("#countCheck").val(jumlah);
+		$("#input_"+dataRow.job_application_id+"_"+dataRow.kandidat_id).remove();
+	}
+	$("#textItem").html(jumlah+" item selected")
+	if (jumlah > 1) {
+		$(".btn-bulk-candidate").removeClass('hidden');
+	}else{
+		if (jumlah == 0) {
+			$('.check').attr('disabled', false)
+		}
+		$(".btn-bulk-candidate").addClass('hidden');
+	}
+	// alert(jumlah);
+	// console.log(this.className, this.id);
+})

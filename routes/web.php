@@ -64,6 +64,7 @@ Route::prefix('HR')->group(function(){
 			Route::get('/edit-candidate/{id}', 'Admin\CandidateController@viewCandidateEdit')->name('get.candidate.edit');
 			Route::post('/post-edit-candidate','Admin\CandidateController@editCandidate')->name('post.candidate.edit');
 			Route::get('/download-file/{file}','Admin\CandidateController@downloadFile')->name('post.download.file');
+			Route::post('/post-bulk-update','Admin\CandidateController@bulkUpdate')->name('post.bulk.update.candidate');
 		});
 	});
 });
