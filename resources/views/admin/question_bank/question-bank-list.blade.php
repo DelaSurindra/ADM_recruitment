@@ -9,7 +9,7 @@
             <p class="title-page"><img src="{{asset('image/icon/main/icon_title_question_bank.svg')}}" alt=""> Manage Question Bank</p>
         </div>
         <div class="col-md-6">
-            <a href="{{route('get.vacancy.add')}}"><button type="button" class="btn btn-red right">Create New Question Bank</button></a>
+            <a href="{{route('get.question.bank.add')}}"><button type="button" class="btn btn-red right">Create New Question Bank</button></a>
         </div>
     </div>
 

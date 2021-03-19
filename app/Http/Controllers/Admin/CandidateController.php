@@ -22,7 +22,6 @@ class CandidateController extends Controller
 {
     public function viewCandidate(){
         $vacancy = Vacancy::select('job_id', 'job_title')->get()->toArray();
-
         return view('admin.candidate.candidate-list')->with(['pageTitle' => 'Manajemen Candidate', 'title' => 'Manajemen Candidate', 'sidebar' => 'manajemen_candidate', 'vacancy'=>$vacancy]);
     }
 

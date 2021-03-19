@@ -144,7 +144,7 @@
                     <div id="inputID"></div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group d-flex flex-column">
+                            <div class="form-group d-flex flex-column" id="aplicationStatusDivv">
                                 <label>Application Status</label>
                                 <select class="select2 tex-center select2-width" id="aplicationStatus" name="aplicationStatus">
                                     <option value="">-- Pilih Status --</option>
@@ -164,10 +164,10 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="form-group d-flex flex-column">
+                        <div class="col-md-12 hidden">
+                            <div class="form-group d-flex flex-column" id="TestIdDiv">
                                 <label>Test ID</label>
-                                <select class="select2 tex-center select2-width" id="TestId" name="TestId">
+                                <select class="select2 tex-center select2-width" id="TestId" name="TestId" disabled>
                                     <option value="">-- Pilih Test --</option>
                                 </select>
                             </div>

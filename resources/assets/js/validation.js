@@ -368,6 +368,57 @@ const formrules = {
 		}
     },
 
+	'updateStatusCandidate':{
+		ignore: null,
+		rules:{
+            'aplicationStatus':{
+                required:true
+            },
+            'TestId':{
+                required: true
+            },
+		},
+		submitHandler:false,
+        errorPlacement: function (error, element) {
+			if (element.is("#aplicationStatus")) {
+				error.appendTo(element.parents('#aplicationStatusDivv'));
+			}else if (element.is("#TestId")) {
+				error.appendTo(element.parents('#TestIdDiv'));
+			}
+			else { // This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+	},
+
+	'formAddQuestionBank':{
+		ignore: null,
+		rules:{
+            'setTest':{
+                required:true
+            },
+            'testType':{
+                required: true
+            },
+			'subCognitive':{
+                required: true
+            },
+		},
+		submitHandler:false,
+        errorPlacement: function (error, element) {
+			if (element.is("#setTest")) {
+				error.appendTo(element.parents('#setTestDiv'));
+			}else if (element.is("#testType")) {
+				error.appendTo(element.parents('#testTypeDiv'));
+			}else if (element.is("#subCognitive")) {
+				error.appendTo(element.parents('#subCognitiveDiv'));
+			}
+			else { // This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+	}
+
 }
 
 var validation = {

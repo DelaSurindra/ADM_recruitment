@@ -11,6 +11,7 @@ use App\Model\Education;
 use App\Model\Vacancy;
 use App\Model\Wilayah;
 use App\Model\User;
+use App\Model\Candidate;
 
 use Request;
 use Session;
@@ -177,13 +178,17 @@ class JobController extends Controller
 
                 if ($apply) {
                     $track = $this->statusTrackApply($apply, 0);
-
-                    return [
-                        'status' => 'success',
-                        'message' => 'Berhasil',
-                        'idApply' => $apply,
-                        'callback' => 'applySuccess'
-                    ];
+                    $updateStatus = Candidate::where('id', Session::get('session_candidate')['id'])->update(['status'=>1]);
+                    if ($updateStatus) {
+                        session()->forget('session_candidate.status_kandidat');
+                        session()->put('session_candidate.status_kandidat', 1);
+                        return [
+                            'status' => 'success',
+                            'message' => 'Berhasil',
+                            'idApply' => $apply,
+                            'callback' => 'applySuccess'
+                        ];
+                    }
                 } else {
                     return [
                         'status' => 'warning',

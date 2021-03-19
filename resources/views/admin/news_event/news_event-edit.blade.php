@@ -55,8 +55,8 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-5 col-md-6" id="tipeNewsEventDiv">
-                                    <div class="form-group" >
+                                <div class="col-lg-5 col-md-6" >
+                                    <div class="form-group" id="tipeNewsEventDiv">
                                         <label>Type<span class="required-sign">*</span></label>
                                         <select class="select2 tex-center select2-width" id="tipeNewsEvent" name="tipeNewsEvent">
                                             <option value="">-- Pilih Tipe --</option>

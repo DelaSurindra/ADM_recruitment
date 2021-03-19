@@ -1209,3 +1209,81 @@ if ($("#detailCandidate1").length) {
 		
 	})
 }
+
+if ($("#formAddQuestionBank").length) {
+	$("#testType").change(function(){
+		$('#testType').select2('close');
+		$(".class-all").attr('disabled', true);
+		$(".div-all").addClass('hidden');
+		var data = $("#testType").val();
+		if (data == "1") {
+			$("#subCognitiveDiv").removeClass('hidden')
+			$("#subCognitiveDiv").addClass('d-flex')
+			$("#subCognitiveDiv").addClass('flex-column')
+			$("#subCognitive").attr('disabled', false);
+			$("#subInventory").attr('disabled', true);
+
+			// function dropdown sub test
+			$("#subCognitive").change(function(e){
+				// $('#testType').select2('open');
+				// $('#testType').select2('close');
+				e.preventDefault;
+				var value = this.value;
+				$(".class-all").attr('disabled', true);
+				$(".div-all").addClass('hidden');
+		
+				if (value == "1" || value == "3" || value == "4" || value == "7") {
+					$("#QA1").removeClass("hidden");
+					$(".class-QA1").attr('disabled', false);
+				}else if (value == "5") {
+					$("#QA2").removeClass("hidden");
+					$(".class-QA2").attr('disabled', false);
+				}else if (value == "8") {
+					$("#QA3").removeClass("hidden");
+					$(".class-QA3").attr('disabled', false);
+				}else if (value == "2") {
+					$("#QA4").removeClass("hidden");
+					$(".class-QA4").attr('disabled', false);
+				}else if (value == "6") {
+					$("#QA5").removeClass("hidden");
+					$(".class-QA5").attr('disabled', false);
+				}else if (value == "9" || value == "10" || value == "12") {
+					$("#QA6").removeClass("hidden");
+					$(".class-QA6").attr('disabled', false);
+				}else if (value == "11") {
+					$("#QA7").removeClass("hidden");
+					$(".class-QA7").attr('disabled', false);
+				}
+			})
+			
+		}else{
+			$("#subCognitive").val("").trigger('change')
+			$("#QA8").removeClass("hidden");
+			$(".class-QA8").attr('disabled', false);
+			$("#subCognitiveDiv").removeClass('d-flex')
+			$("#subCognitiveDiv").removeClass('flex-column')
+			$("#subCognitiveDiv").addClass('hidden')
+			$("#subCognitive").attr('disabled', true);
+			$("#subInventory").attr('disabled', false);
+		}
+	})
+
+	// var no = 1;
+	// $(".btn-choose"+no).click(function(e){
+	// 	$(".btn-choose"+no).removeClass('btn-answer-active');
+	// 	e.preventDefault;
+	// 	$("#"+this.id).addClass("btn-answer-active");
+	// 	$("#chooseAnswer"+no).val(this.value);
+	// })
+
+	$("#save").click(function(e){
+		$("#btnValue").val(this.value);
+	})
+
+	$("#continue").click(function(e){
+		$("#btnValue").val(this.value);
+	})
+
+	
+
+}
