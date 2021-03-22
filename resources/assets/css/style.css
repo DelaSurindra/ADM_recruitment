@@ -1,7 +1,41 @@
+.facet .select2-selection.select2-selection--single{
+    border: none !important;
+    background-color: white !important;
+    width: 300px !important;
+}
+
+.facet .select2-container--default .select2-selection--single .select2-selection__rendered{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 130%;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+    color: #DF0E2C;
+    padding-left: 0;
+    padding-right: 25px;
+}
+
+.facet .select2-container--default .select2-selection--single .select2-selection__arrow b{
+    background-image: url(/image/icon/main/icon_select_red.svg);
+    height: 10px !important;
+    width: 18px !important;
+    border-style: none !important;
+    top: 37% !important;
+}
+
+.img-preview{
+    height: 202px;
+    width: auto;
+    margin-top: 10px;
+}
+
 .btn-file {
     position: relative;
     overflow: hidden;
-
+    font-family: 'inter_bold', sans-serif !important;
     font-style: normal;
     font-weight: bold;
     font-size: 13px;

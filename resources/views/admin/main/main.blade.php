@@ -31,7 +31,7 @@
     <div class="wrapper" id="main-wrapper">
         @php $notif = session('notif'); @endphp
         @if ($notif)
-        <div id="notif" data-status="{!! $notif['status'] !!}" data-message="{!! $notif['message'] !!}" data-url="{!! $notif['url'] !!}">
+        <div id="notif" data-status="{!! $notif['status'] !!}" data-message="{!! $notif['message'] !!}" data-url="{!! $notif['url'] !!}" data-id="{!! $notif['id'] !!}" data-value="{{ $notif['value'] }}">
         </div>
         @endif
         @include('admin.main.navbar')

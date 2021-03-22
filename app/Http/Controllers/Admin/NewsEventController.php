@@ -108,7 +108,9 @@ class NewsEventController extends Controller
             $messages = [
                 'status' => 'success',
                 'message' => 'Berhasil Membuat Event/News',
-                'url' => 'close'
+                'url' => 'close',
+                'id' => '',
+                'value' => ''
             ];
 
             return redirect('/HR/news_event')->with('notif', $messages);
@@ -116,7 +118,9 @@ class NewsEventController extends Controller
             $messages = [
                 'status' => 'error',
                 'message' => 'Gagal Membuat Event/News',
-                'url' => 'close'
+                'url' => 'close',
+                'id' => '',
+                'value' => ''
             ];
 
             return back()->with('notif', $messages);
@@ -141,7 +145,9 @@ class NewsEventController extends Controller
             $messages = [
                 'status' => 'error',
                 'message' => 'Data tidak ditemukan',
-                'url' => 'close'
+                'url' => 'close',
+                'id' => '',
+                'value' => ''
             ];
 
             return back()->with('notif', $messages);
@@ -190,7 +196,9 @@ class NewsEventController extends Controller
             $messages = [
                 'status' => 'success',
                 'message' => 'Berhasil Mengubah Data Event/News',
-                'url' => 'close'
+                'url' => 'close',
+                'id' => '',
+                'value' => ''
             ];
 
             return redirect('/HR/news_event')->with('notif', $messages);
@@ -198,7 +206,9 @@ class NewsEventController extends Controller
             $messages = [
                 'status' => 'error',
                 'message' => 'Gagal Mengubah Data Event/News',
-                'url' => 'close'
+                'url' => 'close',
+                'id' => '',
+                'value' => ''
             ];
 
             return back()->with('notif', $messages);

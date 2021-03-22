@@ -72,7 +72,7 @@
                     <p class="text-title-page-small">Enter Question & Answer</p>
                     <p class="text-title-page-big">Question</p>
                     <div class="form-group mb-0">
-                        <textarea name="question" id="question" class="form-control class-QA1 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                        <textarea name="questionQA1" id="questionQA1" class="form-control class-QA1 class-all" placeholder="Enter your question" rows="5" required></textarea>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -92,7 +92,7 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <textarea name="answer0" class="form-control class-QA1 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                                <textarea name="answerQA10" id="answerQA10" class="form-control class-QA1 class-all" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice0" value="a" class="class-QA1 class-all">
                             </div>
                         </div>
@@ -103,7 +103,7 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <textarea name="answer1" class="form-control class-QA1 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                                <textarea name="answerQA11" id="answerQA11" class="form-control class-QA1 class-all" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice1" value="b" class="class-QA1 class-all">
                             </div>
                         </div>
@@ -114,7 +114,7 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <textarea name="answer2" class="form-control class-QA1 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                                <textarea name="answerQA12" id="answerQA12" class="form-control class-QA1 class-all" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice2" value="c" class="class-QA1 class-all">
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <textarea name="answer3" class="form-control class-QA1 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                                <textarea name="answerQA13" id="answerQA13" class="form-control class-QA1 class-all" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice3" value="d" class="class-QA1 class-all">
                             </div>
                         </div>
@@ -136,7 +136,7 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group">
-                                <textarea name="answer4" class="form-control class-QA1 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                                <textarea name="answerQA14" id="answerQA14" class="form-control class-QA1 class-all" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice4" value="e" class="class-QA1 class-all">
                             </div>
                         </div>
@@ -154,11 +154,12 @@
                     <p class="text-title-page-small">Enter Question & Answer</p>
                     <p class="text-title-page-big">Question</p>
                     <div class="form-group mb-0">
-                        <textarea name="question" id="question" class="form-control class-QA2 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                        <textarea name="questionQA2" id="questionQA2" class="form-control class-QA2 class-all" placeholder="Enter your question" rows="5" required></textarea>
                     </div>
-                    <div>
-                        <span class="btn btn-file pl-1 mb-2">
-                            <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgNumeric1" id="imgNumeric1" required>
+                    <div class="col-md-12 p-0">
+                        <img src="" alt="" class="hidden img-preview">
+                        <span class="btn btn-file pl-1 mb-2" id="spanImgQA2">
+                            <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgNumeric1" id="imgNumeric1" class="upload-image class-QA2 class-all" required>
                         </span>
                     </div>
                 </div>
@@ -179,7 +180,7 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <textarea name="answer0" class="form-control class-QA2 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                                <textarea name="answerQA20" id="answerQA20" class="form-control class-QA2 class-all" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice0" value="a" class="class-QA2 class-all">
                             </div>
                         </div>
@@ -190,7 +191,7 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <textarea name="answer1" class="form-control class-QA2 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                                <textarea name="answerQA21" id="answerQA21" class="form-control class-QA2 class-all" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice1" value="b" class="class-QA2 class-all">
                             </div>
                         </div>
@@ -201,7 +202,7 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <textarea name="answer2" class="form-control class-QA2 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                                <textarea name="answerQA22" id="answerQA22" class="form-control class-QA2 class-all" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice2" value="c" class="class-QA2 class-all">
                             </div>
                         </div>
@@ -212,7 +213,7 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <textarea name="answer3" class="form-control class-QA2 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                                <textarea name="answerQA23" id="answerQA23" class="form-control class-QA2 class-all" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice3" value="d" class="class-QA2 class-all">
                             </div>
                         </div>
@@ -223,7 +224,7 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group">
-                                <textarea name="answer4" class="form-control class-QA2 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                                <textarea name="answerQA24" id="answerQA24" class="form-control class-QA2 class-all" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice4" value="e" class="class-QA2 class-all">
                             </div>
                         </div>
@@ -241,11 +242,12 @@
                     <p class="text-title-page-small">Enter Question & Answer</p>
                     <p class="text-title-page-big">Question</p>
                     <div class="form-group mb-0">
-                        <textarea name="question" id="question" class="form-control class-QA3 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                        <textarea name="questionQA3" id="questionQA3" class="form-control class-QA3 class-all" placeholder="Enter your question" rows="5" required></textarea>
                     </div>
-                    <div>
-                        <span class="btn btn-file pl-1 mb-2">
-                            <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgNumeric4" id="imgNumeric4" required>
+                    <div class="col-md-12 p-0">
+                        <img src="" alt="" class="hidden img-preview">
+                        <span class="btn btn-file pl-1 mb-2" id="spanImgQA3">
+                            <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgNumeric4" id="imgNumeric4" class="upload-image class-QA3 class-all" required>
                         </span>
                     </div>
                 </div>
@@ -266,7 +268,7 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <textarea name="answer0" class="form-control class-QA3 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                                <textarea name="answerQA30" id="answerQA30" class="form-control class-QA3 class-all" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice0" value="a" class="class-QA3 class-all">
                             </div>
                         </div>
@@ -277,7 +279,7 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <textarea name="answer1" class="form-control class-QA3 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                                <textarea name="answerQA31" id="answerQA31" class="form-control class-QA3 class-all" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice1" value="b" class="class-QA3 class-all">
                             </div>
                         </div>
@@ -288,7 +290,7 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <textarea name="answer2" class="form-control class-QA3 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                                <textarea name="answerQA32" id="answerQA32" class="form-control class-QA3 class-all" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice2" value="c" class="class-QA3 class-all">
                             </div>
                         </div>
@@ -299,7 +301,7 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <textarea name="answer3" class="form-control class-QA3 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                                <textarea name="answerQA33" id="answerQA33" class="form-control class-QA3 class-all" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice3" value="d" class="class-QA3 class-all">
                             </div>
                         </div>
@@ -310,7 +312,7 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group">
-                                <textarea name="answer4" class="form-control class-QA3 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                                <textarea name="answerQA34" id="answerQA34" class="form-control class-QA3 class-all" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice4" value="e" class="class-QA3 class-all">
                             </div>
                         </div>
@@ -328,7 +330,13 @@
                     <p class="text-title-page-small">Enter Question & Answer</p>
                     <p class="text-title-page-big">Question</p>
                     <div class="form-group mb-0">
-                        <textarea name="question" id="question" class="form-control class-QA4 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                        <textarea name="questionQA4" id="questionQA4" class="form-control class-QA4 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <p class="text-title-page-big">Conclusion</p>
+                    <div class="form-group mb-0">
+                        <textarea name="conclusionQA4" id="conclusionQA4" class="form-control class-QA4 class-all" placeholder="Enter your conclusion" rows="5" required></textarea>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -341,16 +349,10 @@
                         </div>
                         <input type="hidden" id="chooseQA4" name="chooseAnswer" class="class-QA4 class-all">
                     </div>
-                    <p class="text-title-page-big">Conclusion</p>
                     <div class="row">
-                        <div class="col-md-1">
-                            <button class="btn-answer btn-QA3" id="btnQA3e" value="e" type="button">E</button>
-                        </div>
-                        <div class="col-md-11">
-                            <div class="form-group">
-                                <textarea name="answer4" class="form-control class-QA4 class-all" placeholder="Enter your question" rows="5" required></textarea>
-                            </div>
-                        </div>
+                        <button class="btn-answer btn-QA4 ml-3" id="btnQA4t" value="t" type="button">T</button>
+                        <button class="btn-answer btn-QA4 ml-3" id="btnQA4f" value="f" type="button">F</button>
+                        <button class="btn-answer btn-QA4 ml-3" id="btnQA4x" value="x" type="button">X</button>
                     </div>
                 </div>
             </div>
@@ -381,7 +383,7 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <textarea name="answer0" class="form-control class-QA5 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                                <textarea name="answerQA50" id="answerQA50" class="form-control class-QA5 class-all" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice0" value="a" class="class-QA5 class-all">
                             </div>
                         </div>
@@ -392,7 +394,7 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <textarea name="answer1" class="form-control class-QA5 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                                <textarea name="answerQA51" id="answerQA51" class="form-control class-QA5 class-all" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice1" value="b" class="class-QA5 class-all">
                             </div>
                         </div>
@@ -403,7 +405,7 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <textarea name="answer2" class="form-control class-QA5 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                                <textarea name="answerQA52" id="answerQA52" class="form-control class-QA5 class-all" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice2" value="c" class="class-QA5 class-all">
                             </div>
                         </div>
@@ -414,7 +416,7 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <textarea name="answer3" class="form-control class-QA5 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                                <textarea name="answerQA53" id="answerQA53" class="form-control class-QA5 class-all" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice3" value="d" class="class-QA5 class-all">
                             </div>
                         </div>
@@ -425,7 +427,7 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group">
-                                <textarea name="answer4" class="form-control class-QA5 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                                <textarea name="answerQA54" id="answerQA54" class="form-control class-QA5 class-all" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice4" value="e" class="class-QA5 class-all">
                             </div>
                         </div>
@@ -442,9 +444,10 @@
                 <div class="col-md-12 mb-3">
                     <p class="text-title-page-small">Enter Question & Answer</p>
                     <p class="text-title-page-big">Question</p>
-                    <div>
-                        <span class="btn btn-file pl-1 mb-2">
-                            <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAbstrak" id="imgAbstrak" required>
+                    <div class="col-md-12 p-0">
+                        <img src="" alt="" class="hidden img-preview">
+                        <span class="btn btn-file pl-1 mb-2" id="spanImgQA6">
+                            <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAbstrak" id="imgAbstrak" class="upload-image class-QA6 class-all" required>
                         </span>
                     </div>
                 </div>
@@ -465,9 +468,10 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <div>
-                                    <span class="btn btn-file pl-1 mb-2">
-                                        <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAnswer0" id="imgAnswer0" required>
+                                <div class="col-md-12">
+                                    <img src="" alt="" class="hidden img-preview">
+                                    <span class="btn btn-file pl-1 mb-2" id="spanImgQA6a">
+                                        <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAnswer0" id="imgAnswer0" class="upload-image class-QA6 class-all" required>
                                     </span>
                                 </div>
                                 <input type="hidden" name="choice0" value="a" class="class-QA6 class-all">
@@ -480,9 +484,10 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <div>
-                                    <span class="btn btn-file pl-1 mb-2">
-                                        <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAnswer1" id="imgAnswer1" required>
+                                <div class="col-md-12">
+                                    <img src="" alt="" class="hidden img-preview">
+                                    <span class="btn btn-file pl-1 mb-2" id="spanImgQA6b">
+                                        <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAnswer1" id="imgAnswer1" class="upload-image class-QA6 class-all" required>
                                     </span>
                                 </div>
                                 <input type="hidden" name="choice1" value="b" class="class-QA6 class-all">
@@ -495,9 +500,10 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <div>
-                                    <span class="btn btn-file pl-1 mb-2">
-                                        <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAnswer2" id="imgAnswer2" required>
+                                <div class="col-md-12">
+                                    <img src="" alt="" class="hidden img-preview">
+                                    <span class="btn btn-file pl-1 mb-2" id="spanImgQA6c">
+                                        <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAnswer2" id="imgAnswer2" class="upload-image class-QA6 class-all" required>
                                     </span>
                                 </div>
                                 <input type="hidden" name="choice2" value="c" class="class-QA6 class-all">
@@ -510,9 +516,10 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <div>
-                                    <span class="btn btn-file pl-1 mb-2">
-                                        <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAnswer3" id="imgAnswer3" required>
+                                <div class="col-md-12">
+                                    <img src="" alt="" class="hidden img-preview">
+                                    <span class="btn btn-file pl-1 mb-2" id="spanImgQA6d">
+                                        <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAnswer3" id="imgAnswer3" class="upload-image class-QA6 class-all" required>
                                     </span>
                                 </div>
                                 <input type="hidden" name="choice3" value="d" class="class-QA6 class-all">
@@ -525,9 +532,10 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group">
-                                <div>
-                                    <span class="btn btn-file pl-1 mb-2">
-                                        <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAnswer4" id="imgAnswer4" required>
+                                <div class="col-md-12">
+                                    <img src="" alt="" class="hidden img-preview">
+                                    <span class="btn btn-file pl-1 mb-2" id="spanImgQA6e">
+                                        <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAnswer4" id="imgAnswer4" class="upload-image class-QA6 class-all" required>
                                     </span>
                                 </div>
                                 <input type="hidden" name="choice4" value="e" class="class-QA6 class-all">
@@ -563,9 +571,10 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <div>
-                                    <span class="btn btn-file pl-1 mb-2">
-                                        <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAnswer0" id="imgAnswer0" required>
+                                <div class="col-md-12">
+                                    <img src="" alt="" class="hidden img-preview">
+                                    <span class="btn btn-file pl-1 mb-2" id="spanImgQA7a">
+                                        <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAbstrak0" id="imgAbstrak0" class="upload-image class-QA7 class-all" required>
                                     </span>
                                 </div>
                                 <input type="hidden" name="choice0" value="a" class="class-QA7 class-all">
@@ -578,9 +587,10 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <div>
-                                    <span class="btn btn-file pl-1 mb-2">
-                                        <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAnswer1" id="imgAnswer1" required>
+                                <div class="col-md-12">
+                                    <img src="" alt="" class="hidden img-preview">
+                                    <span class="btn btn-file pl-1 mb-2" id="spanImgQA7b">
+                                        <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAbstrak1" id="imgAbstrak1" class="upload-image class-QA7 class-all" required>
                                     </span>
                                 </div>
                                 <input type="hidden" name="choice1" value="b" class="class-QA7 class-all">
@@ -593,9 +603,10 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <div>
-                                    <span class="btn btn-file pl-1 mb-2">
-                                        <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAnswer2" id="imgAnswer2" required>
+                                <div class="col-md-12">
+                                    <img src="" alt="" class="hidden img-preview">
+                                    <span class="btn btn-file pl-1 mb-2" id="spanImgQA7c">
+                                        <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAbstrak2" id="imgAbstrak2" class="upload-image class-QA7 class-all" required>
                                     </span>
                                 </div>
                                 <input type="hidden" name="choice2" value="c" class="class-QA7 class-all">
@@ -608,9 +619,10 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group mb-5">
-                                <div>
-                                    <span class="btn btn-file pl-1 mb-2">
-                                        <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAnswer3" id="imgAnswer3" required>
+                                <div class="col-md-12">
+                                    <img src="" alt="" class="hidden img-preview">
+                                    <span class="btn btn-file pl-1 mb-2" id="spanImgQA7d">
+                                        <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAbstrak3" id="imgAbstrak3" class="upload-image class-QA7 class-all" required>
                                     </span>
                                 </div>
                                 <input type="hidden" name="choice3" value="d" class="class-QA7 class-all">
@@ -623,9 +635,10 @@
                         </div>
                         <div class="col-md-11">
                             <div class="form-group">
-                                <div>
-                                    <span class="btn btn-file pl-1 mb-2">
-                                        <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAnswer4" id="imgAnswer4" required>
+                                <div class="col-md-12">
+                                    <img src="" alt="" class="hidden img-preview">
+                                    <span class="btn btn-file pl-1 mb-2" id="spanImgQA7e">
+                                        <img src="{{asset('image/icon/main/icon_upload.svg')}}" alt=""> Upload File <input type="file" name="imgAbstrak4" id="imgAbstrak4" class="upload-image class-QA7 class-all" required>
                                     </span>
                                 </div>
                                 <input type="hidden" name="choice4" value="e" class="class-QA7 class-all">
@@ -659,9 +672,15 @@
                             <button class="btn-answer btn-QA8" id="btnQA8a" value="a" type="button">A</button>
                         </div>
                         <div class="col-md-11">
-                            <div class="form-group mb-5">
-                                <textarea name="answer0" class="form-control class-QA8 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                            <div class="form-group mb-5 facet">
+                                <textarea name="answerQA80" id="answerQA80" class="form-control class-QA8 class-all mb-1" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice0" value="a" class="class-QA8 class-all">
+                                <select class="mt-1 select2 tex-center select2-width" id="facetType0" name="facetType0" required>
+                                    <option value="">Choose Facet</option>
+                                    @foreach($facet as $data)
+                                        <option value="{{$data['id']}}">{{$data['category']}} : {{$data['facet_name']}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -670,9 +689,15 @@
                             <button class="btn-answer btn-QA8" id="btnQA8b" value="b" type="button">B</button>
                         </div>
                         <div class="col-md-11">
-                            <div class="form-group mb-5">
-                                <textarea name="answer1" class="form-control class-QA8 class-all" placeholder="Enter your question" rows="5" required></textarea>
+                            <div class="form-group mb-5 facet">
+                                <textarea name="answerQA81" id="answerQA81" class="form-control class-QA8 class-all mb-1" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice1" value="b" class="class-QA8 class-all">
+                                <select class="mt-1 select2 tex-center select2-width" id="facetType1" name="facetType1" required>
+                                    <option value="">Choose Facet</option>
+                                    @foreach($facet as $data)
+                                        <option value="{{$data['id']}}">{{$data['category']}} : {{$data['facet_name']}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
