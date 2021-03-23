@@ -21,7 +21,82 @@ use Response;
 class QuestionController extends Controller
 {
     public function viewQuestionBank(){
-        return view('admin.question_bank.question-bank-list')->with(['pageTitle' => 'Manajemen question bank', 'title' => 'Manajemen question bank', 'sidebar' => 'manajemen_question']);
+        $listQuestion = Question::select('question.*', 'master_subtest.sub_type', 'master_subtest.name', 'master_subtest.id AS master_id')->join('master_subtest', 'question.master_subtest_id', 'master_subtest.id')->where('set', '1')->orderBy('question.master_subtest_id', 'ASC')->get()->toArray();
+
+        $arraybaru = [];
+
+        foreach($listQuestion as $data) {
+            if(array_key_exists('master_id'.$data['master_id'], $arraybaru)) {
+                continue;
+            } else {
+                $arraybaru['master_id'.$data['master_id']] = $data;
+            }
+        }
+
+        $listQuestionBaru = [];
+        foreach($arraybaru as $data) {
+            array_push($listQuestionBaru, $data);
+        }
+        $dataQuestion = [
+            "verbal" => [],
+            "numeric" => [],
+            "abstrak" => [],
+            "inventory" => [],
+        ];
+
+        foreach($listQuestionBaru as $key) {
+            if ($key['master_subtest_id'] == "1" || $key['master_subtest_id'] == "2" || $key['master_subtest_id'] == "3" || $key['master_subtest_id'] == "4") {
+                array_push($dataQuestion['verbal'], $key);
+            }else if ($key['master_subtest_id'] == "5" || $key['master_subtest_id'] == "6" || $key['master_subtest_id'] == "7" || $key['master_subtest_id'] == "8") {
+                array_push($dataQuestion['numeric'], $key);
+            }else if ($key['master_subtest_id'] == "9" || $key['master_subtest_id'] == "10" || $key['master_subtest_id'] == "11" || $key['master_subtest_id'] == "12") {
+                array_push($dataQuestion['abstrak'], $key);
+            }else{
+                array_push($dataQuestion['inventory'], $key);
+            }
+        }
+        // dd($dataQuestion, $listQuestionBaru);
+        return view('admin.question_bank.question-bank-list')->with(['pageTitle' => 'Manajemen question bank', 'title' => 'Manajemen question bank', 'sidebar' => 'manajemen_question', 'question'=>$dataQuestion]);
+    }
+
+    public function listQuestion(){
+        $set = Request::input('set');
+        $listQuestion = Question::select('question.*', 'master_subtest.sub_type', 'master_subtest.name', 'master_subtest.id AS master_id')->join('master_subtest', 'question.master_subtest_id', 'master_subtest.id')->where('set', $set)->orderBy('question.master_subtest_id', 'ASC')->get()->toArray();
+
+        $arraybaru = [];
+
+        foreach($listQuestion as $data) {
+            if(array_key_exists('master_id'.$data['master_id'], $arraybaru)) {
+                continue;
+            } else {
+                $arraybaru['master_id'.$data['master_id']] = $data;
+            }
+        }
+
+        $listQuestionBaru = [];
+        foreach($arraybaru as $data) {
+            array_push($listQuestionBaru, $data);
+        }
+        $dataQuestion = [
+            "verbal" => [],
+            "numeric" => [],
+            "abstrak" => [],
+            "inventory" => [],
+        ];
+
+        foreach($listQuestionBaru as $key) {
+            if ($key['master_subtest_id'] == "1" || $key['master_subtest_id'] == "2" || $key['master_subtest_id'] == "3" || $key['master_subtest_id'] == "4") {
+                array_push($dataQuestion['verbal'], $key);
+            }else if ($key['master_subtest_id'] == "5" || $key['master_subtest_id'] == "6" || $key['master_subtest_id'] == "7" || $key['master_subtest_id'] == "8") {
+                array_push($dataQuestion['numeric'], $key);
+            }else if ($key['master_subtest_id'] == "9" || $key['master_subtest_id'] == "10" || $key['master_subtest_id'] == "11" || $key['master_subtest_id'] == "12") {
+                array_push($dataQuestion['abstrak'], $key);
+            }else{
+                array_push($dataQuestion['inventory'], $key);
+            }
+        }
+
+        return response()->json($dataQuestion);
     }
     
     public function viewQuestionBankAdd(){

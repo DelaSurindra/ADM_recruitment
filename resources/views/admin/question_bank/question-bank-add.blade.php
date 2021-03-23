@@ -675,7 +675,7 @@
                             <div class="form-group mb-5 facet">
                                 <textarea name="answerQA80" id="answerQA80" class="form-control class-QA8 class-all mb-1" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice0" value="a" class="class-QA8 class-all">
-                                <select class="mt-1 select2 tex-center select2-width" id="facetType0" name="facetType0" required>
+                                <select class="mt-1 select2 tex-center select2-width class-QA8 class-all" id="facetType0" name="facetType0" required>
                                     <option value="">Choose Facet</option>
                                     @foreach($facet as $data)
                                         <option value="{{$data['id']}}">{{$data['category']}} : {{$data['facet_name']}}</option>
@@ -692,7 +692,7 @@
                             <div class="form-group mb-5 facet">
                                 <textarea name="answerQA81" id="answerQA81" class="form-control class-QA8 class-all mb-1" placeholder="Enter your question" rows="5" required></textarea>
                                 <input type="hidden" name="choice1" value="b" class="class-QA8 class-all">
-                                <select class="mt-1 select2 tex-center select2-width" id="facetType1" name="facetType1" required>
+                                <select class="mt-1 select2 tex-center select2-width class-QA8 class-all" id="facetType1" name="facetType1" required>
                                     <option value="">Choose Facet</option>
                                     @foreach($facet as $data)
                                         <option value="{{$data['id']}}">{{$data['category']}} : {{$data['facet_name']}}</option>
@@ -708,11 +708,11 @@
 
     <div class="row">
         <input type="hidden" id="btnValue" name="btnValue">
-        <div class="col-md-12">
-            <button type="submit" class="btn btn-white w-100" id="continue" value="continue"><img src="{{asset('image/icon/main/icon_plus.svg')}}" alt="">&nbsp Add Question and Answer</button>
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-white w-100" id="save" value="save">Create</button>
         </div>
-        <div class="col-md-12">
-            <button type="submit" class="btn btn-red w-100" id="save" value="save">Save</button>
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-red w-100" id="continue" value="continue">Create and Continue to Next Question</button>
         </div>
     </div>
 </form>

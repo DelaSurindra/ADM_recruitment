@@ -3711,7 +3711,7 @@ and (max-device-width: 1024px)  {
     /* display: flex;
     align-items: center;
     justify-content: space-between; */
-    cursor: pointer;
+    cursor: default;
     position: relative;
 }
 /* down f078 */
@@ -3730,6 +3730,7 @@ and (max-device-width: 1024px)  {
     font-size: 18px;
     line-height: 130%;
     letter-spacing: -0.02em;
+    color: #050401;
 }
 /* .accordion-question-bank .card-accordion-head i {
     font-size: 22px;
@@ -3809,6 +3810,19 @@ and (max-device-width: 1024px)  {
 }
 .accordion-question-bank .card-question-inside .dropdown-menu-question .dropdown-item p.delete {
     color: #DF0E2C;
+}
+
+.card-accordion a{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #050401;
+}
+
+.card-accordion a:hover{
+    text-decoration: none;
 }
 
 .card-detail-candidate {

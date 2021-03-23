@@ -289,6 +289,156 @@ var table = {
 		 	table.serverSide('tableCandidate',column,'HR/candidate/list-candidate',value,columnDefs)
         }
 
+		$(".setTest").click(function(){
+			var row = $("#"+this.id).data('value');
+			// console.log($("#"+this.id).data('value'))
+			ajax.getData('/HR/question_bank/list-question', 'post', {set:row}, function(data){
+				// console.log(data);
+				var verbal = '';
+				var numeric = '';
+				var abstrak = '';
+				var inventory = '';
+
+				if (data.verbal.length) {
+					var dataVerbal = '';
+					for(var i = 0; i < data.verbal.length; i++){
+						var id = encodeURIComponent(window.btoa(data.verbal[i].id+'_'+data.verbal[i].set));
+						dataVerbal = dataVerbal+
+									'<div class="col-lg-3 col-md-4 col-sm-12">'+
+										'<a href="/HR/question_bank/detail-question-bank/'+id+'">'+
+											'<div class="card-question-inside">'+
+												'<div class="d-flex justify-content-between align-items-center">'+
+													'<h5 class="mb-0">Verbal</h5>'+
+												'</div>'+
+												'<div class="content-question">'+
+													'<p><b>'+data.verbal[i].sub_type+'</b>: '+data.verbal[i].name+'</p>'+
+												'</div>'+
+											'</div>'+
+										'</a>'+
+									'</div>'
+					}
+					verbal = '<div class="card-accordion">'+
+										'<div class="card-accordion-head" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">'+
+											'<h4 class="subtitle mb-0">Verbal</h4>'+
+										'</div>'+
+										'<div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">'+
+											'<div class="card-accordion-body">'+
+												'<div class="row">'+
+													dataVerbal+
+												'</div>'+
+											'</div>'+
+										'</div>'+
+									'</div>'
+				}
+
+				if (data.numeric.length) {
+					var dataNumeric = '';
+					for(var i = 0; i < data.numeric.length; i++){
+						var id = encodeURIComponent(window.btoa(data.numeric[i].id+'_'+data.numeric[i].set));
+						dataNumeric = dataNumeric+
+									'<div class="col-lg-3 col-md-4 col-sm-12">'+
+										'<a href="/HR/question_bank/detail-question-bank/'+id+'">'+
+											'<div class="card-question-inside">'+
+												'<div class="d-flex justify-content-between align-items-center">'+
+													'<h5 class="mb-0">Numeric</h5>'+
+												'</div>'+
+												'<div class="content-question">'+
+													'<p><b>'+data.numeric[i].sub_type+'</b>: '+data.numeric[i].name+'</p>'+
+												'</div>'+
+											'</div>'+
+										'</a>'+
+									'</div>'
+					}
+					numeric = '<div class="card-accordion">'+
+										'<div class="card-accordion-head" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">'+
+											'<h4 class="subtitle mb-0">Numeric</h4>'+
+										'</div>'+
+										'<div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">'+
+											'<div class="card-accordion-body">'+
+												'<div class="row">'+
+													dataNumeric+
+												'</div>'+
+											'</div>'+
+										'</div>'+
+									'</div>'
+				}
+
+				if (data.abstrak.length) {
+					var dataAbstrak = '';
+					for(var i = 0; i < data.abstrak.length; i++){
+						var id = encodeURIComponent(window.btoa(data.abstrak[i].id+'_'+data.abstrak[i].set));
+						dataAbstrak = dataAbstrak+
+									'<div class="col-lg-3 col-md-4 col-sm-12">'+
+										'<a href="/HR/question_bank/detail-question-bank/'+id+'">'+
+											'<div class="card-question-inside">'+
+												'<div class="d-flex justify-content-between align-items-center">'+
+													'<h5 class="mb-0">Abstrak</h5>'+
+												'</div>'+
+												'<div class="content-question">'+
+													'<p><b>'+data.abstrak[i].sub_type+'</b>: '+data.abstrak[i].name+'</p>'+
+												'</div>'+
+											'</div>'+
+										'</a>'+
+									'</div>'
+					}
+					abstrak = '<div class="card-accordion">'+
+										'<div class="card-accordion-head" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">'+
+											'<h4 class="subtitle mb-0">Abstrak</h4>'+
+										'</div>'+
+										'<div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">'+
+											'<div class="card-accordion-body">'+
+												'<div class="row">'+
+													dataAbstrak+
+												'</div>'+
+											'</div>'+
+										'</div>'+
+									'</div>'
+				}
+
+				if (data.inventory.length) {
+					var dataInventory = '';
+					for(var i = 0; i < data.inventory.length; i++){
+						var id = encodeURIComponent(window.btoa(data.inventory[i].id+'_'+data.inventory[i].set));
+						dataInventory = dataInventory+
+									'<div class="col-lg-3 col-md-4 col-sm-12">'+
+										'<a href="/HR/question_bank/detail-question-bank/'+id+'">'+
+											'<div class="card-question-inside">'+
+												'<div class="d-flex justify-content-between align-items-center">'+
+													'<h5 class="mb-0">Inventory</h5>'+
+												'</div>'+
+												'<div class="content-question">'+
+												'<p><b>'+data.inventory[i].sub_type+'</b></p>'+
+												'</div>'+
+											'</div>'+
+										'</a>'+
+									'</div>'
+					}
+					inventory = '<div class="card-accordion">'+
+										'<div class="card-accordion-head" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">'+
+											'<h4 class="subtitle mb-0">Inventory</h4>'+
+										'</div>'+
+										'<div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">'+
+											'<div class="card-accordion-body">'+
+												'<div class="row">'+
+													dataInventory+
+												'</div>'+
+											'</div>'+
+										'</div>'+
+									'</div>'
+				}
+
+				var head = '<div class="accordion accordion-question-bank">'+
+								verbal+
+								numeric+
+								abstrak+
+								inventory+
+							'</div>'
+
+				$("#bodyTest"+row).empty();
+				$("#bodyTest"+row).append(head);
+			});
+		})
+
 	},
 	filter:function(id,value){
 		if (id == 'filterSearchList' || id == 'filterJobList') {
