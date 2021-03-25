@@ -1,3 +1,50 @@
+.badge-question {
+    background: #E8F7EE;
+    border: 2px solid #888888;
+    box-sizing: border-box;
+    border-radius: 13.5px;
+    font-family: 'inter_semibold', sans-serif !important;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #888888;
+    padding: 2px 6px;
+    width: fit-content;
+}
+
+.text-detail-question{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #050401;
+    margin-bottom: 15px;
+}
+
+.img-detail-question{
+    height: 220px;
+    width: auto;
+}
+
+.btn-trash{
+    width: 41px;
+    height: 41px;
+    background: #FFFFFF;
+    border: 1px solid #BDBDBD;
+    box-sizing: border-box;
+    border-radius: 8px;
+    padding-left: 8px;
+}
+
+.btn-trash:focus{
+    box-shadow: none;
+    outline-width: 0;
+}
+
 .facet .select2-selection.select2-selection--single{
     border: none !important;
     background-color: white !important;
@@ -119,6 +166,7 @@
     line-height: 150%;
     text-align: center;
     color: #414141;
+    text-transform: uppercase;
 }
 
 .btn-answer:focus{

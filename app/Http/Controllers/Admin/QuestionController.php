@@ -55,7 +55,7 @@ class QuestionController extends Controller
                 array_push($dataQuestion['inventory'], $key);
             }
         }
-        // dd($dataQuestion, $listQuestionBaru);
+        // dd($dataQuestion);
         return view('admin.question_bank.question-bank-list')->with(['pageTitle' => 'Manajemen question bank', 'title' => 'Manajemen question bank', 'sidebar' => 'manajemen_question', 'question'=>$dataQuestion]);
     }
 
@@ -492,6 +492,47 @@ class QuestionController extends Controller
             ];
 
             return back()->with('notif', $messages);
+        }
+    }
+
+    public function viewQuestionBankDetail($id){
+        $idQuestion = base64_decode(urldecode($id));
+        $exp = explode("_", $idQuestion);
+        if($exp[2] == "2"){
+            $listQuestion = Question::where('master_subtest_id', $exp[0])->where('set', $exp[1])->with('answerInventory')->get()->toArray();
+            for ($i=0; $i < count($listQuestion); $i++) { 
+                $listQuestion[$i]['number'] = $i+1;
+                for ($k=0; $k < count($listQuestion[$i]['answer_inventory']); $k++) { 
+                    $facet = MasterFacet::where('id', $listQuestion[$i]['answer_inventory'][$k]['master_facet_id'])->get()->toArray();
+                    if ($facet) {
+                        $listQuestion[$i]['answer_inventory'][$k]['facet_name'] = $facet[0]['facet_name'];
+                    }else{
+                        $listQuestion[$i]['answer_inventory'][$k]['facet_name'] = "";
+                    }
+                }
+            }
+        }else{
+            $listQuestion = Question::where('master_subtest_id', $exp[0])->where('set', $exp[1])->with('answerCognitive')->get()->toArray();   
+            for ($i=0; $i < count($listQuestion); $i++) { 
+                $listQuestion[$i]['number'] = $i+1;
+            }
+        }
+        // dd($listQuestion);
+        if ($listQuestion) {
+            $breadcrumb = [
+                "page"      => "Manage Question Bank",
+                "detail"    => "View Detail Question Bank",
+                "route"     => "/HR/question_bank"
+            ];
+            return view('admin.question_bank.question-bank-detail')->with([
+                'pageTitle' => 'Manajemen question bank', 
+                'title' => 'Manajemen question bank', 
+                'sidebar' => 'manajemen_question', 
+                'breadcrumb' => $breadcrumb,
+                'data' => $listQuestion 
+            ]);
+        }else{
+            abort(404);
         }
     }
 }
