@@ -1330,7 +1330,7 @@ if ($("#formAddQuestionBank").length) {
 				// $('.photoProfileImage').attr('src', e.target.result);
 				// $('.photoProfileLabel').html(input.files[0].name);
 				var idSpan = $(input).parent().parent().find('.btn-file');
-				$("#"+idSpan.attr('id')).addClass('right');
+				$("#"+idSpan.attr('id')).addClass('btn-file-right');
 				var inputLabel = $(input).parent().parent().find('.img-preview');
 				// console.log(idSpan.attr('id'), inputLabel);
 				inputLabel.val();
@@ -1370,3 +1370,17 @@ if ($("#formAddQuestionBank").length) {
 	
 
 }
+
+$(".btn-delete-question").click(function(){
+	var value = this.value;
+	// alert(value)
+	var number = $("#numberQuestion"+value).val();
+	var id = $("#idQuestion"+value).val();
+	var url = $("#urlQuestion"+value).val();
+
+	$("#titleKonfirmasiQuestion").html('Are you sure for delete Question Bank number '+number);
+	$("#idDeleteQuestion").val(id);
+	$("#urlDeleteQuestion").val(url);
+
+	$("#modalKonfirmQuestion").modal('show');
+})

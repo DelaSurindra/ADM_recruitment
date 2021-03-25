@@ -53,9 +53,9 @@ Route::prefix('HR')->group(function(){
 			Route::get('/add-question-bank', 'Admin\QuestionController@viewQuestionBankAdd')->name('get.question.bank.add');
 			Route::post('/post-question-bank','Admin\QuestionController@addQuestionBank')->name('post.question.bank.add');
 			Route::get('/detail-question-bank/{id}', 'Admin\QuestionController@viewQuestionBankDetail')->name('get.question.bank.detail');
-			// Route::get('/detail-vacancy/{id}', 'Admin\VacancyController@viewVacancyDetail')->name('get.vacancy.detail');
-			// Route::post('/edit-vacancy','Admin\VacancyController@editVacancy')->name('post.vacancy.edit');
-			// Route::post('/delete-vacancy','Admin\VacancyController@deleteVacancy')->name('post.vacancy.delete');
+			Route::get('/edit-question-bank/{id}', 'Admin\QuestionController@viewQuestionBankEdit')->name('get.question.bank.edit');
+			Route::post('/edit-question-bank','Admin\QuestionController@editQuestion')->name('post.question.bank.edit');
+			Route::post('/delete-question-bank','Admin\QuestionController@deleteQuestion')->name('post.question.bank.delete');
 		});
 		
 		Route::prefix('candidate')->group(function () {

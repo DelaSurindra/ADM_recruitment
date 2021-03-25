@@ -529,10 +529,412 @@ class QuestionController extends Controller
                 'title' => 'Manajemen question bank', 
                 'sidebar' => 'manajemen_question', 
                 'breadcrumb' => $breadcrumb,
-                'data' => $listQuestion 
+                'data' => $listQuestion,
+                'id' => $id
             ]);
         }else{
             abort(404);
         }
+    }
+
+    public function viewQuestionBankEdit($id){
+        $idQuestion = base64_decode(urldecode($id));
+        $exp = explode("_", $idQuestion);
+        if($exp[2] == "2"){
+            $listQuestion = Question::where('id', $exp[3])->with('answerInventory')->with('masterSubtest')->get()->toArray();
+            if($listQuestion[0]['answer_inventory'] != []){
+                for ($i=0; $i < count($listQuestion[0]['answer_inventory']); $i++) { 
+                    $listQuestion[0]['answer_inventory'][$i]['index'] = $i;
+                }
+            }
+        }else{
+            $listQuestion = Question::where('id', $exp[3])->with('answerCognitive')->with('masterSubtest')->get()->toArray();
+            if($listQuestion[0]['answer_cognitive'] != []){
+                for ($i=0; $i < count($listQuestion[0]['answer_cognitive']); $i++) { 
+                    $listQuestion[0]['answer_cognitive'][$i]['index'] = $i;
+                }
+            }
+        }
+        // dd($listQuestion);
+        if ($listQuestion) {
+            $facet = MasterFacet::get()->toArray();
+            $breadcrumb = [
+                "page"      => "Manage Question Bank",
+                "detail"    => "View Detail Question Bank",
+                "route"     => "/HR/question_bank/detail-question/".$id
+            ];
+            return view('admin.question_bank.question-bank-edit')->with([
+                'pageTitle' => 'Manajemen question bank', 
+                'title' => 'Manajemen question bank', 
+                'sidebar' => 'manajemen_question', 
+                'breadcrumb' => $breadcrumb,
+                'data' => $listQuestion[0],
+                'facet' => $facet,
+                'id' => $id
+            ]);
+        }else{
+            abort(404);
+        }
+    }
+
+    public function editQuestion(){
+        $encrypt = new EncryptController;
+        $data = $encrypt->fnDecrypt(Request::input('data'),true);
+
+        // dd($data, Request::all());
+
+        if ($data['testType'] == "2") {
+            $updateQuestion = Question::where('id', $data['idQuestion'])->update([
+                'set' => $data['setTest']
+            ]);
+
+            if ($updateQuestion) {
+                for ($i=0; $i < $data['countAnswer']; $i++) { 
+                    $updateAnswer = AnswerInventory::where('id', $data['idAnswer'.$i])->update([
+                        'master_facet_id' => $data['facetType'.$i],
+                        'answer_text' => $data['answerQA8'.$i],
+                    ]);
+                }
+            }else{
+                $messages = [
+                    'status' => 'error',
+                    'message' => 'Gagal mengubah data Question Bank',
+                    'url' => 'close'
+                ];
+    
+                return back()->with('notif', $messages);
+            }
+        }else{
+            if ($data['subTest'] == "1" || $data['subTest'] == "3" || $data['subTest'] == "4" || $data['subTest'] == "7") {
+                $updateQuestion = Question::where('id', $data['idQuestion'])->update([
+                    'set' => $data['setTest'],
+                    'question_text' => $data['questionQA1'],
+                    'answer_keys' => $data['chooseAnswer'],
+                ]);
+
+                if ($updateQuestion) {
+                    for ($i=0; $i < $data['countAnswer']; $i++) { 
+                        $updateAnswer = AnswerCognitive::where('id', $data['idAnswer'.$i])->update([
+                            'answer_text' => $data['answerQA1'.$i],
+                        ]);
+                    }
+                }else{
+                    $messages = [
+                        'status' => 'error',
+                        'message' => 'Gagal mengubah data Question Bank',
+                        'url' => 'close'
+                    ];
+        
+                    return back()->with('notif', $messages);
+                }
+            }else if ($data['subTest'] == "5") {
+                if (Request::has('imgNumeric1')) {
+                    $image = Request::file('imgNumeric1');
+                    $ext = $image->getClientOriginalExtension();    
+                    $imgNumeric1 = $image->storeAs('bank-question', 'numeric1_'.time().'.'.$ext, 'public');
+                    // $sql->image_logo = $path; di db nggk ada kolomnya
+                }else{
+                    $imgNumeric1 = $data['imgNumeric1Old'];
+                }
+                
+                $updateQuestion = Question::where('id', $data['idQuestion'])->update([
+                    'set' => $data['setTest'],
+                    'question_text' => $data['questionQA2'],
+                    'question_image' => $imgNumeric1,
+                    'answer_keys' => $data['chooseAnswer'],
+                ]);
+                
+                if ($updateQuestion) {
+                    for ($i=0; $i < $data['countAnswer']; $i++) { 
+                        $updateAnswer = AnswerCognitive::where('id', $data['idAnswer'.$i])->update([
+                            'answer_text' => $data['answerQA2'.$i],
+                        ]);
+                    }
+                }else{
+                    $messages = [
+                        'status' => 'error',
+                        'message' => 'Gagal mengubah data Question Bank',
+                        'url' => 'close'
+                    ];
+        
+                    return back()->with('notif', $messages);
+                }
+            }else if ($data['subTest'] == "8") {
+                if (Request::has('imgNumeric4')) {
+                    $image = Request::file('imgNumeric4');
+                    $ext = $image->getClientOriginalExtension();    
+                    $imgNumeric4 = $image->storeAs('bank-question', 'numeric4_'.time().'.'.$ext, 'public');
+                    // $sql->image_logo = $path; di db nggk ada kolomnya
+                }else{
+                    $imgNumeric4 = $data['imgNumeric4Old'];
+                }
+
+                $updateQuestion = Question::where('id', $data['idQuestion'])->update([
+                    'set' => $data['setTest'],
+                    'question_text' => $data['questionQA3'],
+                    'question_image' => $imgNumeric4,
+                    'answer_keys' => $data['chooseAnswer'],
+                ]);
+                
+                if ($updateQuestion) {
+                    for ($i=0; $i < $data['countAnswer']; $i++) { 
+                        $updateAnswer = AnswerCognitive::where('id', $data['idAnswer'.$i])->update([
+                            'answer_text' => $data['answerQA3'.$i],
+                        ]);
+                    }
+                }else{
+                    $messages = [
+                        'status' => 'error',
+                        'message' => 'Gagal mengubah data Question Bank',
+                        'url' => 'close'
+                    ];
+        
+                    return back()->with('notif', $messages);
+                }
+
+            }else if ($data['subTest'] == "2") {
+                $updateQuestion = Question::where('id', $data['idQuestion'])->update([
+                    'set' => $data['setTest'],
+                    'question_text' => $data['questionQA4'],
+                    'answer_keys' => $data['chooseAnswer'],
+                ]);
+
+                if ($updateQuestion) {
+                    $updateAnswer = AnswerCognitive::where('id', $data['idAnswer0'])->update([
+                        'answer_text' => $data['conclusionQA4'],
+                    ]);
+                }else{
+                    $messages = [
+                        'status' => 'error',
+                        'message' => 'Gagal Membuat Question Bank',
+                        'url' => 'close'
+                    ];
+        
+                    return back()->with('notif', $messages);
+                }
+            }else if ($data['subTest'] == "6") {
+                $updateQuestion = Question::where('id', $data['idQuestion'])->update([
+                    'set' => $data['setTest'],
+                    'answer_keys' => $data['chooseAnswer'],
+                ]);
+
+                if ($updateQuestion) {
+                    for ($i=0; $i < $data['countAnswer']; $i++) { 
+                        $updateAnswer = AnswerCognitive::where('id', $data['idAnswer'.$i])->update([
+                            'answer_text' => $data['answerQA5'.$i],
+                        ]);
+                    }
+                }else{
+                    $messages = [
+                        'status' => 'error',
+                        'message' => 'Gagal mengubah data Question Bank',
+                        'url' => 'close'
+                    ];
+        
+                    return back()->with('notif', $messages);
+                }
+            }else if ($data['subTest'] == "9" || $data['subTest'] == "10" || $data['subTest'] == "12") {
+                if (Request::has('imgAbstrak')) {
+                    $imgAbstrak = Request::file('imgAbstrak');
+                    $extAbstrak = $imgAbstrak->getClientOriginalExtension();    
+                    $imgAbstrak = $imgAbstrak->storeAs('bank-question', 'abstrak_'.time().'.'.$extAbstrak, 'public');
+                    // $sql->image_logo = $path; di db nggk ada kolomnya
+                }else{
+                    $imgAbstrak = $data['imgAbstrakOld'];
+                }
+
+                $updateQuestion = Question::where('id', $data['idQuestion'])->update([
+                    'set' => $data['setTest'],
+                    'question_image' => $imgAbstrak,
+                    'answer_keys' => $data['chooseAnswer'],
+                ]);
+
+                if ($updateQuestion) {
+                    if (Request::has('imgAnswer0')) {
+                        $imgAnswer0 = Request::file('imgAnswer0');
+                        $extAnswer0 = $imgAnswer0->getClientOriginalExtension();    
+                        $data['imgAnswer0'] = $imgAnswer0->storeAs('bank-question', 'abstrak0_'.time().'.'.$extAnswer0, 'public');
+                        // $sql->image_logo = $path; di db nggk ada kolomnya
+                    }else{
+                        $data['imgAnswer0'] = $data['imgAnswerOld0'];
+                    }
+    
+                    if (Request::has('imgAnswer1')) {
+                        $imgAnswer1 = Request::file('imgAnswer1');
+                        $extAnswer1 = $imgAnswer1->getClientOriginalExtension();    
+                        $data['imgAnswer1'] = $imgAnswer1->storeAs('bank-question', 'abstrak1_'.time().'.'.$extAnswer1, 'public');
+                        // $sql->image_logo = $path; di db nggk ada kolomnya
+                    }else{
+                        $data['imgAnswer1'] = $data['imgAnswerOld1'];
+                    }
+    
+                    if (Request::has('imgAnswer2')) {
+                        $imgAnswer2 = Request::file('imgAnswer2');
+                        $extAnswer2 = $imgAnswer2->getClientOriginalExtension();    
+                        $data['imgAnswer2'] = $imgAnswer2->storeAs('bank-question', 'abstrak2_'.time().'.'.$extAnswer2, 'public');
+                        // $sql->image_logo = $path; di db nggk ada kolomnya
+                    }else{
+                        $data['imgAnswer2'] = $data['imgAnswerOld2'];
+                    }
+    
+                    if (Request::has('imgAnswer3')) {
+                        $imgAnswer3 = Request::file('imgAnswer3');
+                        $extAnswer3 = $imgAnswer3->getClientOriginalExtension();    
+                        $data['imgAnswer3'] = $imgAnswer3->storeAs('bank-question', 'abstrak3_'.time().'.'.$extAnswer3, 'public');
+                        // $sql->image_logo = $path; di db nggk ada kolomnya
+                    }else{
+                        $data['imgAnswer3'] = $data['imgAnswerOld3'];
+                    }
+    
+                    if (Request::has('imgAnswer4')) {
+                        $imgAnswer4 = Request::file('imgAnswer4');
+                        $extAnswer4 = $imgAnswer4->getClientOriginalExtension();    
+                        $data['imgAnswer4'] = $imgAnswer4->storeAs('bank-question', 'abstrak4_'.time().'.'.$extAnswer4, 'public');
+                        // $sql->image_logo = $path; di db nggk ada kolomnya
+                    }else{
+                        $data['imgAnswer4'] = $data['imgAnswerOld4'];
+                    }
+
+                    for ($i=0; $i < $data['countAnswer']; $i++) { 
+                        $updateAnswer = AnswerCognitive::where('id', $data['idAnswer'.$i])->update([
+                            'answer_image' => $data['imgAnswer'.$i],
+                        ]);
+                    }
+                }else{
+                    $messages = [
+                        'status' => 'error',
+                        'message' => 'Gagal Membuat Question Bank',
+                        'url' => 'close'
+                    ];
+        
+                    return back()->with('notif', $messages);
+                }
+            }else if ($data['subTest'] == "11") {
+                $updateQuestion = Question::where('id', $data['idQuestion'])->update([
+                    'set' => $data['setTest'],
+                    'answer_keys' => $data['chooseAnswer'],
+                ]);
+                
+                if ($updateQuestion) {
+                    if (Request::has('imgAbstrak0')) {
+                        $imgAbstrak0 = Request::file('imgAbstrak0');
+                        $extAnswer0 = $imgAbstrak0->getClientOriginalExtension();    
+                        $data['imgAbstrak0'] = $imgAbstrak0->storeAs('bank-question', 'abstrak30_'.time().'.'.$extAnswer0, 'public');
+                        // $sql->image_logo = $path; di db nggk ada kolomnya
+                    }else{
+                        $data['imgAbstrak0'] = $data['imgAbstrakOld0'];
+                    }
+    
+                    if (Request::has('imgAbstrak1')) {
+                        $imgAbstrak1 = Request::file('imgAbstrak1');
+                        $extAnswer1 = $imgAbstrak1->getClientOriginalExtension();    
+                        $data['imgAbstrak1'] = $imgAbstrak1->storeAs('bank-question', 'abstrak31_'.time().'.'.$extAnswer1, 'public');
+                        // $sql->image_logo = $path; di db nggk ada kolomnya
+                    }else{
+                        $data['imgAbstrak1'] = $data['imgAbstrakOld1'];
+                    }
+    
+                    if (Request::has('imgAbstrak2')) {
+                        $imgAbstrak2 = Request::file('imgAbstrak2');
+                        $extAnswer2 = $imgAbstrak2->getClientOriginalExtension();    
+                        $data['imgAbstrak2'] = $imgAbstrak2->storeAs('bank-question', 'abstrak32_'.time().'.'.$extAnswer2, 'public');
+                        // $sql->image_logo = $path; di db nggk ada kolomnya
+                    }else{
+                        $data['imgAbstrak2'] = $data['imgAbstrakOld2'];
+                    }
+    
+                    if (Request::has('imgAbstrak3')) {
+                        $imgAbstrak3 = Request::file('imgAbstrak3');
+                        $extAnswer3 = $imgAbstrak3->getClientOriginalExtension();    
+                        $data['imgAbstrak3'] = $imgAbstrak3->storeAs('bank-question', 'abstrak33_'.time().'.'.$extAnswer3, 'public');
+                        // $sql->image_logo = $path; di db nggk ada kolomnya
+                    }else{
+                        $data['imgAbstrak3'] = $data['imgAbstrakOld3'];
+                    }
+    
+                    if (Request::has('imgAbstrak4')) {
+                        $imgAbstrak4 = Request::file('imgAbstrak4');
+                        $extAnswer4 = $imgAbstrak4->getClientOriginalExtension();    
+                        $data['imgAbstrak4'] = $imgAbstrak4->storeAs('bank-question', 'abstrak34_'.time().'.'.$extAnswer4, 'public');
+                        // $sql->image_logo = $path; di db nggk ada kolomnya
+                    }else{
+                        $data['imgAbstrak4'] = $data['imgAbstrakOld4'];
+                    }
+                    
+                    for ($i=0; $i < $data['countAnswer']; $i++) { 
+                        $updateAnswer = AnswerCognitive::where('id', $data['idAnswer'.$i])->update([
+                            'answer_image' => $data['imgAbstrak'.$i],
+                        ]);
+                    }
+                }else{
+                    $messages = [
+                        'status' => 'error',
+                        'message' => 'Gagal Membuat Question Bank',
+                        'url' => 'close'
+                    ];
+        
+                    return back()->with('notif', $messages);
+                }
+
+            }
+        }
+
+        if ($updateAnswer) {
+            $messages = [
+                'status' => 'success',
+                'message' => 'Berhasil mengubah data Question Bank',
+                'url' => 'close',
+                'value' => '',
+                'id'    => ''
+            ];
+            return redirect('/HR/question_bank/detail-question-bank/'.$data['id'])->with('notif', $messages);
+        }else{
+            $messages = [
+                'status' => 'error',
+                'message' => 'Gagal mengubah data Question Bank',
+                'url' => 'close'
+            ];
+
+            return back()->with('notif', $messages);
+        }
+    }
+
+    public function deleteQuestion(){
+        $encrypt = new EncryptController;
+        $data = $encrypt->fnDecrypt(Request::input('data'),true);
+        $exp = explode("_", $data['idDeleteQuestion']);
+        if ($exp[1] == "2") {
+            $deleteAnswer = AnswerInventory::where('question_id', $exp[0])->delete();
+        }else{
+            $deleteAnswer = AnswerCognitive::where('question_id', $exp[0])->delete();
+        }
+        if ($deleteAnswer) {
+            $deleteQuestion = Question::where('id', $exp[0])->delete();
+            if ($deleteQuestion) {
+                $getQuestion = Question::where('master_subtest_id', $exp[2])->where('set', $exp[3])->count();
+                if ($getQuestion == 0) {
+                    $url = '/HR/question_bank';
+                } else {
+                    $url = '/HR/question_bank/detail-question-bank/'.$data['urlDeleteQuestion'];
+                }
+                
+                return [
+                    'status'   => 'success',
+                    'message'  => 'Berhasil menghapus data Question Bank',
+                    'url'      => $url,
+                    'callback' => 'redirect'
+                ];
+            } else {
+                return [
+                    'status'   => 'error',
+                    'message'  => 'Gagal menghapus data Question Bank',
+                ];
+            }
+        } else {
+            return [
+                'status'   => 'error',
+                'message'  => 'Gagal menghapus data Question Bank',
+            ];
+        } 
     }
 }

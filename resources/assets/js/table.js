@@ -302,7 +302,7 @@ var table = {
 				if (data.verbal.length) {
 					var dataVerbal = '';
 					for(var i = 0; i < data.verbal.length; i++){
-						var id = encodeURIComponent(window.btoa(data.verbal[i].master_subtest_id+'_'+data.verbal[i].set+'_'+data.verbal[i].test_type));
+						var id = encodeURIComponent(window.btoa(data.verbal[i].master_subtest_id+'_'+data.verbal[i].set+'_'+data.verbal[i].test_type+'_'+data.verbal[i].id));
 						dataVerbal = dataVerbal+
 									'<div class="col-lg-3 col-md-4 col-sm-12">'+
 										'<a href="/HR/question_bank/detail-question-bank/'+id+'">'+
@@ -334,7 +334,7 @@ var table = {
 				if (data.numeric.length) {
 					var dataNumeric = '';
 					for(var i = 0; i < data.numeric.length; i++){
-						var id = encodeURIComponent(window.btoa(data.numeric[i].master_subtest_id+'_'+data.numeric[i].set+'_'+data.numeric[i].test_type));
+						var id = encodeURIComponent(window.btoa(data.numeric[i].master_subtest_id+'_'+data.numeric[i].set+'_'+data.numeric[i].test_type+'_'+data.numeric[i].id));
 						dataNumeric = dataNumeric+
 									'<div class="col-lg-3 col-md-4 col-sm-12">'+
 										'<a href="/HR/question_bank/detail-question-bank/'+id+'">'+
@@ -366,7 +366,7 @@ var table = {
 				if (data.abstrak.length) {
 					var dataAbstrak = '';
 					for(var i = 0; i < data.abstrak.length; i++){
-						var id = encodeURIComponent(window.btoa(data.abstrak[i].master_subtest_id+'_'+data.abstrak[i].set+'_'+data.abstrak[i].test_type));
+						var id = encodeURIComponent(window.btoa(data.abstrak[i].master_subtest_id+'_'+data.abstrak[i].set+'_'+data.abstrak[i].test_type+'_'+data.abstrak[i].id));
 						dataAbstrak = dataAbstrak+
 									'<div class="col-lg-3 col-md-4 col-sm-12">'+
 										'<a href="/HR/question_bank/detail-question-bank/'+id+'">'+
@@ -398,7 +398,7 @@ var table = {
 				if (data.inventory.length) {
 					var dataInventory = '';
 					for(var i = 0; i < data.inventory.length; i++){
-						var id = encodeURIComponent(window.btoa(data.inventory[i].master_subtest_id+'_'+data.inventory[i].set+'_'+data.inventory[i].test_type));
+						var id = encodeURIComponent(window.btoa(data.inventory[i].master_subtest_id+'_'+data.inventory[i].set+'_'+data.inventory[i].test_type+'_'+data.inventory[i].id));
 						dataInventory = dataInventory+
 									'<div class="col-lg-3 col-md-4 col-sm-12">'+
 										'<a href="/HR/question_bank/detail-question-bank/'+id+'">'+

@@ -110,6 +110,11 @@
     display: block;
 }
 
+.btn-file-right{
+    top: 85px !important;
+    float: right;
+}
+
 .input-linkedin{
     border: none;
     font-family: 'inter_bold', sans-serif !important;

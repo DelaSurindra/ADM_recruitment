@@ -17,4 +17,9 @@ class Question extends Model
     {
         return $this->hasMany('App\Model\AnswerInventory');
     }
+
+    public function masterSubtest()
+    {
+        return $this->belongsTo('App\Model\MasterSubtest');
+    }
 }

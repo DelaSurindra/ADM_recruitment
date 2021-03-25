@@ -19,7 +19,7 @@
                                     <div class="col-md-6">
                                         <div class="row">
                                             <div class="col-md-11 pr-0">
-                                                <button class="btn btn-white right">Edit Question Information</button>
+                                            <a href="{{route('get.question.bank.edit', base64_encode(urlencode($question['master_subtest_id'].'_'.$question['set'].'_'.$question['test_type'].'_'.$question['id'])))}}"><button class="btn btn-white right">Edit Question Information</button></a>
                                             </div>
                                             <div class="col-md-1 pl-2">
                                                 <button class="btn-trash" type="button"><img src="{{asset('image/icon/main/icon_trash_red.svg')}}" alt=""></button>
@@ -61,10 +61,13 @@
                                     <div class="col-md-6">
                                         <div class="row">
                                             <div class="col-md-11 pr-0">
-                                                <button class="btn btn-white right">Edit Question Information</button>
+                                                <a href="{{route('get.question.bank.edit', base64_encode(urlencode($question['master_subtest_id'].'_'.$question['set'].'_'.$question['test_type'].'_'.$question['id'])))}}"><button class="btn btn-white right">Edit Question Information</button></a>
                                             </div>
                                             <div class="col-md-1 pl-2">
-                                                <button class="btn-trash" type="button"><img src="{{asset('image/icon/main/icon_trash_red.svg')}}" alt=""></button>
+                                                <button class="btn-trash btn-delete-question" value="{{$question['number']}}" type="button"><img src="{{asset('image/icon/main/icon_trash_red.svg')}}" alt=""></button>
+                                                <input type="hidden" id="numberQuestion{{$question['number']}}" value="{{$question['number']}}">
+                                                <input type="hidden" id="idQuestion{{$question['number']}}" value="{{$question['id'].'_'.$question['test_type'].'_'.$question['master_subtest_id'].'_'.$question['set']}}">
+                                                <input type="hidden" id="urlQuestion{{$question['number']}}" value="{{$id}}">
                                             </div>
                                         </div>
                                     </div>
@@ -139,4 +142,39 @@
     @endforeach
 @endif
 
+@endsection
+
+@section('modal')
+<div class="modal fade" id="modalKonfirmQuestion" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title modal-title-color">Delete Question Bank</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <form action="{{route('post.question.bank.delete')}}" id="formDeleteQuestion" method="post" ajax="true" class="form stacked">
+                                <div class="form-multi-row row">
+                                    <div class="form-group col-md-12">
+                                        <label class="form-label" id="titleKonfirmasiQuestion"></label>
+                                        <input id="idDeleteQuestion" class="form-input" type="hidden" name="idDeleteQuestion" />
+                                        <input id="urlDeleteQuestion" class="form-input" type="hidden" name="urlDeleteQuestion" />
+                                    </div>
+                                </div>
+                                </br>
+                                <div class="right">
+                                    <button type="button" class="left btn btn-back" data-dismiss="modal">Tutup</button>
+                                    <button type="submit" class="btn bnt-login btn-hapus-modal">Delete</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

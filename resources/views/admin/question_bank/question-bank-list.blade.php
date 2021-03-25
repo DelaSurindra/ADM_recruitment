@@ -43,7 +43,7 @@
                                 <div class="row">
                                     @foreach ($question['verbal'] as $verbal)
                                     <div class="col-lg-3 col-md-4 col-sm-12">
-                                        <a href="{{route('get.question.bank.detail', base64_encode(urlencode($verbal['master_subtest_id'].'_'.$verbal['set'].'_'.$verbal['test_type'])))}}">
+                                        <a href="{{route('get.question.bank.detail', base64_encode(urlencode($verbal['master_subtest_id'].'_'.$verbal['set'].'_'.$verbal['test_type'].'_'.$verbal['id'])))}}">
                                             <div class="card-question-inside">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <h5 class="mb-0">Verbal</h5>
@@ -70,7 +70,7 @@
                                 <div class="row">
                                     @foreach ($question['numeric'] as $numeric)
                                     <div class="col-lg-3 col-md-4 col-sm-12">
-                                        <a href="{{route('get.question.bank.detail', base64_encode(urlencode($numeric['master_subtest_id'].'_'.$numeric['set'].'_'.$numeric['test_type'])))}}">
+                                        <a href="{{route('get.question.bank.detail', base64_encode(urlencode($numeric['master_subtest_id'].'_'.$numeric['set'].'_'.$numeric['test_type'].'_'.$numeric['id'])))}}">
                                             <div class="card-question-inside">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <h5 class="mb-0">Numeric</h5>
@@ -98,7 +98,7 @@
                                 <div class="row">
                                     @foreach ($question['abstrak'] as $abstrak)
                                     <div class="col-lg-3 col-md-4 col-sm-12">
-                                        <a href="{{route('get.question.bank.detail', base64_encode(urlencode($abstrak['master_subtest_id'].'_'.$abstrak['set'].'_'.$abstrak['test_type'])))}}">
+                                        <a href="{{route('get.question.bank.detail', base64_encode(urlencode($abstrak['master_subtest_id'].'_'.$abstrak['set'].'_'.$abstrak['test_type'].'_'.$abstrak['id'])))}}">
                                             <div class="card-question-inside">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <h5 class="mb-0">Abstrak</h5>
@@ -126,7 +126,7 @@
                                     
                                     @foreach ($question['inventory'] as $inventory)
                                     <div class="col-lg-3 col-md-4 col-sm-12">
-                                        <a href="{{route('get.question.bank.detail', base64_encode(urlencode($inventory['master_subtest_id'].'_'.$inventory['set'].'_'.$inventory['test_type'])))}}">
+                                        <a href="{{route('get.question.bank.detail', base64_encode(urlencode($inventory['master_subtest_id'].'_'.$inventory['set'].'_'.$inventory['test_type'].'_'.$inventory['id'])))}}">
                                             <div class="card-question-inside">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <h5 class="mb-0">Inventory</h5>
