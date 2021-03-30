@@ -417,6 +417,43 @@ const formrules = {
 				error.insertAfter(element);
 			}
 		}
+	},
+
+	'formAddTest':{
+		ignore: null,
+		rules:{
+            'cityTest':{
+                required:true
+            },
+            'locationTest':{
+                required: true
+            },
+			'timeTest':{
+                required: true
+            },
+			'dateTest':{
+                required: true
+            },
+			'longlatTest':{
+				required: true
+			},
+			'setTest':{
+				required: true
+			},
+		},
+		messages: {
+			setTest: {
+				required: 'Mohon pilih salah satu set test',
+			}
+        },
+		submitHandler:false,
+        errorPlacement: function (error, element) {
+			if (element.is("input[name=setTest]")) {
+				error.appendTo(element.parents('#setTestDiv'));
+			}else { // This is the default behavior
+				error.insertAfter(element);
+			}
+		}
 	}
 
 }

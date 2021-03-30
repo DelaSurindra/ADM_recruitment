@@ -1384,3 +1384,33 @@ $(".btn-delete-question").click(function(){
 
 	$("#modalKonfirmQuestion").modal('show');
 })
+
+if ($("#formAddTest").length) {
+	$('#dateTest').datetimepicker({
+		format: 'DD-MM-YYYY',
+	});
+
+	$("#addAlternative").click(function(){
+		$("#btnAddAlternative").addClass('hidden')
+		$("#modalAlternativeTest").modal('show')
+
+		$("#btnAddAlternative").click(function(){
+			for (let index = 0; index < $('.title-date').length; index++) {
+				var x = $('.title-date')[index];
+				var count = parseInt(index)+1;
+				$(x).html('Date Test Alternative '+count)
+				
+			}
+			$(".div-alternatif").removeClass("hidden");
+			$(".id-alternatif-test").attr('disabled', false);
+			$("#modalAlternativeTest").modal('hide');
+			var count = $("#countTest").val();
+			if (count == "3") {
+				$("#addAlternative").addClass("hidden")
+			}else{
+				$("#addAlternative").removeClass("hidden");
+			}
+		})
+	});
+	
+}

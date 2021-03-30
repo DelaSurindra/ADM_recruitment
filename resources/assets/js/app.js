@@ -113,6 +113,13 @@ $(document).ready(function () {
         $('#modalNotifProfileSaved').modal('show')
     }
     
+    if ($('#addTest').length) {
+	    ui.popup.hideLoader();
+        $('.modal').modal('hide');
+        const url = $('#addTest').data('url')
+        $("#urlTest").attr('href', url);
+        $('#modalSuccessAddTest').modal('show')
+    }
 })
 
 // window.onload = function () {

@@ -174,6 +174,89 @@ var table = {
 		 	table.serverSide('tableVacancy',column,'HR/vacancy/list-vacancy',null,columnDefs)
         }
 
+		if ($('#tableTest').length) {
+			// $("#modalSuccessAddTest").modal('show')
+			var column = [
+				{'data':'created_at'},
+				{'data':'event_id'},
+				{'data':'date_test'},
+				{'data':'time'},
+				{'data':'city'},
+				{'data':'location'},
+				{'data':'set_test'},
+				{'data':'status_test'},
+			];
+
+			columnDefs = [
+				{
+					"targets": 7,
+					"data": "status_test",
+					"render": function(data, type, full, meta){
+						var data = ''
+		            	if (full.status == 1) {
+		            	    data = '<strong>Publised</strong>';
+		            	}else{
+							data = "<p>Deaktif</p>"
+						}
+		            	return data;
+					}
+				},
+				{
+					"targets": 8,
+					"data": "id",
+					"className": "action-poster-news",
+					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.job_id));
+						var konfirm = '';
+						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/vacancy/detail-test/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Test"> Edit&nbsp</a></button>';
+		            	return data;
+					}
+				}
+			];
+
+			table.serverSide('tableTest',column,'HR/test/list-test',null,columnDefs)
+        }
+
+		if($('#tableAlternatifTest').length){
+			var column = [
+				{'data':'created_at'},
+				{'data':'event_id'},
+				{'data':'date_test'},
+				{'data':'time'},
+				{'data':'city'},
+				{'data':'location'},
+				{'data':'set_test'},
+				{'data':'status_test'},
+			];
+	
+			columnDefs = [
+				{
+					"targets": 0,
+					"data": "id",
+					"render": function(data, type, full, meta){
+						var data = '<input class="check" type="checkbox" id="alternative_'+full.id+'">';
+						return data;
+					}
+				},
+				{
+					"targets": 8,
+					"data": "status_test",
+					"render": function(data, type, full, meta){
+						var data = ''
+						if (full.status == 1) {
+							data = '<strong>Publised</strong>';
+						}else{
+							data = "<p>Deaktif</p>"
+						}
+						return data;
+					}
+				},
+				
+			];
+	
+			table.serverSide('tableAlternatifTest',column,'HR/test/list-test',null,columnDefs)
+		}
+
 		if ($('#tableCandidate').length) {
 			var value = $('#filterCandidate').serialize();
 			var column = [
@@ -824,4 +907,64 @@ $("#tableCandidate tbody").on('click', 'input', function(e) {
 	}
 	// alert(jumlah);
 	// console.log(this.className, this.id);
+})
+
+$("#tableAlternatifTest tbody").on('click', 'input', function(e) {
+	var table = $('#tableAlternatifTest').DataTable();
+	var dataRow = table.row($(this).closest('tr')).data();
+	var count = $("#countTest").val();
+	var jumlah = "";
+	if ($("#alternative_"+dataRow.id).is(":checked")) {
+		jumlah = parseInt(count)+1;
+		$("#alternative_"+dataRow.id).addClass("checkActive");
+		$("#countTest").val(jumlah);
+		$("#divAlternatif").append(
+			'<div class="div-alternatif hidden" id="setAlternatif'+dataRow.id+'">'+
+				'<input type="hidden" name="alternatifTest" class="id-alternatif-test" value="'+dataRow.id+'" disabled>'+
+				'<input type="hidden" name="alternatifTestDate" class="id-alternatif-test" value="'+dataRow.date_test+'" disabled>'+
+				'<div class="dropdown-divider mb-4"></div>'+
+				'<div class="row">'+
+					'<div class="col-md-5">'+
+						'<p class="title-alternatif title-id">Test Alternative 1 ID</p>'+
+						'<p class="content-alternatif">'+dataRow.event_id+'</p>'+
+					'</div>'+
+					'<div class="col-md-5">'+
+						'<p class="title-alternatif title-date">Date Test Alternative 1</p>'+
+						'<p class="content-alternatif">'+dataRow.date_test+'</p>'+
+					'</div>'+
+					'<div class="col-md-2 pt-2">'+
+					'<button value="'+dataRow.id+'" type="button" class="btn btn-delete-alternatif btn-transparent"><img style="margin-right: 1px;" src="/image/icon/main/delete_red.svg" title="Delete Alternative Test">&nbspDelete</button>'+
+					'</div>'+
+				'</div>'+
+				'<div class="dropdown-divider mt-4 mb-4"></div>'+
+			'</div>'
+		)
+	} else {
+		jumlah = parseInt(count)-1;
+		$("#alternative_"+dataRow.id).removeClass("checkActive");
+		$("#countTest").val(jumlah);
+		$("#setAlternatif"+dataRow.id).remove();
+	}
+	$("#textItem").html(jumlah+" item selected")
+	if (jumlah == 0) {
+		$("#btnAddAlternative").addClass("hidden")
+	}else{
+		$("#btnAddAlternative").removeClass("hidden")
+		if (jumlah == 3) {
+			$('.check').attr('disabled', true)
+			$('.checkActive').attr('disabled', false)
+		}else{
+			$('.check').attr('disabled', false)
+		}
+	}
+
+	$(".btn-delete-alternatif").click(function(){
+		$("#setAlternatif"+this.value).remove();
+		jumlah = parseInt(count)-1;
+		$("#countTest").val(jumlah);
+		$("#addAlternative").removeClass("hidden");
+		$("#alternative_"+this.value).removeClass("checkActive");
+		$('.check').attr('disabled', false);
+	})
+	
 })

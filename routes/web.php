@@ -67,6 +67,16 @@ Route::prefix('HR')->group(function(){
 			Route::get('/download-file/{file}','Admin\CandidateController@downloadFile')->name('post.download.file');
 			Route::post('/post-bulk-update','Admin\CandidateController@bulkUpdate')->name('post.bulk.update.candidate');
 		});
+
+		Route::prefix('test')->group(function () {
+			Route::get('/', 'Admin\TestController@viewTest')->name('get.test');
+			Route::post('/list-test','Admin\TestController@listTest')->name('post.test.list');
+			Route::get('/add-test', 'Admin\TestController@viewTestAdd')->name('get.test.add');
+			Route::post('/post-test','Admin\TestController@addTest')->name('post.test.add');
+			Route::get('/detail-test/{id}', 'Admin\TestController@viewTestDetail')->name('get.test.detail');
+			Route::post('/edit-test','Admin\TestController@editTest')->name('post.test.edit');
+			Route::post('/delete-test','Admin\TestController@deleteTest')->name('post.test.delete');
+		});
 	});
 });
 
