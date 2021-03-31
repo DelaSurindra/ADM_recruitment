@@ -11,83 +11,122 @@
 |
 */
 
+Route::prefix('s')->group(function () {
+	Route::post('/', 'Security\EncryptController@getPass')->name('s');
+});
 
-//====================================== INI ROUTE GROUP AUTH ============================================
+// Route::get('/', 'Admin\HomeController@HomeView')->name('home');
 
-Route::middleware(['web'])->group(function () {
+Route::prefix('HR')->group(function(){
+	Route::prefix('logout')->group(function () {
+		Route::get('/', 'Admin\LoginController@logout')->name('get.logout');
+	});
+	Route::prefix('login')->group(function () {
+		Route::get('/', 'Admin\LoginController@loginAdminView')->name('get.login.view');
+		Route::post('/login-admin', 'Admin\LoginController@loginAdmin')->name('post.login-admin');
+	});
+	Route::middleware('authuser')->group(function(){
+		Route::get('/', 'Admin\HomeController@HomeView')->name('home.admin');
+		Route::prefix('news_event')->group(function () {
+			Route::get('/', 'Admin\NewsEventController@viewNewsEvent')->name('get.news.event');
+			Route::get('/add-news-event', 'Admin\NewsEventController@viewNewsEventAdd')->name('get.news.event.add');
+			Route::post('/list-news-event','Admin\NewsEventController@listNewsEvent')->name('post.news.event.list');
+			Route::post('/post-news-event','Admin\NewsEventController@addNewsEvent')->name('post.news.event.add');
+			Route::get('/detail-news-event/{id}', 'Admin\NewsEventController@viewNewsEventDetail')->name('get.news.event.detail');
+			Route::post('/edit-news-event','Admin\NewsEventController@editNewsEvent')->name('post.news.event.edit');
+			Route::post('/delete-news-event','Admin\NewsEventController@deleteNewsEvent')->name('post.news.event.delete');
+		});
+		
+		Route::prefix('vacancy')->group(function () {
+			Route::get('/', 'Admin\VacancyController@viewVacancy')->name('get.vacancy');
+			Route::post('/list-vacancy','Admin\VacancyController@listVacancy')->name('post.vacancy.list');
+			Route::get('/add-vacancy', 'Admin\VacancyController@viewVacancyAdd')->name('get.vacancy.add');
+			Route::post('/post-vacancy','Admin\VacancyController@addVacancy')->name('post.vacancy.add');
+			Route::get('/detail-vacancy/{id}', 'Admin\VacancyController@viewVacancyDetail')->name('get.vacancy.detail');
+			Route::post('/edit-vacancy','Admin\VacancyController@editVacancy')->name('post.vacancy.edit');
+			Route::post('/delete-vacancy','Admin\VacancyController@deleteVacancy')->name('post.vacancy.delete');
+		});
 
-    // Authentication Routes...
-    Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-    Route::post('login', 'Auth\LoginController@login');
-    Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+		Route::prefix('question_bank')->group(function () {
+			Route::get('/', 'Admin\QuestionController@viewQuestionBank')->name('get.question-bank');
+			Route::post('/list-question','Admin\QuestionController@listQuestion')->name('post.question.list');
+			Route::get('/add-question-bank', 'Admin\QuestionController@viewQuestionBankAdd')->name('get.question.bank.add');
+			Route::post('/post-question-bank','Admin\QuestionController@addQuestionBank')->name('post.question.bank.add');
+			Route::get('/detail-question-bank/{id}', 'Admin\QuestionController@viewQuestionBankDetail')->name('get.question.bank.detail');
+			Route::get('/edit-question-bank/{id}', 'Admin\QuestionController@viewQuestionBankEdit')->name('get.question.bank.edit');
+			Route::post('/edit-question-bank','Admin\QuestionController@editQuestion')->name('post.question.bank.edit');
+			Route::post('/delete-question-bank','Admin\QuestionController@deleteQuestion')->name('post.question.bank.delete');
+		});
+		
+		Route::prefix('candidate')->group(function () {
+			Route::get('/', 'Admin\CandidateController@viewCandidate')->name('get.candidate');
+			Route::post('/list-candidate','Admin\CandidateController@listCandidate')->name('post.candidate.list');
+			Route::get('/detail-candidate/{id}', 'Admin\CandidateController@viewCandidateDetail')->name('get.candidate.detail');
+			Route::get('/edit-candidate/{id}', 'Admin\CandidateController@viewCandidateEdit')->name('get.candidate.edit');
+			Route::post('/post-edit-candidate','Admin\CandidateController@editCandidate')->name('post.candidate.edit');
+			Route::get('/download-file/{file}','Admin\CandidateController@downloadFile')->name('post.download.file');
+			Route::post('/post-bulk-update','Admin\CandidateController@bulkUpdate')->name('post.bulk.update.candidate');
+		});
 
-    // Password Reset Routes...
-    Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-    Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
-
-    // Email Verification Routes...
-    Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
-    Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
-    Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
-
+		Route::prefix('test')->group(function () {
+			Route::get('/', 'Admin\TestController@viewTest')->name('get.test');
+			Route::post('/list-test','Admin\TestController@listTest')->name('post.test.list');
+			Route::get('/add-test', 'Admin\TestController@viewTestAdd')->name('get.test.add');
+			Route::post('/post-test','Admin\TestController@addTest')->name('post.test.add');
+			Route::get('/detail-test/{id}', 'Admin\TestController@viewTestDetail')->name('get.test.detail');
+			Route::post('/edit-test','Admin\TestController@editTest')->name('post.test.edit');
+			Route::post('/delete-test','Admin\TestController@deleteTest')->name('post.test.delete');
+		});
+	});
 });
 
 
-//====================================== INI ROUTE GROUP ADMIN ============================================
+// Candidate View Preparation
+Route::middleware('authcandidate')->group(function(){
+	Route::get('/complete-account', 'Candidate\ProfileController@viewFirstLogin')->name('get.first-login');
+	Route::post('/post-first-login', 'Candidate\ProfileController@postFirstLogin')->name('post.first-login');
 
-Route::middleware(['auth', 'admin'])->group(function () {
+	Route::prefix('signout')->group(function () {
+		Route::get('/', 'Candidate\LoginController@logout')->name('get.logout-candidate');
+	});
+	Route::middleware('firstLogin')->group(function(){
+		Route::prefix('profile')->group(function () {
+			Route::get('/', 'Candidate\ProfileController@viewProfile')->name('get.profile.view');
+			Route::get('/personal-information', 'Candidate\ProfileController@editPersonalInformation')->name('get.profile.personal-information');
+			Route::post('/post-personal-information', 'Candidate\ProfileController@postEditPersonalInformation')->name('post.profile.personal-information');
+			Route::get('/other-information', 'Candidate\ProfileController@editOtherInformation')->name('get.profile.other-information');
+			Route::post('/post-other-information', 'Candidate\ProfileController@postEditOtherInformation')->name('post.profile.other-information');
+			Route::get('/education-information', 'Candidate\ProfileController@editEducationInformation')->name('get.profile.education-information');
+			Route::post('/post-education-information', 'Candidate\ProfileController@postEditEducationInformation')->name('post.profile.education-information');
+	
+			Route::get('/edit-password', 'Candidate\ProfileController@viewEditPassword')->name('get.profile.edit-password');
+			Route::post('/post-edit-password', 'Candidate\ProfileController@postEditPassword')->name('post.profile.edit-password');
+	
+			Route::get('/my-app', 'Candidate\ProfileController@myApp')->name('get.profile.my-app');
+			Route::get('/my-app-detail/{id}', 'Candidate\ProfileController@myAppDetail')->name('get.profile.my-app-detail');
+		});
+	});
 
-    Route::prefix('admin')->group(function () {
-
-        Route::get('home', 'HomeController@index')->name('home');
-
-        //user admin management
-        Route::get('user', 'Auth\UserController@getIndex')->name('listUser');
-        Route::get('user/add', 'Auth\UserController@getAdd')->name('formUser');
-        Route::get('user/block/{id}', 'Auth\UserController@getBlock');
-        Route::get('user/active/{id}', 'Auth\UserController@getActive');
-        Route::post('user/add', 'Auth\UserController@postAdd')->name('addUser');
-
-        //edit profile
-        Route::get('profile', 'ProfileController@getProfile')->name('profile');
-        Route::post('profile/edit', 'ProfileController@postProfile')->name('editProfile');
-
-        // Route admin pelamar
-        Route::get('/pelamar', 'PelamarController@getIndex')->name('pelamar');
-        Route::get('/pelamar/{id}', 'PelamarController@getDetailPelamar')->name('detailPelamar');
-        Route::post('/pelamar/status/{id}', 'PelamarController@changeStatus');
-        Route::get('/pelamar/download/{id}', 'PelamarController@getDownload')->name('download');
-        Route::get('/pelamar/delete/{id}', 'PelamarController@pelamarDelete')->name('pelamarDelete');
-
-
-        // Route admin Vacancy
-        Route::get('/vacancy', 'VacancyController@getIndex')->name('vacancy');
-        Route::get('/vacancy/add', 'VacancyController@getInput')->name('formAdd');
-        Route::post('/vacancy/add', 'VacancyController@postInput')->name('submitJob');
-        Route::get('/vacancy/{id}', 'VacancyController@getDetail');
-        Route::get('/vacancy/edit/{id}', 'VacancyController@getEdit')->name('formEdit');
-        Route::post('/vacancy/edit/{id}', 'VacancyController@postEdit');
-        Route::get('/vacancy/delete/{id}', 'VacancyController@getDelete')->name('vacancyDelete');
-        Route::get('/vacancy/role/{id}', 'VacancyController@updateRole')->name('updateRole');
-    });
-
+	Route::prefix('job')->group(function () {
+		Route::post('/tell-me', 'Candidate\JobController@applyTellMe')->name('post.tell-me');
+	});
 });
 
+Route::get('/', 'Candidate\LoginController@index')->name('home');
 
-//====================================== INI ROUTE GROUP FORM APPLY ============================================
+Route::get('/news-event', 'Candidate\NewsEventController@viewNewsEvent')->name('get.news.event.page');
+Route::get('/news-event/detail/{id}', 'Candidate\NewsEventController@viewNewsEventDetail')->name('get.news.event.page.detail');
+Route::post('/news-get-more', 'Candidate\NewsEventController@getMoreNews')->name('get.news.more');
+Route::post('/event-get-more', 'Candidate\NewsEventController@getMoreEvent')->name('get.event.more');
 
-Route::middleware(['web'])->group(function () {
+Route::get('/job', 'Candidate\JobController@viewJob')->name('get.job.page');
+Route::post('/job-more', 'Candidate\JobController@getJobList')->name('get.job.more');
+Route::get('/job/detail/{id}', 'Candidate\JobController@viewJobDetail')->name('get.job.page.detail');
+Route::post('/apply-job', 'Candidate\JobController@applyJob')->name('post.apply-job');
 
-    //Halaman Apply
-    Route::get('/', 'FormContoller@sliderIndex')->name('slider');
-    Route::get('/{job}','FormContoller@detail')->name('detail');
-    Route::post('submit','FormContoller@submitLamaran')->name('submitLamaran');
-    Route::get('form/{job}','FormContoller@form')->name('form');
+Route::post('/post-signup', 'Candidate\LoginController@signUp')->name('post.signup');
+Route::post('/post-login', 'Candidate\LoginController@signIn')->name('post.login');
 
-});
-Route::view('/summernote','summernote');
-Route::get("token",'RequestController@getToken');
-Route::get("decrypt",'RequestController@testDecrypt');
-
+// Fitur Masih Belum Pasti
+Route::get('/test-reschedule', 'Candidate\ProfileController@testReschedule')->name('get.profile.test-reschedule');
+Route::get('/interview-reschedule', 'Candidate\ProfileController@interviewReschedule')->name('get.profile.interview-reschedule');
