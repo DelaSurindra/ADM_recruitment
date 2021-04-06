@@ -1516,6 +1516,9 @@ if ($('.choose-candidate').length) {
 		
 		$("#modalChooseCandidate").modal('show')
 	})
+}
+
+if ($("#modalSetTest").length) {
 
 	$(".btn-set-test").click(function(e){
 		e.preventDefault();
@@ -1526,4 +1529,5 @@ if ($('.choose-candidate').length) {
 		$("#valueSet").val(value);
 		
 	})
+	
 }

@@ -388,18 +388,14 @@ var table = {
 			var value = $("#idData").val();
 			var column = [
 				{'data':null},
-				{'data':'submit_date'},
 				{'data':'name'},
-				{'data':'age'},
-				{'data':'gelar'},
 				{'data':'universitas'},
-				{'data':'fakultas'},
 				{'data':'jurusan'},
-				{'data':'gpa'},
-				{'data':'graduate_year'},
 				{'data':'job_position'},
+				{'data':'type'},
+				{'data':'set_test'},
 				{'data':'area'},
-				{'data':'status'},
+				{'data':'status_participant'},
 			];
 
 			columnDefs = [
@@ -413,7 +409,174 @@ var table = {
 					}
 				},
 				{
-					"targets": 2,
+					"targets": 1,
+					"data": "name",
+					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.kandidat_id));
+						var image = '';
+						if (full.foto_profil == null || full.foto_profil == "") {
+							image = baseUrl+'image/icon/homepage/dummy-profile.svg';
+						}else{
+							image = baseImage+'/'+full.foto_profil;
+						}
+						var data = '<a href="/HR/candidate/detail-candidate/'+id+'" class="name-candidate"><img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name+'</a';
+						return data;
+					}
+				},
+				{
+					"targets": 5,
+					"data": "type",
+					"render": function(data, type, full, meta){
+						var data = ''
+		            	if (full.type == 1) {
+		            	    data = 'Full Time';
+		            	} else {
+		            	    data = 'Intership';
+		            	}
+		               	return data;
+					}
+				},
+				{
+					"targets": 6,
+					"data": "set_test",
+					"render": function(data, type, full, meta){
+						var data = "";
+						if (full.set_test == null) {
+							data = "<span class='test-status-notset'>Not Set</span>"
+						}else{
+							data = "<span class='test-status-attend'>"+full.set_test+"</span>"
+						}
+						return data;
+					}
+				},
+				{
+					"targets": 8,
+					"data": "status_participant",
+					"render": function(data, type, full, meta){
+						var data = "";
+						if(full.status_participant == "0"){
+							data = "<span class='test-status-notset'>Not Set</span>"
+						}else{
+							data = "<span class='test-status-attend'>Confirmed</span>"
+						}
+						return data;
+					}
+				},
+			];
+
+		 	table.serverSide('tableParticipantTest',column,'HR/test/list-candidate',value,columnDefs)
+        }
+
+		if ($('#tableParticipantTestTheDay').length) {
+			var value = $("#idData").val();
+			var column = [
+				{'data':null},
+				{'data':'name'},
+				{'data':'universitas'},
+				{'data':'jurusan'},
+				{'data':'job_position'},
+				{'data':'type'},
+				{'data':'set_test'},
+				{'data':'area'},
+				{'data':'status_participant'},
+				{'data':'location_start_radius'},
+			];
+
+			columnDefs = [
+				{
+					"targets": 0,
+					"orderable": false,
+					"data": "test_participant_id",
+					"render": function(data, type, full, meta){
+						var data = '<input type="checkbox" id="participant_'+full.test_participant_id+'">';
+						return data;
+					}
+				},
+				{
+					"targets": 1,
+					"data": "name",
+					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.kandidat_id));
+						var image = '';
+						if (full.foto_profil == null || full.foto_profil == "") {
+							image = baseUrl+'image/icon/homepage/dummy-profile.svg';
+						}else{
+							image = baseImage+'/'+full.foto_profil;
+						}
+						var data = '<a href="/HR/candidate/detail-candidate/'+id+'" class="name-candidate"><img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name+'</a';
+						return data;
+					}
+				},
+				{
+					"targets": 5,
+					"data": "type",
+					"render": function(data, type, full, meta){
+						var data = ''
+		            	if (full.type == 1) {
+		            	    data = 'Full Time';
+		            	} else {
+		            	    data = 'Intership';
+		            	}
+		               	return data;
+					}
+				},
+				{
+					"targets": 6,
+					"data": "set_test",
+					"render": function(data, type, full, meta){
+						var data = "<span class='test-status-attend'>"+full.set_test+"</span>";
+						return data;
+					}
+				},
+				{
+					"targets": 8,
+					"data": "status_participant",
+					"render": function(data, type, full, meta){
+						var data = "";
+						if(full.status_participant == "3"){
+							data = "<span class='test-status-attend'>Attend</span>"
+						}else if (full.status_participant == "4") {
+							data = "<span class='test-status-absen'>Absence</span>"
+						}else{
+							data = "<span class='test-status-notset'>Not Set</span>"
+						}
+						return data;
+					}
+				},
+				{
+					"targets": 10,
+					"data": "test_participant_id",
+					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.test_participant_id));
+						// var konfirm = '';
+						var data = '<button type="button" class="btn btn-table btn-transparent edit-table"><img style="margin-right: 1px;" src="/image/icon/main/icon_send_otp.svg" title="Send OTP">&nbsp Send OTP</button>';
+		            	return data;
+					}
+				}
+			];
+
+		 	table.serverSide('tableParticipantTestTheDay',column,'HR/test/list-candidate',value,columnDefs)
+        }
+
+		if ($('#tableParticipantFinish').length) {
+			var value = $("#idData").val();
+			var column = [
+				{'data':'name'},
+				{'data':'universitas'},
+				{'data':'jurusan'},
+				{'data':'job_position'},
+				{'data':'type'},
+				{'data':'set_test'},
+				{'data':'area'},
+				{'data':'status_participant'},
+				{'data':'location_start_radius'},
+				{'data':'location_end_radius'},
+				{'data':'location_start_radius'},
+			];
+
+			columnDefs = [
+				{
+					"targets": 0,
 					"data": "name",
 					"render": function(data, type, full, meta){
 						var id = encodeURIComponent(window.btoa(full.kandidat_id));
@@ -429,74 +592,53 @@ var table = {
 				},
 				{
 					"targets": 4,
-					"data": "gelar",
+					"data": "type",
 					"render": function(data, type, full, meta){
-						var data = '';
-						if (full.gelar == "1") {
-							data = "D3";
-						}else if (full.gelar == "2") {
-							data = "S1";
-						}else{
-							data = "S2"
-						}
-						return data;
-					}
-				},
-				{
-					"targets": 12,
-					"data": "status",
-					"render": function(data, type, full, meta){
-						var data = '';
-						if (full.status == 0) {
-							data = "Application Resume";
-						}else if (full.status == 1) {
-							data = "Proses to Written Test";
-						}else if (full.status == 2) {
-							data = "Scheduled to Written Test";
-						}else if (full.status == 3) {
-							data = "Written Test Pass";
-						}else if (full.status == 4) {
-							data = "Written Test failed";
-						}else if (full.status == 5) {
-							data = "Process to HR interview";
-						}else if (full.status == 6) {
-							data = "Process to User Interview 1";
-						}else if (full.status == 7) {
-							data = "Process to User Interview 2";
-						}else if (full.status == 8) {
-							data = "Process to User Interview 3";
-						}else if (full.status == 9) {
-							data = "Process to MCU";
-						}else if (full.status == 10) {
-							data = "Process to Doc Sign";
-						}else if (full.status == 11) {
-							data = "Failed";
-						}else{
-							data = "Hired";
-						}
-						return data;
-					}
-				},
-				{
-					"targets": 13,
-					"data": "job_application_id",
-					"className": "action-poster-news",
-					"render": function(data, type, full, meta){
-						var id = encodeURIComponent(window.btoa(full.job_application_id));
-						// var konfirm = '';
-						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/candidate/edit-candidate/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Candidate"> Edit&nbsp</a></button>';
-						// if (full.status == '1') {
-						// 	konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy edit-table"><img style="margin-right: 1px;" src="/image/icon/main/deactive.svg" title="Deaktif Vacancy">Deactive</button>';
-						// } else {
-						// 	konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy edit-table"><img style="margin-right: 1px;" src="/image/icon/main/active.svg" title="Aktifkan Vacancy">Active</button>';
-						// }
-						// var hasil = data+konfirm
+						var data = ''
+		            	if (full.type == 1) {
+		            	    data = 'Full Time';
+		            	} else {
+		            	    data = 'Intership';
+		            	}
 		               	return data;
+					}
+				},
+				{
+					"targets": 5,
+					"data": "set_test",
+					"render": function(data, type, full, meta){
+						var data = "<span class='test-status-attend'>"+full.set_test+"</span>";
+						return data;
+					}
+				},
+				{
+					"targets": 7,
+					"data": "status_participant",
+					"render": function(data, type, full, meta){
+						var data = "";
+						if(full.status_participant == "3"){
+							data = "<span class='test-status-attend'>Attend</span>"
+						}else if (full.status_participant == "4") {
+							data = "<span class='test-status-absen'>Absence</span>"
+						}else{
+							data = "<span class='test-status-notset'>Not Set</span>"
+						}
+						return data;
+					}
+				},
+				{
+					"targets": 11,
+					"data": "test_participant_id",
+					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.test_participant_id));
+						// var konfirm = '';
+						var data = '<button type="button" class="btn btn-table btn-transparent edit-table"><img style="margin-right: 1px;" src="/image/icon/main/icon_view.svg" title="View Result">&nbsp View</button>';
+		            	return data;
 					}
 				}
 			];
 
-		 	table.serverSide('tableParticipantTest',column,'HR/test/list-candidate',value,columnDefs)
+		 	table.serverSide('tableParticipantFinish',column,'HR/test/list-candidate-finish',value,columnDefs)
         }
 
 		$(".setTest").click(function(){
@@ -844,7 +986,7 @@ var table = {
 			ordering = false;
 		}
 
-		if (id == "tableCandidate" || id == "tableChooseCandidate" || id == "tableParticipantTest") {
+		if (id == "tableCandidate" || id == "tableChooseCandidate" || id == "tableParticipantTest" || id=="tableParticipantTestTheDay") {
 			urutan = [1, 'desc'];
 		}
 
@@ -1100,6 +1242,28 @@ $("#tableAlternatifTest tbody").on('click', 'input', function(e) {
 
 $("#tableParticipantTest tbody").on('click', 'input', function(e) {
 	var table = $('#tableParticipantTest').DataTable();
+	var dataRow = table.row($(this).closest('tr')).data();
+	var count = $("#countParticipant").val();
+	var jumlah = "";
+	if ($("#participant_"+dataRow.test_participant_id).is(":checked")) {
+		jumlah = parseInt(count)+1;
+		$("#countParticipant").val(jumlah);
+		$("#listPart").append('<input type="hidden" id="input_'+dataRow.test_participant_id+'" name="idPart[]" value="'+dataRow.test_participant_id+'">')
+	} else {
+		jumlah = parseInt(count)-1;
+		$("#countParticipant").val(jumlah);
+		$("#input_"+dataRow.test_participant_id).remove();
+	}
+	$(".textItem").html(jumlah+" item selected")
+	if (jumlah == 0) {
+		$("#btnUpdateSet").addClass('hidden');
+	}else{
+		$("#btnUpdateSet").removeClass('hidden');
+	}
+})
+
+$("#tableParticipantTestTheDay tbody").on('click', 'input', function(e) {
+	var table = $('#tableParticipantTestTheDay').DataTable();
 	var dataRow = table.row($(this).closest('tr')).data();
 	var count = $("#countParticipant").val();
 	var jumlah = "";

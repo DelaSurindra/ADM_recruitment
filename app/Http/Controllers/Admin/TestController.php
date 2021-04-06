@@ -9,6 +9,7 @@ use App\Http\Controllers\RequestController;
 use App\Model\Test;
 use App\Model\AlternatifTest;
 use App\Model\TestParticipant;
+use App\Model\Candidate;
 use App\Model\Wilayah;
 use App\AdminSession;
 
@@ -261,6 +262,13 @@ class TestController extends Controller
         $getTest = Test::where('id', $idTest)->get()->toArray();
         // dd($countTestPart);
         if ($getTest) {
+            if($getTest[0]['status_test'] != 3){
+                $dateTest=date('Y-m-d', strtotime($getTest[0]['date_test']));
+                $now=date("Y-m-d");
+                if ($now > $dateTest) {
+                    Test::where('id', $idTest)->update(['status_test' => 3]);
+                }
+            }
             $getTest[0]['set_test_array'] = explode(",", $getTest[0]['set_test']);
             $countTestPart = TestParticipant::where('test_id', $idTest)->get()->count();
             $getAlternatif = AlternatifTest::select('alternative_test_event.*', 'test_event.event_id')->join('test_event', 'test_event.id', 'alternative_test_event.alternative_test_id')->where('test_id', $idTest)->get()->toArray();
@@ -287,27 +295,92 @@ class TestController extends Controller
 
     public function listCandidate(){
     	if (Request::input('order')[0]['column'] == '1') {
-            $column = 'date';
-        }elseif (Request::input('order')[0]['column'] == '2') {
             $column = 'name';
-        }elseif (Request::input('order')[0]['column'] == '3') {
-            $column = 'tanggal_lahir';
-        }elseif (Request::input('order')[0]['column'] == '4') {
-            $column = 'gelar';
-        }elseif (Request::input('order')[0]['column'] == '5') {
+        }elseif (Request::input('order')[0]['column'] == '2') {
             $column = 'universitas';
-        }elseif (Request::input('order')[0]['column'] == '6') {
-            $column = 'fakultas';
-        }elseif (Request::input('order')[0]['column'] == '7') {
+        }elseif (Request::input('order')[0]['column'] == '3') {
             $column = 'jurusan';
-        }elseif (Request::input('order')[0]['column'] == '8') {
-            $column = 'gpa';
-        }elseif (Request::input('order')[0]['column'] == '9') {
-            $column = 'graduate_year';
-        }elseif (Request::input('order')[0]['column'] == '10') {
+        }elseif (Request::input('order')[0]['column'] == '4') {
             $column = 'job_position';
-        }elseif (Request::input('order')[0]['column'] == '11') {
+        }elseif (Request::input('order')[0]['column'] == '5') {
+            $column = 'type';
+        }elseif (Request::input('order')[0]['column'] == '6') {
+            $column = 'set_test';
+        }elseif (Request::input('order')[0]['column'] == '7') {
             $column = 'area';
+        }elseif (Request::input('order')[0]['column'] == '8') {
+            $column = 'status_participant';
+        }elseif (Request::input('order')[0]['column'] == '9') {
+            $column = 'location_start_radius';
+        }
+
+        $order = $column.'_'.Request::input('order')[0]['dir'];
+
+        if (Request::input('search')['value'] == null) {
+        	$search = "NULL";
+        }else{
+        	$search = '"'.Request::input('search')['value'].'"';
+        }
+
+        $id = Request::input('param');
+        // dd($id);
+        $listCandidate = DB::select('EXEC get_kandidat NULL, NULL, NULL, NULL, NULL, NULL, NULL,'.$id.',NULL, '.$search.', "'.$order.'", "'.Request::input('start').'", "'.Request::input('length').'" ');
+        $countCandidate = DB::select('EXEC get_kandidat_count NULL, NULL, NULL, NULL, NULL, NULL, NULL,'.$id.', NULL, '.$search.' ');
+        for ($i=0; $i < count($listCandidate); $i++) { 
+            $date = date('m/d/Y', strtotime($listCandidate[$i]->tanggal_lahir));
+            $birthDate = explode("/", $date);
+            //get age from date or birthdate
+            $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[0], $birthDate[1], $birthDate[2]))) > date("md")
+                ? ((date("Y") - $birthDate[2]) - 1)
+                : (date("Y") - $birthDate[2]));
+
+            $listCandidate[$i]->age = $age;
+
+            $listCandidate[$i]->submit_date = date('m/d/Y', strtotime($listCandidate[$i]->submit_date));
+        }
+        // dd($listCandidate, $countCandidate);
+
+        if ($listCandidate != null) {
+            $response = array(
+                "draw"              => Request::get('draw'),
+                "recordsTotal"      => $countCandidate[0]->total,
+                "recordsFiltered"   => $countCandidate[0]->total,
+                "data"              => $listCandidate
+            );
+        }else{
+            $response = array(
+                "draw"              => Request::get('draw'),
+                "recordsTotal"      => 0,
+                "recordsFiltered"   => 0,
+                "data"              => []
+            );
+        }
+        return $response;
+    }
+
+    public function listCandidateFinish(){
+    	if (Request::input('order')[0]['column'] == '0') {
+            $column = 'name';
+        }elseif (Request::input('order')[0]['column'] == '1') {
+            $column = 'universitas';
+        }elseif (Request::input('order')[0]['column'] == '2') {
+            $column = 'jurusan';
+        }elseif (Request::input('order')[0]['column'] == '3') {
+            $column = 'job_position';
+        }elseif (Request::input('order')[0]['column'] == '4') {
+            $column = 'type';
+        }elseif (Request::input('order')[0]['column'] == '5') {
+            $column = 'set_test';
+        }elseif (Request::input('order')[0]['column'] == '6') {
+            $column = 'area';
+        }elseif (Request::input('order')[0]['column'] == '7') {
+            $column = 'status_participant';
+        }elseif (Request::input('order')[0]['column'] == '8') {
+            $column = 'location_start_radius';
+        }elseif (Request::input('order')[0]['column'] == '9') {
+            $column = 'location_end_radius';
+        }elseif (Request::input('order')[0]['column'] == '10') {
+            $column = 'skor';
         }
 
         $order = $column.'_'.Request::input('order')[0]['dir'];
@@ -433,6 +506,7 @@ class TestController extends Controller
                 "test_id"     => $data["idTest"],
                 "status"      => 0
             ]);
+            Candidate::where('id', $data['idCandidate'])->update(['status'=>2]);
         }else if ($data["countChoose"] > 1) {
             for ($i=0; $i < $data["countChoose"]; $i++) { 
                 $addParticipan = TestParticipant::insert([
@@ -440,6 +514,7 @@ class TestController extends Controller
                     "test_id"     => $data["idTest"],
                     "status"      => 0
                 ]);
+                Candidate::where('id', $data['idCandidate'][$i])->update(['status'=>2]);
             }
         }else{
             $messages = [
@@ -451,6 +526,13 @@ class TestController extends Controller
         }
 
         if ($addParticipan) {
+            if ($data['countChoose'] == "1") {
+                Candidate::where('id', $data['idCandidate'])->update(['status'=>2]);
+            }else if ($data["countChoose"] > 1) {
+                for ($i=0; $i < $data["countChoose"]; $i++) { 
+                    Candidate::where('id', $data['idCandidate'][$i])->update(['status'=>2]);
+                }
+            }
             $id = base64_encode(urlencode($data["idTest"]));
             $messages = [
                 'status' => 'success',
@@ -535,6 +617,33 @@ class TestController extends Controller
     public function startEndTest(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
-        dd($data);
+        
+        if ($data['statusStart'] == "2") {
+            $messageSuccess = 'Start Test Success';
+            $messageFailed = 'Start Test Failed';
+        }else{
+            $messageSuccess = 'End Test Success';
+            $messageFailed = 'End Test Failed';
+        }
+        
+        $startTest = Test::where('id', $data['idStart'])->update(['status_test' => $data['statusStart']]);
+        if ($startTest) {
+            $id = base64_encode(urlencode($data["idStart"]));
+            $messages = [
+                'status' => 'success',
+                'message' => $messageSuccess,
+                'url' => '/HR/test/detail-test/'.$id,
+                'callback' => 'redirect'
+            ];
+
+            return response()->json($messages);
+        }else{
+            $messages = [
+                'status' => 'error',
+                'message' => $messageFailed,
+            ];
+
+            return response()->json($messages);
+        }
     }
 }

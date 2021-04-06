@@ -77,6 +77,7 @@ Route::prefix('HR')->group(function(){
 			Route::get('/edit-test/{id}', 'Admin\TestController@viewTestEdit')->name('get.test.edit');
 			Route::post('/post-edit-test','Admin\TestController@editTest')->name('post.test.edit');
 			Route::post('/list-candidate','Admin\TestController@listCandidate')->name('post.candidate.list.choose');
+			Route::post('/list-candidate-finish','Admin\TestController@listCandidateFinish')->name('post.candidate.list.finish');
 			Route::post('/list-candidate-pick','Admin\TestController@listCandidatePick')->name('post.candidate.list.pick');
 			Route::post('/add-candidate-test','Admin\TestController@addCandidateTest')->name('post.add.candidate.test');
 			Route::post('/set-test-participant','Admin\TestController@setTestParticipant')->name('post.set.test.participant');

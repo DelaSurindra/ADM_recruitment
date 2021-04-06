@@ -1,3 +1,36 @@
+.test-status-notset{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 130%;
+    display: flex;
+    align-items: center;
+    color: #DF0E2C;
+}
+
+.test-status-attend{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 130%;
+    display: flex;
+    align-items: center;
+    color: #050401;
+}
+
+.test-status-absen{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 130%;
+    display: flex;
+    align-items: center;
+    color: #828282;;
+}
+
 .title-start-test{
     font-family: 'inter_bold', sans-serif !important;
     font-style: normal;

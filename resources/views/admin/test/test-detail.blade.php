@@ -11,9 +11,11 @@
                             <p class="text-title-page-small">Manage</p>
                             <p class="text-title-page-big">Test Information</p>
                         </div>
+                        @if(date('Y-m-d', strtotime($data['date_test'])) != date('Y-m-d'))
                         <div class="col-md-6">
-                            <a href="{{route('get.test.edit', base64_encode(urlencode($data['id'])))}}"><button type="button" class="btn btn-white right">Add Test Information</button></a>
+                            <a href="{{route('get.test.edit', base64_encode(urlencode($data['id'])))}}"><button type="button" class="btn btn-white right">Edit Test Information</button></a>
                         </div>
+                        @endif
                     </div>
                     <div class="row">
                         <input type="hidden" id="idData" value="{{$data['id']}}">
@@ -96,6 +98,7 @@
                         <div class="col-md-4">
                             <form action="{{route('post.start.end.test')}}" class="form stacked form-hr" ajax=true id="formStartTest">
                                 <input type="hidden" name="statusStart" value="2">
+                                <input type="hidden" name="idStart" value="{{$data['id']}}">
                                 <button type="submit" class="btn btn-red right">Start Test</button>
                             </form>
                         </div>
@@ -105,7 +108,7 @@
                             <p class="text-start-test">The Candidate can login in mobile apps</p>
                         </div>
                         <div class="col-md-4">
-                            <button type="button" class="btn btn-white right">End Test</button>
+                            <button type="button" class="btn btn-white right" data-toggle="modal" data-target="#modalEndTest">End Test</button>
                         </div>
                         @else
                         <div class="col-md-7">
@@ -120,61 +123,108 @@
             <div class="card clear">
                 <div class="card-body">
                     @if($countPart != 0)
-                    <div class="row mb-4">
-                        <div class="col-md-3">
-                            <p class="text-title-page-small">Manage</p>
-                            <p class="text-title-page-big">Test Participant</p>
+                        <div class="row mb-4">
+                            <div class="col-md-3">
+                                <p class="text-title-page-small">Manage</p>
+                                <p class="text-title-page-big">Test Participant</p>
+                            </div>
+                            <div class="col-md-9">
+                                @if($data['status_test'] == 3)
+                                    <button class="btn btn-red right" type="button">Download Test Result</button>
+                                @else
+                                    @if(date('Y-m-d', strtotime($data['date_test'])) == date('Y-m-d'))
+                                        <button class="btn btn-red right" type="button">Send OTP to All</button>
+                                    @else
+                                        <button class="btn btn-red right choose-candidate" type="button">Add Participant</button>
+                                    @endif
+                                @endif
+                                <button class="btn btn-white right mr-2 hidden" id="btnSendOtp" type="button">Send OTP to Selected Item</button>
+                                <button class="btn btn-white right mr-2 hidden" id="btnSetAbsen" type="button" data-toggle="modal" data-target="#modalSetAbsen">Update Selected Item</button>
+                                <button class="btn btn-white right mr-2 hidden" type="button" id="btnUpdateSet" data-toggle="modal" data-target="#modalSetTest">Update Set Test</button>
+                            </div>
                         </div>
-                        <div class="col-md-9">
-                            @if(date('Y-m-d', strtotime($data['date_test'])) == date('Y-m-d'))
-                            <button class="btn btn-red right" type="button">Send OTP to All</button>
-                            @else
-                            <button class="btn btn-red right choose-candidate" type="button">Add Participant</button>
-                            @endif
-                            <button class="btn btn-white right mr-2 hidden" id="btnSendOtp" type="button">Send OTP to Selected Item</button>
-                            <button class="btn btn-white right mr-2 hidden" id="btnSetAbsen" type="button" data-toggle="modal" data-target="#modalSetAbsen">Update Selected Item</button>
-                            <button class="btn btn-white right mr-2 hidden" type="button" id="btnUpdateSet" data-toggle="modal" data-target="#modalSetTest">Update Set Test</button>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="hidden" id="countParticipant" name="countParticipant" value=0>
+                                
+                                @if($data['status_test'] == 3)
+                                    <table id="tableParticipantFinish" class="table-hr table table-strip stripe hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>University</th>
+                                                <th>Major</th>
+                                                <th>Job Position</th>
+                                                <th>Job Type</th>
+                                                <th>Set Test</th>
+                                                <th>City</th>
+                                                <th>Status</th>
+                                                <th>Start Latlong</th>
+                                                <th>End Latlong</th>
+                                                <th>Kognitif Result</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                        </tbody>
+                                    </table>
+                                @else
+                                    @if(date('Y-m-d', strtotime($data['date_test'])) == date('Y-m-d'))
+                                    <table id="tableParticipantTestTheDay" class="table-hr table table-strip stripe hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="width-checkbox"></th>
+                                                <th>Name</th>
+                                                <th>University</th>
+                                                <th>Major</th>
+                                                <th>Job Position</th>
+                                                <th>Job Type</th>
+                                                <th>Set Test</th>
+                                                <th>City</th>
+                                                <th>Status</th>
+                                                <th>Start Latlong</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                        </tbody>
+                                    </table>
+                                    @else
+                                    <table id="tableParticipantTest" class="table-hr table table-strip stripe hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="width-checkbox"></th>
+                                                <th>Name</th>
+                                                <th>University</th>
+                                                <th>Major</th>
+                                                <th>Job Position</th>
+                                                <th>Job Type</th>
+                                                <th>Set Test</th>
+                                                <th>City</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                        </tbody>
+                                    </table>
+                                    @endif
+                                @endif
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="hidden" id="countParticipant" name="countParticipant" value=0>
-                            <table id="tableParticipantTest" class="table-hr table table-strip stripe hover">
-                                <thead>
-                                    <tr>
-                                        <th class="width-checkbox"></th>
-                                        <th>Submit Date</th>
-                                        <th>Name</th>
-                                        <th>Age</th>
-                                        <th>Graduate</th>
-                                        <th>University</th>
-                                        <th>Faculty</th>
-                                        <th>Major</th>
-                                        <th>GPA</th>
-                                        <th>Graduate Year</th>
-                                        <th>Job Position</th>
-                                        <th>Area</th>
-                                        <th>Application Status</th>
-                                        <th class="width-edit"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                     @else
-                    <div class="row">
-                        <div class="col-md-12">
-                            <center>
-                                <img src="{{asset('image/icon/main/icon_empty_participant.svg')}}" class="img-empty-participant mb-3">
-                                <p class="title-empty-participant mb-2">There is no candidate here</p>
-                                <p class="text-empty-participant mb-4">Please add some candidate to join your test</p>
-                                <button type="button" class="btn btn-red choose-candidate">Add Candidate</button>
-                            </center>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <center>
+                                    <img src="{{asset('image/icon/main/icon_empty_participant.svg')}}" class="img-empty-participant mb-3">
+                                    <p class="title-empty-participant mb-2">There is no candidate here</p>
+                                    <p class="text-empty-participant mb-4">Please add some candidate to join your test</p>
+                                    <button type="button" class="btn btn-red choose-candidate">Add Candidate</button>
+                                </center>
+                            </div>
                         </div>
-                    </div>
                     @endif
                 </div>
             </div>
@@ -295,6 +345,69 @@
                     <div class="row">
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-red w-100">Done</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalSetTest" tabindex="-1" aria-labelledby="modalSetTestLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-hr">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-up">
+                    <h4 class="modal-hr-title mb-0">Choose Set Test</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis" alt="icon">
+                    </button>
+                </div>
+                <p class="mb-3" id="textItem"></p>
+                <form action="{{route('post.set.test.participant')}}" class="form stacked form-hr" ajax=true id="updateSetTestParticipant">
+                    <input type="hidden" id="idSetTest" name="idSetTest" value="{{$data['id']}}">
+                    <div id="listPart"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="label-set-test">Set Test</label>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <input type="hidden" id="valueSet" name="valueSet">
+                            @foreach($data['set_test_array'] as $setTest)
+                                <button class="btn-answer ml-1 btn-set-test" id="btnPart{{$setTest}}" value="{{$setTest}}" type="button">{{$setTest}}</button>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-red w-100">Done</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEndTest" tabindex="-1" aria-labelledby="modalEndTestLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-hr">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-up mb-3">
+                    <h4 class="modal-hr-title mb-0">End Test Now?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis" alt="icon">
+                    </button>
+                </div>
+                <p class="mb-4">Are you sure to end test now? Your participants will end the test automatically</p>
+                <form action="{{route('post.start.end.test')}}" class="form stacked form-hr" ajax=true id="formStartTest">
+                    <input type="hidden" name="statusStart" value="3">
+                    <input type="hidden" name="idStart" value="{{$data['id']}}">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-red w-100">End Test</button>
                         </div>
                     </div>
                 </form>
