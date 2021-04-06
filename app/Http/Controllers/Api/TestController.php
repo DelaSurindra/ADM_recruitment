@@ -18,17 +18,56 @@ class TestController extends Controller
     	$validator = Validator::make($request->all(), ["test_participant_id" => "required"]);
 
         if($validator->fails()) {
-            return response()->json(["code"=>"500","message"=>$validator->errors()]);
+            return response()->json(["code"=>"30","message"=>$validator->errors()]);
         }
     	
     	$setTest = self::getSetTest($request->test_participant_id);
 
     	if(!$setTest){
-    		return response()->json(["code"=>"404","message"=>"Participant not found"]);
+    		return response()->json(["code"=>"21","message"=>"Participant not found"]);
     	}
 
     	return self::getQuestions($setTest);
     	
+    }
+
+    public function blockParticipant(Request $request){
+    	$validator = Validator::make($request->all(), ["test_participant_id" => "required"]);
+
+    	if($validator->fails()) {
+            return response()->json(["code"=>"30","message"=>$validator->errors()]);
+        }
+
+        $participant = TestParticipant::find($request->test_participant_id);
+
+        if(!$participant){
+        	return response()->json(["code"=>"21","message"=>"Participant not found"]);
+        }
+
+        $participant->status = 6;
+        $participant->save();
+
+        return response()->json(["code"=>"00","message"=>"Sukses memblokir partisipan"]);
+    }
+
+    public function submitAnswer(Request $request){
+    	$validator = Validator::make($request->all(), [
+    		"test_answers" => "required|json",
+    		"id_test_participant" => "required"
+    	]);
+
+    	$cognitiveAnswers = $request->test_answers["cognitive"];
+    	$inventoryAnswers = $request->test_answers["inventory"];
+
+    	// Validate participant data
+    	$testSet = self::getSetTest($request->id_test_participant);
+    	if(!$testSet){
+    		return response()->json(["code"=>"21","message"=>"Participant not found"]);
+    	}
+
+    	// Count cognitive scores
+    	$cognitiveScores = self::countCognitiveScore($testSet, $cognitiveAnswers);
+
     }
 
     protected function getSetTest($testParticipantId){
@@ -39,6 +78,36 @@ class TestController extends Controller
     	}
 
     	return $participant->set_test;
+    }
+    /**
+    *Counting scores of cognitive question
+	*@param int $testSet of participant data
+	*@param array $answers of participant answers example:
+		[
+			["id"="1","subtest_id"=>"1,"answer"=>"a"],
+			["id"="2","subtest_id"=>"2","answer"=>"a"],
+			["id"="3","subtest_id"=>"3","answer"=>"a"],
+		]
+    */
+    protected function countCognitiveScore($testSet,$answers){
+    	$questionKeys = self::getQuestionKeys($testSet);
+
+    	foreach ($questionKeys as $key) {
+    		
+    	}
+    }
+
+    protected function getQuestionKeys($testSet){
+    	$queston = Question::where("set",$testSet)
+    						->where("test_type",2)
+    						->select("id","master_subtest_id","test_type","answer_keys")
+    						->get();
+
+    	if(sizeof($question)==0){
+    		return false;
+    	}
+
+    	return $question;
     }
 
     protected function getQuestions($testSets){
@@ -58,6 +127,7 @@ class TestController extends Controller
 
     	$question = $question->select("question.id as q_id",
     		"question.set",
+    		"question.master_subtest_id",
     		"master_subtest.type",
     		"master_subtest.sub_type",
     		"master_subtest.time",
@@ -72,15 +142,15 @@ class TestController extends Controller
     		"answer_inventory.choice as ai_choice",
     		"answer_inventory.answer_text as ai_answer_text",
     		"answer_inventory.answer_image as ai_answer_image",
-    		"master_facet.id",
+    		"master_facet.id as facet_id",
     		"master_facet.facet_name",
-    		"master_facet.category"
-    	);
+    		"master_facet.category as facet_category"
+    	)->orderBy("sub_type");
 
     	$result = self::formatingQuestion($question->get());
     	// $result = $question->get();
 
-    	return response(["code"=>"200","count"=>sizeof($result),"data"=>$result]);
+    	return response(["code"=>"00","message"=>"get soal success","data"=>["total_question"=>sizeof($result),"questions"=>$result]]);
     }
 
     protected function formatingQuestion($questions){
@@ -102,7 +172,10 @@ class TestController extends Controller
     				"id"	=> $_question["ai_id"],
     				"choice" => $_question["ai_choice"],
     				"text"	=> $_question["ai_answer_text"],
-    				"image"	=> $_question["ai_answer_image"]
+    				"image"	=> $_question["ai_answer_image"],
+    				"facet_id" => $_question["facet_id"],
+    				"facet_name" => $_question["facet_name"],
+    				"facet_category" => $_question["facet_category"]
     			];
     		}
 
@@ -111,6 +184,7 @@ class TestController extends Controller
 	    			"id"		=> $_question["q_id"],
 	    			"type" 		=> $_question["type"],
 	    			"sub_type" 	=> $_question["sub_type"],
+	    			"subtest_id"=> $_question["master_subtest_id"],
 	    			"text"		=> $_question["question_text"],
 	    			"image"		=> $_question["question_image"],
 	    			"answers"	=> []
@@ -129,4 +203,5 @@ class TestController extends Controller
 
     	return $formatedQuestion;
     }
+
 }

@@ -26,7 +26,7 @@ class LoginController extends Controller
                                     ]);
 
         if($validator->fails()) {
-            return response()->json(["code"=>"500","message"=>$validator->errors()]);
+            return response()->json(["code"=>"20","message"=>$validator->errors()]);
         }
 
         $credentials = $request->all();
@@ -34,12 +34,12 @@ class LoginController extends Controller
         // Get User Data
         $userData = self::getUserData($credentials['email']);
         if(!$userData){
-            return response()->json(["code"=>"404","message"=>"User credentials not found"]);
+            return response()->json(["code"=>"21","message"=>"User credentials not found"]);
         }
         // dd($userData);
         // Validate OTP
         if($userData->otp != $credentials['otp']){
-            return response()->json(["code"=>"404","message"=>"OTP missmatch"]);
+            return response()->json(["code"=>"22","message"=>"OTP missmatch"]);
         }
         // Set timezone to Jakarta
         date_default_timezone_set('Asia/Jakarta');
@@ -49,7 +49,13 @@ class LoginController extends Controller
         $dateDiff = date_diff($now,$otpExpDate)->format('%R%a');
         
         if($dateDiff<0){
-            return response()->json(["code"=>"20","message"=>"OTP Expired"]);
+            return response()->json(["code"=>"23","message"=>"OTP Expired"]);
+        }
+
+        // Valdiate participant status
+        if($userData->tp_status != 3){
+            $message = self::getStatusParticipantMessage($userData->tp_status);
+            return response()->json(["code"=>"24","message"=>$message]);
         }
 
         // Validate Test DateTime
@@ -67,11 +73,11 @@ class LoginController extends Controller
         $formatedNow = $now->format("d-m-Y H:i:s");
         $formatedTestDate = $testDate->format('d-m-Y');
         if($now < $startDateTime){
-             return response()->json(["code"=>"21","message"=>"Test belum dimulai", "data"=>["test_date"=>$formatedTestDate,"start_time"=>$startTime, "end_time"=>$endTime, "now"=> $formatedNow]]);
+             return response()->json(["code"=>"25","message"=>"Test belum dimulai", "data"=>["test_date"=>$formatedTestDate,"start_time"=>$startTime, "end_time"=>$endTime, "now"=> $formatedNow]]);
         }
 
         if($now > $endDateTime){
-             return response()->json(["code"=>"21","message"=>"Test sudah selesai", "data"=>["test_date"=>$formatedTestDate,"start_time"=>$startTime, "end_time"=>$endTime, "now"=> $formatedNow]]);
+             return response()->json(["code"=>"26","message"=>"Test sudah selesai", "data"=>["test_date"=>$formatedTestDate,"start_time"=>$startTime, "end_time"=>$endTime, "now"=> $formatedNow]]);
         }
 
         // Save user coordinates & radius
@@ -81,7 +87,7 @@ class LoginController extends Controller
         $testLatlong = self::explodeLatLong($userData->latlong);
 
         if(!$testLatlong){
-            return response()->json(["code"=>"500","message"=>"Invalid test coordinates format: ".$userData->latLong]);
+            return response()->json(["code"=>"27","message"=>"Invalid test coordinates format: ".$userData->latLong]);
         }
 
         $testLat = $testLatlong["lat"];
@@ -98,12 +104,12 @@ class LoginController extends Controller
         $updateLocation = self::saveUserLocation($participantData);
 
         if(!$updateLocation["success"]){
-            return response()->json(["code"=>500,"message"=>$updateLocation["message"]]);
+            return response()->json(["code"=>28,"message"=>$updateLocation["message"]]);
         }
 
         // Validate user credential
         if(!Auth::attempt(['email'=>$credentials['email'], 'password'=>$credentials['password']])){
-            return response()->json(["code"=>"404","message"=>"Username or password missmatch"]);
+            return response()->json(["code"=>"29","message"=>"Username or password missmatch"]);
         }
         
         $accessToken = Auth::user()->createToken('authToken')->accessToken;
@@ -125,7 +131,7 @@ class LoginController extends Controller
             "remaining_time" => date_diff($now,$endDateTime)->format('%H:%I:%S')
         ];
 
-        return response(["user"=>Auth::user(), "test_event"=>$testEvent, "access_token"=>$accessToken]);
+        return response(["code"=>"00","message"=>"login success","data"=>["user"=>Auth::user(), "test_event"=>$testEvent, "access_token"=>$accessToken]]);
     }
 
     protected function getUserData($email){
@@ -142,7 +148,7 @@ class LoginController extends Controller
                         ->join("kandidat","kandidat.id","=","test_participant.kandidat_id")
                         ->join("users","users.id","=","kandidat.user_id")
                         ->where("users.email",$email)
-                        ->select("users.*","test_event.*","test_otp.*","test_participant.id as tp_id")
+                        ->select("users.*","test_event.*","test_otp.*","test_participant.id as tp_id","test_participant.status as tp_status")
                         ->get();
         // dd($userData);
         if(sizeof($userData)==0){
@@ -208,5 +214,26 @@ class LoginController extends Controller
 
         $angle = atan2(sqrt($a), $b);
         return $angle * $earthRadius;
+    }
+
+    protected function getStatusParticipantMessage($status){
+        switch ($status) {
+            case 6:
+                return "Kandidat terblokir karena melakukan screenshoot/capture";
+                break;
+            case 2:
+                return "Jadwal test kandidat diubah";
+                break;
+            case 4:
+                return "Kandidat tidak hadir";
+                break;
+            case 5:
+                return "Kandidat telah menyelesaikan tes";
+                break;
+            
+            default:
+                return "Kandidat belum menghadiri tes";
+                break;
+        }
     }
 }
