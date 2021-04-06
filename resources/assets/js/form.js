@@ -1393,7 +1393,11 @@ if ($("#formAddTest").length) {
 	$("#addAlternative").click(function(){
 		$("#btnAddAlternative").addClass('hidden')
 		$("#modalAlternativeTest").modal('show')
-
+		for (let i = 0; i < $(".id-check").length; i++) {
+			var check = $(".id-check")[i];
+			$("#alternative_"+check.value).prop('checked', true)
+			$("#alternative_"+check.value).addClass("checkActive");
+		}
 		$("#btnAddAlternative").click(function(){
 			for (let index = 0; index < $('.title-date').length; index++) {
 				var x = $('.title-date')[index];
@@ -1412,5 +1416,114 @@ if ($("#formAddTest").length) {
 			}
 		})
 	});
+
+	$(".btn-delete-alternatif").click(function(){
+		$("#alternative_"+this.value).prop('checked', false);
+		$("#setAlternatif"+this.value).remove();
+		var count = $("#countTest").val();
+		jumlah = parseInt(count)-1;
+		$("#countTest").val(jumlah);
+		$("#addAlternative").removeClass("hidden");
+		$("#alternative_"+this.value).removeClass("checkActive");
+		$('.check').attr('disabled', false);
+	})
 	
+}
+
+if ($('.choose-candidate').length) {
+	$(".choose-candidate").click(function(){
+		var column = [
+			{'data':null},
+			{'data':'submit_date'},
+			{'data':'name'},
+			{'data':'age'},
+			{'data':'gelar'},
+			{'data':'universitas'},
+			{'data':'fakultas'},
+			{'data':'jurusan'},
+			{'data':'gpa'},
+			{'data':'graduate_year'},
+			{'data':'job_position'},
+			{'data':'area'},
+		];
+
+		columnDefs = [
+			{
+				"targets": 0,
+				"orderable": false,
+				"data": "job_application_id",
+				"render": function(data, type, full, meta){
+					var data = '<input class="choose" type="checkbox" id="candidate_'+full.kandidat_id+'">';
+					return data;
+				}
+			},
+			{
+				"targets": 2,
+				"data": "name",
+				"render": function(data, type, full, meta){
+					var id = encodeURIComponent(window.btoa(full.kandidat_id));
+					var image = '';
+					if (full.foto_profil == null || full.foto_profil == "") {
+						image = baseUrl+'image/icon/homepage/dummy-profile.svg';
+					}else{
+						image = baseImage+'/'+full.foto_profil;
+					}
+					var data = '<a href="/HR/candidate/detail-candidate/'+id+'" class="name-candidate"><img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name+'</a';
+					return data;
+				}
+			},
+			{
+				"targets": 4,
+				"data": "gelar",
+				"render": function(data, type, full, meta){
+					var data = '';
+					if (full.gelar == "1") {
+						data = "D3";
+					}else if (full.gelar == "2") {
+						data = "S1";
+					}else{
+						data = "S2"
+					}
+					return data;
+				}
+			},
+		];
+
+		table.serverSide('tableChooseCandidate',column,'HR/test/list-candidate-pick',null,columnDefs)
+
+		$("#tableChooseCandidate tbody").on('click', 'input', function(e) {
+			var table = $('#tableChooseCandidate').DataTable();
+			var dataRow = table.row($(this).closest('tr')).data();
+			var count = $("#countChoose").val();
+			var jumlah = "";
+			if ($("#candidate_"+dataRow.kandidat_id).is(":checked")) {
+				jumlah = parseInt(count)+1;
+				console.log(count, jumlah)
+				$("#countChoose").val(jumlah);
+				$("#divChooseCandidate").append('<input type="hidden" class="choose-candidate-list" id="input_'+dataRow.kandidat_id+'" name="idCandidate[]" value="'+dataRow.kandidat_id+'">')
+			} else {
+				jumlah = parseInt(count)-1;
+				$("#countChoose").val(jumlah);
+				$("#input_"+dataRow.kandidat_id).remove();
+			}
+			$("#textItem").html(jumlah+" item selected")
+			if (jumlah == 0) {
+				$("#btnAddCandidateTest").addClass('hidden');
+			}else{
+				$("#btnAddCandidateTest").removeClass('hidden');
+			}
+		})
+		
+		$("#modalChooseCandidate").modal('show')
+	})
+
+	$(".btn-set-test").click(function(e){
+		e.preventDefault();
+		$(".btn-set-test").removeClass('btn-set-active');
+		var btn = $("#"+this.id);
+		var value = btn.val();
+		$(btn).addClass("btn-set-active");
+		$("#valueSet").val(value);
+		
+	})
 }

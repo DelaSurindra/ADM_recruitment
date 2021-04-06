@@ -189,14 +189,25 @@ var table = {
 
 			columnDefs = [
 				{
+					"targets": 1,
+					"data": "event_id",
+					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.id));
+						var data = '<a href="/HR/test/detail-test/'+id+'" class="name-candidate">'+full.event_id+'</a';
+						return data;
+					}
+				},
+				{
 					"targets": 7,
 					"data": "status_test",
 					"render": function(data, type, full, meta){
 						var data = ''
-		            	if (full.status == 1) {
-		            	    data = '<strong>Publised</strong>';
-		            	}else{
-							data = "<p>Deaktif</p>"
+		            	if (full.status_test == 1 || full.status_test == 0) {
+		            	    data = '<strong>New</strong>';
+		            	}else if (full.status_test == 2) {
+		            	    data = '<strong>In Progress</strong>';
+						}else{
+							data = "<p>Closed</p>"
 						}
 		            	return data;
 					}
@@ -204,11 +215,10 @@ var table = {
 				{
 					"targets": 8,
 					"data": "id",
-					"className": "action-poster-news",
 					"render": function(data, type, full, meta){
-						var id = encodeURIComponent(window.btoa(full.job_id));
+						var id = encodeURIComponent(window.btoa(full.id));
 						var konfirm = '';
-						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/vacancy/detail-test/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Test"> Edit&nbsp</a></button>';
+						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/test/edit-test/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Test">&nbsp Edit</a></button>';
 		            	return data;
 					}
 				}
@@ -243,12 +253,14 @@ var table = {
 					"data": "status_test",
 					"render": function(data, type, full, meta){
 						var data = ''
-						if (full.status == 1) {
-							data = '<strong>Publised</strong>';
+		            	if (full.status_test == 1 || full.status_test == 0) {
+		            	    data = '<strong>New</strong>';
+		            	}else if (full.status_test == 2) {
+		            	    data = '<strong>In Progress</strong>';
 						}else{
-							data = "<p>Deaktif</p>"
+							data = "<p>Closed</p>"
 						}
-						return data;
+		            	return data;
 					}
 				},
 				
@@ -370,6 +382,121 @@ var table = {
 			];
 
 		 	table.serverSide('tableCandidate',column,'HR/candidate/list-candidate',value,columnDefs)
+        }
+
+		if ($('#tableParticipantTest').length) {
+			var value = $("#idData").val();
+			var column = [
+				{'data':null},
+				{'data':'submit_date'},
+				{'data':'name'},
+				{'data':'age'},
+				{'data':'gelar'},
+				{'data':'universitas'},
+				{'data':'fakultas'},
+				{'data':'jurusan'},
+				{'data':'gpa'},
+				{'data':'graduate_year'},
+				{'data':'job_position'},
+				{'data':'area'},
+				{'data':'status'},
+			];
+
+			columnDefs = [
+				{
+					"targets": 0,
+					"orderable": false,
+					"data": "job_application_id",
+					"render": function(data, type, full, meta){
+						var data = '<input type="checkbox" id="participant_'+full.job_application_id+'">';
+						return data;
+					}
+				},
+				{
+					"targets": 2,
+					"data": "name",
+					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.kandidat_id));
+						var image = '';
+						if (full.foto_profil == null || full.foto_profil == "") {
+							image = baseUrl+'image/icon/homepage/dummy-profile.svg';
+						}else{
+							image = baseImage+'/'+full.foto_profil;
+						}
+						var data = '<a href="/HR/candidate/detail-candidate/'+id+'" class="name-candidate"><img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name+'</a';
+						return data;
+					}
+				},
+				{
+					"targets": 4,
+					"data": "gelar",
+					"render": function(data, type, full, meta){
+						var data = '';
+						if (full.gelar == "1") {
+							data = "D3";
+						}else if (full.gelar == "2") {
+							data = "S1";
+						}else{
+							data = "S2"
+						}
+						return data;
+					}
+				},
+				{
+					"targets": 12,
+					"data": "status",
+					"render": function(data, type, full, meta){
+						var data = '';
+						if (full.status == 0) {
+							data = "Application Resume";
+						}else if (full.status == 1) {
+							data = "Proses to Written Test";
+						}else if (full.status == 2) {
+							data = "Scheduled to Written Test";
+						}else if (full.status == 3) {
+							data = "Written Test Pass";
+						}else if (full.status == 4) {
+							data = "Written Test failed";
+						}else if (full.status == 5) {
+							data = "Process to HR interview";
+						}else if (full.status == 6) {
+							data = "Process to User Interview 1";
+						}else if (full.status == 7) {
+							data = "Process to User Interview 2";
+						}else if (full.status == 8) {
+							data = "Process to User Interview 3";
+						}else if (full.status == 9) {
+							data = "Process to MCU";
+						}else if (full.status == 10) {
+							data = "Process to Doc Sign";
+						}else if (full.status == 11) {
+							data = "Failed";
+						}else{
+							data = "Hired";
+						}
+						return data;
+					}
+				},
+				{
+					"targets": 13,
+					"data": "job_application_id",
+					"className": "action-poster-news",
+					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.job_application_id));
+						// var konfirm = '';
+						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/candidate/edit-candidate/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Candidate"> Edit&nbsp</a></button>';
+						// if (full.status == '1') {
+						// 	konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy edit-table"><img style="margin-right: 1px;" src="/image/icon/main/deactive.svg" title="Deaktif Vacancy">Deactive</button>';
+						// } else {
+						// 	konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy edit-table"><img style="margin-right: 1px;" src="/image/icon/main/active.svg" title="Aktifkan Vacancy">Active</button>';
+						// }
+						// var hasil = data+konfirm
+		               	return data;
+					}
+				}
+			];
+
+		 	table.serverSide('tableParticipantTest',column,'HR/test/list-candidate',value,columnDefs)
         }
 
 		$(".setTest").click(function(){
@@ -717,7 +844,7 @@ var table = {
 			ordering = false;
 		}
 
-		if (id == "tableCandidate") {
+		if (id == "tableCandidate" || id == "tableChooseCandidate" || id == "tableParticipantTest") {
 			urutan = [1, 'desc'];
 		}
 
@@ -933,7 +1060,7 @@ $("#tableAlternatifTest tbody").on('click', 'input', function(e) {
 						'<p class="content-alternatif">'+dataRow.date_test+'</p>'+
 					'</div>'+
 					'<div class="col-md-2 pt-2">'+
-					'<button value="'+dataRow.id+'" type="button" class="btn btn-delete-alternatif btn-transparent"><img style="margin-right: 1px;" src="/image/icon/main/delete_red.svg" title="Delete Alternative Test">&nbspDelete</button>'+
+					'<button id="delete'+dataRow.id+'" value="'+dataRow.id+'" type="button" class="btn btn-delete-alternatif btn-transparent"><img style="margin-right: 1px;" src="/image/icon/main/delete_red.svg" title="Delete Alternative Test">&nbspDelete</button>'+
 					'</div>'+
 				'</div>'+
 				'<div class="dropdown-divider mt-4 mb-4"></div>'+
@@ -958,7 +1085,9 @@ $("#tableAlternatifTest tbody").on('click', 'input', function(e) {
 		}
 	}
 
-	$(".btn-delete-alternatif").click(function(){
+	$("#delete"+dataRow.id).click(function(){
+		$("#alternative_"+this.value).prop('checked', false);
+		var count = $("#countTest").val();
 		$("#setAlternatif"+this.value).remove();
 		jumlah = parseInt(count)-1;
 		$("#countTest").val(jumlah);
@@ -967,4 +1096,32 @@ $("#tableAlternatifTest tbody").on('click', 'input', function(e) {
 		$('.check').attr('disabled', false);
 	})
 	
+})
+
+$("#tableParticipantTest tbody").on('click', 'input', function(e) {
+	var table = $('#tableParticipantTest').DataTable();
+	var dataRow = table.row($(this).closest('tr')).data();
+	var count = $("#countParticipant").val();
+	var jumlah = "";
+	if ($("#participant_"+dataRow.job_application_id).is(":checked")) {
+		jumlah = parseInt(count)+1;
+		$("#countParticipant").val(jumlah);
+		$("#listPart").append('<input type="hidden" id="input_'+dataRow.job_application_id+'" name="idPart[]" value="'+dataRow.job_application_id+'">')
+		$("#listAbsen").append('<input type="hidden" id="absen_'+dataRow.job_application_id+'" name="absenPart[]" value="'+dataRow.job_application_id+'">')
+	} else {
+		jumlah = parseInt(count)-1;
+		$("#countParticipant").val(jumlah);
+		$("#input_"+dataRow.job_application_id).remove();
+		$("#absen_"+dataRow.job_application_id).remove();
+	}
+	$(".textItem").html(jumlah+" item selected")
+	if (jumlah == 0) {
+		$("#btnUpdateSet").addClass('hidden');
+		$("#btnSendOtp").addClass('hidden');
+		$("#btnSetAbsen").addClass('hidden');
+	}else{
+		$("#btnUpdateSet").removeClass('hidden');
+		$("#btnSendOtp").removeClass('hidden');
+		$("#btnSetAbsen").removeClass('hidden');
+	}
 })

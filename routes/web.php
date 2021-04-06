@@ -74,8 +74,13 @@ Route::prefix('HR')->group(function(){
 			Route::get('/add-test', 'Admin\TestController@viewTestAdd')->name('get.test.add');
 			Route::post('/post-test','Admin\TestController@addTest')->name('post.test.add');
 			Route::get('/detail-test/{id}', 'Admin\TestController@viewTestDetail')->name('get.test.detail');
-			Route::post('/edit-test','Admin\TestController@editTest')->name('post.test.edit');
-			Route::post('/delete-test','Admin\TestController@deleteTest')->name('post.test.delete');
+			Route::get('/edit-test/{id}', 'Admin\TestController@viewTestEdit')->name('get.test.edit');
+			Route::post('/post-edit-test','Admin\TestController@editTest')->name('post.test.edit');
+			Route::post('/list-candidate','Admin\TestController@listCandidate')->name('post.candidate.list.choose');
+			Route::post('/list-candidate-pick','Admin\TestController@listCandidatePick')->name('post.candidate.list.pick');
+			Route::post('/add-candidate-test','Admin\TestController@addCandidateTest')->name('post.add.candidate.test');
+			Route::post('/set-test-participant','Admin\TestController@setTestParticipant')->name('post.set.test.participant');
+			Route::post('/set-absen-participant','Admin\TestController@setAbsenParticipant')->name('post.set.absen.participant');
 		});
 	});
 });

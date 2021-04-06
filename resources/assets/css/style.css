@@ -1,3 +1,54 @@
+.title-start-test{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #050401;
+}
+
+.text-start-test{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #4F4F4F;
+}
+
+.label-set-test{
+    font-weight: normal !important;
+    color: #4F4F4F !important;
+}
+
+.title-empty-participant{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 130%;
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: #050401;
+}
+
+.text-empty-participant{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 130%;
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: #4F4F4F;
+}
+
+.img-empty-participant{
+    height: 128px;
+}
+
 .btn-delete-alternatif{
     font-family: 'inter_bold', sans-serif !important;
     font-style: normal;
@@ -227,6 +278,7 @@
     border: 1px solid #BDBDBD;
     box-sizing: border-box;
     border-radius: 8px;
+    font-family: 'inter_semibold', sans-serif !important;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -280,6 +332,12 @@
     border: 2px solid #DF0E2C !important;
     box-sizing: border-box !important;
     color: #E8F7EE !important;
+}
+
+.btn-set-active{
+    border: 2px solid #DF0E2C !important;
+    box-sizing: border-box !important;
+    color: #DF0E2C !important;
 }
 
 .input-linkedin:focus{
@@ -897,15 +955,18 @@
 
 .btn-red{
     background: #DF0E2C;
+    color: #FFFFFF;
+    box-sizing: border-box;
     border-radius: 8px;
     font-family: 'inter_semibold', sans-serif !important;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
     line-height: 17px;
-    color: #FFFFFF;
-    width: auto;
-    height: 45px;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn-red:hover{

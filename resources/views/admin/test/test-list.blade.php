@@ -30,7 +30,7 @@
                             <th>Location</th>
                             <th>Set Test</th>
                             <th>Status</th>
-                            <th></th>
+                            <th class="width-edit"></th>
                         </tr>
                     </thead>
                     <tbody>

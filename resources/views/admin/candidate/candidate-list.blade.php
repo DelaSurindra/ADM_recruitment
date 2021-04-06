@@ -12,7 +12,7 @@
             <div class="col-md-8">
                 <a href="{{route('get.candidate.detail', 1)}}"><button type="button" class="btn btn-red right">Add Candidate</button></a>
                 <button type="button" class="btn btn-bulk-candidate right mr-3 hidden">Send Notification</button>
-                <button type="button" class="btn btn-bulk-candidate right mr-3 hidden" data-toggle="modal" data-target="#modalSendNotif">Bulk Update</button>
+                <button type="button" class="btn btn-bulk-candidate right mr-3 hidden" data-toggle="modal" data-target="#modalUpdateBulk">Bulk Update</button>
             </div>
         </div>
         <div class="row">
@@ -129,7 +129,7 @@
 @endsection
 
 @section('modal')
-<div class="modal fade" id="modalSendNotif" tabindex="-1" aria-labelledby="modalSendNotifLabel" aria-hidden="true">
+<div class="modal fade" id="modalUpdateBulk" tabindex="-1" aria-labelledby="modalUpdateBulkLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-hr">
         <div class="modal-content">
             <div class="modal-body">

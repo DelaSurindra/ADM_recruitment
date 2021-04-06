@@ -93,8 +93,8 @@ class CandidateController extends Controller
         }else{
         	$search = '"'.Request::input('search')['value'].'"';
         }
-        $listCandidate = DB::select('EXEC get_kandidat NULL, '.$ipkMinimum.', '.$job.', '.$major.', '.$university.', '.$usia.', '.$tahunLulus.', '.$search.', "'.$order.'", "'.Request::input('start').'", "'.Request::input('length').'" ');
-        $countCandidate = DB::select('EXEC get_kandidat_count NULL,'.$ipkMinimum.', '.$job.', '.$major.', '.$university.', '.$usia.', '.$tahunLulus.', '.$search.' ');
+        $listCandidate = DB::select('EXEC get_kandidat NULL, '.$ipkMinimum.', '.$job.', '.$major.', '.$university.', '.$usia.', '.$tahunLulus.', NULL, NULL, '.$search.', "'.$order.'", "'.Request::input('start').'", "'.Request::input('length').'" ');
+        $countCandidate = DB::select('EXEC get_kandidat_count NULL,'.$ipkMinimum.', '.$job.', '.$major.', '.$university.', '.$usia.', '.$tahunLulus.', NULL, NULL, '.$search.' ');
         for ($i=0; $i < count($listCandidate); $i++) { 
             $date = date('m/d/Y', strtotime($listCandidate[$i]->tanggal_lahir));
             $birthDate = explode("/", $date);
