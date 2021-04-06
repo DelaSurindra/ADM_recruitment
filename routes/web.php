@@ -81,6 +81,7 @@ Route::prefix('HR')->group(function(){
 			Route::post('/add-candidate-test','Admin\TestController@addCandidateTest')->name('post.add.candidate.test');
 			Route::post('/set-test-participant','Admin\TestController@setTestParticipant')->name('post.set.test.participant');
 			Route::post('/set-absen-participant','Admin\TestController@setAbsenParticipant')->name('post.set.absen.participant');
+			Route::post('/post-startEnd-test','Admin\TestController@startEndTest')->name('post.start.end.test');
 		});
 	});
 });

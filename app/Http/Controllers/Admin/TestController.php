@@ -473,11 +473,7 @@ class TestController extends Controller
     public function setTestParticipant(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
-        $data["idPart"] = [
-            0 => "2",
-            1 => "3"
-        ];
-        
+    
         if (is_array($data["idPart"])) {
             for ($i=0; $i < count($data["idPart"]); $i++) { 
                 $editSetTest = TestParticipant::where("id", $data["idPart"][$i])->update(["set_test" => $data["valueSet"]]);
@@ -508,10 +504,6 @@ class TestController extends Controller
     public function setAbsenParticipant(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
-        $data["absenPart"] = [
-            0 => "2",
-            1 => "3"
-        ];
         
         if (is_array($data["absenPart"])) {
             for ($i=0; $i < count($data["absenPart"]); $i++) { 
@@ -538,5 +530,11 @@ class TestController extends Controller
 
             return response()->json($messages);
         }
+    }
+
+    public function startEndTest(){
+        $encrypt = new EncryptController;
+        $data = $encrypt->fnDecrypt(Request::input('data'),true);
+        dd($data);
     }
 }

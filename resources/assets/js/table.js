@@ -406,9 +406,9 @@ var table = {
 				{
 					"targets": 0,
 					"orderable": false,
-					"data": "job_application_id",
+					"data": "test_participant_id",
 					"render": function(data, type, full, meta){
-						var data = '<input type="checkbox" id="participant_'+full.job_application_id+'">';
+						var data = '<input type="checkbox" id="participant_'+full.test_participant_id+'">';
 						return data;
 					}
 				},
@@ -1103,16 +1103,16 @@ $("#tableParticipantTest tbody").on('click', 'input', function(e) {
 	var dataRow = table.row($(this).closest('tr')).data();
 	var count = $("#countParticipant").val();
 	var jumlah = "";
-	if ($("#participant_"+dataRow.job_application_id).is(":checked")) {
+	if ($("#participant_"+dataRow.test_participant_id).is(":checked")) {
 		jumlah = parseInt(count)+1;
 		$("#countParticipant").val(jumlah);
-		$("#listPart").append('<input type="hidden" id="input_'+dataRow.job_application_id+'" name="idPart[]" value="'+dataRow.job_application_id+'">')
-		$("#listAbsen").append('<input type="hidden" id="absen_'+dataRow.job_application_id+'" name="absenPart[]" value="'+dataRow.job_application_id+'">')
+		$("#listPart").append('<input type="hidden" id="input_'+dataRow.test_participant_id+'" name="idPart[]" value="'+dataRow.test_participant_id+'">')
+		$("#listAbsen").append('<input type="hidden" id="absen_'+dataRow.test_participant_id+'" name="absenPart[]" value="'+dataRow.test_participant_id+'">')
 	} else {
 		jumlah = parseInt(count)-1;
 		$("#countParticipant").val(jumlah);
-		$("#input_"+dataRow.job_application_id).remove();
-		$("#absen_"+dataRow.job_application_id).remove();
+		$("#input_"+dataRow.test_participant_id).remove();
+		$("#absen_"+dataRow.test_participant_id).remove();
 	}
 	$(".textItem").html(jumlah+" item selected")
 	if (jumlah == 0) {
