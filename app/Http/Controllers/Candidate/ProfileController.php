@@ -291,7 +291,6 @@ class ProfileController extends Controller
         if (Request::has('photoProfile')) {
             $image = Request::file('photoProfile');
             $ext = $image->getClientOriginalExtension();    
-            dd($ext, $image);
             $path_photo_profile = $image->storeAs('photo-profile', 'photo_profile_'.time().'.'.$ext, 'public');
             // $sql->image_logo = $path; di db nggk ada kolomnya
         }else{
