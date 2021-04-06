@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Test;
 use App\Model\Question;
+use Illuminate\Support\Facades\Validator;
+use App\Model\TestParticipant;
 
 class TestController extends Controller
 {
@@ -13,14 +15,30 @@ class TestController extends Controller
 
     public function getSoal(Request $request){
 
-    	$data = $request->validate([
-            "test_set" => "required"
-        ]);
-    	
-    	$testSets = $data["test_set"];
+    	$validator = Validator::make($request->all(), ["test_participant_id" => "required"]);
 
-    	return self::getQuestions($testSets);
+        if($validator->fails()) {
+            return response()->json(["code"=>"500","message"=>$validator->errors()]);
+        }
     	
+    	$setTest = self::getSetTest($request->test_participant_id);
+
+    	if(!$setTest){
+    		return response()->json(["code"=>"404","message"=>"Participant not found"]);
+    	}
+
+    	return self::getQuestions($setTest);
+    	
+    }
+
+    protected function getSetTest($testParticipantId){
+    	$participant = TestParticipant::find($testParticipantId);
+
+    	if(!$participant){
+    		return false;
+    	}
+
+    	return $participant->set_test;
     }
 
     protected function getQuestions($testSets){

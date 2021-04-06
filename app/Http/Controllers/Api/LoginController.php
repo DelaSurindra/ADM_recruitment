@@ -10,18 +10,26 @@ use App\User;
 use App\Model\Test;
 use App\Model\TestParticipant;
 use Exception;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
     //
     public function login(Request $request){
-        $credentials = $request->validate([
-            "email" => "required|string",
-            "password" => "required|string",
-            "latitude" => "required",
-            "longitude" => "required",
-            "otp"=>"required"
-        ]);
+
+        $validator = Validator::make($request->all(), [
+                                        "email" => "required|string",
+                                        "password" => "required|string",
+                                        "latitude" => "required",
+                                        "longitude" => "required",
+                                        "otp"=>"required"
+                                    ]);
+
+        if($validator->fails()) {
+            return response()->json(["code"=>"500","message"=>$validator->errors()]);
+        }
+
+        $credentials = $request->all();
 
         // Get User Data
         $userData = self::getUserData($credentials['email']);
@@ -107,11 +115,12 @@ class LoginController extends Controller
             "location" => $userData->location,
             "latlong" => $userData->latlong,
             "date_test" => $userData->date_test,
-            "set_test" => $userData->set_test,
+            // "set_test" => $userData->set_test,
             "status_test" => $userData->status_test,
             "id_kandidat" => $userData->id_kandidat,
             "id_participant" => $userData->id_participant,
             "test_participant_id" => $userData->tp_id,
+            "location_radius" => $radius,
             "enrollment_time" => $now->format("Y-m-d H:i:s"),
             "remaining_time" => date_diff($now,$endDateTime)->format('%H:%I:%S')
         ];
