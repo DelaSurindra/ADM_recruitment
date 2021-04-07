@@ -108,7 +108,7 @@ class LoginController extends Controller
         }
 
         // Validate user credential
-        if(!Auth::attempt(['email'=>$credentials['email'], 'password'=>$credentials['password']])){
+        if(!Auth::attempt(['email'=>$credentials['email'], 'password'=>$credentials['password'].env('SALT_PASS_CANDIDATE')])){
             return response()->json(["code"=>"29","message"=>"Username or password missmatch"]);
         }
         

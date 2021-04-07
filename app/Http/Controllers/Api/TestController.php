@@ -50,26 +50,6 @@ class TestController extends Controller
         return response()->json(["code"=>"00","message"=>"Sukses memblokir partisipan"]);
     }
 
-    public function submitAnswer(Request $request){
-    	$validator = Validator::make($request->all(), [
-    		"test_answers" => "required|json",
-    		"id_test_participant" => "required"
-    	]);
-
-    	$cognitiveAnswers = $request->test_answers["cognitive"];
-    	$inventoryAnswers = $request->test_answers["inventory"];
-
-    	// Validate participant data
-    	$testSet = self::getSetTest($request->id_test_participant);
-    	if(!$testSet){
-    		return response()->json(["code"=>"21","message"=>"Participant not found"]);
-    	}
-
-    	// Count cognitive scores
-    	$cognitiveScores = self::countCognitiveScore($testSet, $cognitiveAnswers);
-
-    }
-
     protected function getSetTest($testParticipantId){
     	$participant = TestParticipant::find($testParticipantId);
 
@@ -78,36 +58,6 @@ class TestController extends Controller
     	}
 
     	return $participant->set_test;
-    }
-    /**
-    *Counting scores of cognitive question
-	*@param int $testSet of participant data
-	*@param array $answers of participant answers example:
-		[
-			["id"="1","subtest_id"=>"1,"answer"=>"a"],
-			["id"="2","subtest_id"=>"2","answer"=>"a"],
-			["id"="3","subtest_id"=>"3","answer"=>"a"],
-		]
-    */
-    protected function countCognitiveScore($testSet,$answers){
-    	$questionKeys = self::getQuestionKeys($testSet);
-
-    	foreach ($questionKeys as $key) {
-    		
-    	}
-    }
-
-    protected function getQuestionKeys($testSet){
-    	$queston = Question::where("set",$testSet)
-    						->where("test_type",2)
-    						->select("id","master_subtest_id","test_type","answer_keys")
-    						->get();
-
-    	if(sizeof($question)==0){
-    		return false;
-    	}
-
-    	return $question;
     }
 
     protected function getQuestions($testSets){
