@@ -49,9 +49,11 @@
         
         <p class="last-update-detail">Last Updated : <span>{{$history['last_update']}}</span></p>
     </div>
+    @if($job['status'] == '2')
     <div class="col-lg-5 col-md-12">
         <button class="btn btn-red btn-block"type="button" data-toggle="modal" data-target="#modalOnlineTest">Check Online Test</button>
     </div>
+    @endif
 </div>
 
 <hr class="my-4">
@@ -187,34 +189,43 @@
                 </div>
 
                 <div class="modal-card mb-3">
-                    <h6>Pre Sales Solution Architect</h6>
-                    <p>Banten, Indonesia</p>
+                    <h6>{{$vacancy['job_title']}}</h6>
+                    <p>{{$vacancy['lokasi']}}, Indonesia</p>
                 </div>
 
                 <div class="modal-fill">
                     <div class="d-flex justify-content-between">
                         <div>
                             <label for="">Date</label>
-                            <p class="mb-0">17 Februari 2021 10:00</p>
+                            <p class="mb-0">{{date('d M y', strtotime($test['date_test']))}}</p>
                         </div>
                         <div>
-                            <label for="">Duration</label>
-                            <p class="mb-0">60 Minutes</p>
+                            <label for="">Time</label>
+                            <p class="mb-0">{{$test['time']}}</p>
                         </div>
                     </div>
                     <hr>
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between">
                         <div>
-                            <label for="">Your Login ID</label>
-                            <h6 class="mb-0">KKJH99NND9SS</h6>
+                            <label for="">City</label>
+                            <p class="mb-0">{{$test['city']}}</p>
                         </div>
-                        <img class="image-copy" src="{{ asset('image/icon/homepage/icon-copy.svg') }}" alt="icon">
                     </div>
                     <hr>
-                    <p class="text-center mb-4">Copy your login ID to take the test later</p>
-
-                    <button class="btn btn-red btn-block">Confirmation</button>
-                    <button class="btn btn-white btn-block">Reschedule Test</button>
+                    <div class="d-flex justify-content-between mb-4">
+                        <div>
+                            <label for="">Location</label>
+                            <p class="mb-0">{{$test['location']}}</p>
+                        </div>
+                    </div>
+                    @if($test['status_participant'] == 0 || $test['status_participant'] == 2 || $test['status_participant'] == 7)
+                    <form action="{{route('post.confirm.test')}}" class="form stacked form-hr" ajax=true id="formConfirmTest">
+                        <input type="hidden" name="idParticipant" value="{{$test['id_participant']}}">
+                        <input type="hidden" name="idJob" value="{{$job['id']}}">
+                        <button type="submit" class="btn btn-red btn-block">Confirmation</button>
+                    </form>
+                    <a href="{{route('get.profile.test-reschedule', base64_encode(urlencode($job['id'])))}}" class="a-rescehdule"><button class="btn btn-white btn-block mt-2">Reschedule Test</button></a>
+                    @endif
                 </div>
                 <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button> -->

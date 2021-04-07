@@ -1498,9 +1498,8 @@ if ($('.choose-candidate').length) {
 			var jumlah = "";
 			if ($("#candidate_"+dataRow.kandidat_id).is(":checked")) {
 				jumlah = parseInt(count)+1;
-				console.log(count, jumlah)
 				$("#countChoose").val(jumlah);
-				$("#divChooseCandidate").append('<input type="hidden" class="choose-candidate-list" id="input_'+dataRow.kandidat_id+'" name="idCandidate[]" value="'+dataRow.kandidat_id+'">')
+				$("#divChooseCandidate").append('<input type="hidden" class="choose-candidate-list" id="input_'+dataRow.kandidat_id+'" name="idCandidate[]" value="'+dataRow.kandidat_id+"_"+dataRow.job_application_id+'">')
 			} else {
 				jumlah = parseInt(count)-1;
 				$("#countChoose").val(jumlah);
@@ -1530,4 +1529,16 @@ if ($("#modalSetTest").length) {
 		
 	})
 	
+}
+
+if ($(".btn-reschedule").length) {
+	$(".btn-reschedule").click(function(e){
+		e.preventDefault();
+		$(".btn-reschedule").removeClass('btn-reschedule-active');
+		var btn = $("#"+this.id);
+		var value = btn.val();
+		$(btn).addClass("btn-reschedule-active");
+		$("#idReschedule").val(value);
+		
+	})
 }

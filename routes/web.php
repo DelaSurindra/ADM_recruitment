@@ -111,6 +111,11 @@ Route::middleware('authcandidate')->group(function(){
 	
 			Route::get('/my-app', 'Candidate\ProfileController@myApp')->name('get.profile.my-app');
 			Route::get('/my-app-detail/{id}', 'Candidate\ProfileController@myAppDetail')->name('get.profile.my-app-detail');
+			Route::post('/post-confirm-test', 'Candidate\ProfileController@postConfirmTest')->name('post.confirm.test');
+			Route::get('/test-reschedule/{id}', 'Candidate\ProfileController@testReschedule')->name('get.profile.test-reschedule');
+			Route::post('/post-reschedule-test', 'Candidate\ProfileController@postRescheduleTest')->name('post.reschedule.test');
+			Route::post('/post-reschedule-wt', 'Candidate\ProfileController@postRescheduleWt')->name('post.reschedule.wt');
+
 		});
 	});
 
@@ -135,5 +140,4 @@ Route::post('/post-signup', 'Candidate\LoginController@signUp')->name('post.sign
 Route::post('/post-login', 'Candidate\LoginController@signIn')->name('post.login');
 
 // Fitur Masih Belum Pasti
-Route::get('/test-reschedule', 'Candidate\ProfileController@testReschedule')->name('get.profile.test-reschedule');
 Route::get('/interview-reschedule', 'Candidate\ProfileController@interviewReschedule')->name('get.profile.interview-reschedule');

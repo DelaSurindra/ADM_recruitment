@@ -13,6 +13,8 @@ use App\Model\Wilayah;
 use App\Model\User;
 use App\Model\Vacancy;
 use App\Model\Status_History_Application;
+use App\Model\TestParticipant;
+use App\Model\AlternatifTest;
 
 use Request;
 use Session;
@@ -880,65 +882,136 @@ class ProfileController extends Controller
         // $ins = Status_History_Application::insert(['status' => 0, 'job_application_id'=> 2]);
         // dd($ins);
         $idJob = base64_decode(urldecode($id));
-
         $job_apply = Job_Application::where('id', $idJob)->get()->toArray();
         if ($job_apply) {
-            $vacancy = Vacancy::where('job_id', $job_apply[0]['vacancy_id'])->get()->toArray();
-            if ($vacancy) {
-                $history = Status_History_Application::where('job_application_id', $job_apply[0]['id'])->get()->toArray();
-                $apply = [];
-                $online_test = [];
-                $hr_interview = [];
-                $user_interview = [];
-                $mcu = [];
-                $document_sign = [];
-                if ($history) {
-                    $last = last($history);
-                    $last_update = date("d F Y H:i", strtotime($last['created_at']));
-                    // dd($history);
-                    for ($i=0; $i < count($history) ; $i++) { 
-                        $history[$i]['tanggal'] = date("d F Y H:i", strtotime($history[$i]['created_at']));
-                        if ($history[$i]['status'] == "0") {
-                            array_push($apply, $history[$i]['tanggal']);
-                        }else if ($history[$i]['status'] == "1") {
-                            array_push($online_test, $history[$i]['tanggal']);
-                        }else if ($history[$i]['status'] == "2") {
-                            array_push($online_test, $history[$i]['tanggal']);
-                        }else if ($history[$i]['status'] == "3") {
-                            array_push($online_test, $history[$i]['tanggal']);
-                        }else if ($history[$i]['status'] == "4") {
-                            array_push($online_test, $history[$i]['tanggal']);
-                        }else if ($history[$i]['status'] == "5") {
-                            array_push($hr_interview, $history[$i]['tanggal']);
-                        }else if ($history[$i]['status'] == "6") {
-                            array_push($user_interview, $history[$i]['tanggal']);
-                        }else if ($history[$i]['status'] == "7") {
-                            array_push($user_interview, $history[$i]['tanggal']);
-                        }else if ($history[$i]['status'] == "8") {
-                            array_push($user_interview, $history[$i]['tanggal']);
-                        }else if ($history[$i]['status'] == "9") {
-                            array_push($mcu, $history[$i]['tanggal']);
-                        }else if ($history[$i]['status'] == "10") {
-                            array_push($document_sign, $history[$i]['tanggal']);
+            $test = TestParticipant::select('test_event.*', 'test_participant.id as id_participant', 'test_participant.kandidat_id', 'test_participant.test_id', 'test_participant.status as status_participant')
+                                    ->where('kandidat_id', session('session_candidate.id'))
+                                    ->join('test_event', 'test_event.id', 'test_participant.test_id')
+                                    ->get()->toArray();
+            // dd($test, $job_apply);
+            if ($test) {
+                $vacancy = Vacancy::where('job_id', $job_apply[0]['vacancy_id'])->get()->toArray();
+                if ($vacancy) {
+                    $history = Status_History_Application::where('job_application_id', $job_apply[0]['id'])->get()->toArray();
+                    $apply = [];
+                    $online_test = [];
+                    $hr_interview = [];
+                    $user_interview = [];
+                    $mcu = [];
+                    $document_sign = [];
+                    if ($history) {
+                        $last = last($history);
+                        $last_update = date("d F Y H:i", strtotime($last['created_at']));
+                        // dd($history);
+                        for ($i=0; $i < count($history) ; $i++) { 
+                            $history[$i]['tanggal'] = date("d F Y H:i", strtotime($history[$i]['created_at']));
+                            if ($history[$i]['status'] == "0") {
+                                array_push($apply, $history[$i]['tanggal']);
+                            }else if ($history[$i]['status'] == "1") {
+                                array_push($online_test, $history[$i]['tanggal']);
+                            }else if ($history[$i]['status'] == "2") {
+                                array_push($online_test, $history[$i]['tanggal']);
+                            }else if ($history[$i]['status'] == "3") {
+                                array_push($online_test, $history[$i]['tanggal']);
+                            }else if ($history[$i]['status'] == "4") {
+                                array_push($online_test, $history[$i]['tanggal']);
+                            }else if ($history[$i]['status'] == "5") {
+                                array_push($hr_interview, $history[$i]['tanggal']);
+                            }else if ($history[$i]['status'] == "6") {
+                                array_push($user_interview, $history[$i]['tanggal']);
+                            }else if ($history[$i]['status'] == "7") {
+                                array_push($user_interview, $history[$i]['tanggal']);
+                            }else if ($history[$i]['status'] == "8") {
+                                array_push($user_interview, $history[$i]['tanggal']);
+                            }else if ($history[$i]['status'] == "9") {
+                                array_push($mcu, $history[$i]['tanggal']);
+                            }else if ($history[$i]['status'] == "10") {
+                                array_push($document_sign, $history[$i]['tanggal']);
+                            }
                         }
+                    }else{
+                        $last_update = '';
                     }
-                }else{
-                    $last_update = '';
+                    return view('candidate.profile.my-app-detail')->with([
+                        'topbar'=>'myapp_detail',
+                        'tab_profile'=>'profile-applican',
+                        'vacancy'=>$vacancy[0],
+                        'history'=>[
+                            'last_update'   => $last_update,
+                            'apply'         => $apply,
+                            'online_test'   => $online_test,
+                            'hr_interview'  => $hr_interview,
+                            'user_interview'=> $user_interview,
+                            'mcu'           => $mcu,
+                            'document_sign' => $document_sign
+                        ],
+                        'job' => $job_apply[0],
+                        'test' => $test[0]
+                    ]);
+                } else {
+                    abort(404);
                 }
-                return view('candidate.profile.my-app-detail')->with([
-                    'topbar'=>'myapp_detail',
-                    'tab_profile'=>'profile-applican',
-                    'vacancy'=>$vacancy[0],
-                    'history'=>[
-                        'last_update'   => $last_update,
-                        'apply'         => $apply,
-                        'online_test'   => $online_test,
-                        'hr_interview'  => $hr_interview,
-                        'user_interview'=> $user_interview,
-                        'mcu'           => $mcu,
-                        'document_sign' => $document_sign
-                    ]
-                ]);
+            } else {
+                abort(404);
+            }
+            
+        } else {
+            abort(404);
+        }
+        
+    }
+
+    public function postConfirmTest(){
+        $encrypt = new EncryptController;
+    	$data = $encrypt->fnDecrypt(Request::input('data'),true);
+        // dd($data);
+        $confirmTest = TestParticipant::where('id', $data['idParticipant'])->update(['status' => 1]);
+        if ($confirmTest) {
+            $id = base64_encode(urlencode($data["idJob"]));
+            $messages = [
+                'status' => 'success',
+                'message' => 'Confirm Test Success',
+                'url' => '/profile/my-app-detail/'.$id,
+                'callback' => 'redirect'
+            ];
+
+            return response()->json($messages);
+        } else {
+            $messages = [
+                'status' => 'error',
+                'message' => 'Confirm Test Failed',
+            ];
+
+            return response()->json($messages);
+        }
+        
+    }
+
+    public function testReschedule($id){
+        $idJob = base64_decode(urldecode($id));
+        $job_apply = Job_Application::where('id', $idJob)->get()->toArray();
+        // dd($job_apply);
+        if ($job_apply) {
+            $test = TestParticipant::select('test_event.*', 'test_participant.id as id_participant', 'test_participant.kandidat_id', 'test_participant.test_id', 'test_participant.status as status_participant')
+                                    ->where('kandidat_id', session('session_candidate.id'))
+                                    ->join('test_event', 'test_event.id', 'test_participant.test_id')
+                                    ->get()->toArray();
+            if ($test) {
+                $alternatif = AlternatifTest::select('alternative_test_event.*', 'test_event.time')->join('test_event', 'test_event.id', 'alternative_test_event.alternative_test_id')->where('test_id', $test[0]['id'])->get()->toArray();
+                $vacancy = Vacancy::where('job_id', $job_apply[0]['vacancy_id'])->get()->toArray();
+                if ($vacancy) {
+                    // dd($job_apply, $test, $vacancy, $alternatif);
+                    return view('candidate.profile.test-reschedule')->with([
+                        'topbar'=>'test_reschedule',
+                        'job' => $job_apply[0],
+                        'test' => $test[0],
+                        'vacancy' => $vacancy[0],
+                        'alternatif' => $alternatif,
+                    ]);
+                } else {
+                    abort(404);
+                }
+                
             } else {
                 abort(404);
             }
@@ -948,8 +1021,64 @@ class ProfileController extends Controller
         
     }
 
-    public function testReschedule(){
-        return view('candidate.profile.test-reschedule')->with(['topbar'=>'test_reschedule']);
+    public function postRescheduleTest(){
+        $encrypt = new EncryptController;
+    	$data = $encrypt->fnDecrypt(Request::input('data'),true);
+        // dd($data);
+        $testParticipant = TestParticipant::where('id', $data['idParticipant'])->get()->toArray();
+        if ($data['idReschedule'] != "") {
+            if ($testParticipant) {
+                if ($testParticipant[0]['reshedule_count'] <= 3) {
+                    $count = $testParticipant[0]['reshedule_count']+1;
+                    $reschedule = TestParticipant::where('id', $data['idParticipant'])->update([
+                        "status" => 2,
+                        "reshedule_count" => $count
+                    ]);
+                    if ($reschedule) {
+                        $id = base64_encode(urlencode($data["idJob"]));
+                        $messages = [
+                            'status' => 'success',
+                            'message' => 'Reschedule Test Success',
+                            'url' => '/profile/my-app-detail/'.$id,
+                            'callback' => 'redirect'
+                        ];
+
+                        return response()->json($messages);
+                    } else {
+                        $messages = [
+                            'status' => 'error',
+                            'message' => 'Reschedule Test Failed',
+                        ];
+            
+                        return response()->json($messages);
+                    }
+                    
+                } else {
+                    $messages = [
+                        'status' => 'error',
+                        'message' => 'Cannot Reschedule more than 3 times',
+                    ];
+        
+                    return response()->json($messages);
+                }
+                
+            } else {
+                $messages = [
+                    'status' => 'error',
+                    'message' => 'Data Not Found',
+                ];
+    
+                return response()->json($messages);
+            }
+        } else {
+            $messages = [
+                'status' => 'error',
+                'message' => 'Please choose one schedule',
+            ];
+
+            return response()->json($messages);
+        }
+        
     }
 
     public function interviewReschedule(){

@@ -184,7 +184,10 @@ class CandidateController extends Controller
     public function editCandidate(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
-
+        $getJob = Job_Application::where('id', $data['idJob'])->get()->toArray();
+        if ($getJob[0]['status'] != $data['aplicationStatus']) {
+            $track = $this->statusTrackApply($data['idJob'], $data['aplicationStatus']);
+        }
         $updateJob = Job_Application::where('id', $data['idJob'])->update(['status' => $data['aplicationStatus']]);
         if ($updateJob) {
             if (is_array($data['idPendidikan']) && count($data['idPendidikan']) > 1) {
@@ -288,6 +291,7 @@ class CandidateController extends Controller
             $exp = explode("_", $data['idJob'][$i]);
             // dd($exp);
             $update = Job_application::where('id', $exp[0])->update(['status'=>$data['aplicationStatus']]);
+            $track = $this->statusTrackApply($data['idJob'], $data['aplicationStatus']);
         }
 
         if ($update) {

@@ -1181,6 +1181,70 @@ label.error {
     background: white;
 }
 
+.a-rescehdule:hover{
+    text-decoration: none;
+}
+
+.btn-reschedule{
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    box-sizing: border-box;
+    border-radius: 8px;
+    width: 245px;
+    height: 45px;
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 130%;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: #828282;
+}
+
+.btn-reschedule:focus{
+    box-shadow: none;
+    outline-width: 0;
+}
+
+.btn-reschedule-active{
+    background: rgba(223, 14, 44, 0.1) !important;
+    border: 1px solid #DF0E2C !important;
+    color: #DF0E2C !important;
+}
+
+.card-green{
+    background: #E8F7EE;
+    border-radius: 8px;
+    border-color: transparent;
+}
+
+.img-reschedule{
+    height: 80px;
+    margin-right: 10px;
+}
+
+.title-reschedule{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #050401;
+}
+
+.text-reschedule{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #4F4F4F;
+}
+
 @media (min-width: 992px) {
     .margin-right-1rem {
         margin-right: 1rem;

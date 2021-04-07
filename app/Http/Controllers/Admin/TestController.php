@@ -9,7 +9,7 @@ use App\Http\Controllers\RequestController;
 use App\Model\Test;
 use App\Model\AlternatifTest;
 use App\Model\TestParticipant;
-use App\Model\Candidate;
+use App\Model\Job_Application;
 use App\Model\Wilayah;
 use App\AdminSession;
 
@@ -499,22 +499,24 @@ class TestController extends Controller
     public function addCandidateTest(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
-        // dd($data);
         if ($data['countChoose'] == "1") {
+            $exp = explode("_", $data['idCandidate']);
             $addParticipan = TestParticipant::insert([
-                "kandidat_id" => $data["idCandidate"],
+                "kandidat_id" => $exp[0],
                 "test_id"     => $data["idTest"],
-                "status"      => 0
+                "status"      => 0,
+                "reshedule_count" => 0
             ]);
-            Candidate::where('id', $data['idCandidate'])->update(['status'=>2]);
+                
         }else if ($data["countChoose"] > 1) {
-            for ($i=0; $i < $data["countChoose"]; $i++) { 
+            for ($i=0; $i < $data["countChoose"]; $i++) {
+                $exp = explode("_", $data['idCandidate'][$i]);
                 $addParticipan = TestParticipant::insert([
-                    "kandidat_id" => $data["idCandidate"][$i],
+                    "kandidat_id" => $exp[0],
                     "test_id"     => $data["idTest"],
                     "status"      => 0
                 ]);
-                Candidate::where('id', $data['idCandidate'][$i])->update(['status'=>2]);
+                
             }
         }else{
             $messages = [
@@ -527,10 +529,14 @@ class TestController extends Controller
 
         if ($addParticipan) {
             if ($data['countChoose'] == "1") {
-                Candidate::where('id', $data['idCandidate'])->update(['status'=>2]);
+                $exp = explode("_", $data['idCandidate']);
+                Job_Application::where('id', $exp[1])->update(['status'=>2]);
+                $track = $this->statusTrackApply($exp[1], 2);
             }else if ($data["countChoose"] > 1) {
                 for ($i=0; $i < $data["countChoose"]; $i++) { 
-                    Candidate::where('id', $data['idCandidate'][$i])->update(['status'=>2]);
+                    $exp = explode("_", $data['idCandidate'][$i]);
+                    Job_Application::where('id', $exp[1])->update(['status'=>2]);
+                    $track = $this->statusTrackApply($exp[1], 2);
                 }
             }
             $id = base64_encode(urlencode($data["idTest"]));
