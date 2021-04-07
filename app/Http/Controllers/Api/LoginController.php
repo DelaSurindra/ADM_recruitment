@@ -123,9 +123,9 @@ class LoginController extends Controller
             "date_test" => $userData->date_test,
             // "set_test" => $userData->set_test,
             "status_test" => $userData->status_test,
-            "id_kandidat" => $userData->id_kandidat,
-            "id_participant" => $userData->id_participant,
-            "test_participant_id" => $userData->tp_id,
+            // "id_kandidat" => $userData->id_kandidat,
+            // "id_participant" => $userData->id_participant,
+            "test_participant_id" => encrypt($userData->tp_id),
             "location_radius" => $radius,
             "enrollment_time" => $now->format("Y-m-d H:i:s"),
             "remaining_time" => date_diff($now,$endDateTime)->format('%H:%I:%S')
@@ -216,24 +216,4 @@ class LoginController extends Controller
         return $angle * $earthRadius;
     }
 
-    protected function getStatusParticipantMessage($status){
-        switch ($status) {
-            case 6:
-                return "Kandidat terblokir karena melakukan screenshoot/capture";
-                break;
-            case 2:
-                return "Jadwal test kandidat diubah";
-                break;
-            case 4:
-                return "Kandidat tidak hadir";
-                break;
-            case 5:
-                return "Kandidat telah menyelesaikan tes";
-                break;
-            
-            default:
-                return "Kandidat belum menghadiri tes";
-                break;
-        }
-    }
 }

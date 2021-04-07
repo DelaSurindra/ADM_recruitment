@@ -20,8 +20,10 @@ class TestController extends Controller
         if($validator->fails()) {
             return response()->json(["code"=>"30","message"=>$validator->errors()]);
         }
+
+        $participantId = decrypt($request->test_participant_id);
     	
-    	$setTest = self::getSetTest($request->test_participant_id);
+    	$setTest = self::getSetTest($participantId);
 
     	if(!$setTest){
     		return response()->json(["code"=>"21","message"=>"Participant not found"]);
@@ -38,7 +40,9 @@ class TestController extends Controller
             return response()->json(["code"=>"30","message"=>$validator->errors()]);
         }
 
-        $participant = TestParticipant::find($request->test_participant_id);
+        $participantId = decrypt($request->test_participant_id);
+
+        $participant = TestParticipant::find($participantId);
 
         if(!$participant){
         	return response()->json(["code"=>"21","message"=>"Participant not found"]);

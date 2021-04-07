@@ -8,6 +8,8 @@ use App\Model\Test;
 use App\Model\Question;
 use Illuminate\Support\Facades\Validator;
 use App\Model\TestParticipant;
+use App\Model\CognitiveTestResult;
+use App\Model\InventoryTestResult;
 
 class ScoringController extends Controller
 {
@@ -15,7 +17,7 @@ class ScoringController extends Controller
     public function submitTest(Request $request){
     	$validator = Validator::make($request->all(), [
     		"test_answers" => "required|array",
-    		"id_test_participant" => "required"
+    		"test_participant_id" => "required"
     	]);
 
     	if($validator->fails()) {
@@ -26,31 +28,38 @@ class ScoringController extends Controller
     	$inventoryAnswers = $request->test_answers["inventory"];
 
     	// Validate participant data
-    	$testSet = self::getSetTest($request->id_test_participant);
-    	if(!$testSet){
+    	$participantId = decrypt($request->test_participant_id);
+
+    	$participant = TestParticipant::find($participantId);
+
+    	if(!$participant){
     		return response()->json(["code"=>"21","message"=>"Participant not found"]);
     	}
 
-    	// Count cognitive scores
-    	$cognitiveScores = self::countCognitiveScore($testSet, $cognitiveAnswers);
-    	$cognitiveScores["id_participant"] = $request->id_test_participant;
-
-    	// Count inventory scores
-    	$inventoryScores = self::countInventoryScores($inventoryAnswers);
-    	dd($inventoryScores);
-
-    	return response()->json($cognitiveScores);
-
-    }
-
-    protected function getSetTest($testParticipantId){
-    	$participant = TestParticipant::find($testParticipantId);
-
-    	if(!$participant){
-    		return false;
+    	if($participant->status != 3){
+    		$message = self::getStatusParticipantMessage($participant->status);
+    		return response()->json(["code"=>"24","message"=>$message]);
     	}
 
-    	return $participant->set_test;
+    	$testSet = $participant->set_test;
+
+    	// Count cognitive scores
+    	$cognitiveScores = self::countCognitiveScore($testSet, $cognitiveAnswers);
+    	$cognitiveScores["id_participant"] = $participantId;
+    	// Save cognitive scores
+    	CognitiveTestResult::insert($cognitiveScores);
+
+    	// Count inventory scores
+    	$inventoryScores = self::countInventoryScores($inventoryAnswers, $participantId);
+    	// Save inventory scores
+    	InventoryTestResult::insert($inventoryScores);
+    	// Update status test participant
+    	$participant->status = 5;
+    	$participant->save();
+    	
+
+    	return response()->json(["code"=>"00","message"=>"Sukses insert score","data"=>["cognitive"=>$cognitiveScores,"inventory"=>$inventoryScores]]);
+
     }
 
      /**
@@ -135,13 +144,21 @@ class ScoringController extends Controller
 		]
     */
 
-    protected function countInventoryScores($answers){
+    protected function countInventoryScores($answers, $idParticipant){
     	$mappedAnswer = [];
     	foreach ($answers as $key => $value) {
     		# code...
-    		$mappedAnswer[$value["facet_id"]] = $value["score"];
+    		$mappedAnswer[$value["facet_id"]][] = $value["score"];
     	}
 
-    	return $mappedAnswer;
+    	$inventoryScores = [];
+    	foreach ($mappedAnswer as $key => $value) {
+    		# code...
+    		$inventoryScores[] =["id_participant"=>$idParticipant, "facet_id"=>$key,"skor"=>array_sum($value)];
+    	}
+
+    	return $inventoryScores;
     }
+
+   
 }
