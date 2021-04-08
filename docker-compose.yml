@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  dev-adm-recruitment:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gitlab.vascomm.co.id:4567/adm-hr-recruitment/web_recruitment_adm:latest_dev
+    volumes:
+      - ./:/var/www/html
+      - ./nginx-conf/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx-conf/nginx.conf:/etc/nginx/nginx.conf
+      - /var/www/html/vendor
+      - /home/apps/config_env/web_admrecruitment/.env:/var/www/html/.env
+    container_name: dev-adm-recruitment
+    ports:
+      - 12555:80
+    tty: true
+    restart: always
+
+    networks:
+      - vascomm-app
+  
+networks:
+  vascomm-app:
+    name: vascomm-app
+    driver: bridge
