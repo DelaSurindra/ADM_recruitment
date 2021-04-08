@@ -12,6 +12,7 @@ development:
   stage: development
   script:
     - docker-compose -f docker-compose.yml up -d --force-recreate --build dev-adm-recruitment
+  tags:
     - development
   only:
     - development
