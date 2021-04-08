@@ -13,7 +13,7 @@ services:
       - /home/apps/config_env/web_admrecruitment/.env:/var/www/html/.env
     container_name: dev-adm-recruitment
     ports:
-      - 12555:80
+      - 12600:80
     tty: true
     restart: always
 
