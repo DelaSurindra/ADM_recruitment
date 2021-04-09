@@ -83,6 +83,10 @@ Route::prefix('HR')->group(function(){
 			Route::post('/set-test-participant','Admin\TestController@setTestParticipant')->name('post.set.test.participant');
 			Route::post('/set-absen-participant','Admin\TestController@setAbsenParticipant')->name('post.set.absen.participant');
 			Route::post('/post-startEnd-test','Admin\TestController@startEndTest')->name('post.start.end.test');
+			Route::post('/detail-reschedule','Admin\TestController@detailReschedule')->name('post.detail.reschedule');
+			Route::post('/post-reschedule','Admin\TestController@postReschedule')->name('post.reschedule');
+			Route::get('/view-result-test/{id}', 'Admin\TestController@viewResultTest')->name('get.test.result');
+
 		});
 	});
 });

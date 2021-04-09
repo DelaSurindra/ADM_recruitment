@@ -456,6 +456,10 @@ var table = {
 						var data = "";
 						if(full.status_participant == "0"){
 							data = "<span class='test-status-notset'>Not Set</span>"
+						}else if (full.status_participant == "2") {
+							data = '<button type="button" class="btn btn-acc-reschedule">Request Reschedule</button>';
+						}else if (full.status_participant == "7") {
+							data = "<span class='test-status-notset'>Reschedule Decline</span>"
 						}else{
 							data = "<span class='test-status-attend'>Confirmed</span>"
 						}
@@ -464,7 +468,7 @@ var table = {
 				},
 			];
 
-		 	table.serverSide('tableParticipantTest',column,'HR/test/list-candidate',value,columnDefs)
+			table.serverSide('tableParticipantTest',column,'HR/test/list-candidate',value,columnDefs)
         }
 
 		if ($('#tableParticipantTestTheDay').length) {
@@ -537,6 +541,10 @@ var table = {
 							data = "<span class='test-status-attend'>Attend</span>"
 						}else if (full.status_participant == "4") {
 							data = "<span class='test-status-absen'>Absence</span>"
+						}else if (full.status_participant == "5") {
+							data = "<span class='test-status-attend'>End Test</span>"
+						}else if (full.status_participant == "6") {
+							data = "<span class='test-status-absen'>Block</span>"
 						}else{
 							data = "<span class='test-status-notset'>Not Set</span>"
 						}
@@ -571,7 +579,7 @@ var table = {
 				{'data':'status_participant'},
 				{'data':'location_start_radius'},
 				{'data':'location_end_radius'},
-				{'data':'location_start_radius'},
+				{'data':'skor'},
 			];
 
 			columnDefs = [
@@ -620,6 +628,10 @@ var table = {
 							data = "<span class='test-status-attend'>Attend</span>"
 						}else if (full.status_participant == "4") {
 							data = "<span class='test-status-absen'>Absence</span>"
+						}else if (full.status_participant == "5") {
+							data = "<span class='test-status-attend'>End Test</span>"
+						}else if (full.status_participant == "6") {
+							data = "<span class='test-status-absen'>Block</span>"
 						}else{
 							data = "<span class='test-status-notset'>Not Set</span>"
 						}
@@ -632,7 +644,7 @@ var table = {
 					"render": function(data, type, full, meta){
 						var id = encodeURIComponent(window.btoa(full.test_participant_id));
 						// var konfirm = '';
-						var data = '<button type="button" class="btn btn-table btn-transparent edit-table"><img style="margin-right: 1px;" src="/image/icon/main/icon_view.svg" title="View Result">&nbsp View</button>';
+						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/test/view-result-test/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/icon_view.svg" title="View Result">&nbsp View</a></button>';
 		            	return data;
 					}
 				}
@@ -1289,3 +1301,15 @@ $("#tableParticipantTestTheDay tbody").on('click', 'input', function(e) {
 		$("#btnSetAbsen").removeClass('hidden');
 	}
 })
+
+$('#tableParticipantTest tbody').on( 'click', 'button.btn-acc-reschedule', function (e) {
+	var table = $('#tableParticipantTest').DataTable();
+	var dataRow = table.row($(this).closest('tr')).data();
+	ajax.getData('/HR/test/detail-reschedule', 'post', {idParticipant:dataRow.test_participant_id}, function(data){
+		$("#spanName").html(dataRow.name);
+		$("#spanDate").html(data.date+' - '+data.event_id);
+		$("#idParticipant").val(data.id_participant);
+		$("#idTestRechedule").val(data.id)
+	})
+	$("#modalReschedule").modal('show');
+});

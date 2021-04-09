@@ -33,7 +33,7 @@
         <h4 class="candidate-page-subtitle mb-3">Choose New Schedule</h4>
         @if($alternatif != [])
         <form action="{{route('post.reschedule.test')}}" class="form stacked form-hr" ajax=true id="formRescheduleTest">
-            <div class="row mb-5">
+            <div class="row mb-3">
                 <div class="col-md-12">
                     <input type="hidden" id="idReschedule" name="idReschedule">
                     <input type="hidden" id="idJob" name="idJob" value="{{$job['id']}}">
@@ -42,11 +42,18 @@
                         <button class="btn-reschedule ml-1" id="reschedule_{{$value['alternative_test_id']}}" value="{{$value['alternative_test_id']}}" type="button">{{date('d M y', strtotime($value['date']))}} {{$value['time']}}</button>
                     @endforeach
                 </div>
-                <button type="submit" class="btn btn-red btn-block">Submit</button>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-red btn-block">Submit</button>
+
+                </div>
             </div>
         </form>
         @else
         <form action="{{route('post.reschedule.wt')}}" class="form stacked form-hr" ajax=true id="formRescheduleWt">
+            <input type="hidden" id="idParticipant" name="idParticipant" value="{{$test['id_participant']}}">
+            <input type="hidden" id="idJob" name="idJob" value="{{$job['id']}}">
             <div class="card card-clear card-green mb-5">
                 <div class="card-body">
                     <div class="row">

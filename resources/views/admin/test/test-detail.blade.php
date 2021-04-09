@@ -415,4 +415,34 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalReschedule" tabindex="-1" aria-labelledby="modalRescheduleLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-hr">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-up mb-3">
+                    <h4 class="modal-hr-title mb-0">Reschedule Confirmation</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis" alt="icon">
+                    </button>
+                </div>
+                <p class="mb-4"><span class="span-reschedule" id="spanName"></span> want reschedule test to <span class="span-reschedule" id="spanDate"></span></p>
+                <form action="{{route('post.reschedule')}}" class="form stacked form-hr" ajax=true id="formAccReschedule">
+                    <input type="hidden" id="idTestValue" name="idTestValue" value="{{$data['id']}}">
+                    <input type="hidden" name="idParticipant" id="idParticipant">
+                    <input type="hidden" name="idTestRechedule" id="idTestRechedule">
+                    <input type="hidden" name="valueBtn" id="valueBtn">
+                    <div class="row">
+                        <div class="col-md-12 mb-2">
+                            <button type="submit" class="btn btn-red w-100 btn-confirm" value="confirm">Confirm</button>
+                        </div>
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-green w-100 btn-confirm" value="decline">Decline Request</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

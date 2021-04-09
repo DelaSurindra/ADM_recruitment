@@ -1366,9 +1366,6 @@ if ($("#formAddQuestionBank").length) {
 	$("#continue").click(function(e){
 		$("#btnValue").val(this.value);
 	})
-
-	
-
 }
 
 $(".btn-delete-question").click(function(){
@@ -1540,5 +1537,11 @@ if ($(".btn-reschedule").length) {
 		$(btn).addClass("btn-reschedule-active");
 		$("#idReschedule").val(value);
 		
+	})
+}
+
+if ($(".btn-confirm").length) {
+	$(".btn-confirm").click(function(){
+		$("#valueBtn").val(this.value);
 	})
 }

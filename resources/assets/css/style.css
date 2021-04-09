@@ -1,3 +1,28 @@
+.span-reschedule{
+    font-weight: bold;
+}
+
+.btn-acc-reschedule{
+    padding: 0;
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 130%;
+    display: flex;
+    align-items: center;
+    color: #DF0E2C;
+}
+
+.btn-acc-reschedule:hover{
+    color:#DF0E2C;
+}
+
+.btn-acc-reschedule:focus{
+    box-shadow: none;
+    outline-width: 0;
+}
+
 .test-status-notset{
     font-family: 'inter_bold', sans-serif !important;
     font-style: normal;
@@ -986,6 +1011,10 @@
     color: #050401 !important;
 }
 
+.edit-table:hover{
+    text-decoration: none;
+}
+
 .btn-red{
     background: #DF0E2C;
     color: #FFFFFF;
@@ -1004,6 +1033,26 @@
 
 .btn-red:hover{
     color: #FFFFFF;
+}
+
+.btn-green{
+    background: #E8F7EE;
+    color: #DF0E2C;
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-family: 'inter_semibold', sans-serif !important;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-green:hover{
+    color: #DF0E2C;
 }
 
 .note-editor.note-frame .note-editing-area .note-editable{

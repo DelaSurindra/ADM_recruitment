@@ -113,7 +113,7 @@ class TestController extends Controller
                 }else{
                     $addAlternatif = AlternatifTest::insert([
                         "date" => $data['alternatifTestDate'],
-                        "test_id" => $data['alternatifTest'],
+                        "test_id" => $addTest,
                         "alternative_test_id" => $data['alternatifTest']
                     ]);
                 }
@@ -186,6 +186,7 @@ class TestController extends Controller
     public function editTest(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
+        // dd($data);
         if (is_array($data['setTest'])) {
             $setTest = implode(",", $data['setTest']);
         }else{
@@ -216,7 +217,7 @@ class TestController extends Controller
                 }else{
                     $addAlternatif = AlternatifTest::insert([
                         "date" => $data['alternatifTestDate'],
-                        "test_id" => $data['alternatifTest'],
+                        "test_id" => $data['idTest'],
                         "alternative_test_id" => $data['alternatifTest']
                     ]);
                 }
@@ -651,5 +652,67 @@ class TestController extends Controller
 
             return response()->json($messages);
         }
+    }
+
+    public function detailReschedule(){
+        $id = Request::input('idParticipant');
+        $getTest = TestParticipant::select('test_event.*', 'test_participant.id as id_participant')
+                                    ->join('test_event', 'test_event.id', 'test_participant.reshedule_test_id')
+                                    ->where('test_participant.id', $id)
+                                    ->get()->toArray();
+        $getTest[0]["date"] = date("d M Y", strtotime($getTest[0]['date_test']));
+        return response()->json($getTest[0]);
+    }
+
+    public function postReschedule(){
+        $encrypt = new EncryptController;
+        $data = $encrypt->fnDecrypt(Request::input('data'),true);
+        // dd($data);
+        if ($data['valueBtn'] == "confirm") {
+            $confirmReschedule = TestParticipant::where('id', $data['idParticipant'])->update([
+                'status' => 0,
+                'test_id' => $data['idTestRechedule']
+            ]);
+            $messageSucc = "Confirm Reschedule Participant Success";
+            $messageFail = "Confirm Reschedule Participant Failed";
+        } else {
+            $confirmReschedule = TestParticipant::where('id', $data['idParticipant'])->update([
+                'status' => 7
+            ]);
+            $messageSucc = "Decline Reschedule Participant Success";
+            $messageFail = "Decline Reschedule Participant Failed";
+        }
+        
+        if ($confirmReschedule) {
+            $id = base64_encode(urlencode($data["idTestValue"]));
+            $messages = [
+                'status' => 'success',
+                'message' => $messageSucc,
+                'url' => '/HR/test/detail-test/'.$id,
+                'callback' => 'redirect'
+            ];
+
+            return response()->json($messages);
+        } else {
+            $messages = [
+                'status' => 'error',
+                'message' => $messageFail,
+            ];
+
+            return response()->json($messages);
+        }
+        
+    }
+
+    public function viewResultTest($id){
+        $idTest = base64_decode(urldecode($id));
+        // dd($idTest);
+        $breadcrumb = [
+            "page"          => "Manage Test",
+            "detail"        => "Manage Test Detail",
+            "detail_page"   => "Test Result",
+            "route"         => "/HR/test"
+        ];
+        return view('admin.test.test-result')->with(['pageTitle' => 'Manajemen Test', 'title' => 'Manajemen Test', 'sidebar' => 'manajemen_test', 'breadcrumb' => $breadcrumb]);
     }
 }

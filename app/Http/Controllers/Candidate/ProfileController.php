@@ -1032,7 +1032,8 @@ class ProfileController extends Controller
                     $count = $testParticipant[0]['reshedule_count']+1;
                     $reschedule = TestParticipant::where('id', $data['idParticipant'])->update([
                         "status" => 2,
-                        "reshedule_count" => $count
+                        "reshedule_count" => $count,
+                        "reshedule_test_id" => $data['idReschedule']
                     ]);
                     if ($reschedule) {
                         $id = base64_encode(urlencode($data["idJob"]));
@@ -1079,6 +1080,17 @@ class ProfileController extends Controller
             return response()->json($messages);
         }
         
+    }
+
+    public function postRescheduleWt(){
+        $encrypt = new EncryptController;
+    	$data = $encrypt->fnDecrypt(Request::input('data'),true);
+        $messages = [
+            'status' => 'error',
+            'message' => 'Access Not Permited',
+        ];
+
+        return response()->json($messages);
     }
 
     public function interviewReschedule(){
