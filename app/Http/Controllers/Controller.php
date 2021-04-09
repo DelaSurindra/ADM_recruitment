@@ -25,4 +25,25 @@ class Controller extends BaseController
             return false;
         }
     }
+
+    public function getStatusParticipantMessage($status){
+        switch ($status) {
+            case 6:
+                return "Kandidat terblokir karena melakukan screenshoot atau screen recording";
+                break;
+            case 2:
+                return "Jadwal test kandidat diubah";
+                break;
+            case 4:
+                return "Kandidat tidak hadir";
+                break;
+            case 5:
+                return "Kandidat telah menyelesaikan tes";
+                break;
+            
+            default:
+                return "Kandidat belum menghadiri tes";
+                break;
+        }
+    }
 }

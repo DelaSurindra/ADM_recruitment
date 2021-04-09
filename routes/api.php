@@ -21,4 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware'=>'auth:api'], function(){
 	Route::post('/getSoal','TestController@getSoal');
 	Route::post('/blokirPeserta', 'TestController@blockParticipant');
+	Route::post('/submitTest','ScoringController@submitTest');
 });
