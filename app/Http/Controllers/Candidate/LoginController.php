@@ -18,9 +18,6 @@ use Hash;
 
 class LoginController extends Controller
 {
-    public function index() {
-        return view('candidate.main-homepage.main')->with(['topbar'=>'home']);
-    }
 
     public function signUp(){
         $encrypt = new EncryptController;

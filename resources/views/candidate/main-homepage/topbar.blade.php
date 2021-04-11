@@ -9,8 +9,8 @@
     
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
+                <li class="nav-item {{($topbar== 'home'?'active':'')}}">
+                    <a class="nav-link" href="{{route('home')}}">Home</a>
                 </li>
                 <li class="nav-item {{($topbar== 'job'?'active':'')}}">
                     <a class="nav-link" href="{{route('get.job.page')}}">Job List</a>
@@ -18,14 +18,14 @@
                 <li class="nav-item {{($topbar== 'news_event'?'active':'')}}">
                     <a class="nav-link" href="{{route('get.news.event.page')}}">News & Event</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Company Profile</a>
+                <li class="nav-item {{($topbar== 'company-profile'?'active':'')}}">
+                    <a class="nav-link" href="{{route('get.candidate.company-profile')}}">Company Profile</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact Us</a>
+                <li class="nav-item {{($topbar== 'contact-us'?'active':'')}}">
+                    <a class="nav-link" href="{{route('get.candidate.contact-us')}}">Contact Us</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">FAQ</a>
+                <li class="nav-item {{($topbar== 'faq'?'active':'')}}">
+                    <a class="nav-link" href="{{route('get.candidate.faq')}}">FAQ</a>
                 </li>
             </ul>
 

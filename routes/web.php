@@ -128,7 +128,7 @@ Route::middleware('authcandidate')->group(function(){
 	});
 });
 
-Route::get('/', 'Candidate\LoginController@index')->name('home');
+Route::get('/', 'Candidate\HomeController@viewIndex')->name('home');
 
 Route::get('/news-event', 'Candidate\NewsEventController@viewNewsEvent')->name('get.news.event.page');
 Route::get('/news-event/detail/{id}', 'Candidate\NewsEventController@viewNewsEventDetail')->name('get.news.event.page.detail');
@@ -145,3 +145,12 @@ Route::post('/post-login', 'Candidate\LoginController@signIn')->name('post.login
 
 // Fitur Masih Belum Pasti
 Route::get('/interview-reschedule', 'Candidate\ProfileController@interviewReschedule')->name('get.profile.interview-reschedule');
+
+//FAQ
+Route::get('/faq', 'Candidate\FaqController@viewFaq')->name('get.candidate.faq');
+
+//CONTACT US
+Route::get('/contact-us', 'Candidate\ContactUsController@viewContactUs')->name('get.candidate.contact-us');
+
+//COMPANY PROFILE
+Route::get('/company-profile', 'Candidate\CompanyProfileController@viewCompanyProfile')->name('get.candidate.company-profile');

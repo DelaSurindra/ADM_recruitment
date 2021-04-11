@@ -22,7 +22,7 @@ class JobController extends Controller
         // Get data lokasi
         $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
         // Get data Job
-        $job = Vacancy::orderBy('created_at', 'desc')->take(9)->get()->toArray();
+        $job = Vacancy::where('status', 1)->orderBy('created_at', 'desc')->take(9)->get()->toArray();
         // dd($job);
         for ($i=0; $i < count($job); $i++) { 
             if($job[$i]['degree'] == 1) {
