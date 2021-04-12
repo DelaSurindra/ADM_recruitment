@@ -129,22 +129,25 @@ $('.modal').on('hidden.bs.modal', function (e) {
 })
 
 //FAQ
-// function openContent(event, id){
-//     let content = document.getElementsByClassName("content");
-//     for(let i=0;i<content.length;i++){
-//         content[i].style.display = "none";
-
-//     }
-
-//     let tabLinks = document.getElementsByClassName("tab-links");
-//     for(let i=0; i<tabLinks.length;i++){
-//         tabLinks[i].className = tabLinks[i].className.replace(" active", "");
-
-//     }
-
-//     document.getElementById(id).style.display = "block";
-//     event.currentTarget.className += " active";
-
-// }
-
-// document.getElementById("defaultOpen").click();
+if ($("#divFaq").length) {
+    function openContent(event, id){
+        let content = document.getElementsByClassName("content");
+        for(let i=0;i<content.length;i++){
+            content[i].style.display = "none";
+    
+        }
+    
+        let tabLinks = document.getElementsByClassName("tab-links");
+        for(let i=0; i<tabLinks.length;i++){
+            tabLinks[i].className = tabLinks[i].className.replace(" active", "");
+    
+        }
+    
+        document.getElementById(id).style.display = "block";
+        event.currentTarget.className += " active";
+    
+    }
+    
+    document.getElementById("defaultOpen").click();
+    
+}
