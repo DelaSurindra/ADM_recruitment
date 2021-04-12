@@ -46,6 +46,11 @@ class TestController extends Controller
         } else {
             $listTest = $listTest->orderBy('created_at', $dataSend["sort"])->get()->toArray();
         }
+
+        for ($i=0; $i < count($listTest) ; $i++) { 
+            $listTest[$i]['date'] = $listTest[$i]['date_test'];
+            $listTest[$i]['date_test'] = date('d/m/Y', strtotime($listTest[$i]['date_test']));
+        }
         
         if ($listTest != null) {
             $response = array(
@@ -500,6 +505,7 @@ class TestController extends Controller
     public function addCandidateTest(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
+        // dd($data);
         if ($data['countChoose'] == "1") {
             $exp = explode("_", $data['idCandidate']);
             $addParticipan = TestParticipant::insert([

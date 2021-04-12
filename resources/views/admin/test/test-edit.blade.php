@@ -57,7 +57,7 @@
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group" >
                                         <label>Date Test<span class="required-sign">*</span></label>
-                                        <input id="dateTest" name="dateTest" class="form-control" type="text" placeholder="Choose Date" value="{{$data['date_test']}}">
+                                        <input id="dateTest" name="dateTest" class="form-control" type="text" placeholder="Choose Date" value="{{date('d-m-Y', strtotime($data['date_test']))}}">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-md-6 col-sm-12" id="degreeVacancyDiv">
@@ -157,7 +157,7 @@
                 <table id="tableAlternatifTest" class="table-hr table table-strip stripe hover">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th class="width-checkbox"></th>
                             <th>Date</th>
                             <th>Test ID</th>
                             <th>Test Date</th>

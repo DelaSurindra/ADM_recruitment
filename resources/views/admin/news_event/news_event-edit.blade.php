@@ -72,7 +72,7 @@
                                                 <label>Activate Date<span class="required-sign">*</span></label>
                                                 <div class="row">
                                                     <div class="col-12">
-                                                        <input id="tglMulaiNewsEvent" name="tglMulaiNewsEvent" class="form-control datepicker dateNewsEvent" type="text" value="{{$data['start_date']}}" {{$data['type'] == '1' ? 'disabled':''}}>
+                                                        <input id="tglMulaiNewsEvent" name="tglMulaiNewsEvent" class="form-control datepicker dateNewsEvent" type="text" value="{{date('d-m-Y', strtotime($data['start_date']))}}" {{$data['type'] == '1' ? 'disabled':''}}>
                                                     </div>
                                                 </div>
                                             </div>
@@ -82,7 +82,7 @@
                                                 <label class="text-white">End Date News/Event</label>
                                                 <div class="row mt-1">
                                                     <div class="col-12">
-                                                        <input id="tglSelesaiNewsEvent" name="tglSelesaiNewsEvent" class="form-control datepicker dateNewsEvent" type="text" value="{{$data['end_date']}}" {{$data['type'] == '1' ? 'disabled':''}}>
+                                                        <input id="tglSelesaiNewsEvent" name="tglSelesaiNewsEvent" class="form-control datepicker dateNewsEvent" type="text" value="{{date('d-m-Y', strtotime($data['end_date']))}}" {{$data['type'] == '1' ? 'disabled':''}}>
                                                     </div>
                                                 </div>
                                             </div>

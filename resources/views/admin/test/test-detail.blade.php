@@ -43,7 +43,7 @@
                             <div class="row mb-3">
                                 <div class="col-md-5">
                                     <p class="title-alternatif title-id">Date Test</p>
-                                    <p class="content-alternatif">{{$data['date_test']}}</p>
+                                    <p class="content-alternatif">{{date('d/m/Y', strtotime($data['date_test']))}}</p>
                                 </div>
                                 <div class="col-md-5">
                                     <p class="title-alternatif title-date">Longlat</p>

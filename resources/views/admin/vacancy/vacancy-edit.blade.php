@@ -63,7 +63,7 @@
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group" >
                                         <label>Activated Date<span class="required-sign">*</span></label>
-                                        <input id="activatedDate" name="activatedDate" class="form-control" type="text" placeholder="Activated Date" value="{{$data['active_date']}}">
+                                        <input id="activatedDate" name="activatedDate" class="form-control" type="text" placeholder="Activated Date" value="{{date('d-m-Y', strtotime($data['active_date']))}}">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-md-6 col-sm-12" id="degreeVacancyDiv">
