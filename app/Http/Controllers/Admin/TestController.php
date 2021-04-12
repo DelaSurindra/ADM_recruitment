@@ -7,6 +7,7 @@ use App\Http\Controllers\Security\EncryptController;
 use App\Http\Controllers\Security\ValidatorController;
 use App\Http\Controllers\RequestController;
 use App\Model\Test;
+use App\Model\TestOtp;
 use App\Model\AlternatifTest;
 use App\Model\TestParticipant;
 use App\Model\Job_Application;
@@ -505,25 +506,41 @@ class TestController extends Controller
     public function addCandidateTest(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
-        // dd($data);
+        $now = date('Y-m-d');
+        $tomorrow = date('Y-m-d', strtotime($now . "+1 days"));
+        // dd($now, $tomorrow, $data, $rand);
         if ($data['countChoose'] == "1") {
+            $rand = rand(pow(10, 6-1), pow(10, 6)-1);
             $exp = explode("_", $data['idCandidate']);
-            $addParticipan = TestParticipant::insert([
+            $addParticipan = TestParticipant::insertGetId([
                 "kandidat_id" => $exp[0],
                 "test_id"     => $data["idTest"],
                 "status"      => 0,
                 "reshedule_count" => 0
             ]);
-                
+            $addOtp = TestOtp::insert([
+                "otp"               => $rand,
+                "expired"           => $tomorrow,
+                "id_kandidat"       => $exp[0],
+                "id_participant"    => $addParticipan
+            ]);
         }else if ($data["countChoose"] > 1) {
+            $getId = [];
             for ($i=0; $i < $data["countChoose"]; $i++) {
+                $rand = rand(pow(10, 6-1), pow(10, 6)-1);
                 $exp = explode("_", $data['idCandidate'][$i]);
-                $addParticipan = TestParticipant::insert([
+                $addParticipan = TestParticipant::insertGetId([
                     "kandidat_id" => $exp[0],
                     "test_id"     => $data["idTest"],
-                    "status"      => 0
+                    "status"      => 0,
+                    "reshedule_count" => 0
                 ]);
-                
+                $addOtp = TestOtp::insert([
+                    "otp"               => $rand,
+                    "expired"           => $tomorrow,
+                    "id_kandidat"       => $exp[0],
+                    "id_participant"    => $addParticipan
+                ]);
             }
         }else{
             $messages = [

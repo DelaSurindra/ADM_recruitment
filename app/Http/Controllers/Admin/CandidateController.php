@@ -291,7 +291,7 @@ class CandidateController extends Controller
             $exp = explode("_", $data['idJob'][$i]);
             // dd($exp);
             $update = Job_application::where('id', $exp[0])->update(['status'=>$data['aplicationStatus']]);
-            $track = $this->statusTrackApply($data['idJob'], $data['aplicationStatus']);
+            $track = $this->statusTrackApply($exp[0], $data['aplicationStatus']);
         }
 
         if ($update) {
