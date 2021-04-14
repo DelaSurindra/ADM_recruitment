@@ -8,6 +8,7 @@ use App\Model\Test;
 use App\Model\Question;
 use Illuminate\Support\Facades\Validator;
 use App\Model\TestParticipant;
+use App\Model\MasterSubtest;
 
 class TestController extends Controller
 {
@@ -54,6 +55,15 @@ class TestController extends Controller
         return response()->json(["code"=>"00","message"=>"Sukses memblokir partisipan"]);
     }
 
+    public function getSubtesTime(Request $request){
+        $subtest = MasterSubtest::select("id","type","name","sub_type","time","total_soal")->get();
+        if(sizeof($subtest)==0){
+            return response()->json(["code"=>"31","message"=>"Data subtest not found"]);
+        }
+
+        return response()->json($subtest);
+    }
+
     protected function getSetTest($testParticipantId){
     	$participant = TestParticipant::find($testParticipantId);
 
@@ -81,6 +91,7 @@ class TestController extends Controller
 
     	$question = $question->select("question.id as q_id",
     		"question.set",
+            "question.test_type as type_id",
     		"question.master_subtest_id",
     		"master_subtest.type",
     		"master_subtest.sub_type",
@@ -137,6 +148,7 @@ class TestController extends Controller
     			$question = [
 	    			"id"		=> $_question["q_id"],
 	    			"type" 		=> $_question["type"],
+                    "type_id"   => $_question["type_id"],
 	    			"sub_type" 	=> $_question["sub_type"],
 	    			"subtest_id"=> $_question["master_subtest_id"],
 	    			"text"		=> $_question["question_text"],
