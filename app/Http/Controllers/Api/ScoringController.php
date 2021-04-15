@@ -13,6 +13,8 @@ use App\Model\InventoryTestResult;
 use App\Model\SetTest;
 use App\Model\Job_Application as JobApplication;
 use App\Model\Status_History_Application as HistoryApplication;
+use App\Model\MasterFacet;
+
 class ScoringController extends Controller
 {
     //
@@ -237,9 +239,17 @@ class ScoringController extends Controller
     	}
 
     	$inventoryScores = [];
-    	foreach ($mappedAnswer as $key => $value) {
+
+        $masetrFacet = MasterFacet::get();
+
+    	foreach ($masetrFacet as $_facet) {
     		# code...
-    		$inventoryScores[] =["id_participant"=>$idParticipant, "facet_id"=>$key,"skor"=>array_sum($value)];
+            $facetId = $_facet->id;
+            if(isset($mappedAnswer[$facetId])){
+        		$inventoryScores[] =["id_participant"=>$idParticipant, "facet_id"=>$facetId,"skor"=>array_sum($mappedAnswer[$facetId])];
+            }else{
+                $inventoryScores[] =["id_participant"=>$idParticipant, "facet_id"=>$facetId,"skor"=>0];
+            }
     	}
 
     	return $inventoryScores;

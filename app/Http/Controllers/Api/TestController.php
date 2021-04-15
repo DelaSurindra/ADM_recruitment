@@ -61,7 +61,7 @@ class TestController extends Controller
             return response()->json(["code"=>"31","message"=>"Data subtest not found"]);
         }
 
-        return response()->json($subtest);
+        return response()->json(["code"=>"00","message"=>"sukses","data"=>$subtest]);
     }
 
     protected function getSetTest($testParticipantId){
