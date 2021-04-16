@@ -36,6 +36,12 @@ class LoginController extends Controller
         if(!$userData){
             return response()->json(["code"=>"21","message"=>"User credentials not found"]);
         }
+        // Validate password
+        $checkPassword = Hash::check($credentials["password"].env('SALT_PASS_CANDIDATE'),$userData->password);
+        if(!$checkPassword){
+            return response()->json(["code"=>"29","message"=>"Passowrd missmatch"]);
+        }
+
         // dd($userData);
         // Validate OTP
         if($userData->otp != $credentials['otp']){
@@ -107,10 +113,15 @@ class LoginController extends Controller
             return response()->json(["code"=>28,"message"=>$updateLocation["message"]]);
         }
 
-        // Validate user credential
-        if(!Auth::attempt(['email'=>$credentials['email'], 'password'=>$credentials['password'].env('SALT_PASS_CANDIDATE')])){
-            return response()->json(["code"=>"29","message"=>"Username or password missmatch"]);
+        // Login user
+        $user = User::find($userData->user_id);
+
+        if(!$user){
+             return response()->json(["code"=>"21","message"=>"User credentials not found"]);
         }
+
+        Auth::login($user);
+
         
         $accessToken = Auth::user()->createToken('authToken')->accessToken;
 
@@ -126,6 +137,7 @@ class LoginController extends Controller
             // "id_kandidat" => $userData->id_kandidat,
             // "id_participant" => $userData->id_participant,
             "test_participant_id" => encrypt($userData->tp_id),
+            "vacancy_id" => encrypt($userData->vacancy_id),
             "location_radius" => $radius,
             "enrollment_time" => $now->format("Y-m-d H:i:s"),
             "remaining_time" => date_diff($now,$endDateTime)->format('%H:%I:%S')
@@ -140,15 +152,18 @@ class LoginController extends Controller
         // JOIN test_participant tp ON te.id = tp.test_id
         // JOIN test_otp totp ON totp.id_kandidat = tp.kandidat_id
         // JOIN kandidat k ON k.id = tp.kandidat_id
+        // JOIN job_application ja ON k.id = ja.kandidat_id
         // JOIN users u ON u.id = k.user_id
         // WHERE u.email = 'ianahmad@gmail.com';
 
         $userData = Test::join("test_participant", "test_participant.test_id","=","test_event.id")
                         ->join("test_otp","test_otp.id_kandidat","=","test_participant.kandidat_id")
                         ->join("kandidat","kandidat.id","=","test_participant.kandidat_id")
+                        ->join("job_application","job_application.kandidat_id","kandidat.id")
                         ->join("users","users.id","=","kandidat.user_id")
                         ->where("users.email",$email)
-                        ->select("users.*","test_event.*","test_otp.*","test_participant.id as tp_id","test_participant.status as tp_status")
+                        ->select("users.password","users.id as user_id","test_event.*","test_otp.*","test_participant.id as tp_id","test_participant.status as tp_status","job_application.created_at as application_date","job_application.vacancy_id")
+                        ->orderBy("application_date","desc")
                         ->get();
         // dd($userData);
         if(sizeof($userData)==0){
