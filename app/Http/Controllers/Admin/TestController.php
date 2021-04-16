@@ -6,14 +6,20 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Security\EncryptController;
 use App\Http\Controllers\Security\ValidatorController;
 use App\Http\Controllers\RequestController;
+use App\Exports\DownloadResult;
 use App\Model\Test;
 use App\Model\TestOtp;
 use App\Model\AlternatifTest;
 use App\Model\TestParticipant;
 use App\Model\Job_Application;
-use App\Model\Wilayah;
+use App\Model\MasterSubtest;
+use App\Model\MasterFacet;
+use App\Model\CognitiveTestResult;
+use App\Model\InventoryTestResult;
+use App\Model\SetTest;
 use App\AdminSession;
-
+use Maatwebsite\Excel\Facades\Excel;
+use Response;
 use Hash;
 use Request;
 use Session;
@@ -267,7 +273,7 @@ class TestController extends Controller
     public function viewTestDetail($id){
         $idTest = base64_decode(urldecode($id));
         $getTest = Test::where('id', $idTest)->get()->toArray();
-        // dd($countTestPart);
+        // dd($getTest);
         if ($getTest) {
             if($getTest[0]['status_test'] != 3){
                 $dateTest=date('Y-m-d', strtotime($getTest[0]['date_test']));
@@ -647,7 +653,6 @@ class TestController extends Controller
     public function startEndTest(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
-        
         if ($data['statusStart'] == "2") {
             $messageSuccess = 'Start Test Success';
             $messageFailed = 'Start Test Failed';
@@ -658,6 +663,20 @@ class TestController extends Controller
         
         $startTest = Test::where('id', $data['idStart'])->update(['status_test' => $data['statusStart']]);
         if ($startTest) {
+            if ($data['statusStart'] == "3") {
+                $participant = TestParticipant::select('kandidat_id')
+                                ->where('test_id', $data['idStart'])
+                                ->where('status', '4')
+                                ->orWhere('status', '6')
+                                ->get()->toArray();
+                // dd($participant);
+                for ($i=0; $i < count($participant); $i++) { 
+                    $jobApplication = Job_Application::select("id")->where("kandidat_id", $participant[$i])->get()->toArray();
+                    // dd($jobApplication);
+                    $updateJob = Job_Application::where('id', $jobApplication[0]['id'])->update(['status' => 4]);
+                    $track = $this->statusTrackApply($jobApplication[0]['id'], 4);
+                }
+            }
             $id = base64_encode(urlencode($data["idStart"]));
             $messages = [
                 'status' => 'success',
@@ -729,13 +748,131 @@ class TestController extends Controller
 
     public function viewResultTest($id){
         $idTest = base64_decode(urldecode($id));
-        // dd($idTest);
-        $breadcrumb = [
-            "page"          => "Manage Test",
-            "detail"        => "Manage Test Detail",
-            "detail_page"   => "Test Result",
-            "route"         => "/HR/test"
+        $testParticipant = TestParticipant::select('test_participant.*', 'test_event.city', 'test_event.event_id','test_event.location','test_event.date_test','test_event.time','test_event.set_test as set_data_test','test_event.latlong')
+                                            ->join('test_event', 'test_participant.test_id', 'test_event.id')
+                                            ->where('test_participant.id', $idTest)->get()->toArray();
+        if ($testParticipant) {
+            $listCandidate = DB::select('EXEC get_kandidat '.$testParticipant[0]['kandidat_id'].', NULL, NULL, NULL, NULL, NULL, NULL,NULL,NULL, NULL, NULL, 0, 1 ');
+            $masterSubtest = MasterSubtest::where('id', '!=', '13')->orderBy('sub_type', 'ASC')->get()->toArray();
+            $setTest = SetTest::where('set', $testParticipant[0]['set_test'])->get()->toArray();
+            $cognitiveResult = CognitiveTestResult::where('id_participant', $testParticipant[0]['id'])->get()->toArray();
+            if ($cognitiveResult) {
+                $cognitiveResult[0]['skorAbstrak'] = $cognitiveResult[0]['abstrak1']+$cognitiveResult[0]['abstrak2']+$cognitiveResult[0]['abstrak3']+$cognitiveResult[0]['abstrak4'];
+                
+                if ($cognitiveResult[0]['skorAbstrak'] >= $setTest[0]['abstrak']) {
+                    $cognitiveResult[0]['resultAbstrak'] = "PASS";
+                }else{
+                    $cognitiveResult[0]['resultAbstrak'] = "FAIL";
+                }
+
+                $cognitiveResult[0]['skorNumeric'] = $cognitiveResult[0]['numerical1']+$cognitiveResult[0]['numerical2']+$cognitiveResult[0]['numerical3']+$cognitiveResult[0]['numerical4'];
+
+                if ($cognitiveResult[0]['skorNumeric'] >= $setTest[0]['numerical']) {
+                    $cognitiveResult[0]['resultNumeric'] = "PASS";
+                }else{
+                    $cognitiveResult[0]['resultNumeric'] = "FAIL";
+                }
+
+                $cognitiveResult[0]['skorVerbal'] = $cognitiveResult[0]['verbal1']+$cognitiveResult[0]['verbal2']+$cognitiveResult[0]['verbal3']+$cognitiveResult[0]['verbal4'];
+
+                if ($cognitiveResult[0]['skorVerbal'] >= $setTest[0]['verbal']) {
+                    $cognitiveResult[0]['resultVerbal'] = "PASS";
+                }else{
+                    $cognitiveResult[0]['resultVerbal'] = "FAIL";
+                }
+
+                if ($cognitiveResult[0]['skor'] >= $setTest[0]['total']) {
+                    $cognitiveResult[0]['resultSkor'] = "PASS";
+                }else{
+                    $cognitiveResult[0]['resultSkor'] = "FAIL";
+                }
+
+            } else {
+                $cognitiveResult[0]['skorAbstrak'] = "Not Set";
+                $cognitiveResult[0]['abstrak1'] = "Not Set";
+                $cognitiveResult[0]['abstrak2'] = "Not Set";
+                $cognitiveResult[0]['abstrak3'] = "Not Set";
+                $cognitiveResult[0]['abstrak4'] = "Not Set";
+                $cognitiveResult[0]['skorNumeric'] = "Not Set";
+                $cognitiveResult[0]['numerical1'] = "Not Set";
+                $cognitiveResult[0]['numerical2'] = "Not Set";
+                $cognitiveResult[0]['numerical3'] = "Not Set";
+                $cognitiveResult[0]['numerical4'] = "Not Set";
+                $cognitiveResult[0]['skorVerbal'] = "Not Set";
+                $cognitiveResult[0]['verbal1'] = "Not Set";
+                $cognitiveResult[0]['verbal2'] = "Not Set";
+                $cognitiveResult[0]['verbal3'] = "Not Set";
+                $cognitiveResult[0]['verbal4'] = "Not Set";
+                $cognitiveResult[0]['skor'] = "Not Set";
+                $cognitiveResult[0]['resultAbstrak'] = "";
+                $cognitiveResult[0]['resultNumeric'] = "";
+                $cognitiveResult[0]['resultVerbal'] = "";
+                $cognitiveResult[0]['resultSkor'] = "";
+            }
+
+            $breadcrumb = [
+                "page"          => "Manage Test",
+                "detail"        => "Manage Test Detail",
+                "detail_page"   => "Test Result",
+                "route"         => "/HR/test",
+            ];
+            return view('admin.test.test-result')->with([
+                'pageTitle'     => 'Manajemen Test', 
+                'title'         => 'Manajemen Test', 
+                'sidebar'       => 'manajemen_test', 
+                'breadcrumb'    => $breadcrumb,
+                "candidate"     => $listCandidate[0],
+                "test"          => $testParticipant[0],
+                "masterSubtest" => $masterSubtest,
+                "cognitiveResult" => $cognitiveResult
+            ]);
+        }else{
+            abort(404);
+        }
+
+    }
+
+    public function inventoryResult(){
+        $idParticipant = Request::input('id');
+        $inventory = InventoryTestResult::select('inventory_test_result.*', 'master_facet.category', 'master_facet.facet_name')
+                                        ->join('master_facet', 'master_facet.id', 'inventory_test_result.facet_id')
+                                        ->where('inventory_test_result.id_participant', $idParticipant)->get()->toArray();
+        // dd($inventory);
+        $label = [];
+        $result = [];
+        if ($inventory) {
+            for ($i=0; $i < count($inventory) ; $i++) { 
+                $dataLabel = $inventory[$i]['category'].' ('.$inventory[$i]['facet_name'].')';
+                array_push($label, $dataLabel);
+                array_push($result, (int)$inventory[$i]['skor']);
+            }
+        }
+
+        $value = [
+            'label'  => $label,
+            'result' => $result
         ];
-        return view('admin.test.test-result')->with(['pageTitle' => 'Manajemen Test', 'title' => 'Manajemen Test', 'sidebar' => 'manajemen_test', 'breadcrumb' => $breadcrumb]);
+
+        return response()->json($value);
+    }
+
+    public function downloadResult($id){
+        $idDownload = base64_decode(urldecode($id));
+        $date = date('YmdHis');
+        return Excel::download(new DownloadResult($idDownload), 'Download_'.$date.'.xlsx');
+    }
+
+    function str_putcsv($array, $filename, $headers, $delimiter=",")
+	{
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment; filename="'.$filename.'";');
+        $f = fopen(public_path()."/storage/".$filename, 'w');
+
+        fputcsv($f, $headers, $delimiter);
+    
+        foreach ($array as $line) {
+            fputcsv($f, $line, $delimiter);
+		}
+		
     }
 }

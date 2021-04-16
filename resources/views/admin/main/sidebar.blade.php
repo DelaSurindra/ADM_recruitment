@@ -83,6 +83,18 @@
                     </div>
                 </a>
             </li>
+            <li class="tree-menu custom-height-menu-sidebar">
+                <a href="{{ route('get.interview') }}" class="menu {{($sidebar== 'manajemen_interview'?'active':'')}}">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="{{ $sidebar== 'manajemen_interview' ? asset('image/icon/sidebar/icon_menu_interview_active.svg') : asset('image/icon/sidebar/icon_menu_interview.svg')}}" alt="" width="25px" class="right-icon-sidebar icon-sidebar-mobile">
+                        </div>
+                        <div class="col-md-10">
+                            <span class="font-color-sidebar">Manage Interview</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
         </ul>
     </section>
 </aside>

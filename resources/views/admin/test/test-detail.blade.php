@@ -72,7 +72,7 @@
                                         </div>
                                         <div class="col-md-5">
                                             <p class="title-alternatif title-date">Date Test Alternative 1</p>
-                                            <p class="content-alternatif">{{$value['date']}}</p>
+                                            <p class="content-alternatif">{{date('d/m/Y', strtotime($value['date']))}}</p>
                                         </div>
                                         
                                     </div>
@@ -130,8 +130,8 @@
                             </div>
                             <div class="col-md-9">
                                 @if($data['status_test'] == 3)
-                                    <button class="btn btn-red right" type="button">Download Test Result</button>
-                                @else
+                                    <a class="btn btn-red right" href="{{route('download.result', base64_encode(urlencode($data['id'])))}}">Download Test Result</a>
+                                        @else
                                     @if(date('Y-m-d', strtotime($data['date_test'])) == date('Y-m-d'))
                                         <button class="btn btn-red right" type="button">Send OTP to All</button>
                                     @else

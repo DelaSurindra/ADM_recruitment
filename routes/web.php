@@ -86,7 +86,17 @@ Route::prefix('HR')->group(function(){
 			Route::post('/detail-reschedule','Admin\TestController@detailReschedule')->name('post.detail.reschedule');
 			Route::post('/post-reschedule','Admin\TestController@postReschedule')->name('post.reschedule');
 			Route::get('/view-result-test/{id}', 'Admin\TestController@viewResultTest')->name('get.test.result');
-
+			Route::post('/inventory-result','Admin\TestController@inventoryResult')->name('inventory.result');
+			Route::get('/download-result/{id}','Admin\TestController@downloadResult')->name('download.result');
+		});
+		
+		Route::prefix('interview')->group(function () {
+			Route::get('/', 'Admin\InterviewController@viewInterview')->name('get.interview');
+			Route::get('/add-interview', 'Admin\InterviewController@viewInterviewAdd')->name('get.interview.add');
+			Route::post('/list-interview','Admin\InterviewController@listInterview')->name('post.interview.list');
+			Route::get('/detail-interview/{id}', 'Admin\InterviewController@viewInterviewDetail')->name('get.interview.detail');
+			Route::get('/edit-interview/{id}', 'Admin\InterviewController@viewInterviewEdit')->name('get.interview.edit');
+			Route::post('/post-edit-interview','Admin\InterviewController@editInterview')->name('post.interview.edit');
 		});
 	});
 });

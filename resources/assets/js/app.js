@@ -27,6 +27,7 @@ $(document).ready(function () {
     ajax.init();
     table.init();
     form.init();
+    grafik.init();
     ui.slide.init();
     validation.addMethods();
     // if ($('#main-wrapper').length) {

@@ -18,7 +18,8 @@ mix.babel([
     'resources/assets/js/form.js',
     'resources/assets/js/table.js',
     'resources/assets/js/ui.js',
-    'resources/assets/js/validation.js'
+    'resources/assets/js/validation.js',
+    'resources/assets/js/grafik.js'
     ], 'public/js/all.js')
     .styles([
 	    'resources/assets/css/candidate-style.css',

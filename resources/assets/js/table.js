@@ -803,6 +803,97 @@ var table = {
 			});
 		})
 
+		if ($('#tableInterview').length) {
+			var column = [
+				{'data':'created_at'},
+				{'data':'job_title'},
+				{'data':'type'},
+				{'data':'degree'},
+				{'data':'major'},
+				{'data':'work_time'},
+				{'data':'active_date'},
+				{'data':'status'},
+			];
+
+			columnDefs = [
+				{
+					"targets": 2,
+					"data": "type",
+					"render": function(data, type, full, meta){
+						var data = ''
+		            	if (full.type == 1) {
+		            	    data = 'Full Time';
+		            	} else {
+		            	    data = 'Intership';
+		            	}
+		               	return data;
+					}
+				},
+				{
+					"targets": 3,
+					"data": "degree",
+					"render": function(data, type, full, meta){
+						var data = ''
+		            	if (full.degree == 1) {
+		            	    data = 'D3';
+		            	} else if(full.degree == 2) {
+		            	    data = 'S1';
+		            	}else{
+							data = "S2"
+						}
+		               	return data;
+					}
+				},
+				{
+					"targets": 3,
+					"data": "degree",
+					"render": function(data, type, full, meta){
+						var data = ''
+		            	if (full.degree == 1) {
+		            	    data = 'D3';
+		            	} else if(full.degree == 2) {
+		            	    data = 'S1';
+		            	}else{
+							data = "S2"
+						}
+		               	return data;
+					}
+				},
+				{
+					"targets": 7,
+					"data": "status",
+					"render": function(data, type, full, meta){
+						var data = ''
+		            	if (full.status == 1) {
+		            	    data = '<strong>Publised</strong>';
+		            	}else{
+							data = "<p>Deaktif</p>"
+						}
+		               	return data;
+					}
+				},
+				{
+					"targets": 8,
+					"data": "id",
+					"className": "action-poster-news",
+					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.job_id));
+						var konfirm = '';
+						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/vacancy/detail-vacancy/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Vacancy"> Edit&nbsp</a></button>';
+						if (full.status == '1') {
+							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy edit-table"><img style="margin-right: 1px;" src="/image/icon/main/deactive.svg" title="Deaktif Vacancy">Deactive</button>';
+						} else {
+							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy edit-table"><img style="margin-right: 1px;" src="/image/icon/main/active.svg" title="Aktifkan Vacancy">Active</button>';
+						}
+						var hasil = data+konfirm
+		               	return hasil;
+					}
+				}
+			];
+
+		 	table.serverSide('tableInterview',column,'HR/interview/list-interview',null,columnDefs)
+        }
+
 	},
 	filter:function(id,value){
 		if (id == 'filterSearchList' || id == 'filterJobList') {
