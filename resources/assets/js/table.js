@@ -805,86 +805,62 @@ var table = {
 
 		if ($('#tableInterview').length) {
 			var column = [
-				{'data':'created_at'},
+				{'data':'interview_date'},
+				{'data':'first_name'},
 				{'data':'job_title'},
-				{'data':'type'},
-				{'data':'degree'},
-				{'data':'major'},
-				{'data':'work_time'},
-				{'data':'active_date'},
+				{'data':'area_vacancy'},
+				{'data':'type_name'},
+				{'data':'interviewer'},
+				{'data':'time'},
+				{'data':'city'},
+				{'data':'location'},
 				{'data':'status'},
+				{'data':'note'},
 			];
 
 			columnDefs = [
 				{
 					"targets": 2,
-					"data": "type",
+					"data": "first_name",
 					"render": function(data, type, full, meta){
-						var data = ''
-		            	if (full.type == 1) {
-		            	    data = 'Full Time';
-		            	} else {
-		            	    data = 'Intership';
-		            	}
-		               	return data;
-					}
-				},
-				{
-					"targets": 3,
-					"data": "degree",
-					"render": function(data, type, full, meta){
-						var data = ''
-		            	if (full.degree == 1) {
-		            	    data = 'D3';
-		            	} else if(full.degree == 2) {
-		            	    data = 'S1';
-		            	}else{
-							data = "S2"
+						var id = encodeURIComponent(window.btoa(full.kandidat_id));
+						var image = '';
+						if (full.foto_profil == null || full.foto_profil == "") {
+							image = baseUrl+'image/icon/homepage/dummy-profile.svg';
+						}else{
+							image = baseImage+'/'+full.foto_profil;
 						}
-		               	return data;
+						var data = '<img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.first_name+' '+full.last_name;
+						return data;
 					}
 				},
 				{
-					"targets": 3,
-					"data": "degree",
-					"render": function(data, type, full, meta){
-						var data = ''
-		            	if (full.degree == 1) {
-		            	    data = 'D3';
-		            	} else if(full.degree == 2) {
-		            	    data = 'S1';
-		            	}else{
-							data = "S2"
-						}
-		               	return data;
-					}
-				},
-				{
-					"targets": 7,
+					"targets": 9,
 					"data": "status",
 					"render": function(data, type, full, meta){
-						var data = ''
-		            	if (full.status == 1) {
-		            	    data = '<strong>Publised</strong>';
-		            	}else{
-							data = "<p>Deaktif</p>"
+						var data = '';
+						if (full.status == 1) {
+							data = "New";
+						}else if (full.status == 2) {
+							data = "Pass";
+						}else if (full.status == 3) {
+							data = "Fail";
+						}else if (full.status == 4) {
+							data = "Rescheduled";
+						}else if (full.status == 5) {
+							data = "Reschedule";
 						}
-		               	return data;
+						return data;
 					}
 				},
 				{
-					"targets": 8,
+					"targets": 11,
 					"data": "id",
 					"className": "action-poster-news",
 					"render": function(data, type, full, meta){
-						var id = encodeURIComponent(window.btoa(full.job_id));
-						var konfirm = '';
-						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/vacancy/detail-vacancy/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Vacancy"> Edit&nbsp</a></button>';
-						if (full.status == '1') {
-							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy edit-table"><img style="margin-right: 1px;" src="/image/icon/main/deactive.svg" title="Deaktif Vacancy">Deactive</button>';
-						} else {
-							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy edit-table"><img style="margin-right: 1px;" src="/image/icon/main/active.svg" title="Aktifkan Vacancy">Active</button>';
-						}
+						var id = encodeURIComponent(window.btoa(full.id));
+						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/interview/detail-interview/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Interview"> Edit&nbsp</a></button>';
+						var konfirm = '<button type="button" class="btn btn-table btn-transparent btn-update-status edit-table"><img style="margin-right: 1px;" src="/image/icon/main/icon_update_status.svg" title="Update Status">Update Status</button>';
 						var hasil = data+konfirm
 		               	return hasil;
 					}
@@ -893,6 +869,67 @@ var table = {
 
 		 	table.serverSide('tableInterview',column,'HR/interview/list-interview',null,columnDefs)
         }
+
+		if ($("#tableChooseInterview").length) {
+			var column = [
+				{'data':null},
+				{'data':'submit_date'},
+				{'data':'name'},
+				{'data':'age'},
+				{'data':'gelar'},
+				{'data':'universitas'},
+				{'data':'fakultas'},
+				{'data':'jurusan'},
+				{'data':'gpa'},
+				{'data':'graduate_year'},
+				{'data':'job_position'},
+				{'data':'area'},
+			];
+	
+			columnDefs = [
+				{
+					"targets": 0,
+					"orderable": false,
+					"data": "job_application_id",
+					"render": function(data, type, full, meta){
+						var data = '<input class="choose" type="checkbox" id="interview_'+full.job_application_id+'">';
+						return data;
+					}
+				},
+				{
+					"targets": 2,
+					"data": "name",
+					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.kandidat_id));
+						var image = '';
+						if (full.foto_profil == null || full.foto_profil == "") {
+							image = baseUrl+'image/icon/homepage/dummy-profile.svg';
+						}else{
+							image = baseImage+'/'+full.foto_profil;
+						}
+						var data = '<img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name+'';
+						return data;
+					}
+				},
+				{
+					"targets": 4,
+					"data": "gelar",
+					"render": function(data, type, full, meta){
+						var data = '';
+						if (full.gelar == "1") {
+							data = "D3";
+						}else if (full.gelar == "2") {
+							data = "S1";
+						}else{
+							data = "S2"
+						}
+						return data;
+					}
+				},
+			];
+	
+			table.serverSide('tableChooseInterview',column,'HR/interview/list-candidate-pick',null,columnDefs)
+		}
 
 	},
 	filter:function(id,value){
@@ -1089,7 +1126,7 @@ var table = {
 			ordering = false;
 		}
 
-		if (id == "tableCandidate" || id == "tableChooseCandidate" || id == "tableParticipantTest" || id=="tableParticipantTestTheDay") {
+		if (id == "tableCandidate" || id == "tableChooseCandidate" || id == "tableParticipantTest" || id=="tableParticipantTestTheDay" || id == "tableChooseInterview") {
 			urutan = [1, 'desc'];
 		}
 
@@ -1403,4 +1440,59 @@ $('#tableParticipantTest tbody').on( 'click', 'button.btn-acc-reschedule', funct
 		$("#idTestRechedule").val(data.id)
 	})
 	$("#modalReschedule").modal('show');
+});
+
+$("#tableChooseInterview tbody").on('click', 'input', function(e) {
+	var table = $('#tableChooseInterview').DataTable();
+	var dataRow = table.row($(this).closest('tr')).data();
+	var count = $("#countChoose").val();
+	var jumlah = "";
+	if ($("#interview_"+dataRow.job_application_id).is(":checked")) {
+		if (dataRow.foto_profil == null || dataRow.foto_profil == "") {
+			image = baseUrl+'image/icon/homepage/dummy-profile.svg';
+		}else{
+			image = baseImage+'/'+dataRow.foto_profil;
+		}
+		var dataNama = '<img class="img-candidate" src="'+image+'" />'+'&nbsp'+dataRow.name+'';
+		var type = "";
+		if (dataRow.type == "1") {
+			type = "Full Time";
+		} else {
+			type = "Intership"
+		}
+		jumlah = parseInt(count)+1;
+		$("#countChoose").val(jumlah);
+		$("#chooseInterview").append('<input type="hidden" class="choose-candidate-list" id="input_'+dataRow.job_application_id+'" name="idJOb[]" value="'+dataRow.job_application_id+'">')
+		$("#tbodyInterview").append(
+			'<tr id="tr_'+dataRow.job_application_id+'">'+
+				'<td>'+dataNama+'</td>'+
+				'<td>'+dataRow.universitas+'</td>'+
+				'<td>'+dataRow.jurusan+'</td>'+
+				'<td>'+dataRow.job_position+'</td>'+
+				'<td>'+type+'</td>'+
+				'<td>'+dataRow.area+'</td>'+
+			'</tr>'
+		)
+
+	} else {
+		jumlah = parseInt(count)-1;
+		$("#countChoose").val(jumlah);
+		$("#input_"+dataRow.job_application_id).remove();
+		$("#tr_"+dataRow.job_application_id).remove();
+	}
+	if (jumlah == 0) {
+		$("#btnAddCandidateInterview").addClass('hidden');
+	}else{
+		$("#btnAddCandidateInterview").removeClass('hidden');
+	}
+})
+
+$('#tableInterview tbody').on( 'click', 'button.btn-update-status', function (e) {
+	var table = $('#tableInterview').DataTable();
+	var dataRow = table.row($(this).closest('tr')).data();
+	$("#idUpdateStatus").val(dataRow.id);
+	$("#idJobApp").val(dataRow.id_job_application);
+	$("#statusJobApp").val(dataRow.status_job);
+	$("#idKandidat").val(dataRow.kandidat_id);
+	$("#modalUpdateStatus").modal('show');
 });

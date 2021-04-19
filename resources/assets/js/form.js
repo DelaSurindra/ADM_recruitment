@@ -1545,3 +1545,35 @@ if ($(".btn-confirm").length) {
 		$("#valueBtn").val(this.value);
 	})
 }
+
+if ($("#formAddInterview").length) {
+	$("#typeInterview").change(function(){
+		var value = $("#typeInterview").val();
+		if (value == "1" || value == "2") {
+			$("#lastInterviewDiv").removeClass("hidden");
+		} else {
+			$("#lastInterviewDiv").addClass("hidden");
+		}
+		$("#lastInterview").prop('checked', false);
+	})
+	$('#dateInterview').datetimepicker({
+		format: 'DD-MM-YYYY',
+	});
+
+	$("#btnAddCandidateInterview").click(function(){
+		$("#modalChooseInterview").modal('hide');
+		$("#cardAddCandidate").addClass("hidden");
+		$("#cardListCandidate").removeClass("hidden");
+	})
+}
+
+if ($("#updateStatusInterview").length) {
+	$("#statusInterview").change(function(){
+		var status = $("#statusInterview").val();
+		if (status == "2") {
+			$("#divFail").addClass("hidden");
+		}else{
+			$("#divFail").removeClass("hidden");
+		}
+	})
+}

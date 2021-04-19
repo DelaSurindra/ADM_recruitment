@@ -454,6 +454,56 @@ const formrules = {
 				error.insertAfter(element);
 			}
 		}
+	},
+
+	'formAddInterview':{
+		ignore: null,
+		rules:{
+            'typeInterview':{
+                required:true
+            },
+            'locationInterview':{
+                required: true
+            },
+			'timeInterview':{
+                required: true
+            },
+			'dateInterview':{
+                required: true
+            },
+			'cityInterview':{
+				required: true
+			},
+			'interviewer':{
+				required: true
+			},
+		},
+		messages: {
+			setTest: {
+				required: 'Mohon pilih salah satu set test',
+			}
+        },
+		submitHandler:false,
+        errorPlacement: function (error, element) {
+			if (element.is("#typeInterview")) {
+				error.appendTo(element.parents('#typeInterviewDiv'));
+			}else { // This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+	},
+
+	'updateStatusInterview':{
+		ignore: null,
+		rules:{
+            'noteInterview':{
+                required:true
+            }
+		},
+		submitHandler:false,
+        errorPlacement: function (error, element) {
+			error.insertAfter(element);
+		}
 	}
 
 }
