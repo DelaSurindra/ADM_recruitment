@@ -133,6 +133,10 @@ table.dataTable.no-footer{
 	min-width: 50px !important;
 }
 
+.table-hr .width-univ{
+	width: 30% !important;
+}
+
 .img-candidate{
 	width: 30px;
 	height: 30px;

@@ -95,11 +95,23 @@ Route::prefix('HR')->group(function(){
 			Route::post('/list-interview','Admin\InterviewController@listInterview')->name('post.interview.list');
 			Route::get('/add-interview', 'Admin\InterviewController@viewInterviewAdd')->name('get.interview.add');
 			Route::post('/post-add-interview','Admin\InterviewController@addInterview')->name('post.interview.add');
-			Route::get('/detail-interview/{id}', 'Admin\InterviewController@viewInterviewDetail')->name('get.interview.detail');
 			Route::get('/edit-interview/{id}', 'Admin\InterviewController@viewInterviewEdit')->name('get.interview.edit');
 			Route::post('/post-edit-interview','Admin\InterviewController@editInterview')->name('post.interview.edit');
 			Route::post('/list-candidate-pick','Admin\InterviewController@listCandidatePick')->name('post.candidate.list.interview');
 			Route::post('/update-status-interview','Admin\InterviewController@updateStatus')->name('post.update.status.interview');
+			Route::post('/decline-interview','Admin\InterviewController@declineInterview')->name('post.decline.interview');
+			Route::post('/acc-interview','Admin\InterviewController@accInterview')->name('post.acc.interview');
+		});
+
+		Route::prefix('master')->group(function () {
+			Route::get('/', 'Admin\MasterController@viewMaster')->name('get.master');
+			Route::post('/list-universitas','Admin\MasterController@listUniversitas')->name('post.universitas.list');
+			Route::post('/list-major','Admin\MasterController@listMajor')->name('post.major.list');
+			Route::get('/add-master', 'Admin\MasterController@viewMasterAdd')->name('get.master.add');
+			Route::post('/post-master','Admin\MasterController@addMaster')->name('post.master.add');
+			Route::get('/edit-master/{id}', 'Admin\MasterController@viewMasterEdit')->name('get.master.edit');
+			Route::post('/edit-master','Admin\MasterController@editMaster')->name('post.master.edit');
+			Route::post('/delete-master','Admin\MasterController@deleteMaster')->name('post.master.delete');
 		});
 	});
 });
@@ -133,6 +145,10 @@ Route::middleware('authcandidate')->group(function(){
 			Route::post('/post-reschedule-test', 'Candidate\ProfileController@postRescheduleTest')->name('post.reschedule.test');
 			Route::post('/post-reschedule-wt', 'Candidate\ProfileController@postRescheduleWt')->name('post.reschedule.wt');
 
+			Route::post('/post-confirm-interview', 'Candidate\ProfileController@postConfirmInterview')->name('post.confirm.interview');
+			Route::get('/interview-reschedule/{id}', 'Candidate\ProfileController@interviewReschedule')->name('get.profile.interview-reschedule');
+			Route::post('/post-reschedule-interview', 'Candidate\ProfileController@postRescheduleInterview')->name('post.reschedule.interview');
+
 		});
 	});
 
@@ -155,9 +171,6 @@ Route::post('/apply-job', 'Candidate\JobController@applyJob')->name('post.apply-
 
 Route::post('/post-signup', 'Candidate\LoginController@signUp')->name('post.signup');
 Route::post('/post-login', 'Candidate\LoginController@signIn')->name('post.login');
-
-// Fitur Masih Belum Pasti
-Route::get('/interview-reschedule', 'Candidate\ProfileController@interviewReschedule')->name('get.profile.interview-reschedule');
 
 //FAQ
 Route::get('/faq', 'Candidate\FaqController@viewFaq')->name('get.candidate.faq');

@@ -1,3 +1,20 @@
+.btn-detail-interview{
+    border: none;
+    background-color: transparent;
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 130%;
+    align-items: center;
+    color: #050401;
+    float: right;
+}
+
+.btn-detail-interview:focus{
+    outline: none;
+}
+
 .custome-radio-wrapper {
     display: block;
     position: relative;
@@ -1222,6 +1239,12 @@
 }
 .form-hr .select2-selection.select2-selection--single .select2-selection__arrow {
     top: 7px;
+}
+.form-hr:disabled{
+    background: #BDBDBD;
+}
+.select2-container--default.select2-container--disabled .select2-selection--single{
+    background: #BDBDBD !important;
 }
 
 .required-sign {

@@ -21,6 +21,18 @@
                     </div>
                 </a>
             </li>
+            <li class="tree-menu custom-height-menu-sidebar">
+                <a href="{{ route('get.master') }}" class="menu {{($sidebar== 'manajemen_master'?'active':'')}}">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="{{ $sidebar== 'manajemen_master' ? asset('image/icon/sidebar/icon_menu_master_active.svg') : asset('image/icon/sidebar/icon_menu_master.svg')}}" alt="" width="25px" class="right-icon-sidebar icon-sidebar-mobile">
+                        </div>
+                        <div class="col-md-10">
+                            <span class="font-color-sidebar">Manage Data Master</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
             <p class="text-title title-bottom">HOMEPAGE CONTENT</p>
             <li class="tree-menu custom-height-menu-sidebar">
                 <a href="{{ route('get.news.event') }}" class="menu {{($sidebar== 'manajemen_news_event'?'active':'')}}">

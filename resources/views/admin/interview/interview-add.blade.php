@@ -124,11 +124,11 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>University</th>
-                            <th>Major</th>
-                            <th>Job Position</th>
-                            <th>Job Type</th>
+                            <th>Gender</th>
+                            <th>Phone</th>
                             <th>City</th>
+                            <th>Job Title</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody id="tbodyInterview">
@@ -166,17 +166,12 @@
                     <thead>
                         <tr>
                             <th class="width-checkbox"></th>
-                            <th>Submit Date</th>
                             <th>Name</th>
-                            <th>Age</th>
-                            <th>Graduate</th>
-                            <th>University</th>
-                            <th>Faculty</th>
-                            <th>Major</th>
-                            <th>GPA</th>
-                            <th>Graduate Year</th>
-                            <th>Job Position</th>
-                            <th>Area</th>
+                            <th>Gender</th>
+                            <th>Phone</th>
+                            <th>City</th>
+                            <th>Job Title</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>

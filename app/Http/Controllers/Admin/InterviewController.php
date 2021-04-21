@@ -8,6 +8,7 @@ use App\Http\Controllers\Security\ValidatorController;
 use App\Http\Controllers\RequestController;
 use App\Model\InterviewEvent;
 use App\Model\InterviewType;
+use App\Model\InterviewReschedule;
 use App\Model\Job_Application;
 use App\Model\Candidate;
 use App\AdminSession;
@@ -111,7 +112,8 @@ class InterviewController extends Controller
                     "city"                  => $data["cityInterview"],
                     "interviewer"           => $data["interviewer"],
                     "last_interview"        => isset($data["lastInterview"]) ? $data["lastInterview"] : 0,
-                    "status"                => 1
+                    "status"                => 1,
+                    "reshedule_count"       => 0
                 ]);
             }
 
@@ -121,8 +123,12 @@ class InterviewController extends Controller
                 }elseif ($data['typeInterview'] == "2") {
                     $statusJob = 6;
                 }elseif ($data['typeInterview'] == "3") {
-                    $statusJob = 9;
+                    $statusJob = 7;
                 }elseif ($data['typeInterview'] == "4") {
+                    $statusJob = 8;
+                }elseif ($data['typeInterview'] == "5") {
+                    $statusJob = 9;
+                }else{
                     $statusJob = 10;
                 }
 
@@ -151,62 +157,45 @@ class InterviewController extends Controller
     }
 
     public function listCandidatePick(){
-    	if (Request::input('order')[0]['column'] == '1') {
-            $column = 'date';
-        }elseif (Request::input('order')[0]['column'] == '2') {
-            $column = 'name';
-        }elseif (Request::input('order')[0]['column'] == '3') {
-            $column = 'tanggal_lahir';
-        }elseif (Request::input('order')[0]['column'] == '4') {
-            $column = 'gelar';
-        }elseif (Request::input('order')[0]['column'] == '5') {
-            $column = 'universitas';
-        }elseif (Request::input('order')[0]['column'] == '6') {
-            $column = 'fakultas';
-        }elseif (Request::input('order')[0]['column'] == '7') {
-            $column = 'jurusan';
-        }elseif (Request::input('order')[0]['column'] == '8') {
-            $column = 'gpa';
-        }elseif (Request::input('order')[0]['column'] == '9') {
-            $column = 'graduate_year';
-        }elseif (Request::input('order')[0]['column'] == '10') {
-            $column = 'job_position';
-        }elseif (Request::input('order')[0]['column'] == '11') {
-            $column = 'area';
+
+    	$dataSend = array(
+            "search"     => Request::input('search')['value'],
+            "offset"     => Request::input('start'),
+            "limit"      => Request::input('length'),
+            'order'      => (!empty(Request::get('columns')[Request::get('order')[0]['column']]['data'])) ? Request::get('columns')[Request::get('order')[0]['column']]['data'] : '',
+            'sort'       => (!empty(Request::get('order')[0]['dir'])) ? Request::get('order')[0]['dir'] : '',
+
+        );
+        $interview = Job_Application::select('job_application.id as job_application_id', 'job_application.kandidat_id', 'job_application.status', 'kandidat.foto_profil', 'kandidat.first_name', 'kandidat.last_name', 'kandidat.gender', 'kandidat.telp', 'kandidat.kota', 'vacancies.job_title')
+                                    ->join('kandidat', 'job_application.kandidat_id', 'kandidat.id')
+                                    ->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')
+                                    ->where('job_application.status', "!=", "0")
+                                    ->Where('job_application.status', "!=", "1")
+                                    ->Where('job_application.status', "!=", "2")
+                                    ->Where('job_application.status', "!=", "4")
+                                    ->Where('job_application.status', "!=", "10")
+                                    ->Where('job_application.status', "!=", "11")
+                                    ->Where('job_application.status', "!=", "12");
+
+        if ($dataSend['search']){
+            $interview = $interview->where('title','like','%'.$dataSend['search'].'%');
         }
+        $countInterview = $interview->count();
 
-        $order = $column.'_'.Request::input('order')[0]['dir'];
+        $listInterview = $interview->skip(intval( $dataSend["offset"]))->take(intval($dataSend["limit"]));
 
-        if (Request::input('search')['value'] == null) {
-        	$search = "NULL";
-        }else{
-        	$search = '"'.Request::input('search')['value'].'"';
+        if ($dataSend["order"]) {
+            $listInterview = $listInterview->orderBy($dataSend["order"], $dataSend["sort"])->get()->toArray();
+        } else {
+            $listInterview = $listInterview->orderBy('created_at', $dataSend["sort"])->get()->toArray();
         }
-
-        $id = Request::input('param');
-        // dd($id);
-        $listCandidate = DB::select('EXEC get_kandidat NULL, NULL, NULL, NULL, NULL, NULL, NULL,NULL,3, '.$search.', "'.$order.'", "'.Request::input('start').'", "'.Request::input('length').'" ');
-        $countCandidate = DB::select('EXEC get_kandidat_count NULL, NULL, NULL, NULL, NULL, NULL, NULL,NULL, 3, '.$search.' ');
-        for ($i=0; $i < count($listCandidate); $i++) { 
-            $date = date('m/d/Y', strtotime($listCandidate[$i]->tanggal_lahir));
-            $birthDate = explode("/", $date);
-            //get age from date or birthdate
-            $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[0], $birthDate[1], $birthDate[2]))) > date("md")
-                ? ((date("Y") - $birthDate[2]) - 1)
-                : (date("Y") - $birthDate[2]));
-
-            $listCandidate[$i]->age = $age;
-
-            $listCandidate[$i]->submit_date = date('m/d/Y', strtotime($listCandidate[$i]->submit_date));
-        }
-        // dd($listCandidate, $countCandidate);
-
-        if ($listCandidate != null) {
+        
+        if ($listInterview != null) {
             $response = array(
                 "draw"              => Request::get('draw'),
-                "recordsTotal"      => $countCandidate[0]->total,
-                "recordsFiltered"   => $countCandidate[0]->total,
-                "data"              => $listCandidate
+                "recordsTotal"      => $countInterview,
+                "recordsFiltered"   => $countInterview,
+                "data"              => $listInterview
             );
         }else{
             $response = array(
@@ -328,5 +317,199 @@ class InterviewController extends Controller
             return response()->json($messages);
         }
         
+    }
+
+    public function viewInterviewEdit($id){
+        $idInterview = base64_decode(urldecode($id));
+        $getInterview = InterviewEvent::select('interview_event.*', 'reschedule_interview.id as id_reschedule', 'reschedule_interview.date_start', 'reschedule_interview.date_end', 'reschedule_interview.time_start', 'reschedule_interview.time_end')
+                                        ->leftJoin('reschedule_interview', 'interview_event.id', 'reschedule_interview.interview_event_id')
+                                        ->where('interview_event.id', $idInterview)
+                                        ->get()->toArray();
+        if ($getInterview) {
+            if($getInterview[0]['status'] == "2" || $getInterview[0]['status'] == "3"){
+                $getInterview[0]['disabled'] = 'disabled';
+            }else{
+                $getInterview[0]['disabled'] = '';
+            }
+            if ($getInterview[0]['status'] == 1) {
+                $getInterview[0]['status_interview'] = "New";
+            }else if ($getInterview[0]['status'] == 2) {
+                $getInterview[0]['status_interview'] = "Pass";
+            }else if ($getInterview[0]['status'] == 3) {
+                $getInterview[0]['status_interview'] = "Fail";
+            }else if ($getInterview[0]['status'] == 4) {
+                $getInterview[0]['status_interview'] = "Rescheduled";
+            }else if ($getInterview[0]['status'] == 5) {
+                $getInterview[0]['status_interview'] = "Decline  Reschedule";
+            }
+            $interviewType = InterviewType::get()->toArray();
+            $getJob = Job_Application::select('job_application.id as job_application_id', 'job_application.kandidat_id', 'job_application.status', 'kandidat.foto_profil', 'kandidat.first_name', 'kandidat.last_name', 'kandidat.gender', 'kandidat.telp', 'kandidat.kota', 'vacancies.job_title')
+                                    ->join('kandidat', 'job_application.kandidat_id', 'kandidat.id')
+                                    ->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')
+                                    ->where('job_application.id', $getInterview[0]['id_job_application'])->get()->toArray();
+            
+            if ($getJob) {
+                if ($getJob[0]['status'] == 0) {
+                    $getJob[0]['status_user'] = "Application Resume";
+                }else if ($getJob[0]['status'] == 1) {
+                    $getJob[0]['status_user'] = "Proses to Written Test";
+                }else if ($getJob[0]['status'] == 2) {
+                    $getJob[0]['status_user'] = "Scheduled to Written Test";
+                }else if ($getJob[0]['status'] == 3) {
+                    $getJob[0]['status_user'] = "Written Test Pass";
+                }else if ($getJob[0]['status'] == 4) {
+                    $getJob[0]['status_user'] = "Written Test failed";
+                }else if ($getJob[0]['status'] == 5) {
+                    $getJob[0]['status_user'] = "Process to HR interview";
+                }else if ($getJob[0]['status'] == 6) {
+                    $getJob[0]['status_user'] = "Process to User Interview 1";
+                }else if ($getJob[0]['status'] == 7) {
+                    $getJob[0]['status_user'] = "Process to User Interview 2";
+                }else if ($getJob[0]['status'] == 8) {
+                    $getJob[0]['status_user'] = "Process to User Interview 3";
+                }else if ($getJob[0]['status'] == 9) {
+                    $getJob[0]['status_user'] = "Process to MCU";
+                }else if ($getJob[0]['status'] == 10) {
+                    $getJob[0]['status_user'] = "Process to Doc Sign";
+                }else if ($getJob[0]['status'] == 11) {
+                    $getJob[0]['status_user'] = "Failed";
+                }else if ($getJob[0]['status'] == 13) {
+                    $getJob[0]['status_user'] = "HR interview Pass";
+                }else if ($getJob[0]['status'] == 14) {
+                    $getJob[0]['status_user'] = "HR interview Fail";
+                }else if ($getJob[0]['status'] == 15) {
+                    $getJob[0]['status_user'] = "User Interview 1 Pass";
+                }else if ($getJob[0]['status'] == 16) {
+                    $getJob[0]['status_user'] = "User Interview 1 Fail";
+                }else if ($getJob[0]['status'] == 17) {
+                    $getJob[0]['status_user'] = "User Interview 2 Pass";
+                }else if ($getJob[0]['status'] == 18) {
+                    $getJob[0]['status_user'] = "User Interview 2 Fail";
+                }else if ($getJob[0]['status'] == 19) {
+                    $getJob[0]['status_user'] = "User Interview 3 Pass";
+                }else if ($getJob[0]['status'] == 20) {
+                    $getJob[0]['status_user'] = "User Interview 3 Fail";
+                }else if ($getJob[0]['status'] == 21) {
+                    $getJob[0]['status_user'] = "MCU Pass";
+                }else if ($getJob[0]['status'] == 22) {
+                    $getJob[0]['status_user'] = "MCU Fail";
+                }else{
+                    $getJob[0]['status_user'] = "Hired";
+                }
+
+                // dd($getJob, $getInterview);
+            
+                $breadcrumb = [
+                    "page"      => "Manage Interview",
+                    "detail"    => "Edit Interview",
+                    "route"     => "/HR/test"
+                ];
+                return view('admin.interview.interview-edit')->with([
+                    'pageTitle' => 'Manajemen Interview', 
+                    'title' => 'Manajemen Interview', 
+                    'sidebar' => 'manajemen_interview', 
+                    'breadcrumb' => $breadcrumb,
+                    'interviewType' => $interviewType,
+                    'interview' => $getInterview[0],
+                    'kandidat' => $getJob[0]
+                ]);
+            } else {
+                abort(404);
+            }
+        } else {
+            abort(404);
+        }
+        
+        
+    }
+
+    public function editInterview(){
+        $encrypt = new EncryptController;
+        $data = $encrypt->fnDecrypt(Request::input('data'),true);
+        // dd($data);
+        $editInterview = InterviewEvent::where('id', $data['idInterview'])->update([
+            "interview_date"        => date("Y-m-d", strtotime($data["dateInterview"])),
+            "time"                  => $data["timeInterview"],
+            "location"              => $data["locationInterview"],
+            "city"                  => $data["cityInterview"],
+            "interviewer"           => $data["interviewer"],
+            "last_interview"        => isset($data["lastInterview"]) ? $data["lastInterview"] : 0
+        ]);
+
+        if ($editInterview) {
+            $messages = [
+                'status' => 'success',
+                'message' => 'Edit Interview Success',
+                'url' => '/HR/interview',
+                'callback' => 'redirect'
+            ];
+
+            return response()->json($messages);
+        } else {
+            $messages = [
+                'status' => 'error',
+                'message' => 'Edit Interview Failed',
+            ];
+
+            return response()->json($messages);
+        }
+        
+    }
+
+    public function declineInterview(){
+        $encrypt = new EncryptController;
+        $data = $encrypt->fnDecrypt(Request::input('data'),true);
+        $declineInterview = InterviewEvent::where('id', $data['idDecline'])->update([
+            "status" => 5,
+        ]);
+
+        if ($declineInterview) {
+            InterviewReschedule::where('id', $data['idReschedule'])->delete();
+            $messages = [
+                'status' => 'success',
+                'message' => 'Decline Reschedule Interview Success',
+                'url' => '/HR/interview',
+                'callback' => 'redirect'
+            ];
+
+            return response()->json($messages);
+        } else {
+            $messages = [
+                'status' => 'error',
+                'message' => 'Decline Reschedule Interview Failed',
+            ];
+
+            return response()->json($messages);
+        }
+    }
+
+    public function accInterview(){
+        $encrypt = new EncryptController;
+        $data = $encrypt->fnDecrypt(Request::input('data'),true);
+        // dd($data);
+        $declineInterview = InterviewEvent::where('id', $data['idAcc'])->update([
+            "interview_date" => date("Y-m-d", strtotime($data["dateAccInterview"])),
+            "time"           => $data["timeAccInterview"],
+            "status"         => 1,
+        ]);
+
+        if ($declineInterview) {
+            InterviewReschedule::where('id', $data['idReschedule'])->delete();
+            $messages = [
+                'status' => 'success',
+                'message' => 'Accept Reschedule Interview Success',
+                'url' => '/HR/interview',
+                'callback' => 'redirect'
+            ];
+
+            return response()->json($messages);
+        } else {
+            $messages = [
+                'status' => 'error',
+                'message' => 'Accept Reschedule Interview Failed',
+            ];
+
+            return response()->json($messages);
+        }
     }
 }
