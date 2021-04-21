@@ -1,6 +1,6 @@
 @extends('candidate.main-homepage.main')
 @section('content')
-<div class="main-container">
+<div class="main-container-contact-us">
     <div class="heading-container-contact-us">
         <div class="row">
             <div class="col-sm-5">
@@ -75,11 +75,11 @@
         <br /><br />
         <form class="row g-3 needs-validation" novalidate>
             <div class="col-md-4">
-                <label for="validationCustom01" class="form-label">Name</label>
+                <label for="validationCustom01" class="form-label">Name*</label>
                 <input type="text" class="form-control" placeholder="Your name" id="validationCustom01" required />
             </div>
             <div class="col-md-4">
-                <label for="validationCustom02" class="form-label">Email</label>
+                <label for="validationCustom02" class="form-label">Email*</label>
                 <input type="text" class="form-control" placeholder="example@gmail.com" id="validationCustom02" required />
             </div>
             <br />
@@ -91,7 +91,7 @@
         <br />
         <form class="row g-3 needs-validation" novalidate>
             <div class="col-4">
-                <h3><b>Required</b></h3>
+                <h3><b>*Required</b></h3>
             </div>
             <div class="d-grip col-4">
                 <button class="btn btn-primary" type="submit" required style="width: 400px; background-color: #df0e2c">Submit form</button>
