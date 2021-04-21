@@ -107,9 +107,7 @@ Route::prefix('HR')->group(function(){
 			Route::get('/', 'Admin\MasterController@viewMaster')->name('get.master');
 			Route::post('/list-universitas','Admin\MasterController@listUniversitas')->name('post.universitas.list');
 			Route::post('/list-major','Admin\MasterController@listMajor')->name('post.major.list');
-			Route::get('/add-master', 'Admin\MasterController@viewMasterAdd')->name('get.master.add');
 			Route::post('/post-master','Admin\MasterController@addMaster')->name('post.master.add');
-			Route::get('/edit-master/{id}', 'Admin\MasterController@viewMasterEdit')->name('get.master.edit');
 			Route::post('/edit-master','Admin\MasterController@editMaster')->name('post.master.edit');
 			Route::post('/delete-master','Admin\MasterController@deleteMaster')->name('post.master.delete');
 		});
