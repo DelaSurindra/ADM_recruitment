@@ -808,8 +808,8 @@ class ProfileController extends Controller
             if ($update) {
                 return [
                     'status'   => 'success',
-                    'message'  => 'Change Password Success, Please Login Again',
-                    'url'      => 'profile/edit-password',
+                    'message'  => 'Change Password Success',
+                    'url'      => '/',
                     'callback' => 'modal'
                 ];
             }else{
