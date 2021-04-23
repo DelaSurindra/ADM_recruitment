@@ -88,14 +88,16 @@
                                             @for ($i = 0; $i < count($data['major']); $i++)
                                             <select class="select2 min-width" id="field-syarat{{ $i+1 }}" name="majorVacancy">
                                                 <option value="">-- Pilih Major --</option>
-                                                <option value="Sistem Informasi" {{ $data['major'][$i] == 'Sistem Informasi' ? 'selected' : '' }}>Sistem Informasi</option>
-                                                <option value="Akuntansi" {{ $data['major'][$i] == 'Akuntansi' ? 'selected' : '' }}>Akuntansi</option>
+                                                <option value="all">ALL</option>
+                                                @foreach($major as $dataMajor)
+                                                    <option {{$data['major'][$i] == $dataMajor['major'] ? 'selected' : ''}} value="{{$dataMajor['major']}}">{{$dataMajor['major']}}</option>
+                                                @endforeach
                                             </select>
                                             @if(count($data['major']) > 1 && count($data['major']) != $i+1 )
                                             <button type="button" id="remove-syarat{{ $i+1 }}" class="remove-me-syarat btn-min">-</button>
                                             @endif
                                             @endfor
-                                            <button id="b2" class="add-more-syarat btn-plus margin-top-btn" type="button">+</button>
+                                            <button id="b2" class="add-more-syarat btn-min" type="button">+</button>
                                         </div>
                                     </div>
                                 </div>

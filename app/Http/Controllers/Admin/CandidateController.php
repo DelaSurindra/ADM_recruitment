@@ -11,6 +11,8 @@ use App\Model\Wilayah;
 use App\Model\Candidate;
 use App\Model\Job_application;
 use App\Model\Education;
+use App\Model\MasterUniversitas;
+use App\Model\MasterMajor;
 use Illuminate\Support\Facades\Storage;
 use Hash;
 use Request;
@@ -125,6 +127,17 @@ class CandidateController extends Controller
             );
         }
         return $response;
+    }
+
+    public function viewCandidateAdd(){
+        $universitas = MasterUniversitas::get()->toArray();
+        $major = MasterMajor::get()->toArray();
+        $breadcrumb = [
+            "page"      => "Manage Candidate",
+            "detail"    => "Add Candidate",
+            "route"     => "/HR/candidate"
+        ];
+        return view('admin.candidate.candidate-add')->with(['pageTitle' => 'Manajemen Candidate', 'title' => 'Manajemen Candidate', 'sidebar' => 'manajemen_candidate', 'breadcrumb' => $breadcrumb, 'universitas' => $universitas, 'major' => $major]);
     }
 
     public function viewCandidateEdit($id){
@@ -308,5 +321,17 @@ class CandidateController extends Controller
             ];
         }
         
+    }
+
+    public function getMaster(){
+        $universitas = MasterUniversitas::get()->toArray();
+        $major = MasterMajor::get()->toArray();
+
+        $data = [
+            'universitas' => $universitas,
+            'major'       => $major
+        ];
+
+        return response()->json($data);
     }
 }

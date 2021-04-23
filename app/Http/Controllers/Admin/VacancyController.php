@@ -8,6 +8,7 @@ use App\Http\Controllers\Security\ValidatorController;
 use App\Http\Controllers\RequestController;
 use App\Model\Vacancy;
 use App\Model\Wilayah;
+use App\Model\MasterMajor;
 use App\AdminSession;
 
 use Hash;
@@ -79,8 +80,9 @@ class VacancyController extends Controller
             "detail"    => "Create Job Vacancy",
             "route"     => "/HR/vacancy"
         ];
+        $major = MasterMajor::select('major')->get()->toArray();
         $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
-        return view('admin.vacancy.vacancy-add')->with(['pageTitle' => 'Manajemen vacancy', 'title' => 'Manajemen vacancy', 'sidebar' => 'manajemen_vacancy', 'wilayah'=>$wilayah, 'breadcrumb' => $breadcrumb]);
+        return view('admin.vacancy.vacancy-add')->with(['pageTitle' => 'Manajemen vacancy', 'title' => 'Manajemen vacancy', 'sidebar' => 'manajemen_vacancy', 'wilayah'=>$wilayah, 'breadcrumb' => $breadcrumb, 'major' => $major]);
     }
 
     public function addVacancy(){
@@ -135,6 +137,7 @@ class VacancyController extends Controller
         $idVacancy = base64_decode(urldecode($id));
         $dataVacancy = Vacancy::where('job_id', $idVacancy)->get()->toArray();
         $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
+        $major = MasterMajor::select('major')->get()->toArray();
         
         if ($dataVacancy) {
             $dataVacancy[0]['major'] = explode(',', $dataVacancy[0]['major']);
@@ -144,7 +147,8 @@ class VacancyController extends Controller
                 'sidebar' => 'manajemen_vacancy', 
                 'data' => $dataVacancy[0],
                 'wilayah' => $wilayah,
-                'breadcrumb' => $breadcrumb
+                'breadcrumb' => $breadcrumb,
+                'major' => $major
             ]);
         } else {
             $messages = [
@@ -227,5 +231,10 @@ class VacancyController extends Controller
                 'message'  => 'Gagal Mengubah Status Vacancy',
             ];
         }
+    }
+
+    public function getMajor(){
+        $getMajor = MasterMajor::get()->toArray();
+        return response()->json($getMajor);
     }
 }

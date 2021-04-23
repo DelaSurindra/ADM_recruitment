@@ -1,3 +1,16 @@
+.photoProfileImage {
+    width: 73px;
+    height: 73px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.photoProfileLabel {
+    width: -webkit-fill-available;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .btn-detail-interview{
     border: none;
     background-color: transparent;

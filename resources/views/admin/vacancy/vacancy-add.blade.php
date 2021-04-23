@@ -87,8 +87,10 @@
                                         <div id="fieldMajorDiv1">
                                             <select class="select2 min-width" id="field-syarat1" name="majorVacancy">
                                                 <option value="">-- Pilih Major --</option>
-                                                <option value="Sistem Informasi">Sistem Informasi</option>
-                                                <option value="Akuntansi">Akuntansi</option>
+                                                <option value="all">ALL</option>
+                                                @foreach($major as $dataMajor)
+                                                    <option value="{{$dataMajor['major']}}">{{$dataMajor['major']}}</option>
+                                                @endforeach
                                             </select>
                                             <button id="b2" class="add-more-syarat btn-plus" type="button">+</button>
                                         </div>

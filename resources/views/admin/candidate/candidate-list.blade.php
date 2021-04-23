@@ -10,7 +10,7 @@
             <p class="title-page"><img src="{{asset('image/icon/main/icon_title_candidate.svg')}}" alt=""> Manage Candidate</p>
             </div>
             <div class="col-md-8">
-                <a href="{{route('get.candidate.detail', 1)}}"><button type="button" class="btn btn-red right">Add Candidate</button></a>
+                <a href="{{route('get.candidate.add')}}"><button type="button" class="btn btn-red right">Add Candidate</button></a>
                 <button type="button" class="btn btn-bulk-candidate right mr-3 hidden">Send Notification</button>
                 <button type="button" class="btn btn-bulk-candidate right mr-3 hidden" data-toggle="modal" data-target="#modalUpdateBulk">Bulk Update</button>
             </div>

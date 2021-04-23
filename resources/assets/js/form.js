@@ -317,37 +317,48 @@ if ($("#formAddVacancy").length) {
 
 	var next2 = 1;
 	$(".add-more-syarat").click(function(e){
-		e.preventDefault();
-		var childDivs = document.querySelectorAll('#fieldMajorDiv'+next2+' span')
-		console.log(childDivs);
-		var addto = "#field-syarat" + next2;
-		var addRemove = "#field-syarat" + (next2);
-		next2 = next2 + 1;
-		// var newIn = '<label>Syarat</label><input autocomplete="off" class="form-input bg-input form-control" id="field-syarat' + next2 + '" name="syarat[]" type="text" style="width: 93%; float: left;">';
-		var newIn = '<select class="select2 min-width" id="field-syarat' + next2 + '" name="majorVacancy">'+
-						'<option value="">-- Pilih Major --</option>'+
-						'<option value="Sistem Informasi">Sistem Informasi</option>'+
-						'<option value="Akuntansi">Akuntansi</option>'+
-					'</select>';
-		$("#field-syarat"+next2).select2();
-		var newInput = $(newIn);
-		var removeBtn = '<button id="remove-syarat' + (next2 - 1) + '" class="remove-me-syarat btn-min">-</button></><div id="field-syarat">';
-		var removeButton = $(removeBtn);
-		$(addto).after(newInput);
-		$(addRemove).after(removeButton);
+		ajax.getData('/HR/vacancy/get-major', 'post', null, function(data){
 
-		$("#field-syarat" + next2).attr('data-source',$(addto).attr('data-source'));
-		$("#count").val(next2);  
-		$('.remove-me-syarat').click(function(e){
 			e.preventDefault();
-			var fieldNum = 'field'+this.id.toString().replace('remove','');
-			console.log(fieldNum)
-			$('#'+fieldNum).remove();
-			$(this).prev().remove();
-			$(this).remove();
-		});
+			var childDivs = document.querySelectorAll('#fieldMajorDiv'+next2+' span')
+			// console.log(childDivs);
+			var addto = "#field-syarat" + next2;
+			var addRemove = "#field-syarat" + (next2);
+			next2 = next2 + 1;
 
-		$('select[name="majorVacancy"]').select2()
+			var dataMajor = [];
+
+			for (var i = 0; i < data.length; i++) {
+				// var option = new Option(data[i].propinsi);
+				var option = '<option value="'+data[i].major+'">'+data[i].major+'</option>'
+				dataMajor.push(option);
+			}
+			// var newIn = '<label>Syarat</label><input autocomplete="off" class="form-input bg-input form-control" id="field-syarat' + next2 + '" name="syarat[]" type="text" style="width: 93%; float: left;">';
+			var newIn = '<select class="select2 min-width" id="field-syarat' + next2 + '" name="majorVacancy">'+
+							'<option value="">-- Pilih Major --</option>'+
+							'<option value="all">ALL</option>'+
+							dataMajor+
+						'</select>';
+			$("#field-syarat"+next2).select2();
+			var newInput = $(newIn);
+			var removeBtn = '<button id="remove-syarat' + (next2 - 1) + '" class="remove-me-syarat btn-min">-</button></><div id="field-syarat">';
+			var removeButton = $(removeBtn);
+			$(addto).after(newInput);
+			$(addRemove).after(removeButton);
+	
+			$("#field-syarat" + next2).attr('data-source',$(addto).attr('data-source'));
+			$("#count").val(next2);  
+			$('.remove-me-syarat').click(function(e){
+				e.preventDefault();
+				var fieldNum = 'field'+this.id.toString().replace('remove','');
+				console.log(fieldNum)
+				$('#'+fieldNum).remove();
+				$(this).prev().remove();
+				$(this).remove();
+			});
+	
+			$('select[name="majorVacancy"]').select2()
+		})
 	});
 
 }
@@ -393,16 +404,24 @@ if ($("#formEditVacancy").length) {
 		var removeBtn = '<button type="button" id="remove-syarat' + jml + '" class="remove-me-syarat btn-min">-</button>';
 		var after = $('#field-syarat'+jml).next()
 		after.after(removeBtn)
-		
-		var newIn = '<select class="select2 min-width" id="field-syarat' + next + '" name="majorVacancy">'+
-						'<option value="">-- Pilih Major --</option>'+
-						'<option value="Sistem Informasi">Sistem Informasi</option>'+
-						'<option value="Akuntansi">Akuntansi</option>'+
-					'</select>';
-		$('#fieldMajorDiv1').append(newIn)
-		$('#fieldMajorDiv1').append(btnAdd)
+		ajax.getData('/HR/vacancy/get-major', 'post', null, function(data){
+			var dataMajor = [];
 
-		$('select[name="majorVacancy"]').select2()
+			for (var i = 0; i < data.length; i++) {
+				// var option = new Option(data[i].propinsi);
+				var option = '<option value="'+data[i].major+'">'+data[i].major+'</option>'
+				dataMajor.push(option);
+			}
+			var newIn = '<select class="select2 min-width" id="field-syarat' + next + '" name="majorVacancy">'+
+							'<option value="">-- Pilih Major --</option>'+
+							'<option value="all">ALL</option>'+
+								dataMajor+
+						'</select>';
+			$('#fieldMajorDiv1').append(newIn)
+			$('#fieldMajorDiv1').append(btnAdd)
+	
+			$('select[name="majorVacancy"]').select2()
+		})
 	});
 
 	$('.remove-me-syarat').click(function(e){
@@ -1618,5 +1637,264 @@ if ($("#formAddMaster").length) {
 			$("#nameUniv").attr('disabled', true);
 
 		}
+	})
+}
+
+if ($("#formAddCandidate").length) {
+	function readFile(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			
+			reader.onload = function (e) {
+				$('.photoProfileLabel').empty();
+				$('.photoProfileImage').attr('src', e.target.result);
+				$('.photoProfileLabel').html(input.files[0].name);
+			};
+			
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	
+	$("#photoProfile").change(function(){
+		readFile(this);
+	});
+
+	function readFileInput(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			
+			reader.onload = function (e) {
+				var inputLabel = $(input).parent().parent().find('.file-input-label');
+				inputLabel.val();
+				inputLabel.val(input.files[0].name);
+			};
+			
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	
+	$('.uploadCertificate').change(function(e){
+		e.preventDefault();
+		readFileInput(this);
+	});
+
+	$('#birthDate').datetimepicker({
+		format: 'DD-MM-YYYY',
+	});
+
+	$('#startDateEducation').datetimepicker({
+		format: 'YYYY',
+	});
+
+	$('#endDateEducation').datetimepicker({
+		format: 'YYYY',
+	});
+
+	$('.btnAddListEducation').click(function(e){
+		ajax.getData('/HR/candidate/get-master', 'post', null, function(data){
+			
+			e.preventDefault()
+			$('.btnAddListEducation.large').hide()
+			$('.firstBtnListEducation').removeClass('margin-right-2rem')
+
+			var dataMajor = [];
+
+			for (var i = 0; i < data.major.length; i++) {
+				// var option = new Option(data[i].propinsi);
+				var opt = '<option value="'+data.major[i].major+'">'+data.major[i].major+'</option>'
+				dataMajor.push(opt);
+			}
+
+			var dataUniv = [];
+
+			for (var i = 0; i < data.universitas.length; i++) {
+				// var option = new Option(data[i].propinsi);
+				var opt = '<option value="'+data.universitas[i].universitas+'">'+data.universitas[i].universitas+'</option>'
+				dataUniv.push(opt);
+			}
+
+			var option = '<div class="listStudy">'+
+							'<hr>'+
+							'<div class="row">'+
+								'<div class="col-lg-5 col-md-12">'+
+									'<div class="form-group">'+
+										'<label for="">School/University<span class="required-sign">*</span></label>'+
+										'<div class="row">'+
+											'<div class="col-lg-12 col-md-12">'+
+												'<select name="university" id="university" class="select2 form-control">'+
+													'<option value="">Choose your University</option>'+
+													dataUniv+
+												'</select>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+								'<div class="col-lg-5 col-md-12">'+
+									'<div class="form-group">'+
+										'<label for="">Degree<span class="required-sign">*</span></label>'+
+										'<div class="row">'+
+											'<div class="col-lg-12 col-md-12">'+
+												'<select name="degree" id="degree" class="select2 form-control">'+
+													'<option value="">Choose your degree</option>'+
+													'<option value="1">Diploma Degree</option>'+
+													'<option value="2">Bachelor Degree</option>'+
+													'<option value="3">Master Degree</option>'+
+												'</select>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>'+
+							'<div class="row">'+
+								'<div class="col-lg-5 col-md-12">'+
+									'<div class="form-group">'+
+										'<label for="">Faculty<span class="required-sign">*</span></label>'+
+										'<div class="row">'+
+											'<div class="col-lg-12 col-md-12">'+
+												'<input type="text" name="faculty" id="faculty" class="form-control" placeholder="Faculty">'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+								'<div class="col-lg-5 col-md-12">'+
+									'<div class="form-group">'+
+										'<label for="">Major<span class="required-sign">*</span></label>'+
+										'<div class="row">'+
+											'<div class="col-lg-12 col-md-12">'+
+												'<select name="major" id="major" class="select2 form-control">'+
+													'<option value="">Choose your major</option>'+
+													dataMajor+
+												'</select>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>'+
+							'<div class="row">'+
+								'<div class="col-lg-5 col-md-12">'+
+									'<div class="form-group">'+
+										'<label for="">Start Date<span class="required-sign">*</span></label>'+
+										'<div class="row">'+
+											'<div class="col-lg-12 col-md-12 with-icon">'+
+												'<input type="text" class="form-control" placeholder="Choose date" id="startDateEducation" name="startDateEducation">'+
+												'<img src="/image/icon/homepage/icon-calender-input.svg" class="this-icon" alt="icon">'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+								'<div class="col-lg-5 col-md-12">'+
+									'<div class="form-group">'+
+										'<label for="">End Date<span class="required-sign">*</span></label>'+
+										'<div class="row">'+
+											'<div class="col-lg-12 col-md-12 with-icon">'+
+												'<input type="text" class="form-control" placeholder="Choose date" id="endDateEducation" name="endDateEducation">'+
+												'<img src="/image/icon/homepage/icon-calender-input.svg" class="this-icon" alt="icon">'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>'+
+							'<div class="row">'+
+								'<div class="col-lg-5 col-md-12">'+
+									'<div class="form-group">'+
+										'<label for="">GPA<span class="required-sign">*</span></label>'+
+										'<div class="row">'+
+											'<div class="col-lg-12 col-md-12">'+
+												'<input type="text" class="form-control" placeholder="0 - 100" id="gpa" name="gpa">'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+								'<div class="col-lg-5 col-md-12">'+
+									'<div class="form-group">'+
+										'<label for="">Certificate of Study<span class="required-sign">*</span></label>'+
+										'<div class="row">'+
+											'<div class="col-lg-12 col-md-12">'+
+												'<input type="text" class="form-control file-input-label" placeholder="Format jpg/png maximum 2MB file" disabled>'+
+												'<span class="btn btn-file pl-1 mb-2">'+
+													'Upload File <input type="file" name="certificate[]" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg">'+
+												'</span>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>'+
+							'<div class="row">'+
+								'<div class="col-lg-5 col-md-12 removeThisEducation">'+
+									'<div class="form-group">'+
+										'<div class="row">'+
+											'<div class="col-lg-12 col-md-12">'+
+												'<button type="button" class="btn btn-white btn-block btnAddListEducation">'+
+													'<i class="fas fa-trash mr-2" style="font-size:18px"></i> Delete the Education Data Above'+
+												'</button>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+								'<div class="col-lg-5 col-md-12 secondBtnEducation">'+
+									'<div class="form-group">'+
+										'<div class="row">'+
+											'<div class="col-lg-12 col-md-12">'+
+												'<button type="button" class="btn btn-white btn-block btnAddListEducation">'+
+													'<i class="fas fa-plus mr-2" style="font-size:18px"></i> Add Another Education'+
+												'</button>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>'+
+						'</div>';
+		
+			$('#listEducationCandidate').append(option)
+		
+			if ($('.select2').length) {
+				$('.select2').select2();
+			}
+
+			$('input[name="startDateEducation"]').datetimepicker({
+				format: 'YYYY',
+			});
+		
+			$('input[name="endDateEducation"]').datetimepicker({
+				format: 'YYYY',
+			});
+		
+			
+			if ($('.removeThisEducation').length) {
+				$('.removeThisEducation').click(function(){
+					console.log('click')
+					$(this).parent().parent().remove()
+	
+					if ($('.listStudy').length < 2) {
+						$('.btnAddListEducation.large').show()
+					}
+				})
+			}
+			if ($('.secondBtnEducation').length) {
+				$('.secondBtnEducation').click(function(){
+					$(this).remove()
+					$('.btnAddListEducation.large').click();
+				})
+			}
+	
+			function readFileInput(input) {
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+					
+					reader.onload = function (e) {
+						var inputLabel = $(input).parent().parent().find('.file-input-label');
+						inputLabel.val();
+						inputLabel.val(input.files[0].name);
+					};
+					
+					reader.readAsDataURL(input.files[0]);
+				}
+			}
+			
+			$('.uploadCertificate').change(function(e){
+				e.preventDefault();
+				readFileInput(this);
+			});
+		});
 	})
 }

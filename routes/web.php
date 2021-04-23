@@ -45,6 +45,7 @@ Route::prefix('HR')->group(function(){
 			Route::get('/detail-vacancy/{id}', 'Admin\VacancyController@viewVacancyDetail')->name('get.vacancy.detail');
 			Route::post('/edit-vacancy','Admin\VacancyController@editVacancy')->name('post.vacancy.edit');
 			Route::post('/delete-vacancy','Admin\VacancyController@deleteVacancy')->name('post.vacancy.delete');
+			Route::post('/get-major','Admin\VacancyController@getMajor')->name('post.get.major');
 		});
 
 		Route::prefix('question_bank')->group(function () {
@@ -61,11 +62,14 @@ Route::prefix('HR')->group(function(){
 		Route::prefix('candidate')->group(function () {
 			Route::get('/', 'Admin\CandidateController@viewCandidate')->name('get.candidate');
 			Route::post('/list-candidate','Admin\CandidateController@listCandidate')->name('post.candidate.list');
+			Route::get('/add-candidate', 'Admin\CandidateController@viewCandidateAdd')->name('get.candidate.add');
+			Route::post('/post-add-candidate', 'Admin\CandidateController@addCandidate')->name('post.candidate.add');
 			Route::get('/detail-candidate/{id}', 'Admin\CandidateController@viewCandidateDetail')->name('get.candidate.detail');
 			Route::get('/edit-candidate/{id}', 'Admin\CandidateController@viewCandidateEdit')->name('get.candidate.edit');
 			Route::post('/post-edit-candidate','Admin\CandidateController@editCandidate')->name('post.candidate.edit');
 			Route::get('/download-file/{file}','Admin\CandidateController@downloadFile')->name('post.download.file');
 			Route::post('/post-bulk-update','Admin\CandidateController@bulkUpdate')->name('post.bulk.update.candidate');
+			Route::post('/get-master','Admin\CandidateController@getMaster')->name('post.data.master');
 		});
 
 		Route::prefix('test')->group(function () {
