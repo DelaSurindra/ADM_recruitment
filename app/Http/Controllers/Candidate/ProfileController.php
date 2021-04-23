@@ -809,7 +809,7 @@ class ProfileController extends Controller
                 return [
                     'status'   => 'success',
                     'message'  => 'Change Password Success, Please Login Again',
-                    'url'      => '/signout',
+                    'url'      => 'profile/edit-password',
                     'callback' => 'modal'
                 ];
             }else{
