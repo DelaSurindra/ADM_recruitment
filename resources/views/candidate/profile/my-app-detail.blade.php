@@ -54,6 +54,11 @@
         <button class="btn btn-red btn-block"type="button" data-toggle="modal" data-target="#modalOnlineTest">Check Online Test</button>
     </div>
     @endif
+    @if($job['status'] == '5' || $job['status'] == '6' || $job['status'] == '7' || $job['status'] == '8' || $job['status'] == '9' || $job['status'] == '10')
+    <div class="col-lg-5 col-md-12">
+        <button class="btn btn-red btn-block"type="button" data-toggle="modal" data-target="#modalOnlineInterview">Check Online Interview</button>
+    </div>
+    @endif
 </div>
 
 <hr class="my-4">
@@ -225,6 +230,64 @@
                         <button type="submit" class="btn btn-red btn-block">Confirmation</button>
                     </form>
                     <a href="{{route('get.profile.test-reschedule', base64_encode(urlencode($job['id'])))}}" class="a-rescehdule"><button class="btn btn-white btn-block mt-2">Reschedule Test</button></a>
+                    @endif
+                </div>
+                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalOnlineInterview" tabindex="-1" aria-labelledby="modalOnlineInterviewLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm modal-online-test">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-up">
+                    <h4 class="candidate-page-subtitle mb-0">Online Test<br>Schedule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis" alt="icon">
+                    </button>
+                </div>
+
+                <div class="modal-card mb-3">
+                    <h6>{{$vacancy['job_title']}}</h6>
+                    <p>{{$vacancy['lokasi']}}, Indonesia</p>
+                </div>
+
+                <div class="modal-fill">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <label for="">Date</label>
+                            <p class="mb-0">{{ isset($interview[0]['interview_date']) ? date('d M y', strtotime($interview[0]['interview_date'])) : '' }}</p>
+                        </div>
+                        <div>
+                            <label for="">Time</label>
+                            <p class="mb-0">{{ isset($interview[0]['time']) ? $interview[0]['time'] : '' }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <label for="">City</label>
+                            <p class="mb-0">{{isset($interview[0]['city']) ? $interview[0]['city'] : ''}}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-4">
+                        <div>
+                            <label for="">Location</label>
+                            <p class="mb-0">{{isset($interview[0]['location']) ? $interview[0]['location'] : ''}}</p>
+                        </div>
+                    </div>
+                    @if(isset($interview[0]['status']))
+                        @if($interview[0]['status'] == 1 || $interview[0]['status'] == 5)
+                        <form action="{{route('post.confirm.interview')}}" class="form stacked form-hr" ajax=true id="formConfirmInterview">
+                            <input type="hidden" name="idInterview" value="{{isset($interview[0]['id']) ? $interview[0]['id'] : ''}}">
+                            <input type="hidden" name="idJob" value="{{$job['id']}}">
+                            <button type="submit" class="btn btn-red btn-block">Confirmation</button>
+                        </form>
+                        <a href="{{route('get.profile.interview-reschedule', base64_encode(urlencode($job['id'])))}}" class="a-rescehdule"><button class="btn btn-white btn-block mt-2">Reschedule Test</button></a>
+                        @endif
                     @endif
                 </div>
                 <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

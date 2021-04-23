@@ -681,30 +681,38 @@ ul.location-list li p {
 }
 
 /* FAQ */
-.main-container {
+.main-container-faq {
    width: 100%;
 }
 
-.heading-container {
+.heading-container-faq {
    display: flex;
    width: 90%;
    justify-content: space-between;
    margin: 0 auto;
+   margin-top: 100px;
 }
 
-.heading-container h1 {
+.heading-container-faq h1 {
    font-weight: 700;
+   color: black;
 }
 
-.heading-container span {
-   color: rgb(223, 14, 44, 1);
+.heading-container-faq span {
+   color: #df0e2c;
+}
+
+.active-faq {
+   background-color: rgba(223, 14, 44, 1);
+   color: rgba(232, 247, 238, 1);
 }
 
 .question-box h3 {
-   font-size: 24px;
+   font-size: 24px !important;
+   font-weight: 700;
 }
 
-.content-container {
+.content-container-faq {
    display: flex;
    width: 90%;
    margin: 47px auto;
@@ -712,6 +720,10 @@ ul.location-list li p {
 
 .question-box {
    width: 25%;
+   height: 100%;
+   box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.15);
+   border-radius: 10px;
+   color: rgba(51, 51, 51, 1);
 }
 
 .content {
@@ -739,44 +751,73 @@ ul.location-list li p {
 .accordion-container {
    width: 75%;
    margin-left: 32px;
+   margin-bottom: 108px;
+}
+
+.card h2 {
+   text-decoration: none;
+}
+
+.card button {
+   color: rgba(51, 51, 51, 1);
+   text-decoration: none;
+   text-align: left;
 }
 
 .accordion-container button {
    font-weight: 700;
 }
 
-/* CONTACT US */
-.main-container h1 {
+.main-container-faq h1 {
    font-weight: 700;
    font-size: 36px;
 }
 
-.main-container h2 {
+.main-container-faq h2 {
    font-weight: 700;
    font-size: 18px;
 }
 
-.main-container h3 {
+.main-container-faq h3 {
    font-weight: 400;
    font-size: 14px;
 }
 
+/* CONTACT US */
+.main-container-contact-us h1 {
+   font-weight: 700;
+   font-size: 36px;
+   color: #050401;
+}
+
+.main-container-contact-us h2 {
+   font-weight: 700;
+   font-size: 18px;
+   color: #050401;
+}
+
+.main-container-contact-us h3 {
+   font-weight: 400;
+   font-size: 14px;
+   color: #050401;
+}
+
 .heading-container-contact-us {
    width: 90%;
-   margin-left: 100px;
+   margin-left: 120px;
    padding-top: 100px;
 }
 
 .content-container-contact-us {
    width: 90%;
-   margin-left: 100px;
+   margin-left: 120px;
    margin-top: 100px;
 }
 
 /* COMPANY PROFILE */
 .bg {
    position: absolute;
-   right: 0px;
+   right: 0;
 }
 
 .heading-container-company {
@@ -788,27 +829,31 @@ ul.location-list li p {
 
 .heading-container-company h1 {
    font-weight: 900;
-   font-size: 12px;
+   font-size: 64px;
    line-height: 130%;
    margin-top: 160px;
-   margin-left: 100px;
+   margin-left: 120px;
+   color: #050401;
 }
 
 .content-container-company {
    display: flex;
    width: 60%;
    justify-content: left;
-   margin-left: 100px;
+   margin-left: 120px;
    margin-top: 160px;
 }
 
 .body-container-company h3 {
    font-weight: 500;
    font-size: 18px;
+   color: #050401;
 }
+
 .body-container-company h1 {
    font-weight: 700;
    font-size: 36px;
+   color: #050401;
 }
 
 /* HOMEPAGE */

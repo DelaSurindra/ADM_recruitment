@@ -15,6 +15,8 @@ use App\Model\Vacancy;
 use App\Model\Status_History_Application;
 use App\Model\TestParticipant;
 use App\Model\AlternatifTest;
+use App\Model\InterviewEvent;
+use App\Model\interviewReschedule;
 
 use Request;
 use Session;
@@ -888,8 +890,9 @@ class ProfileController extends Controller
                                     ->where('kandidat_id', session('session_candidate.id'))
                                     ->join('test_event', 'test_event.id', 'test_participant.test_id')
                                     ->get()->toArray();
-            // dd($test, $job_apply);
             if ($test) {
+                // dd($test, $job_apply, $interview);
+                $interview = InterviewEvent::where('id_job_application', $job_apply[0]['id'])->orderBy('created_at', 'DESC')->limit(1)->get()->toArray();
                 $vacancy = Vacancy::where('job_id', $job_apply[0]['vacancy_id'])->get()->toArray();
                 if ($vacancy) {
                     $history = Status_History_Application::where('job_application_id', $job_apply[0]['id'])->get()->toArray();
@@ -946,7 +949,8 @@ class ProfileController extends Controller
                             'document_sign' => $document_sign
                         ],
                         'job' => $job_apply[0],
-                        'test' => $test[0]
+                        'test' => $test[0],
+                        'interview' => $interview
                     ]);
                 } else {
                     abort(404);
@@ -1028,7 +1032,7 @@ class ProfileController extends Controller
         $testParticipant = TestParticipant::where('id', $data['idParticipant'])->get()->toArray();
         if ($data['idReschedule'] != "") {
             if ($testParticipant) {
-                if ($testParticipant[0]['reshedule_count'] <= 3) {
+                if ($testParticipant[0]['reshedule_count'] < 4) {
                     $count = $testParticipant[0]['reshedule_count']+1;
                     $reschedule = TestParticipant::where('id', $data['idParticipant'])->update([
                         "status" => 2,
@@ -1093,7 +1097,104 @@ class ProfileController extends Controller
         return response()->json($messages);
     }
 
-    public function interviewReschedule(){
-        return view('candidate.profile.interview-reschedule')->with(['topbar'=>'interview_reschedule']);
+    public function postConfirmInterview(){
+        $encrypt = new EncryptController;
+    	$data = $encrypt->fnDecrypt(Request::input('data'),true);
+        // dd($data);
+        $confirmTest = InterviewEvent::where('id', $data['idInterview'])->update(['status' => 6]);
+        if ($confirmTest) {
+            $id = base64_encode(urlencode($data["idJob"]));
+            $messages = [
+                'status' => 'success',
+                'message' => 'Confirm Interview Success',
+                'url' => '/profile/my-app-detail/'.$id,
+                'callback' => 'redirect'
+            ];
+
+            return response()->json($messages);
+        } else {
+            $messages = [
+                'status' => 'error',
+                'message' => 'Confirm Interview Failed',
+            ];
+
+            return response()->json($messages);
+        }
+        
     }
+
+    public function interviewReschedule($id){
+        $idJob = base64_decode(urldecode($id));
+        $job_apply = Job_Application::where('id', $idJob)->get()->toArray();
+        // dd($job_apply);
+        if ($job_apply) {
+            $interview = InterviewEvent::where('id_job_application', $job_apply[0]['id'])->orderBy('created_at', 'DESC')->limit(1)->get()->toArray();
+            if ($interview) {
+                $vacancy = Vacancy::where('job_id', $job_apply[0]['vacancy_id'])->get()->toArray();
+                if ($vacancy) {
+                    // dd($job_apply, $test, $vacancy, $alternatif);
+                    return view('candidate.profile.interview-reschedule')->with([
+                        'topbar'=>'test_reschedule',
+                        'job' => $job_apply[0],
+                        'interview' => $interview[0],
+                        'vacancy' => $vacancy[0]
+                    ]);
+                } else {
+                    abort(404);
+                }
+                
+            } else {
+                abort(404);
+            }
+        } else {
+            abort(404);
+        }
+    }
+
+    public function postRescheduleInterview(){
+        $encrypt = new EncryptController;
+    	$data = $encrypt->fnDecrypt(Request::input('data'),true);
+        if ($data['countInterview'] < 4) {
+            $insertReschedule = interviewReschedule::insert([
+                "interview_event_id" => $data['idInterview'],
+                "date_start"         => date("Y-m-d", strtotime($data['dateStart'])),
+                "date_end"           => date("Y-m-d", strtotime($data['dateEnd'])),
+                "time_start"         => $data['timeStart'],
+                "time_end"           => $data['timeEnd']
+            ]);
+            
+            if ($insertReschedule) {
+                $count = $data['countInterview']+1;
+                $updateInterview = InterviewEvent::where('id', $data['idInterview'])->update([
+                    "status" => 4,
+                    "reshedule_count" => $count
+                ]);
+                $id = base64_encode(urlencode($data["idJob"]));
+                $messages = [
+                    'status' => 'success',
+                    'message' => 'Reschedule Interview Success',
+                    'url' => '/profile/my-app-detail/'.$id,
+                    'callback' => 'redirect'
+                ];
+
+                return response()->json($messages);
+            } else {
+                $messages = [
+                    'status' => 'error',
+                    'message' => 'Reschedule Interview Failed',
+                ];
+    
+                return response()->json($messages);
+            }
+            
+        } else {
+            $messages = [
+                'status' => 'error',
+                'message' => 'Cannot Reschedule more than 3 times',
+            ];
+
+            return response()->json($messages);
+        }
+    }
+    
 }

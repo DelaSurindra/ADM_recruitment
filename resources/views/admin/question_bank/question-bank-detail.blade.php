@@ -22,7 +22,10 @@
                                             <a href="{{route('get.question.bank.edit', base64_encode(urlencode($question['master_subtest_id'].'_'.$question['set'].'_'.$question['test_type'].'_'.$question['id'])))}}"><button class="btn btn-white right">Edit Question Information</button></a>
                                             </div>
                                             <div class="col-md-1 pl-2">
-                                                <button class="btn-trash" type="button"><img src="{{asset('image/icon/main/icon_trash_red.svg')}}" alt=""></button>
+                                                <button class="btn-trash btn-delete-question" type="button" value="{{$question['number']}}"><img src="{{asset('image/icon/main/icon_trash_red.svg')}}" alt=""></button>
+                                                <input type="hidden" id="numberQuestion{{$question['number']}}" value="{{$question['number']}}">
+                                                <input type="hidden" id="idQuestion{{$question['number']}}" value="{{$question['id'].'_'.$question['test_type'].'_'.$question['master_subtest_id'].'_'.$question['set']}}">
+                                                <input type="hidden" id="urlQuestion{{$question['number']}}" value="{{$id}}">
                                             </div>
                                         </div>
                                     </div>

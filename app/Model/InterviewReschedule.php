@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class InterviewReschedule extends Model
 {
-    protected $table = 'rechedule_interview';
+    protected $table = 'reschedule_interview';
 
 }

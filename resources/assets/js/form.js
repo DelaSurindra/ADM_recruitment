@@ -1551,8 +1551,77 @@ if ($(".btn-confirm").length) {
 	})
 }
 
-if ($(".btn-confirm").length) {
-	$(".btn-confirm").click(function(){
-		$("#valueBtn").val(this.value);
+if ($("#formAddInterview").length) {
+	$("#typeInterview").change(function(){
+		var value = $("#typeInterview").val();
+		if (value == "5" || value == "6") {
+			$("#lastInterviewDiv").addClass("hidden");
+		} else {
+			$("#lastInterviewDiv").removeClass("hidden");
+		}
+		$("#lastInterview").prop('checked', false);
+	})
+	$('#dateInterview').datetimepicker({
+		format: 'DD-MM-YYYY',
+	});
+
+	$("#btnAddCandidateInterview").click(function(){
+		$("#modalChooseInterview").modal('hide');
+		$("#cardAddCandidate").addClass("hidden");
+		$("#cardListCandidate").removeClass("hidden");
+	})
+}
+
+if ($("#updateStatusInterview").length) {
+	$("#statusInterview").change(function(){
+		var status = $("#statusInterview").val();
+		if (status == "2") {
+			$("#divFail").addClass("hidden");
+		}else{
+			$("#divFail").removeClass("hidden");
+		}
+	})
+}
+
+if ($("#formRescheduleInterview").length) {
+	$('#dateStart').datetimepicker({
+		format: 'DD-MM-YYYY',
+	});
+
+	$('#dateEnd').datetimepicker({
+		format: 'DD-MM-YYYY',
+	});
+}
+
+if ($("#btnAccInterview").length) {
+	var maxDate = $("#maxDate").val();
+	var minDate = $("#minDate").val();
+	$('#dateAccInterview').datetimepicker({
+		format: 'DD-MM-YYYY',
+		maxDate: maxDate,
+		minDate: minDate
+	});
+	$('#dateAccInterview').datetimepicker('show');
+}
+
+if ($("#formAddMaster").length) {
+	$("#typeMaster").change(function(){
+		var type =$("#typeMaster").val();
+		if (type == "1") {
+			$("#divMajor").addClass("hidden");
+			$("#nameMajor").attr('disabled', true);
+
+			$("#divUniv").removeClass("hidden");
+			$("#nameUniv").attr('disabled', false);
+			$("#nameUniv").val('');
+		}else{
+			$("#divMajor").removeClass("hidden");
+			$("#nameMajor").attr('disabled', false);
+			$("#nameMajor").val('');
+
+			$("#divUniv").addClass("hidden");
+			$("#nameUniv").attr('disabled', true);
+
+		}
 	})
 }

@@ -356,6 +356,26 @@ var table = {
 							data = "Process to Doc Sign";
 						}else if (full.status == 11) {
 							data = "Failed";
+						}else if (full.status == 13) {
+							data = "HR interview Pass";
+						}else if (full.status == 14) {
+							data = "HR interview Fail";
+						}else if (full.status == 15) {
+							data = "User Interview 1 Pass";
+						}else if (full.status == 16) {
+							data = "User Interview 1 Fail";
+						}else if (full.status == 17) {
+							data = "User Interview 2 Pass";
+						}else if (full.status == 18) {
+							data = "User Interview 2 Fail";
+						}else if (full.status == 19) {
+							data = "User Interview 3 Pass";
+						}else if (full.status == 20) {
+							data = "User Interview 3 Fail";
+						}else if (full.status == 21) {
+							data = "MCU Pass";
+						}else if (full.status == 22) {
+							data = "MCU Fail";
 						}else{
 							data = "Hired";
 						}
@@ -805,85 +825,66 @@ var table = {
 
 		if ($('#tableInterview').length) {
 			var column = [
-				{'data':'created_at'},
+				{'data':'interview_date'},
+				{'data':'first_name'},
 				{'data':'job_title'},
-				{'data':'type'},
-				{'data':'degree'},
-				{'data':'major'},
-				{'data':'work_time'},
-				{'data':'active_date'},
+				{'data':'area_vacancy'},
+				{'data':'type_name'},
+				{'data':'interviewer'},
+				{'data':'time'},
+				{'data':'city'},
+				{'data':'location'},
 				{'data':'status'},
+				{'data':'note'},
 			];
 
 			columnDefs = [
 				{
 					"targets": 2,
-					"data": "type",
+					"data": "first_name",
 					"render": function(data, type, full, meta){
-						var data = ''
-		            	if (full.type == 1) {
-		            	    data = 'Full Time';
-		            	} else {
-		            	    data = 'Intership';
-		            	}
-		               	return data;
-					}
-				},
-				{
-					"targets": 3,
-					"data": "degree",
-					"render": function(data, type, full, meta){
-						var data = ''
-		            	if (full.degree == 1) {
-		            	    data = 'D3';
-		            	} else if(full.degree == 2) {
-		            	    data = 'S1';
-		            	}else{
-							data = "S2"
+						var id = encodeURIComponent(window.btoa(full.kandidat_id));
+						var image = '';
+						if (full.foto_profil == null || full.foto_profil == "") {
+							image = baseUrl+'image/icon/homepage/dummy-profile.svg';
+						}else{
+							image = baseImage+'/'+full.foto_profil;
 						}
-		               	return data;
+						var data = '<img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.first_name+' '+full.last_name;
+						return data;
 					}
 				},
 				{
-					"targets": 3,
-					"data": "degree",
-					"render": function(data, type, full, meta){
-						var data = ''
-		            	if (full.degree == 1) {
-		            	    data = 'D3';
-		            	} else if(full.degree == 2) {
-		            	    data = 'S1';
-		            	}else{
-							data = "S2"
-						}
-		               	return data;
-					}
-				},
-				{
-					"targets": 7,
+					"targets": 9,
 					"data": "status",
 					"render": function(data, type, full, meta){
-						var data = ''
-		            	if (full.status == 1) {
-		            	    data = '<strong>Publised</strong>';
-		            	}else{
-							data = "<p>Deaktif</p>"
+						var data = '';
+						if (full.status == 1) {
+							data = "<span class='test-status-attend'>New</span>"
+						}else if (full.status == 2) {
+							data = "<span class='test-status-attend'>Pass</span>";
+						}else if (full.status == 3) {
+							data = "<span class='test-status-absen'>Fail</span>";
+						}else if (full.status == 4) {
+							data = "<span class='test-status-notset'>Reschedule</span>";
+						}else if (full.status == 5) {
+							data = "<span class='test-status-absen'>Reschedule Decline</span>";
+						}else{
+							data = "<span class='test-status-attend'>Confirm</span>";
 						}
-		               	return data;
+						return data;
 					}
 				},
 				{
-					"targets": 8,
+					"targets": 11,
 					"data": "id",
 					"className": "action-poster-news",
 					"render": function(data, type, full, meta){
-						var id = encodeURIComponent(window.btoa(full.job_id));
-						var konfirm = '';
-						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/vacancy/detail-vacancy/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Vacancy"> Edit&nbsp</a></button>';
-						if (full.status == '1') {
-							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy edit-table"><img style="margin-right: 1px;" src="/image/icon/main/deactive.svg" title="Deaktif Vacancy">Deactive</button>';
-						} else {
-							konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy edit-table"><img style="margin-right: 1px;" src="/image/icon/main/active.svg" title="Aktifkan Vacancy">Active</button>';
+						var id = encodeURIComponent(window.btoa(full.id));
+						var konfirm = "";
+						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/interview/edit-interview/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Interview"> Edit&nbsp</a></button>';
+						if (full.status == "1" || full.status == "6") {
+							konfirm = '<button type="button" class="btn btn-table btn-transparent btn-update-status edit-table"><img style="margin-right: 1px;" src="/image/icon/main/icon_update_status.svg" title="Update Status">Update Status</button>';
 						}
 						var hasil = data+konfirm
 		               	return hasil;
@@ -893,6 +894,184 @@ var table = {
 
 		 	table.serverSide('tableInterview',column,'HR/interview/list-interview',null,columnDefs)
         }
+
+		if ($("#tableChooseInterview").length) {
+			var column = [
+				{'data':null},
+				{'data':'first_name'},
+				{'data':'gender'},
+				{'data':'telp'},
+				{'data':'kota'},
+				{'data':'job_title'},
+				{'data':'status'},
+			];
+	
+			columnDefs = [
+				{
+					"targets": 0,
+					"orderable": false,
+					"data": "job_application_id",
+					"render": function(data, type, full, meta){
+						var data = '<input class="choose" type="checkbox" id="interview_'+full.job_application_id+'">';
+						return data;
+					}
+				},
+				{
+					"targets": 1,
+					"data": "name",
+					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.kandidat_id));
+						var image = '';
+						if (full.foto_profil == null || full.foto_profil == "") {
+							image = baseUrl+'image/icon/homepage/dummy-profile.svg';
+						}else{
+							image = baseImage+'/'+full.foto_profil;
+						}
+						var data = '<img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.first_name+' '+full.last_name;
+						return data;
+					}
+				},
+				{
+					"targets": 2,
+					"data": "gender",
+					"render": function(data, type, full, meta){
+						var data = '';
+						if (full.gender == "1") {
+							data = "Laki-Laki";
+						}else if (full.gender == "2") {
+							data = "Perempuan";
+						}
+						return data;
+					}
+				},
+				{
+					"targets": 6,
+					"data": "status",
+					"render": function(data, type, full, meta){
+						var data = '';
+						if (full.status == 0) {
+							data = "Application Resume";
+						}else if (full.status == 1) {
+							data = "Proses to Written Test";
+						}else if (full.status == 2) {
+							data = "Scheduled to Written Test";
+						}else if (full.status == 3) {
+							data = "Written Test Pass";
+						}else if (full.status == 4) {
+							data = "Written Test failed";
+						}else if (full.status == 5) {
+							data = "Process to HR interview";
+						}else if (full.status == 6) {
+							data = "Process to User Interview 1";
+						}else if (full.status == 7) {
+							data = "Process to User Interview 2";
+						}else if (full.status == 8) {
+							data = "Process to User Interview 3";
+						}else if (full.status == 9) {
+							data = "Process to MCU";
+						}else if (full.status == 10) {
+							data = "Process to Doc Sign";
+						}else if (full.status == 11) {
+							data = "Failed";
+						}else if (full.status == 13) {
+							data = "HR interview Pass";
+						}else if (full.status == 14) {
+							data = "HR interview Fail";
+						}else if (full.status == 15) {
+							data = "User Interview 1 Pass";
+						}else if (full.status == 16) {
+							data = "User Interview 1 Fail";
+						}else if (full.status == 17) {
+							data = "User Interview 2 Pass";
+						}else if (full.status == 18) {
+							data = "User Interview 2 Fail";
+						}else if (full.status == 19) {
+							data = "User Interview 3 Pass";
+						}else if (full.status == 20) {
+							data = "User Interview 3 Fail";
+						}else if (full.status == 21) {
+							data = "MCU Pass";
+						}else if (full.status == 22) {
+							data = "MCU Fail";
+						}else{
+							data = "Hired";
+						}
+						return data;
+					}
+				},
+			];
+	
+			table.serverSide('tableChooseInterview',column,'HR/interview/list-candidate-pick',null,columnDefs)
+		}
+
+		if ($('#tableUniv').length) {
+			var column = [
+				{'data':'universitas'},
+			];
+
+			columnDefs = [
+				{
+					"targets": 1,
+					"data": "id",
+					"className": "action-poster-news",
+					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.id));
+						var data = '<button type="button" class="btn btn-table btn-transparent mr-2 edit-table edit-master"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Data Master">&nbsp Edit&nbsp</button>';
+						konfirm = '<button type="button" class="btn btn-table btn-transparent edit-table delete-master"><img style="margin-right: 1px;" src="/image/icon/main/delete_red.svg" title="Delete Data Master">&nbspDelete</button>';
+						var hasil = data+konfirm
+		               	return hasil;
+					}
+				}
+			];
+
+		 	table.serverSide('tableUniv',column,'HR/master/list-universitas',null,columnDefs)
+        }
+
+		$("#tabMajor").click(function(){
+			var column = [
+				{'data':'major'},
+			];
+
+			columnDefs = [
+				{
+					"targets": 1,
+					"data": "id",
+					"className": "action-poster-news",
+					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.id));
+						var data = '<button type="button" class="btn btn-table btn-transparent mr-2 edit-table edit-master"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Data Master">&nbsp Edit&nbsp</button>';
+						konfirm = '<button type="button" class="btn btn-table btn-transparent edit-table delete-master"><img style="margin-right: 1px;" src="/image/icon/main/delete_red.svg" title="Delete Data Master">&nbspDelete</button>';
+						var hasil = data+konfirm
+		               	return hasil;
+					}
+				}
+			];
+
+		 	table.serverSide('tableMajor',column,'HR/master/list-major',null,columnDefs)
+		})
+
+		$("#tabUniv").click(function(){
+			var column = [
+				{'data':'universitas'},
+			];
+
+			columnDefs = [
+				{
+					"targets": 1,
+					"data": "id",
+					"className": "action-poster-news",
+					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.id));
+						var data = '<button type="button" class="btn btn-table btn-transparent mr-2 edit-table edit-master"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Data Master">&nbsp Edit&nbsp</button>';
+						konfirm = '<button type="button" class="btn btn-table btn-transparent edit-table delete-master"><img style="margin-right: 1px;" src="/image/icon/main/delete_red.svg" title="Delete Data Master">&nbspDelete</button>';
+						var hasil = data+konfirm
+		               	return hasil;
+					}
+				}
+			];
+
+		 	table.serverSide('tableUniv',column,'HR/master/list-universitas',null,columnDefs)
+		})
 
 	},
 	filter:function(id,value){
@@ -1034,6 +1213,26 @@ var table = {
 							data = "Process to Doc Sign";
 						}else if (full.status == 11) {
 							data = "Failed";
+						}else if (full.status == 13) {
+							data = "HR interview Pass";
+						}else if (full.status == 14) {
+							data = "HR interview Fail";
+						}else if (full.status == 15) {
+							data = "User Interview 1 Pass";
+						}else if (full.status == 16) {
+							data = "User Interview 1 Fail";
+						}else if (full.status == 17) {
+							data = "User Interview 2 Pass";
+						}else if (full.status == 18) {
+							data = "User Interview 2 Fail";
+						}else if (full.status == 19) {
+							data = "User Interview 3 Pass";
+						}else if (full.status == 20) {
+							data = "User Interview 3 Fail";
+						}else if (full.status == 21) {
+							data = "MCU Pass";
+						}else if (full.status == 22) {
+							data = "MCU Fail";
 						}else{
 							data = "Hired";
 						}
@@ -1089,7 +1288,7 @@ var table = {
 			ordering = false;
 		}
 
-		if (id == "tableCandidate" || id == "tableChooseCandidate" || id == "tableParticipantTest" || id=="tableParticipantTestTheDay") {
+		if (id == "tableCandidate" || id == "tableChooseCandidate" || id == "tableParticipantTest" || id=="tableParticipantTestTheDay" || id == "tableChooseInterview") {
 			urutan = [1, 'desc'];
 		}
 
@@ -1403,4 +1602,148 @@ $('#tableParticipantTest tbody').on( 'click', 'button.btn-acc-reschedule', funct
 		$("#idTestRechedule").val(data.id)
 	})
 	$("#modalReschedule").modal('show');
+});
+
+$("#tableChooseInterview tbody").on('click', 'input', function(e) {
+	var table = $('#tableChooseInterview').DataTable();
+	var dataRow = table.row($(this).closest('tr')).data();
+	var count = $("#countChoose").val();
+	var jumlah = "";
+	if ($("#interview_"+dataRow.job_application_id).is(":checked")) {
+		if (dataRow.foto_profil == null || dataRow.foto_profil == "") {
+			image = baseUrl+'image/icon/homepage/dummy-profile.svg';
+		}else{
+			image = baseImage+'/'+dataRow.foto_profil;
+		}
+		var dataNama = '<img class="img-candidate" src="'+image+'" />'+'&nbsp'+dataRow.first_name+' '+dataRow.last_name;
+		var gender = "";
+		if (dataRow.gender == "1") {
+			gender = "Laki-laki";
+		} else {
+			gender = "Perempuan"
+		}
+
+		var status = "";
+
+		if (dataRow.status == 0) {
+			status = "Application Resume";
+		}else if (dataRow.status == 1) {
+			status = "Proses to Written Test";
+		}else if (dataRow.status == 2) {
+			status = "Scheduled to Written Test";
+		}else if (dataRow.status == 3) {
+			status = "Written Test Pass";
+		}else if (dataRow.status == 4) {
+			status = "Written Test failed";
+		}else if (dataRow.status == 5) {
+			status = "Process to HR interview";
+		}else if (dataRow.status == 6) {
+			status = "Process to User Interview 1";
+		}else if (dataRow.status == 7) {
+			status = "Process to User Interview 2";
+		}else if (dataRow.status == 8) {
+			status = "Process to User Interview 3";
+		}else if (dataRow.status == 9) {
+			status = "Process to MCU";
+		}else if (dataRow.status == 10) {
+			status = "Process to Doc Sign";
+		}else if (dataRow.status == 11) {
+			status = "Failed";
+		}else if (dataRow.status == 13) {
+			status = "HR interview Pass";
+		}else if (dataRow.status == 14) {
+			status = "HR interview Fail";
+		}else if (dataRow.status == 15) {
+			status = "User Interview 1 Pass";
+		}else if (dataRow.status == 16) {
+			status = "User Interview 1 Fail";
+		}else if (dataRow.status == 17) {
+			status = "User Interview 2 Pass";
+		}else if (dataRow.status == 18) {
+			status = "User Interview 2 Fail";
+		}else if (dataRow.status == 19) {
+			status = "User Interview 3 Pass";
+		}else if (dataRow.status == 20) {
+			status = "User Interview 3 Fail";
+		}else if (dataRow.status == 21) {
+			status = "MCU Pass";
+		}else if (dataRow.status == 22) {
+			status = "MCU Fail";
+		}else{
+			status = "Hired";
+		}
+
+		jumlah = parseInt(count)+1;
+		$("#countChoose").val(jumlah);
+		$("#chooseInterview").append('<input type="hidden" class="choose-candidate-list" id="input_'+dataRow.job_application_id+'" name="idJOb[]" value="'+dataRow.job_application_id+'">')
+		$("#tbodyInterview").append(
+			'<tr id="tr_'+dataRow.job_application_id+'">'+
+				'<td>'+dataNama+'</td>'+
+				'<td>'+gender+'</td>'+
+				'<td>'+dataRow.telp+'</td>'+
+				'<td>'+dataRow.kota+'</td>'+
+				'<td>'+dataRow.job_title+'</td>'+
+				'<td>'+status+'</td>'+
+			'</tr>'
+		)
+
+	} else {
+		jumlah = parseInt(count)-1;
+		$("#countChoose").val(jumlah);
+		$("#input_"+dataRow.job_application_id).remove();
+		$("#tr_"+dataRow.job_application_id).remove();
+	}
+	if (jumlah == 0) {
+		$("#btnAddCandidateInterview").addClass('hidden');
+	}else{
+		$("#btnAddCandidateInterview").removeClass('hidden');
+	}
+})
+
+$('#tableInterview tbody').on( 'click', 'button.btn-update-status', function (e) {
+	var table = $('#tableInterview').DataTable();
+	var dataRow = table.row($(this).closest('tr')).data();
+	$("#idUpdateStatus").val(dataRow.id);
+	$("#idJobApp").val(dataRow.id_job_application);
+	$("#statusJobApp").val(dataRow.status_job);
+	$("#idKandidat").val(dataRow.kandidat_id);
+	$("#modalUpdateStatus").modal('show');
+});
+
+$('#tableUniv tbody').on( 'click', 'button.edit-master', function (e) {
+	var table = $('#tableUniv').DataTable();
+	var dataRow = table.row($(this).closest('tr')).data();
+	$("#idEdit").val(dataRow.id);
+	$("#typeEdit").val("1");
+	$("#nameEdit").val(dataRow.universitas);
+	$("#labelMaster").html("University Name");
+	$("#modalEditMaster").modal('show');
+});
+
+$('#tableUniv tbody').on( 'click', 'button.delete-master', function (e) {
+	var table = $('#tableUniv').DataTable();
+	var dataRow = table.row($(this).closest('tr')).data();
+	$("#idDelete").val(dataRow.id);
+	$("#typeDelete").val("1");
+	$("#spanMaster").html(dataRow.universitas);
+	$("#modalDeleteMaster").modal('show');
+});
+
+$('#tableMajor tbody').on( 'click', 'button.edit-master', function (e) {
+	var table = $('#tableMajor').DataTable();
+	var dataRow = table.row($(this).closest('tr')).data();
+	$("#idEdit").val(dataRow.id);
+	$("#typeEdit").val("2");
+	$("#nameEdit").val(dataRow.major);
+	$("#labelMaster").html("Major Name");
+	$("#modalEditMaster").modal('show');
+});
+
+$('#tableMajor tbody').on( 'click', 'button.delete-master', function (e) {
+	var table = $('#tableMajor').DataTable();
+	var dataRow = table.row($(this).closest('tr')).data();
+	$("#idDelete").val(dataRow.id);
+	$("#typeDelete").val("2");
+	$("#spanMaster").html(dataRow.major);
+	$("#modalDeleteMaster").modal('show');
 });
