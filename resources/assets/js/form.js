@@ -55,6 +55,11 @@ var form = {
 			$('.modal').modal('hide');
 			$('#modalSignUpCandidate').modal('show')
 		});
+
+		$('.goToForget').click(function(){
+			$('.modal').modal('hide');
+			$('#modalForgetPassword').modal('show')
+		});
 	},
 	validate:function(form_id){
 
@@ -1537,6 +1542,12 @@ if ($(".btn-reschedule").length) {
 		$(btn).addClass("btn-reschedule-active");
 		$("#idReschedule").val(value);
 		
+	})
+}
+
+if ($(".btn-confirm").length) {
+	$(".btn-confirm").click(function(){
+		$("#valueBtn").val(this.value);
 	})
 }
 

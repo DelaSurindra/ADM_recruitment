@@ -795,10 +795,10 @@ class ProfileController extends Controller
     public function postEditPassword(){
         $encrypt = new EncryptController;
     	$data = $encrypt->fnDecrypt(Request::input('data'),true);
-        // dd($data, Session::get('session_candidate'));
         $pass = User::where('id', Session::get('session_candidate')['user_id'])->where('type', '1')->first();
 
         if (Hash::check($data['oldPassword'].env('SALT_PASS_CANDIDATE'), $pass->password)) {
+            
             $update = User::where('id', Session::get('session_candidate')['user_id'])->update([
                 'password' => bcrypt($data['newPasswordConfirm'].env('SALT_PASS_CANDIDATE'))
             ]);
