@@ -55,6 +55,11 @@ var form = {
 			$('.modal').modal('hide');
 			$('#modalSignUpCandidate').modal('show')
 		});
+
+		$('.goToForget').click(function(){
+			$('.modal').modal('hide');
+			$('#modalForgetPassword').modal('show')
+		});
 	},
 	validate:function(form_id){
 

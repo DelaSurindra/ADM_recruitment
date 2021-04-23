@@ -183,13 +183,42 @@
                             <input type="checkbox" name="rememberMe" id="rememberMe" value="1">
                             <span class="checkmark"></span>
                         </label>
-                        <a class="forgot-login">Forgot Password?</a>
+                        <a class="goToForget" >Forgot Password?</a>
                     </div>
                     <div class="form-group pt-3">
                         <button class="btn btn-red btn-block">Login</button>
                     </div>
                     <div class="form-group mb-0 signup-text">
                         <p class="text-center">Dont you have an account? <span class="goToRegister">Sign Up</span></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalForgetPassword" tabindex="-1" aria-labelledby="modalForgetPasswordLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm modal-sign-up">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-up">
+                    <h4 class="candidate-page-subtitle mb-0">Forget Password</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis m-0" alt="icon">
+                    </button>
+                </div>
+
+                <form action="{{ route('post.forget') }}" id="formForgetCandidate" class="form-candidate-view" method="POST" ajax="true">
+                    <div class="form-group">
+                        <p>Enter email that associated to your account and we’ll send an email with instructions to reset password</p>
+                    </div>
+                    <div class="form-group">
+                        <div class="with-icon">
+                            <input type="text" name="email" id="email" class="form-control" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group pt-3">
+                        <button class="btn btn-red btn-block">Send Instructions</button>
                     </div>
                 </form>
             </div>

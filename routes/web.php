@@ -173,6 +173,9 @@ Route::post('/apply-job', 'Candidate\JobController@applyJob')->name('post.apply-
 
 Route::post('/post-signup', 'Candidate\LoginController@signUp')->name('post.signup');
 Route::post('/post-login', 'Candidate\LoginController@signIn')->name('post.login');
+Route::post('/post-forget', 'Candidate\LoginController@fogetPassword')->name('post.forget');
+Route::get('/reset-password/{username}', 'Candidate\LoginController@viewForgetPassword')->name('get.forget');
+Route::post('/post-reset', 'Candidate\LoginController@doResetPass')->name('do.forget');
 
 //FAQ
 Route::get('/faq', 'Candidate\FaqController@viewFaq')->name('get.candidate.faq');

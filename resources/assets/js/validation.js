@@ -325,6 +325,37 @@ const formrules = {
 		}
     },
 
+	'formResetPass':{
+        ignore: null,
+		rules:{
+            'password':{
+                required:true
+            },
+            'passwordRe':{
+                required:true,
+				equalTo: '#password'
+            },
+		},
+		submitHandler:false,
+		messages: {
+
+			password: {
+				required: 'Mohon isi password baru',
+			},
+			passwordRe: {
+				required: 'Mohon isi konfirmasi password baru',
+			}
+        },
+        errorPlacement: function (error, element) {
+			if (element.is("#tipeNewsEvent")) {
+				error.appendTo(element.parents('#tipeNewsEventDiv'));
+			}
+			else { // This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+    },
+
 	'formEditPersonalInformation':{
         ignore: null,
 		rules:{
@@ -455,6 +486,20 @@ const formrules = {
 			}
 		}
 	},
+	'formForgetCandidate':{
+		ignore: null,
+		rules:{
+			'email':'required'
+		},
+		submitHandler:false,
+		messages: {
+			email: {
+				required: 'Mohon isi email',
+			}
+		},
+    },
+
+	
 
 	'formAddInterview':{
 		ignore: null,
