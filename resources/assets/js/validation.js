@@ -627,8 +627,92 @@ const formrules = {
         errorPlacement: function (error, element) {
 			error.insertAfter(element);
 		}
-	}
+	},
 
+	'formAddCandidate':{
+        ignore: null,
+		rules:{
+            'firstName':{
+                required:true,
+				STD_VAL_WEB_3: true,
+            },
+            'lastName':{
+                required:true,
+                STD_VAL_WEB_3: true,
+            },
+			'birthDate':{
+				required:true,
+                STD_VAL_WEB_11: true,
+            },
+			'gender':{
+				required:true
+			},
+			'email':{
+				required:true
+			},
+			'phoneNumber':{
+				required:true,
+				STD_VAL_WEB_8: true,
+			},
+			'myLocation':{
+				required:true,
+			},
+			'lingkedInLink':{
+				STD_VAL_WEB_20: true,
+			},
+			'university':{
+				required:true,
+				STD_VAL_WEB_25: true,
+			},
+			'degree':{
+				required:true,
+			},
+			'faculty':{
+				required:true,
+				STD_VAL_WEB_25: true,
+			},
+			'major':{
+				required:true,
+			},
+			'startDateEducation':{
+				required:true,
+			},
+			'endDateEducation':{
+				required:true,
+			},
+			'gpa':{
+				required:true,
+			}
+		},
+		submitHandler:false,
+        errorPlacement: function (error, element) {
+			if (element.is("#photoProfile")) {
+				error.appendTo(element.parent().parent().parent());
+			} else if (element.is("input[type=radio]") || element.is("input[type=checkbox]")) {
+				error.appendTo(element.parents('.form-group'));
+			} else if (element.hasClass("select2")) {
+				error.appendTo(element.parents('.form-group'));
+			} else if (element.is("#certificate")) {
+				error.appendTo(element.parents('.form-group'));
+			} else { // This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+    },
+
+	'addBulkCandidate':{
+		ignore: null,
+		rules:{
+            'fileBulk':{
+                required: true
+            },
+		},
+		submitHandler:false,
+        errorPlacement: function (error, element) {
+			error.appendTo(element.parents('.form-group'));
+		}
+	},
+	
 }
 
 var validation = {

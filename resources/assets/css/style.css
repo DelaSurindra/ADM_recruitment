@@ -1,3 +1,18 @@
+.download-bulk-default{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #050401;
+}
+
+.download-bulk-default:hover{
+    text-decoration: none;
+    color: #050401;
+}
+
 .photoProfileImage {
     width: 73px;
     height: 73px;

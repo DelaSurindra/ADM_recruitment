@@ -2,7 +2,8 @@
 @section('pageTitle',$pageTitle)
 @section('title',$title)
 @section('content')
-<form action="{{route('post.candidate.add')}}" class="form stacked form-hr" method="POST" id="formAddCandidate" ajax="true">
+<form action="{{route('post.candidate.add')}}" class="form stacked form-hr" method="POST" id="formAddCandidate" enctype="multipart/form-data">
+    @csrf
     <div class="row">
         <div class="col-md-12">
             <div class="card clear">
@@ -119,7 +120,7 @@
                                         <div class="col-xl-6 col-md-6 col-sm-12">
                                             <div class="form-group" >
                                                 <label>Location (City)<span class="required-sign">*</span></label>
-                                                <input id="location" name="location" class="form-control" type="text" placeholder="Enter Location">
+                                                <input id="myLocation" name="myLocation" class="form-control" type="text" placeholder="Enter Location">
                                             </div>
                                         </div>
                                     </div>
@@ -131,7 +132,7 @@
                                         <div class="col-xl-6 col-md-6 col-sm-12">
                                             <div class="form-group" >
                                                 <label>Linkedin Profile<span class="required-sign">*</span></label>
-                                                <input id="linkedin" name="linkedin" class="form-control" type="text" placeholder="ex: www.linkedin.com/example">
+                                                <input id="lingkedInLink" name="lingkedInLink" class="form-control" type="text" placeholder="ex: www.linkedin.com/example">
                                             </div>
                                         </div>
                                     </div>

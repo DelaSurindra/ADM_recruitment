@@ -70,6 +70,7 @@ Route::prefix('HR')->group(function(){
 			Route::get('/download-file/{file}','Admin\CandidateController@downloadFile')->name('post.download.file');
 			Route::post('/post-bulk-update','Admin\CandidateController@bulkUpdate')->name('post.bulk.update.candidate');
 			Route::post('/get-master','Admin\CandidateController@getMaster')->name('post.data.master');
+			Route::post('/post-add-bulk','Admin\CandidateController@addBulk')->name('post.bulk.add.candidate');
 		});
 
 		Route::prefix('test')->group(function () {

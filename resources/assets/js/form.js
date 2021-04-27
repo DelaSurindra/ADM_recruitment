@@ -1726,7 +1726,7 @@ if ($("#formAddCandidate").length) {
 										'<label for="">School/University<span class="required-sign">*</span></label>'+
 										'<div class="row">'+
 											'<div class="col-lg-12 col-md-12">'+
-												'<select name="university" id="university" class="select2 form-control">'+
+												'<select name="university" id="university" class="select2 form-control" required>'+
 													'<option value="">Choose your University</option>'+
 													dataUniv+
 												'</select>'+
@@ -1739,7 +1739,7 @@ if ($("#formAddCandidate").length) {
 										'<label for="">Degree<span class="required-sign">*</span></label>'+
 										'<div class="row">'+
 											'<div class="col-lg-12 col-md-12">'+
-												'<select name="degree" id="degree" class="select2 form-control">'+
+												'<select name="degree" id="degree" class="select2 form-control" required>'+
 													'<option value="">Choose your degree</option>'+
 													'<option value="1">Diploma Degree</option>'+
 													'<option value="2">Bachelor Degree</option>'+
@@ -1756,7 +1756,7 @@ if ($("#formAddCandidate").length) {
 										'<label for="">Faculty<span class="required-sign">*</span></label>'+
 										'<div class="row">'+
 											'<div class="col-lg-12 col-md-12">'+
-												'<input type="text" name="faculty" id="faculty" class="form-control" placeholder="Faculty">'+
+												'<input type="text" name="faculty" id="faculty" class="form-control" placeholder="Faculty" required>'+
 											'</div>'+
 										'</div>'+
 									'</div>'+
@@ -1766,7 +1766,7 @@ if ($("#formAddCandidate").length) {
 										'<label for="">Major<span class="required-sign">*</span></label>'+
 										'<div class="row">'+
 											'<div class="col-lg-12 col-md-12">'+
-												'<select name="major" id="major" class="select2 form-control">'+
+												'<select name="major" id="major" class="select2 form-control" required>'+
 													'<option value="">Choose your major</option>'+
 													dataMajor+
 												'</select>'+
@@ -1781,7 +1781,7 @@ if ($("#formAddCandidate").length) {
 										'<label for="">Start Date<span class="required-sign">*</span></label>'+
 										'<div class="row">'+
 											'<div class="col-lg-12 col-md-12 with-icon">'+
-												'<input type="text" class="form-control" placeholder="Choose date" id="startDateEducation" name="startDateEducation">'+
+												'<input type="text" class="form-control" placeholder="Choose date" id="startDateEducation" name="startDateEducation" required>'+
 												'<img src="/image/icon/homepage/icon-calender-input.svg" class="this-icon" alt="icon">'+
 											'</div>'+
 										'</div>'+
@@ -1792,7 +1792,7 @@ if ($("#formAddCandidate").length) {
 										'<label for="">End Date<span class="required-sign">*</span></label>'+
 										'<div class="row">'+
 											'<div class="col-lg-12 col-md-12 with-icon">'+
-												'<input type="text" class="form-control" placeholder="Choose date" id="endDateEducation" name="endDateEducation">'+
+												'<input type="text" class="form-control" placeholder="Choose date" id="endDateEducation" name="endDateEducation" required>'+
 												'<img src="/image/icon/homepage/icon-calender-input.svg" class="this-icon" alt="icon">'+
 											'</div>'+
 										'</div>'+
@@ -1805,7 +1805,7 @@ if ($("#formAddCandidate").length) {
 										'<label for="">GPA<span class="required-sign">*</span></label>'+
 										'<div class="row">'+
 											'<div class="col-lg-12 col-md-12">'+
-												'<input type="text" class="form-control" placeholder="0 - 100" id="gpa" name="gpa">'+
+												'<input type="text" class="form-control" placeholder="0 - 100" id="gpa" name="gpa" required>'+
 											'</div>'+
 										'</div>'+
 									'</div>'+
@@ -1902,4 +1902,25 @@ if ($("#formAddCandidate").length) {
 			});
 		});
 	})
+}
+
+if ($("#addBulkCandidate").length) {
+	function readFileInput(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			
+			reader.onload = function (e) {
+				var inputLabel = $(input).parent().parent().find('.file-input-label');
+				inputLabel.val();
+				inputLabel.val(input.files[0].name);
+			};
+			
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	
+	$('#fileBulk').change(function(e){
+		e.preventDefault();
+		readFileInput(this);
+	});
 }

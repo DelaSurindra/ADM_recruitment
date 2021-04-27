@@ -840,7 +840,7 @@ var table = {
 
 			columnDefs = [
 				{
-					"targets": 2,
+					"targets": 1,
 					"data": "first_name",
 					"render": function(data, type, full, meta){
 						var id = encodeURIComponent(window.btoa(full.kandidat_id));

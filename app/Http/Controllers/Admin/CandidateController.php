@@ -9,11 +9,14 @@ use App\Http\Controllers\RequestController;
 use App\Model\Vacancy;
 use App\Model\Wilayah;
 use App\Model\Candidate;
+use App\Model\User;
 use App\Model\Job_application;
 use App\Model\Education;
 use App\Model\MasterUniversitas;
 use App\Model\MasterMajor;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\addBulkCandidate;
 use Hash;
 use Request;
 use Session;
@@ -323,6 +326,178 @@ class CandidateController extends Controller
         
     }
 
+    public function addCandidate(){
+        $encrypt = new EncryptController;
+    	$data = $encrypt->fnDecrypt(Request::input('data'),true);
+        // dd($data, $password);
+
+        $searchEmail = User::where('email', $data['email'])->first();
+        if ($searchEmail) {
+            $messages = [
+                'status' => 'error',
+                'message' => 'Email has registered',
+                'url' => 'close',
+                'id' => '',
+                'value' => ''
+            ];
+
+            return back()->with('notif', $messages);
+        } else {
+            $password = $this->generateRandomString(8);
+            $insertUser = User::insertGetId([
+                'email' => $data['email'],
+                'type' => '1',
+                'password' => bcrypt($password.env('SALT_PASS_CANDIDATE'))
+            ]);
+
+            // Photo Profile
+            if (Request::has('photoProfile')) {
+                $image = Request::file('photoProfile');
+                $ext = $image->getClientOriginalExtension();    
+                $path_photo_profile = $image->storeAs('photo-profile', 'photo_profile_'.time().'.'.$ext, 'public');
+                // $sql->image_logo = $path; di db nggk ada kolomnya
+            }else{
+                $path_photo_profile = "";
+            }
+            // Cover Letter
+            if (Request::has('coverLetter')) {
+                $image = Request::file('coverLetter');
+                $ext = $image->getClientOriginalExtension();    
+                $path_cover_letter = $image->storeAs('cover-letter', 'cover_letter_'.time().'.'.$ext, 'public');
+            } else {
+                $path_cover_letter = "";
+            }
+            // Resume
+            if (Request::has('resume')) {
+                $image = Request::file('resume');
+                $ext = $image->getClientOriginalExtension();    
+                $path_resume = $image->storeAs('resume', 'resume_'.time().'.'.$ext, 'public');
+            } else {
+                $path_resume = "";
+            }
+            // Portofolio
+            if (Request::has('portofolio')) {
+                $image = Request::file('portofolio');
+                $ext = $image->getClientOriginalExtension();    
+                $path_portofolio = $image->storeAs('portofolio', 'portofolio_'.time().'.'.$ext, 'public');
+            } else {
+                $path_portofolio = "";
+            }
+
+            $candidate = Candidate::insertGetId([
+                'first_name' => $data['firstName'],
+                'last_name' => $data['lastName'],
+                'tanggal_lahir' => date('Y-m-d', strtotime($data['birthDate'])),
+                'gender' => isset($data['gender']) ? $data['gender'] : null,
+                'telp' => $data['phoneNumber'],
+                'kota' => $data['myLocation'],
+                'linkedin' => $data['lingkedInLink'],
+                'cover_letter' => $path_cover_letter,
+                'resume' => $path_resume,
+                'protofolio' => $path_portofolio,
+                'foto_profil' => $path_photo_profile,
+                'skill' => $data['skill'],
+                'user_id' => $insertUser,
+                'status' => 0
+            ]);
+
+            if ($candidate) {
+                if (is_array($data['university'])) {
+                    for ($i=0; $i < count($data['university']); $i++) {
+                        if (Request::has('certificate')) {
+                            $image = Request::file('certificate');
+                            $ext = $image[$i]->getClientOriginalExtension();
+                            $path_certificate = $image[$i]->storeAs('certificate', 'certificate_'.time().'.'.$ext, 'public');
+                        }else{
+                            $path_certificate = '';
+                        }
+        
+                        $education = new Education;
+                        $education->universitas = $data['university'][$i];
+                        $education->gelar = $data['degree'][$i];
+                        $education->fakultas = $data['faculty'][$i];
+                        $education->jurusan = $data['major'][$i];
+                        $education->start_year = $data['startDateEducation'][$i];
+                        $education->end_year = $data['endDateEducation'][$i];
+                        $education->ijazah = $path_certificate;
+                        $education->gpa = $data['gpa'][$i];
+                        $education->kandidat_id = $candidate;
+                        $education->save();
+                    }
+                } else {
+                    if (Request::has('certificate')) {
+                        $image = Request::file('certificate');
+                        $ext = $image->getClientOriginalExtension();
+                        $path_certificate = $image[$i]->storeAs('certificate', 'certificate_'.time().'.'.$ext, 'public');
+                    }else{
+                        $path_certificate = '';
+                    }
+    
+                    $education = new Education;
+                    $education->universitas = $data['university'];
+                    $education->gelar = $data['degree'];
+                    $education->fakultas = $data['faculty'];
+                    $education->jurusan = $data['major'];
+                    $education->start_year = $data['startDateEducation'];
+                    $education->end_year = $data['endDateEducation'];
+                    $education->ijazah = $path_certificate;
+                    $education->gpa = $data['gpa'];
+                    $education->kandidat_id = $candidate;
+                    $education->save();
+                }
+
+                $messages = [
+                    'status' => 'success',
+                    'message' => 'Create Candidate Success',
+                    'url' => 'close',
+                    'id' => '',
+                    'value' => ''
+                ];
+
+                return redirect('/HR/candidate')->with('notif', $messages);
+            } else {
+                $messages = [
+                    'status' => 'error',
+                    'message' => 'Create Candidate Failed',
+                    'url' => 'close',
+                    'id' => '',
+                    'value' => ''
+                ];
+
+                return back()->with('notif', $messages);
+            }
+        }
+    }
+
+    public function addBulk(){
+        if (Request::has('fileBulk')) {
+            $file = Request::file('fileBulk');
+            $nama_file = rand().$file->getClientOriginalName();
+            $file->move(public_path('storage').'/'.'candidate',$nama_file);
+            Excel::import(new addBulkCandidate, public_path('storage').'/'.'candidate/'.$nama_file);
+            
+            $messages = [
+                'status' => 'success',
+                'message' => 'Create Bulk Candidate Success',
+                'url' => 'close',
+                'id' => '',
+                'value' => ''
+            ];
+
+            return redirect('/HR/candidate')->with('notif', $messages);
+        }else{
+            $messages = [
+                'status' => 'error',
+                'message' => 'Pleasce choose file',
+                'url' => 'close',
+                'id' => '',
+                'value' => ''
+            ];
+
+            return back()->with('notif', $messages);
+        }
+    }
+
     public function getMaster(){
         $universitas = MasterUniversitas::get()->toArray();
         $major = MasterMajor::get()->toArray();
@@ -333,5 +508,15 @@ class CandidateController extends Controller
         ];
 
         return response()->json($data);
+    }
+
+    function generateRandomString($length) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }
