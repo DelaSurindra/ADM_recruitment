@@ -10,7 +10,7 @@
             <!-- list menu -->
             <p class="text-title">GLOBAL</p>
             <li class="tree-menu custom-height-menu-sidebar">
-                <a href="{{ route('home') }}" class="menu {{($sidebar== 'dashboard'?'active':'')}}">
+                <a href="{{ route('home.admin') }}" class="menu {{($sidebar== 'dashboard'?'active':'')}}">
                     <div class="row">
                         <div class="col-md-2">
                             <img src="{{ $sidebar== 'dashboard' ? asset('image/icon/sidebar/icon_menu_home_active.svg') : asset('image/icon/sidebar/icon_menu_home.svg')}}" alt="" width="25px" class="right-icon-sidebar icon-sidebar-mobile">

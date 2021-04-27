@@ -27,6 +27,8 @@ Route::prefix('HR')->group(function(){
 	});
 	Route::middleware('authuser')->group(function(){
 		Route::get('/', 'Admin\HomeController@HomeView')->name('home.admin');
+		Route::post('/chart-total-application', 'Admin\HomeController@chartTotalApplication')->name('post.chart.total.application');
+		Route::post('/chart-application-source', 'Admin\HomeController@chartApplicationSource')->name('post.chart.application.source');
 		Route::prefix('news_event')->group(function () {
 			Route::get('/', 'Admin\NewsEventController@viewNewsEvent')->name('get.news.event');
 			Route::get('/add-news-event', 'Admin\NewsEventController@viewNewsEventAdd')->name('get.news.event.add');

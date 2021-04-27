@@ -1451,6 +1451,33 @@ if ($("#formAddTest").length) {
 	
 }
 
+if ($("#btnInfoLatlong").length) {
+	var title = "<div class='row'>"+
+					"<div class='col-md-12'>"+
+						"<h4 class='title-popover'>How to find latitude and longitude:</h4>"+
+					"</div>"+
+				"</div>";
+	var content = "<div class='row mb-4'>"+
+					"<div class='col-md-12'>"+
+						"<p class='content-popover mb-0'>1. On your computer, open "+"<a href='https://www.google.com/maps/'>Google Maps.&nbsp <img src='/image/icon/main/icon_google_map.svg'></a>"+"</p>"+
+						"<p class='content-popover mb-0'>2. Right-click the place or area on the map.</p>"+
+						"<p class='content-popover mb-0'>3.  Select the latitude and longitude, this will automatically copy the coordinates.</p>"+
+					"</div>"+
+				"</div>"+
+				"<div class='row'>"+
+					"<div class='col-md-12'>"+
+						"<p class='content-popover mb-0'><span class='span-popover'>ex: </span>-6.376030911994399, 106.89830424039924</p>"+
+					"</div>"+
+				"</div>";
+	$('#btnInfoLatlong').popover({
+		html:true,
+		title:title,
+		content: content,
+		placement:"top"
+	});
+	
+}
+
 if ($('.choose-candidate').length) {
 	$(".choose-candidate").click(function(){
 		var column = [

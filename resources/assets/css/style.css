@@ -1,3 +1,103 @@
+.title-popover{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: -0.02em;
+    color: #050401;
+}
+
+.content-popover{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 150%;
+    letter-spacing: -0.02em;
+    color: #050401;
+}
+
+.span-popover{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 150%;
+    letter-spacing: -0.02em;
+    color: #888888;
+}
+
+.popover .arrow{
+    display: none;
+}
+
+.info-latlong{
+    cursor: pointer;
+}
+
+.title-dashboard{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #050401;
+}
+
+.title-card-dashboard{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #333333;
+}
+
+.count-text{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 130%;
+    align-items: center;
+    letter-spacing: -0.02em;
+    color: #050401;
+    padding-top: 3px;
+}
+
+.content-text{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 130%;
+    align-items: center;
+    letter-spacing: -0.02em;
+    color: #828282;
+}
+
+.value-text{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 130%;
+    align-items: center;
+    letter-spacing: -0.02em;
+    color: #333333;
+}
+
+.max-height-card{
+    max-height: 350px;
+}
+
+.col-right{
+    border-left: #C4C4C4 solid 3px;
+}
+
 .download-bulk-default{
     font-family: 'inter_bold', sans-serif !important;
     font-style: normal;

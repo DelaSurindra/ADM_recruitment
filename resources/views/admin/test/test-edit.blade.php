@@ -62,8 +62,15 @@
                                 </div>
                                 <div class="col-xl-6 col-md-6 col-sm-12" id="degreeVacancyDiv">
                                     <div class="form-group" >
-                                        <label>Longlat<span class="required-sign">*</span></label>
-                                        <input id="longlatTest" name="longlatTest" class="form-control" type="text" placeholder="Enter Longlat" value="{{$data['latlong']}}">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Latitude & Longitude<span class="required-sign">*</span></label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <img src="{{asset('image/icon/main/icon_info_red.svg')}}" id="btnInfoLatlong" class="right info-latlong">
+                                            </div>
+                                        </div>
+                                        <input id="longlatTest" name="longlatTest" class="form-control" type="text" placeholder="latitude number,longitude number" value="{{$data['latlong']}}">
                                     </div>
                                 </div>
                             </div>
