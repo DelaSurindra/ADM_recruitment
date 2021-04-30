@@ -8,6 +8,9 @@ use App\Model\User;
 use App\Model\Vacancy;
 use App\Model\Job_Application;
 use App\Model\MasterSource;
+use App\Model\CognitiveTestResult;
+use App\Exports\DownloadDashboard;
+use Maatwebsite\Excel\Facades\Excel;
 
 use Request;
 use Session;
@@ -90,6 +93,148 @@ class HomeController extends Controller
         ];
 
         return response()->json($value);
+    }
+
+    public function topScore(){
+        $dateStart = date('Y-m-d', strtotime(Request::input('dateStart')));
+        $dateEnd = date('Y-m-d', strtotime(Request::input('dateEnd')));
+        $cognitiveTest = CognitiveTestResult::select('cognitive_test_result.skor', 'test_participant.kandidat_id', 'kandidat.foto_profil', 'kandidat.first_name', 'kandidat.last_name')
+                                            ->join('test_participant', 'cognitive_test_result.id_participant', 'test_participant.id')
+                                            ->join('kandidat', 'test_participant.kandidat_id', 'kandidat.id')
+                                            ->where('cognitive_test_result.status', 2)
+                                            ->whereBetween('cognitive_test_result.created_at', [$dateStart, $dateEnd])
+                                            ->orderBy('cognitive_test_result.skor', 'DESC')
+                                            ->limit(3)
+                                            ->get()->toArray();
+        
+        return response()->json($cognitiveTest);
+    }
+
+    public function candidatePass(){
+        $dateStart = date('Y-m-d', strtotime(Request::input('dateStart')));
+        $dateEnd = date('Y-m-d', strtotime(Request::input('dateEnd')));
+        $pass = CognitiveTestResult::where('status', 2)->whereBetween('cognitive_test_result.created_at', [$dateStart, $dateEnd])->count();
+        $total = CognitiveTestResult::whereBetween('cognitive_test_result.created_at', [$dateStart, $dateEnd])->count();
+        $persentase = 0;
+        if ($total != 0) {
+            $persentase = round($pass/$total, 2);
+        }
+
+        $dataCandidatePass = [
+            'total'      => $total,
+            'pass'       => $pass,
+            'persentase' => $persentase
+        ];
+
+        return response()->json($dataCandidatePass);
+    }
+
+    public function averageScore(){
+        $dateStart = date('Y-m-d', strtotime(Request::input('dateStart')));
+        $dateEnd = date('Y-m-d', strtotime(Request::input('dateEnd')));
+        $average = CognitiveTestResult::select(
+                                        DB::raw('AVG(verbal1) as verbal1'),
+                                        DB::raw('AVG(verbal2) as verbal2'),
+                                        DB::raw('AVG(verbal3) as verbal3'),
+                                        DB::raw('AVG(verbal4) as verbal4'),
+                                        DB::raw('AVG(numerical1) as numerical1'),
+                                        DB::raw('AVG(numerical2) as numerical2'),
+                                        DB::raw('AVG(numerical3) as numerical3'),
+                                        DB::raw('AVG(numerical4) as numerical4'),
+                                        DB::raw('AVG(abstrak1) as abstrak1'),
+                                        DB::raw('AVG(abstrak2) as abstrak2'),
+                                        DB::raw('AVG(abstrak3) as abstrak3'),
+                                        DB::raw('AVG(abstrak4) as abstrak4'),
+                                    )->whereBetween('created_at', [$dateStart, $dateEnd])->get()->toArray();
+
+        $averageVerbal = (float)$average[0]['verbal1']+(float)$average[0]['verbal2']+(float)$average[0]['verbal3']+(float)$average[0]['verbal4'];
+        $averageNumeric = (float)$average[0]['numerical1']+(float)$average[0]['numerical2']+(float)$average[0]['numerical3']+(float)$average[0]['numerical4'];
+        $averageAbstrak = (float)$average[0]['abstrak1']+(float)$average[0]['abstrak2']+(float)$average[0]['abstrak3']+(float)$average[0]['abstrak4'];
+        
+        $averageAll = [
+            'verbal' => round($averageVerbal, 2),
+            'numeric' => round($averageNumeric, 2),
+            'abstrak' => round($averageAbstrak, 2),
+        ];
+
+        return response()->json($averageAll);
+    }
+
+    public function applicationUniversity(){
+        $dateStart = date('Y-m-d', strtotime(Request::input('dateStart')));
+        $dateEnd = date('Y-m-d', strtotime(Request::input('dateEnd')));
+        $univ = Job_Application::select('pendidikan.universitas', DB::raw('COUNT(pendidikan.universitas) as total'))
+                                ->join('pendidikan', 'job_application.kandidat_id', 'pendidikan.kandidat_id')
+                                ->where('job_application.status', '>=', 3)
+                                ->whereBetween('job_application.created_at', [$dateStart, $dateEnd])
+                                ->groupBy('pendidikan.universitas')
+                                ->get()->toArray();
+        
+        $label = [];
+        $result = [];
+        if ($univ) {
+            for ($i=0; $i < count($univ) ; $i++) { 
+                $dataLabel = $univ[$i]['universitas'];
+                array_push($label, $dataLabel);
+                array_push($result, (int)$univ[$i]['total']);
+            }
+        }
+
+        $value = [
+            'label'  => $label,
+            'result' => $result
+        ];
+
+        return response()->json($value);
+    }
+
+    public function applicationMajor(){
+        $dateStart = date('Y-m-d', strtotime(Request::input('dateStart')));
+        $dateEnd = date('Y-m-d', strtotime(Request::input('dateEnd')));
+        $major = Job_Application::select('pendidikan.jurusan', DB::raw('COUNT(pendidikan.jurusan) as total'))
+                                ->join('pendidikan', 'job_application.kandidat_id', 'pendidikan.kandidat_id')
+                                ->where('job_application.status', '>=', 3)
+                                ->whereBetween('job_application.created_at', [$dateStart, $dateEnd])
+                                ->groupBy('pendidikan.jurusan')
+                                ->get()->toArray();
+        // dd($major);
+        $label = [];
+        $result = [];
+        if ($major) {
+            for ($i=0; $i < count($major) ; $i++) { 
+                $dataLabel = $major[$i]['jurusan'];
+                array_push($label, $dataLabel);
+                array_push($result, (int)$major[$i]['total']);
+            }
+        }
+
+        $value = [
+            'label'  => $label,
+            'result' => $result
+        ];
+
+        return response()->json($value);
+    }
+
+    public function downloadDashboard($date){
+        $tanggal = base64_decode(urldecode($date));
+        $exp = explode('_', $tanggal);
+        $exp[0] = date('Y-m-d', strtotime($exp[0]));
+        $exp[1] = date('Y-m-d', strtotime($exp[1]));
+        // dd($exp);
+        if ($exp[2] == "1") {
+            $nameFile = 'Download_topscore_'.$exp[0].'-'.$exp[1].'.xlsx';
+        }else if ($exp[2] == "2") {
+            $nameFile = 'Download_candidatepass_'.$exp[0].'-'.$exp[1].'.xlsx';
+        }else if ($exp[2] == "3") {
+            $nameFile = 'Download_averagescore_'.$exp[0].'-'.$exp[1].'.xlsx';
+        }else if ($exp[2] == "4") {
+            $nameFile = 'Download_universitas_'.$exp[0].'-'.$exp[1].'.xlsx';
+        }else if ($exp[2] == "5") {
+            $nameFile = 'Download_major_'.$exp[0].'-'.$exp[1].'.xlsx';
+        }
+
+        return Excel::download(new DownloadDashboard($exp), $nameFile);
     }
 
     function number_format_short( $n, $precision = 1 ) {

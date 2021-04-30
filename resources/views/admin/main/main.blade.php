@@ -92,6 +92,7 @@
 <script src="{{asset('plugin/chartjs/chart.min.js')}}"></script>
 <script src="{{asset('plugin/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}"></script>
 <script src="{{asset('plugin/image-picker-2/image-picker.min.js')}}"></script>
+<script src="{{asset('plugin/progress-bar/progressbar.min.js')}}"></script>
 <script src="{{asset('js/all.js')}}"></script>
 
 </html>

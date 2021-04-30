@@ -72,16 +72,12 @@
             </div>
             <div class="profile-dropdown dropdown">
                 <div class="profile-access" id="dropdownMenuProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    @if(session('session_candidate.foto_profil') == null)
                     <img class="rounded-circle img-profile" src="{{ asset('image/icon/homepage/dummy-profile.svg') }}" alt="avatar">
-                    @else
-                    <img class="rounded-circle img-profile" src="{{asset('storage/').'/'.session('session_candidate.foto_profil') }}" alt="avatar">
-                    @endif
-                    <p class="name-profile">Sahadi</p>
+                    <p class="name-profile">{{session('session_id.first_name')}} {{session('session_id.last_name')}}</p>
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuProfile">
-                    <h6 class="dropdown-item">Sahadi</h6>
+                    <h6 class="dropdown-item">{{session('session_id.first_name')}} {{session('session_id.last_name')}}</h6>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ route('get.profile.view') }}">
                         <img src="{{ asset('image/icon/homepage/edit-profile-icon.svg') }}" alt="icon"> Edit Profile
