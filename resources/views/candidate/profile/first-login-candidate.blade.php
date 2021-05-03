@@ -190,7 +190,12 @@
                                 <label for="">School/University<span class="required-sign">*</span></label>
                                 <div class="row">
                                     <div class="col-lg-11 col-md-12">
-                                        <input type="text" name="university" id="university" class="form-control" placeholder="School/University">
+                                        <select name="university" id="university" class="select2-custom form-control">
+                                            <option selected disabled>Choose or input your university</option>
+                                            @foreach($univ as $options)
+                                            <option value="{{$options['universitas']}}">{{$options['universitas']}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -227,10 +232,11 @@
                                 <label for="">Major<span class="required-sign">*</span></label>
                                 <div class="row">
                                     <div class="col-lg-11 col-md-12">
-                                        <select name="major" id="major" class="select2 form-control">
-                                            <option value="">Choose your major</option>
-                                            <option value="Sistem Informasi">Sistem Informasi</option>
-                                            <option value="Akuntansi">Akuntansi</option>
+                                    <select name="major" id="major" class="select2-custom form-control">
+                                            <option selected disabled>Choose or input  your major</option>
+                                            @foreach($major as $options)
+                                            <option value="{{$options['major']}}">{{$options['major']}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

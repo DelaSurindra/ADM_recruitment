@@ -124,9 +124,10 @@ Route::prefix('HR')->group(function(){
 
 // Candidate View Preparation
 Route::middleware('authcandidate')->group(function(){
+
 	Route::get('/complete-account', 'Candidate\ProfileController@viewFirstLogin')->name('get.first-login');
 	Route::post('/post-first-login', 'Candidate\ProfileController@postFirstLogin')->name('post.first-login');
-
+	Route::get('/master-education', 'EducationController@getAllData')->name('get.master-edu');
 	Route::prefix('signout')->group(function () {
 		Route::get('/', 'Candidate\LoginController@logout')->name('get.logout-candidate');
 	});
@@ -163,6 +164,7 @@ Route::middleware('authcandidate')->group(function(){
 });
 
 Route::get('/', 'Candidate\HomeController@viewIndex')->name('home');
+Route::get('/source-info', 'Candidate\JobController@getDataSouce')->name('get.list.source');
 
 Route::get('/news-event', 'Candidate\NewsEventController@viewNewsEvent')->name('get.news.event.page');
 Route::get('/news-event/detail/{id}', 'Candidate\NewsEventController@viewNewsEventDetail')->name('get.news.event.page.detail');

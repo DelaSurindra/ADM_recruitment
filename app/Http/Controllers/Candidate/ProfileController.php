@@ -17,6 +17,8 @@ use App\Model\TestParticipant;
 use App\Model\AlternatifTest;
 use App\Model\InterviewEvent;
 use App\Model\interviewReschedule;
+use App\Model\MasterUniversitas;
+use App\Model\MasterMajor;
 
 use Request;
 use Session;
@@ -30,15 +32,17 @@ class ProfileController extends Controller
             return redirect('/profile');
         } else {
             $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
-            
-            return view('candidate.profile.first-login-candidate')->with(['topbar'=>'first_login', 'wilayah'=>$wilayah]);
+            $universitas = MasterUniversitas::get()->toArray();
+            $major = MasterMajor::get()->toArray();
+            // dd($universitas,$major);
+            return view('candidate.profile.first-login-candidate')->with(['topbar'=>'first_login', 'wilayah'=>$wilayah, 'univ' => $universitas, 'major' => $major]);
         }
     }
 
     public function postFirstLogin(){
         $encrypt = new EncryptController;
     	$data = $encrypt->fnDecrypt(Request::input('data'),true);
-        // dd($data, Request::file('certificate'));
+        // dd($data);
         
         // Photo Profile
         if (Request::has('photoProfile')) {
@@ -839,7 +843,7 @@ class ProfileController extends Controller
                     $job_apply[$i]['status_text'] = "Proses to Written Test";
                     $job_apply[$i]['button'] = "N";
                 }elseif ($job_apply[$i]['status'] == 2) {
-                    $job_apply[$i]['status_text'] = "Scheduled to Written Test";
+                    $job_apply[$i]['status_text'] = "Check Online Test";
                     $job_apply[$i]['button'] = "Y";
                 }elseif ($job_apply[$i]['status'] == 3) {
                     $job_apply[$i]['status_text'] = "Written Test Pass";
@@ -848,22 +852,22 @@ class ProfileController extends Controller
                     $job_apply[$i]['status_text'] = "Written Test failed";
                     $job_apply[$i]['button'] = "N";
                 }elseif ($job_apply[$i]['status'] == 5) {
-                    $job_apply[$i]['status_text'] = "Process to HR interview";
+                    $job_apply[$i]['status_text'] = "Check Interview";
                     $job_apply[$i]['button'] = "Y";
                 }elseif ($job_apply[$i]['status'] == 6) {
-                    $job_apply[$i]['status_text'] = "Process to User Interview 1";
+                    $job_apply[$i]['status_text'] = "Check Interview";
                     $job_apply[$i]['button'] = "Y";
                 }elseif ($job_apply[$i]['status'] == 7) {
-                    $job_apply[$i]['status_text'] = "Process to User Interview 2";
+                    $job_apply[$i]['status_text'] = "Check Interview";
                     $job_apply[$i]['button'] = "Y";
                 }elseif ($job_apply[$i]['status'] == 8) {
-                    $job_apply[$i]['status_text'] = "Process to User Interview 3";
+                    $job_apply[$i]['status_text'] = "Check Interview";
                     $job_apply[$i]['button'] = "Y";
                 }elseif ($job_apply[$i]['status'] == 9) {
-                    $job_apply[$i]['status_text'] = "Process to MCU";
+                    $job_apply[$i]['status_text'] = "Check MCU";
                     $job_apply[$i]['button'] = "Y";
                 }elseif ($job_apply[$i]['status'] == 10) {
-                    $job_apply[$i]['status_text'] = "Process to Doc Sign";
+                    $job_apply[$i]['status_text'] = "Doc Sign";
                     $job_apply[$i]['button'] = "Y";
                 }
                 $job_apply[$i]['status_css'] = 'other';

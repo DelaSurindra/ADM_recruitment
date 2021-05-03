@@ -103,7 +103,19 @@ var ajax = {
 									var id = result.idApply;
 									$('#idApply').val(id);
 
+									var option = [];
+									var rawData = result.options;
+									console.log(rawData)
+									for (let i = 0; i < rawData.length; i++) {
+										var item = '<option value="'+rawData[i].source+'">'+rawData[i].source+'</option>'
+										option.push(item);
+									}
+																	
+									console.log(rawData)
 									$('#modalNotifApplySuccess').modal('show')
+									if ($('#tellMe').length) {
+										$('#tellMe').append(option)
+									}
 								} else if(result.callback == 'applySuccessTellMe') {
 									setInterval(
 										function() {

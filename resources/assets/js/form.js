@@ -4,6 +4,12 @@ var form = {
 		if ($('.select2').length) {
 			$('.select2').select2();
 		}
+		if ($('.select2-custom').length) {
+			$('.select2-custom').select2({
+				tags: true,
+				placeholder: 'Pilih atau Input'
+			  });
+		}
 		$('input').focus(function(){
 			$(this).parents('.form-group').addClass('focused');
 		});
@@ -557,8 +563,23 @@ if ($("#formFirstLogin").length) {
 		e.preventDefault()
 		$('.btnAddListEducation.large').hide()
 		$('.firstBtnListEducation').removeClass('margin-right-2rem')
-	
-		var option = '<div class="listStudy">'+
+		
+		ajax.getData('master-education', 'get', null, function(data){
+			var dataUniv =[];
+			var rowUniv = data.universitas;
+			for (let i = 0; i < rowUniv.length; i++) {
+				var option = '<option value="'+rowUniv[i].universitas+'">'+rowUniv[i].universitas+'</option>'
+				dataUniv.push(option);
+			}
+
+			var dataMajor =[];
+			var rowMajor = data.major;
+			for (let i = 0; i < rowMajor.length; i++) {
+				var option = '<option value="'+rowMajor[i].major+'">'+rowMajor[i].major+'</option>'
+				dataMajor.push(option);
+			}
+
+			var option = '<div class="listStudy">'+
 						'<hr>'+
 						'<div class="row">'+
 							'<div class="col-lg-6 col-md-12">'+
@@ -566,7 +587,10 @@ if ($("#formFirstLogin").length) {
 									'<label for="">School/University<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<input type="text" name="university" id="university" class="form-control" placeholder="School/University">'+
+											'<select name="university" class="select2-custom form-control">'+
+											'<option selected disabled>Choose or input your university</option>'+
+												dataUniv+
+											'</select>'+
 										'</div>'+
 									'</div>'+
 								'</div>'+
@@ -603,10 +627,9 @@ if ($("#formFirstLogin").length) {
 									'<label for="">Major<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<select name="major" id="major" class="select2 form-control">'+
-												'<option value="">Choose your major</option>'+
-												'<option value="Sistem Informasi">Sistem Informasi</option>'+
-												'<option value="Akuntansi">Akuntansi</option>'+
+										'<select name="major" id="major" class="select2-custom form-control">'+
+											'<option selected disabled>Choose or input your major</option>'+
+											dataMajor+
 											'</select>'+
 										'</div>'+
 									'</div>'+
@@ -688,57 +711,66 @@ if ($("#formFirstLogin").length) {
 						'</div>'+
 					'</div>';
 	
-		$('#listEducationCandidate').append(option)
-	
-		$('input[name="startDateEducation"]').datetimepicker({
-			format: 'YYYY',
-		});
-	
-		$('input[name="endDateEducation"]').datetimepicker({
-			format: 'YYYY',
-		});
-	
-		if ($('.select2').length) {
-			$('.select2').select2();
-		}
-		if ($('.removeThisEducation').length) {
-			$('.removeThisEducation').click(function(){
-				console.log('click')
-				$(this).parent().parent().remove()
+			$('#listEducationCandidate').append(option)
 
-				if ($('.listStudy').length < 2) {
-					$('.btnAddListEducation.large').show()
-				}
-			})
-		}
-		if ($('.secondBtnEducation').length) {
-			$('.secondBtnEducation').click(function(){
-				$(this).remove()
-				$('.btnAddListEducation.large').click();
-			})
-		}
-
-		function readFileInput(input) {
-			console.log(input)
-			console.log(input.files)
-			console.log(input.files[0])
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
-				
-				reader.onload = function (e) {
-					var inputLabel = $(input).parent().parent().find('.file-input-label');
-					inputLabel.val();
-					inputLabel.val(input.files[0].name);
-				};
-				
-				reader.readAsDataURL(input.files[0]);
-			}
-		}
+			$('input[name="startDateEducation"]').datetimepicker({
+				format: 'YYYY',
+			});
 		
-		$('.uploadCertificate').change(function(e){
-			e.preventDefault();
-			readFileInput(this);
-		});
+			$('input[name="endDateEducation"]').datetimepicker({
+				format: 'YYYY',
+			});
+		
+			if ($('.select2-custom').length) {
+				$('.select2-custom').select2({
+					tags: true,
+
+				  });
+			}
+			if ($('.removeThisEducation').length) {
+				$('.removeThisEducation').click(function(){
+					console.log('click')
+					$(this).parent().parent().remove()
+	
+					if ($('.listStudy').length < 2) {
+						$('.btnAddListEducation.large').show()
+					}
+				})
+			}
+			if ($('.secondBtnEducation').length) {
+				$('.secondBtnEducation').click(function(){
+					$(this).remove()
+					$('.btnAddListEducation.large').click();
+				})
+			}
+	
+			function readFileInput(input) {
+				console.log(input)
+				console.log(input.files)
+				console.log(input.files[0])
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+					
+					reader.onload = function (e) {
+						var inputLabel = $(input).parent().parent().find('.file-input-label');
+						inputLabel.val();
+						inputLabel.val(input.files[0].name);
+					};
+					
+					reader.readAsDataURL(input.files[0]);
+				}
+			}
+			
+			$('.uploadCertificate').change(function(e){
+				e.preventDefault();
+				readFileInput(this);
+			});
+
+		})
+	
+		
+	
+		
 	})
 }
 

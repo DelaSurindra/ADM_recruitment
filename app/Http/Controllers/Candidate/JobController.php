@@ -12,6 +12,8 @@ use App\Model\Vacancy;
 use App\Model\Wilayah;
 use App\Model\User;
 use App\Model\Candidate;
+use App\Model\MasterSource;
+
 
 use Request;
 use Session;
@@ -179,6 +181,8 @@ class JobController extends Controller
                 if ($apply) {
                     $track = $this->statusTrackApply($apply, 0);
                     $updateStatus = Candidate::where('id', Session::get('session_candidate')['id'])->update(['status'=>1]);
+                    $souce = MasterSource::get()->toArray();
+                    
                     if ($updateStatus) {
                         session()->forget('session_candidate.status_kandidat');
                         session()->put('session_candidate.status_kandidat', 1);
@@ -186,7 +190,8 @@ class JobController extends Controller
                             'status' => 'success',
                             'message' => 'Berhasil',
                             'idApply' => $apply,
-                            'callback' => 'applySuccess'
+                            'callback' => 'applySuccess',
+                            'options' => $souce
                         ];
                     }
                 } else {
@@ -231,4 +236,5 @@ class JobController extends Controller
             ];
         }
     }
+
 }
