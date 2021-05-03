@@ -6,6 +6,7 @@ use App\Http\Controllers\Security\EncryptController;
 use App\Http\Controllers\Security\ValidatorController;
 use App\Http\Controllers\RequestController;
 use App\Model\User;
+use App\Model\HumanResource;
 use Hash;
 use DB;
 use Request;
@@ -29,17 +30,33 @@ class LoginController extends Controller
         // dd($getUser);
     	if ($user) {
             if (Hash::check($data['password'].env('SALT_PASS_HR'), $user->password)) {
-                $session = [
-                    'id' => $user->id,
-                    'email' => $user->email,
-                    'type' => $user->type
-                ];
-                Session::put('session_id', $session);
-                return [
-                    'status'   => 'success',
-                    'url'      => '/HR',
-                    'callback' => 'login'
-                ];
+                if ($user->status == 1) {
+                    $HR = HumanResource::select('human_resource.*', 'role.role_name')->join('role', 'human_resource.role', 'role.id')->where('human_resource.user_id', $user->id)->first();
+                    $session = [
+                        'id' => $user->id,
+                        'email' => $user->email,
+                        'type' => $user->type,
+                        'hr_id' => $HR->id,
+                        'first_name' => $HR->first_name,
+                        'last_name' => $HR->last_name,
+                        'gender' => $HR->gender,
+                        'telp' => $HR->telp,
+                        'role' => $HR->role,
+                        'role_name' => $HR->role_name,
+                    ];
+                    Session::put('session_id', $session);
+                    return [
+                        'status'   => 'success',
+                        'url'      => '/HR',
+                        'callback' => 'login'
+                    ];
+                }else{
+                    return [
+                        'status'  => 'error',
+                        'message' => 'User Tidak Aktif'
+                    ];
+                }
+
             } else {
                 return [
                     'status'  => 'error',

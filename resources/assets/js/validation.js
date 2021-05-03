@@ -713,6 +713,81 @@ const formrules = {
 		}
 	},
 	
+	'formAddUser':{
+        ignore: null,
+		rules:{
+			'emailUser':{
+				required:true,
+				STD_VAL_WEB_5:true
+			},
+			'passUser':{
+				required:true,
+				STD_VAL_WEB_2:true
+			},
+            'firstNameUser':{
+                required:true,
+				STD_VAL_WEB_3: true,
+            },
+            'lastNameUser':{
+                required:true,
+                STD_VAL_WEB_3: true,
+            },
+			'genderUser':{
+				required:true,
+			},
+			'telpUser':{
+				required:true,
+				STD_VAL_WEB_8: true,
+			},
+			'roleUser':{
+				required:true,
+			}
+		},
+		submitHandler:false,
+        errorPlacement: function (error, element) {
+			if (element.is("#roleUser")) {
+				error.appendTo(element.parents('#roleUserDiv'));
+			} else if (element.is("input[type=radio]") || element.is("input[type=checkbox]")) {
+				error.appendTo(element.parents('.form-group'));
+			} else { // This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+    },
+
+	'formAEditUser':{
+        ignore: null,
+		rules:{
+            'firstNameUser':{
+                required:true,
+				STD_VAL_WEB_3: true,
+            },
+            'lastNameUser':{
+                required:true,
+                STD_VAL_WEB_3: true,
+            },
+			'genderUser':{
+				required:true,
+			},
+			'telpUser':{
+				required:true,
+				STD_VAL_WEB_8: true,
+			},
+			'roleUser':{
+				required:true,
+			}
+		},
+		submitHandler:false,
+        errorPlacement: function (error, element) {
+			if (element.is("#roleUser")) {
+				error.appendTo(element.parents('#roleUserDiv'));
+			} else if (element.is("input[type=radio]") || element.is("input[type=checkbox]")) {
+				error.appendTo(element.parents('.form-group'));
+			} else { // This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+    },
 }
 
 var validation = {

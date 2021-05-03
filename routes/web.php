@@ -29,6 +29,13 @@ Route::prefix('HR')->group(function(){
 		Route::get('/', 'Admin\HomeController@HomeView')->name('home.admin');
 		Route::post('/chart-total-application', 'Admin\HomeController@chartTotalApplication')->name('post.chart.total.application');
 		Route::post('/chart-application-source', 'Admin\HomeController@chartApplicationSource')->name('post.chart.application.source');
+		Route::post('/top-score', 'Admin\HomeController@topScore')->name('post.top.score');
+		Route::post('/candidate-pass', 'Admin\HomeController@candidatePass')->name('post.candidate.pass');
+		Route::post('/average-score', 'Admin\HomeController@averageScore')->name('post.average.score');
+		Route::post('/application-university', 'Admin\HomeController@applicationUniversity')->name('post.application.university');
+		Route::post('/application-major', 'Admin\HomeController@applicationMajor')->name('post.application.major');
+		Route::get('/download-dashboard/{date}', 'Admin\HomeController@downloadDashboard')->name('post.download.dashboard');
+
 		Route::prefix('news_event')->group(function () {
 			Route::get('/', 'Admin\NewsEventController@viewNewsEvent')->name('get.news.event');
 			Route::get('/add-news-event', 'Admin\NewsEventController@viewNewsEventAdd')->name('get.news.event.add');
@@ -117,6 +124,16 @@ Route::prefix('HR')->group(function(){
 			Route::post('/post-master','Admin\MasterController@addMaster')->name('post.master.add');
 			Route::post('/edit-master','Admin\MasterController@editMaster')->name('post.master.edit');
 			Route::post('/delete-master','Admin\MasterController@deleteMaster')->name('post.master.delete');
+		});
+
+		Route::prefix('user')->middleware('role:1')->group(function () {
+			Route::get('/', 'Admin\UserController@viewUser')->name('get.user');
+			Route::post('/list-user','Admin\UserController@listUser')->name('post.user.list');
+			Route::get('/add-user', 'Admin\UserController@viewUserAdd')->name('get.user.add');
+			Route::post('/post-user','Admin\UserController@addUser')->name('post.user.add');
+			Route::get('/edit-user/{id}', 'Admin\UserController@viewUserEdit')->name('get.user.edit');
+			Route::post('/edit-user','Admin\UserController@editUser')->name('post.user.edit');
+			Route::post('/delete-user','Admin\UserController@deleteUser')->name('post.user.delete');
 		});
 	});
 });

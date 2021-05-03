@@ -1017,7 +1017,7 @@ var table = {
 					"render": function(data, type, full, meta){
 						var id = encodeURIComponent(window.btoa(full.id));
 						var data = '<button type="button" class="btn btn-table btn-transparent mr-2 edit-table edit-master"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Data Master">&nbsp Edit&nbsp</button>';
-						konfirm = '<button type="button" class="btn btn-table btn-transparent edit-table delete-master"><img style="margin-right: 1px;" src="/image/icon/main/delete_red.svg" title="Delete Data Master">&nbspDelete</button>';
+						var konfirm = '<button type="button" class="btn btn-table btn-transparent edit-table delete-master"><img style="margin-right: 1px;" src="/image/icon/main/delete_red.svg" title="Delete Data Master">&nbspDelete</button>';
 						var hasil = data+konfirm
 		               	return hasil;
 					}
@@ -1072,6 +1072,241 @@ var table = {
 
 		 	table.serverSide('tableUniv',column,'HR/master/list-universitas',null,columnDefs)
 		})
+
+		if ($("#formFilterDashboard").length) {
+			$('#dateStart').datetimepicker({
+				format: 'DD-MM-YYYY',
+			});
+		
+			$('#dateEnd').datetimepicker({
+				format: 'DD-MM-YYYY',
+			});
+
+			var dateStart = $("#dateStart").val();
+			var dateEnd = $("#dateEnd").val();
+			var dateTopScore = encodeURIComponent(window.btoa(dateStart+'_'+dateEnd+'_1'));
+			var dateCandidatePass = encodeURIComponent(window.btoa(dateStart+'_'+dateEnd+'_2'));
+			var dateAverage = encodeURIComponent(window.btoa(dateStart+'_'+dateEnd+'_3'));
+			var dateUniversitas = encodeURIComponent(window.btoa(dateStart+'_'+dateEnd+'_4'));
+			var dateMajor = encodeURIComponent(window.btoa(dateStart+'_'+dateEnd+'_5'));
+
+			$("#downloadTopScore").attr('href', '/HR/download-dashboard/'+dateTopScore)
+			$("#downloadCandidatePass").attr('href', '/HR/download-dashboard/'+dateCandidatePass)
+			$("#downloadAverage").attr('href', '/HR/download-dashboard/'+dateAverage)
+			$("#downloadUniversitas").attr('href', '/HR/download-dashboard/'+dateUniversitas)
+			$("#downloadMajor").attr('href', '/HR/download-dashboard/'+dateMajor)
+
+			var value = $("#formFilterDashboard").serialize();
+			// console.log(value);
+			ajax.getData('/HR/top-score', 'post', value, function(data){
+				if (data.length) {
+					for (let i = 0; i < data.length; i++) {
+						if (data[i].foto_profil == null || data[i].foto_profil == "") {
+							var image = baseUrl+'image/icon/homepage/dummy-profile.svg';
+						}else{
+							var image = baseImage+'/'+data[i].foto_profil;
+						}
+						var dataTopScore = '<div class="row">'+
+												'<div class="col-md-10">'+
+													'<p class="text-name"><img class="img-candidate" src="'+image+'" alt="">&nbsp'+data[i].first_name+'&nbsp'+data[i].last_name+'</p>'+
+												'</div>'+
+												'<div class="col-md-2">'+
+													'<p class="text-nilai">'+parseInt(data[i].skor)+'</p>'+
+												'</div>'+
+											'</div>';
+						$("#dataTopScore").append(dataTopScore);
+					}
+					
+				}
+			})
+
+			ajax.getData('/HR/candidate-pass', 'post', value, function(data){
+
+				var bar = new ProgressBar.Circle(progressCandidate, {
+					color: '#DF0E2C',
+					// This has to be the same size as the maximum width to
+					// prevent clipping
+					strokeWidth: 4,
+					trailWidth: 1,
+					easing: 'easeInOut',
+					duration: 1400,
+					text: {
+						autoStyleContainer: false
+					},
+					from: { color: '#DF0E2C', width: 4 },
+					to: { color: '#DF0E2C', width: 4 },
+					// Set default step function for all animate calls
+					step: function(state, circle) {
+						circle.path.setAttribute('stroke', state.color);
+						circle.path.setAttribute('stroke-width', state.width);
+						var value = Math.round(data.persentase * 100);
+						circle.setText(value+'%');
+					}
+				});
+				bar.text.style.fontFamily = '"inter_bold", sans-serif';
+				bar.text.style.fontSize = '16px';
+				bar.animate(data.persentase); 
+
+				$("#candidatePass").html(data.pass);
+				$("#candidateAll").html(data.total)
+			})
+
+			ajax.getData('/HR/average-score', 'post', value, function(data){
+				$("#averageVerbal").html(data.verbal)
+				$("#averageNumeric").html(data.numeric)
+				$("#averageAbstrak").html(data.abstrak)
+			})
+
+			ajax.getData('/HR/application-university', 'post', value, function(univ){
+				var color = [];
+				function dynamicColors() {
+					var r = Math.floor(Math.random() * 255);
+					var g = Math.floor(Math.random() * 255);
+					var b = Math.floor(Math.random() * 255);
+					
+					return "rgb(" + r + "," + g + "," + b + ")";
+				};
+				if (univ.label.length) {
+					for (let i = 0; i < univ.label.length; i++) {
+						color.push(dynamicColors());
+						
+					}
+				}
+				var data = {
+					labels: univ.label,
+					datasets: [
+						{
+							backgroundColor: color,
+							pointBackgroundColor: color,
+							data: univ.result
+						}
+					]
+				};
+				
+				var ctx = document.getElementById("chartApplicantUniversity");
+				
+				var myRadarChart = new Chart(ctx, {
+					type: 'doughnut',
+					data: data,
+					options: {
+						responsive: true,
+						plugins: {
+							legend: {
+								display: false,
+							},
+							title: {
+								display: false
+							}
+						}
+					}
+				});
+			})
+
+			ajax.getData('/HR/application-major', 'post', value, function(major){
+				var color = [];
+				function dynamicColors() {
+					var r = Math.floor(Math.random() * 255);
+					var g = Math.floor(Math.random() * 255);
+					var b = Math.floor(Math.random() * 255);
+					
+					return "rgb(" + r + "," + g + "," + b + ")";
+				};
+				if (major.label.length) {
+					for (let i = 0; i < major.label.length; i++) {
+						color.push(dynamicColors());
+						
+					}
+				}
+				var data = {
+					labels: major.label,
+					datasets: [
+						{
+							backgroundColor: color,
+							pointBackgroundColor: color,
+							data: major.result
+						}
+					]
+				};
+				
+				var ctx = document.getElementById("chartApplicantMajor");
+				
+				var majorChart = new Chart(ctx, {
+					type: 'doughnut',
+					data: data,
+					options: {
+						responsive: true,
+						plugins: {
+							legend: {
+								display: false,
+							},
+							title: {
+								display: false
+							}
+						}
+					}
+				});
+			})
+		}
+
+		if ($('#tableUser').length) {
+			var column = [
+				{'data':'first_name'},
+				{'data':'last_name'},
+				{'data':'email'},
+				{'data':'gender'},
+				{'data':'telp'},
+				{'data':'role_name'},
+				{'data':'status'},
+			];
+
+			columnDefs = [
+				{
+					"targets": 3,
+					"data": "id",
+					"render": function(data, type, full, meta){
+						var data = '';
+						if (full.gender == "1") {
+							data = "Male"
+						}else{
+							data = "Female"
+						}
+						return data;
+					}
+				},
+				{
+					"targets": 6,
+					"data": "id",
+					"render": function(data, type, full, meta){
+						var data = '';
+						if (full.status == "1") {
+							data = "<span class='test-status-attend'>Active</span>";
+						}else{
+							data = "<span class='test-status-absen'>Deactive</span>";
+						}
+						return data;
+					}
+				},
+				{
+					"targets": 7,
+					"data": "id",
+					"className": "action-poster-news",
+					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.id));
+						var konfirm = '';
+						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/user/edit-user/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit User"> Edit&nbsp</a></button>';
+						if (full.status == '1') {
+							konfirm = '<button type="button" class="btn btn-table btn-transparent delete-user edit-table"><img style="margin-right: 1px;" src="/image/icon/main/deactive.svg" title="Deaktif User">Deactive</button>';
+						} else {
+							konfirm = '<button type="button" class="btn btn-table btn-transparent delete-user edit-table"><img style="margin-right: 1px;" src="/image/icon/main/active.svg" title="Aktifkan User">Active</button>';
+						}
+						var hasil = data+konfirm
+		               	return hasil;
+					}
+				}
+			];
+
+		 	table.serverSide('tableUser',column,'HR/user/list-user',null,columnDefs)
+        }
 
 	},
 	filter:function(id,value){
@@ -1259,6 +1494,178 @@ var table = {
 			];
 
 		 	table.serverSide('tableCandidate',column,'HR/candidate/list-candidate',value,columnDefs)
+		}
+
+		if (id == 'formFilterDashboard') {
+			var dateStart = $("#dateStart").val();
+			var dateEnd = $("#dateEnd").val();
+			var dateTopScore = encodeURIComponent(window.btoa(dateStart+'_'+dateEnd+'_1'));
+			var dateCandidatePass = encodeURIComponent(window.btoa(dateStart+'_'+dateEnd+'_2'));
+			var dateAverage = encodeURIComponent(window.btoa(dateStart+'_'+dateEnd+'_3'));
+			var dateUniversitas = encodeURIComponent(window.btoa(dateStart+'_'+dateEnd+'_4'));
+			var dateMajor = encodeURIComponent(window.btoa(dateStart+'_'+dateEnd+'_5'));
+
+			$("#downloadTopScore").attr('href', '/HR/download-dashboard/'+dateTopScore)
+			$("#downloadCandidatePass").attr('href', '/HR/download-dashboard/'+dateCandidatePass)
+			$("#downloadAverage").attr('href', '/HR/download-dashboard/'+dateAverage)
+			$("#downloadUniversitas").attr('href', '/HR/download-dashboard/'+dateUniversitas)
+			$("#downloadMajor").attr('href', '/HR/download-dashboard/'+dateMajor)
+
+			$("#dataTopScore").empty();
+			$("#divChartUniv").empty();
+			$("#divProgressCandidate").empty();
+			$("#divProgressCandidate").append('<div id="progressCandidate" class="progress-bar-dashboard"></div>');
+			$("#divChartUniv").append('<canvas class="chart-dashboard" id="chartApplicantUniversity" width="50" height="50"></canvas>');
+			$("#divChartMajor").empty();
+			$("#divChartMajor").append('<canvas class="chart-dashboard" id="chartApplicantMajor" width="50" height="50"></canvas>');
+			ajax.getData('/HR/top-score', 'post', value, function(data){
+				if (data.length) {
+					for (let i = 0; i < data.length; i++) {
+						if (data[i].foto_profil == null || data[i].foto_profil == "") {
+							var image = baseUrl+'image/icon/homepage/dummy-profile.svg';
+						}else{
+							var image = baseImage+'/'+data[i].foto_profil;
+						}
+						var dataTopScore = '<div class="row">'+
+												'<div class="col-md-10">'+
+													'<p class="text-name"><img class="img-candidate" src="'+image+'" alt="">&nbsp'+data[i].first_name+'&nbsp'+data[i].last_name+'</p>'+
+												'</div>'+
+												'<div class="col-md-2">'+
+													'<p class="text-nilai">'+parseInt(data[i].skor)+'</p>'+
+												'</div>'+
+											'</div>';
+						$("#dataTopScore").append(dataTopScore);
+					}
+					
+				}
+			})
+
+			ajax.getData('/HR/candidate-pass', 'post', value, function(data){
+
+				var bar = new ProgressBar.Circle(progressCandidate, {
+					color: '#DF0E2C',
+					// This has to be the same size as the maximum width to
+					// prevent clipping
+					strokeWidth: 4,
+					trailWidth: 1,
+					easing: 'easeInOut',
+					duration: 1400,
+					text: {
+						autoStyleContainer: false
+					},
+					from: { color: '#DF0E2C', width: 4 },
+					to: { color: '#DF0E2C', width: 4 },
+					// Set default step function for all animate calls
+					step: function(state, circle) {
+						circle.path.setAttribute('stroke', state.color);
+						circle.path.setAttribute('stroke-width', state.width);
+						var value = Math.round(data.persentase * 100);
+						circle.setText(value+'%');
+					}
+				});
+				bar.text.style.fontFamily = '"inter_bold", sans-serif';
+				bar.text.style.fontSize = '16px';
+				bar.animate(data.persentase); 
+
+				$("#candidatePass").html(data.pass);
+				$("#candidateAll").html(data.total)
+			})
+
+			ajax.getData('/HR/average-score', 'post', value, function(data){
+				$("#averageVerbal").html(data.verbal)
+				$("#averageNumeric").html(data.numeric)
+				$("#averageAbstrak").html(data.abstrak)
+			})
+
+			ajax.getData('/HR/application-university', 'post', value, function(univ){
+				var color = [];
+				function dynamicColors() {
+					var r = Math.floor(Math.random() * 255);
+					var g = Math.floor(Math.random() * 255);
+					var b = Math.floor(Math.random() * 255);
+					
+					return "rgb(" + r + "," + g + "," + b + ")";
+				};
+				if (univ.label.length) {
+					for (let i = 0; i < univ.label.length; i++) {
+						color.push(dynamicColors());
+						
+					}
+				}
+				var data = {
+					labels: univ.label,
+					datasets: [
+						{
+							backgroundColor: color,
+							pointBackgroundColor: color,
+							data: univ.result
+						}
+					]
+				};
+				
+				var ctx = document.getElementById("chartApplicantUniversity");
+				
+				var myRadarChart = new Chart(ctx, {
+					type: 'doughnut',
+					data: data,
+					options: {
+						responsive: true,
+						plugins: {
+							legend: {
+								display: false,
+							},
+							title: {
+								display: false
+							}
+						}
+					}
+				});
+			})
+
+			ajax.getData('/HR/application-major', 'post', value, function(major){
+				var color = [];
+				function dynamicColors() {
+					var r = Math.floor(Math.random() * 255);
+					var g = Math.floor(Math.random() * 255);
+					var b = Math.floor(Math.random() * 255);
+					
+					return "rgb(" + r + "," + g + "," + b + ")";
+				};
+				if (major.label.length) {
+					for (let i = 0; i < major.label.length; i++) {
+						color.push(dynamicColors());
+						
+					}
+				}
+				var data = {
+					labels: major.label,
+					datasets: [
+						{
+							backgroundColor: color,
+							pointBackgroundColor: color,
+							data: major.result
+						}
+					]
+				};
+				
+				var ctx = document.getElementById("chartApplicantMajor");
+				
+				var majorChart = new Chart(ctx, {
+					type: 'doughnut',
+					data: data,
+					options: {
+						responsive: true,
+						plugins: {
+							legend: {
+								display: false,
+							},
+							title: {
+								display: false
+							}
+						}
+					}
+				});
+			})
 		}
 	},
 	getData:function(url,params,callback){
@@ -1746,4 +2153,22 @@ $('#tableMajor tbody').on( 'click', 'button.delete-master', function (e) {
 	$("#typeDelete").val("2");
 	$("#spanMaster").html(dataRow.major);
 	$("#modalDeleteMaster").modal('show');
+});
+
+$('#tableUser tbody').on( 'click', 'button.delete-user', function (e) {
+	var table = $('#tableUser').DataTable();
+	var dataRow = table.row($(this).closest('tr')).data();
+	if (dataRow.status == "1") {
+		$("#typeDeleteUser").val("0");
+		$("#titleDeleteUser").html("Deactive?");
+		$("#textDeleteUser").html('Are you sure to deactive " <span class="span-reschedule">'+dataRow.first_name+' '+dataRow.last_name+'</span> " ?');
+		$("#btnDeleteUser").html('Deactive Now');
+	}else{
+		$("#typeDeleteUser").val("1");
+		$("#titleDeleteUser").html("Active?");
+		$("#textDeleteUser").html('Are you sure to active " <span class="span-reschedule">'+dataRow.first_name+' '+dataRow.last_name+'</span> " ?');
+		$("#btnDeleteUser").html('Active Now');
+	}
+	$("#idDeleteUser").val(dataRow.user_id);
+	$("#modalDeleteUser").modal('show');
 });
