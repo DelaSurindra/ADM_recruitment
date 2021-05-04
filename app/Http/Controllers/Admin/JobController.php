@@ -10,7 +10,7 @@ use App\Model\Vacancy;
 use App\Model\Wilayah;
 use App\Model\Candidate;
 use App\Model\User;
-use App\Model\Job_application;
+use App\Model\Job_Application;
 use App\Model\Education;
 use App\Model\MasterUniversitas;
 use App\Model\MasterMajor;

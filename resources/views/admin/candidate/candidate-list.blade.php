@@ -46,11 +46,12 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="modal-up">
-                    <h4 class="modal-hr-title mb-0">Add Candidate Bulk</h4>
+                    <h4 class="modal-hr-title mb-0">Add Bulk</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis" alt="icon">
                     </button>
                 </div>
+                <p class="text-add-bulk">You can download excel format example here</p>
                 <form action="{{route('post.bulk.add.candidate')}}" method="POST" class="form stacked form-hr" enctype="multipart/form-data" id="addBulkCandidate">
                     @csrf
                     <div class="row">
