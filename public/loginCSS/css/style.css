@@ -19,6 +19,23 @@ body{
     font-family: 'inter_regular', sans-serif !important;
 }
 
+.text-forget-pass{
+    font-family: 'inter_bold', sans-serif !important;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 130%;
+    display: flex;
+    align-items: center;
+    color: #898680;
+    margin-bottom: 0px;
+}
+
+.btn-login a{
+    color: white;
+    text-decoration: none;
+}
+
 .half-bg-login{
     width: 28vw;
     height: 100vh;

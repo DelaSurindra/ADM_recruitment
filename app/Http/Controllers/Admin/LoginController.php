@@ -7,6 +7,7 @@ use App\Http\Controllers\Security\ValidatorController;
 use App\Http\Controllers\RequestController;
 use App\Model\User;
 use App\Model\HumanResource;
+use App\Model\Token;
 use Hash;
 use DB;
 use Request;
@@ -72,11 +73,9 @@ class LoginController extends Controller
         
     }
 
-
     public function logout(){
         session()->forget('session_id');
-
-    	return redirect('HR/login');
+        return redirect('HR/login');
     }
 
     public function checkSession() {
@@ -90,104 +89,103 @@ class LoginController extends Controller
         }
     }
 
-    // public function forgotPassView()
-    // {
-    //     if (Session()->get('session_id') != null) {
-    //         return redirect()->back();
-    //     }else{
-    //         return view('forgot-password');
-    //     }
-    // }
-
-    public function forgotPassword()
-    {
+    public function forgetPassword(){
         $encrypt = new EncryptController;
-        $data = $encrypt->fnDecrypt(Request::input('data'),true);
-        // dd($data['email']);
-        $getUser = Institusi::where('email', $data['email'])->get();
-        // dd($getUser);
-        if (isset($getUser[0])) {
-            $req = new RequestController;
-
-            $request = [
-                'email'      => $getUser[0]->email,
-                'type'       => 'reset_password'
+    	$data = $encrypt->fnDecrypt(Request::input('data'),true);
+        $searchEmail = User::where('email', $data['email'])->get()->toArray();
+        if ($searchEmail) {
+            date_default_timezone_set("Asia/Jakarta");
+            $tgl = date_create();
+            $exp = date_add(date_create(),date_interval_create_from_date_string("1 days"));
+            $token = date('YmdHis') . $this->randomString(20);
+            $insertCandidate = Token::insert([
+                'token' => $token,
+                'created_date' => $tgl,
+                'expired' => $exp,
+                'status' => 0,
+                'user_id' => $searchEmail[0]['id']
+            ]);
+            $username = encrypt('dsad' . ',' . date('Y-m-d') . ',' . $token); 
+            dd($username,$insertCandidate);
+        } else {
+            return [
+                'status'  => 'warning',
+                'message' => 'Email Not Found'
             ];
+        }
+    }
 
-            $endpoint = '/password/generate';
-            $response = $req->send($request,$endpoint);
-            // dd($response);
-            if ($response['code'] == "00") {
-                session()->put('session_reset', $request);
-                return [
-                    'status'   => 'success',
-                    'message'  => $response['message'],
-                    'url'      => '/reset-password',
+    public function viewResetPassword($data){
+        date_default_timezone_set("Asia/Jakarta");
+        $data = encrypt('dsad' . ',' . date('Y-m-d') . ',' . $data); 
+        $dataEmail = decrypt($data);
+        $explode = explode(',', $dataEmail);
+        $date = $explode[1];
+        $token = $explode[2];
+        $now = date('Y-m-d');
+
+        $checkToken = Token::where('token', $token)->get()->toArray();
+        $dataView = [
+            'id' => $checkToken[0]['user_id'],
+            'status' => $checkToken[0]['status'],
+        ];
+        if ($checkToken != null) {
+            if ($checkToken[0]['status'] == "0") {
+                Token::where('token', $token)->update(['status' => "1"]);
+                if ($date > $now) {
+                    return view('admin.reset-password')->with(['data' => $dataView, 'type' => '2']);
+                }else{
+                    return view('admin.reset-password')->with(['data' => $dataView, 'type' => '1']);
+                }
+            }else{
+                return view('admin.reset-password')->with(['data' => $dataView, 'type' => '2']);
+            }
+        }else{
+            return view('admin.reset-password')->with(['data' => $dataView, 'type' => '2']);
+        }
+    }
+
+    public function resetPassword(){
+        $encrypt = new EncryptController;
+    	$data = $encrypt->fnDecrypt(Request::input('data'),true);
+        
+        $pass = User::where('id', $data['idUser'])->get()->toArray();
+        if ($pass) {
+            
+            $update = User::where('id', $data['idUser'])->update([
+                'password' => bcrypt($data['newPassword'].env('SALT_PASS_HR'))
+            ]);
+    
+            if ($update) {
+                $messages = [
+                    'status' => 'success',
+                    'message' => 'Create New Password Success',
+                    'url' => '/HR/login',
                     'callback' => 'redirect'
                 ];
-            } else {
-                return [
-                    'status'   => 'error',
-                    'message'  => $response['message']
+    
+                return response()->json($messages);
+            }else{
+                $messages = [
+                    'status' => 'error',
+                    'message' => 'Create New Password Failed',
                 ];
+    
+                return response()->json($messages);
             }
         } else {
-            return [
-                'status'   => 'error',
-                'message'  => 'User tidak ditemukan'
+            $messages = [
+                'status' => 'error',
+                'message' => 'User Not Found',
             ];
+
+            return response()->json($messages);
         }
-
-    }
-    public function resetPassView()
-    {
-        $sesReset = session('session_reset');
-        session()->forget('session_reset');
-        if (isset($sesReset)) {
-            return view('reset-password')->with(['email' => $sesReset['email']]);
-        }else{
-            return redirect('login');
-        }
-
-    }
-
-    public function newPassword()
-    {
-        $encrypt = new EncryptController;
-        $data = $encrypt->fnDecrypt(Request::input('data'),true);
-        $req = new RequestController;
-
-        $request = [
-            'email'      => $data['emailReset'],
-            'password'   => md5($data['passwordReset'].'v4Agr3g4t0R'),
-            'otp'        => $data['otpReset'],
-        ];
-
-        $endpoint = '/password/verify';
-        $response = $req->send($request,$endpoint);
-
-        if ($response['code'] == "00") {
-            return [
-                'status'   => 'success',
-                'message'  => $response['message'],
-                'url'      => '/otp-password-success',
-                'callback' => 'redirect'
-            ];
-        } else {
-            return [
-                'status'   => 'error',
-                'message'  => $response['message']
-            ];
-        }
-    }
-
-    public function successForget(){
-        return view('otp-password-success');
     }
 
     function randomString($length) {
         $chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        $str = "";
+        $str = "";    
 
         for ($i = 0; $i < $length; $i++) {
             $str .= $chars[mt_rand(0, strlen($chars) - 1)];
@@ -195,17 +193,4 @@ class LoginController extends Controller
 
         return $str;
     }
-
-    public function otpNewPasswordView(){
-        return view('otp-new-password');
-    }
-
-    public function viewLoginCandidate(){
-    	if (Session()->get('session_id') != null) {
-            return redirect()->back();
-        }else{
-	    	return view('first-login-candidate');
-        }
-    }
-
 }

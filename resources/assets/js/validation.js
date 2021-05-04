@@ -692,6 +692,8 @@ const formrules = {
 				error.appendTo(element.parents('.form-group'));
 			} else if (element.hasClass("select2")) {
 				error.appendTo(element.parents('.form-group'));
+			} else if (element.hasClass("select2-custom")) {
+				error.appendTo(element.parents('.form-group'));
 			} else if (element.is("#certificate")) {
 				error.appendTo(element.parents('.form-group'));
 			} else { // This is the default behavior
@@ -699,6 +701,33 @@ const formrules = {
 			}
 		}
     },
+
+	'formEditCandidate':{
+		ignore: null,
+		rules:{
+			'universitas':{
+				required:true,
+			},
+			'degree':{
+				required:true,
+			},
+			'faculty':{
+				required:true,
+				STD_VAL_WEB_25: true,
+			},
+			'major':{
+				required:true,
+			},
+		},
+		submitHandler:false,
+        errorPlacement: function (error, element) {
+			if (element.hasClass("select2")) {
+				error.appendTo(element.parents('.form-group'));
+			}  else { // This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+	},
 
 	'addBulkCandidate':{
 		ignore: null,
@@ -788,6 +817,49 @@ const formrules = {
 			}
 		}
     },
+
+	'formChangePassword' : {
+		ignore: null,
+		rules:{
+			'oldPassword':{
+				required:true
+			},
+			'newPassword':{
+				required:true,
+				STD_VAL_WEB_2:true
+			},
+			'konfirmationPassword': {
+				required:true,
+				equalTo: '#newPassword'
+			}
+		},
+		submitHandler:false
+	},
+
+	'formForgetPassword':{
+		ignore:null,
+		rules:{
+			'email':{
+				required:true
+			}
+		},
+		submitHandler:false
+	},
+
+	'formResetPassword':{
+		ignore: null,
+		rules:{
+			'newPassword':{
+				required:true,
+				STD_VAL_WEB_2:true
+			},
+			'konfirmasiPassword': {
+				required:true,
+				equalTo: '#newPassword'
+			}
+		},
+		submitHandler:false
+	}
 }
 
 var validation = {

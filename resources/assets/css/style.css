@@ -1,3 +1,7 @@
+.btn-edit-status{
+    margin-top: 30px;
+}
+
 .progress-bar-dashboard{
     width: 74px;
     height: 70px;
@@ -1020,7 +1024,7 @@
     color: #BDBDBD;
     font-size: 20px;
 }
-.profile-dropdown .dropdown-menu {
+.profile-dropdown-hr .dropdown-menu {
     background: #FFFFFF;
     border: 0.2px solid #E0E0E0;
     box-sizing: border-box;
@@ -1033,27 +1037,27 @@
     left: -12px;
     margin: 1rem 0 0;
 }
-.profile-dropdown .dropdown-menu:before {
+.profile-dropdown-hr .dropdown-menu:before {
     content: "";
     border-bottom: 13.2px solid #E0E0E0;
     border-right: 10.2px solid transparent;
     border-left: 10.2px solid transparent;
     position: absolute;
     top: -13px;
-    left: 18px;
+    left: 54px;
     z-index: 1001;
 }
-.profile-dropdown .dropdown-menu:after {
+.profile-dropdown-hr .dropdown-menu:after {
     content: "";
     border-bottom: 13px solid #fff;
     border-right: 10px solid transparent;
     border-left: 10px solid transparent;
     position: absolute;
     top: -12.1px;
-    left: 18px;
+    left: 54px;
     z-index: 1002;
 }
-.profile-dropdown .dropdown-item {
+.profile-dropdown-hr .dropdown-item {
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -1064,10 +1068,10 @@
     display: flex;
     align-items: center;
 }
-.profile-dropdown .dropdown-item img {
+.profile-dropdown-hr .dropdown-item img {
     margin-right: 7px;
 }
-.profile-dropdown h6.dropdown-item {
+.profile-dropdown-hr h6.dropdown-item {
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
@@ -1076,22 +1080,22 @@
     margin-bottom: 0.4rem;
     margin-top: 0.4rem;
 }
-.profile-dropdown h6.dropdown-item:hover {
+.profile-dropdown-hr h6.dropdown-item:hover {
     background-color: #FFFFFF;
 }
-.profile-dropdown h6.dropdown-item:active {
+.profile-dropdown-hr h6.dropdown-item:active {
     background-color: #FFFFFF;
 }
-.profile-dropdown .dropdown-item:active {
+.profile-dropdown-hr .dropdown-item:active {
     background-color: #DF0E2C;
 }
-.profile-dropdown .dropdown-item.signout:hover {
+.profile-dropdown-hr .dropdown-item.signout:hover {
     background-color: transparent;
 }
-.profile-dropdown .dropdown-item.signout:active {
+.profile-dropdown-hr .dropdown-item.signout:active {
     background-color: transparent;
 }
-.profile-dropdown .dropdown-divider {
+.profile-dropdown-hr .dropdown-divider {
     margin: 0px;
     border-top: 1px solid #BDBDBD;
 }

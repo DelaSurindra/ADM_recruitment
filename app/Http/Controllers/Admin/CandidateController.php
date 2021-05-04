@@ -32,93 +32,40 @@ class CandidateController extends Controller
 
     public function listCandidate(){
 
-        $filter;
-        $parameter = parse_str(Request::input('param'),$filter);
-        if($filter['ipkMinimum'] != ""){
-            $ipkMinimum = '"'.$filter['ipkMinimum'].'"';
-        }else{
-            $ipkMinimum = "NULL";
+        $dataSend = array(
+            "search"     => Request::input('search')['value'],
+            "offset"     => Request::input('start'),
+            "limit"      => Request::input('length'),
+            'order'      => (!empty(Request::get('columns')[Request::get('order')[0]['column']]['data'])) ? Request::get('columns')[Request::get('order')[0]['column']]['data'] : '',
+            'sort'       => (!empty(Request::get('order')[0]['dir'])) ? Request::get('order')[0]['dir'] : '',
+
+        );
+
+        $candidate = Candidate::select('kandidat.*', 'users.email')
+                                ->join('users', 'kandidat.user_id', 'users.id');
+
+        if ($dataSend['search']){
+            $candidate = $candidate->where('title','like','%'.$dataSend['search'].'%');
         }
-        if($filter['job'] != ""){
-            $job = '"'.$filter['job'].'"';
-        }else{
-            $job = "NULL";
-        }
-        if($filter['major'] != ""){
-            $major = '"'.$filter['major'].'"';
-        }else{
-            $major = "NULL";
-        }
-        if($filter['university'] != ""){
-            $university = '"'.$filter['university'].'"';
-        }else{
-            $university = "NULL";
-        }
-        if($filter['usia'] != ""){
-            $usia = '"'.$filter['usia'].'"';
-        }else{
-            $usia = "NULL";
-        }
-        if($filter['tahunLulus'] != ""){
-            $tahunLulus = '"'.$filter['tahunLulus'].'"';
-        }else{
-            $tahunLulus = "NULL";
-        }
-        // dd($filter);
-    	if (Request::input('order')[0]['column'] == '1') {
-            $column = 'date';
-        }elseif (Request::input('order')[0]['column'] == '2') {
-            $column = 'name';
-        }elseif (Request::input('order')[0]['column'] == '3') {
-            $column = 'tanggal_lahir';
-        }elseif (Request::input('order')[0]['column'] == '4') {
-            $column = 'gelar';
-        }elseif (Request::input('order')[0]['column'] == '5') {
-            $column = 'universitas';
-        }elseif (Request::input('order')[0]['column'] == '6') {
-            $column = 'fakultas';
-        }elseif (Request::input('order')[0]['column'] == '7') {
-            $column = 'jurusan';
-        }elseif (Request::input('order')[0]['column'] == '8') {
-            $column = 'gpa';
-        }elseif (Request::input('order')[0]['column'] == '9') {
-            $column = 'graduate_year';
-        }elseif (Request::input('order')[0]['column'] == '10') {
-            $column = 'job_position';
-        }elseif (Request::input('order')[0]['column'] == '11') {
-            $column = 'area';
-        }elseif (Request::input('order')[0]['column'] == '12') {
-            $column = 'status';
+        $countCandidate = $candidate->count();
+
+        $listCandidate = $candidate->skip(intval( $dataSend["offset"]))->take(intval($dataSend["limit"]));
+
+        if ($dataSend["order"]) {
+            $listCandidate = $listCandidate->orderBy($dataSend["order"], $dataSend["sort"])->get()->toArray();
+        } else {
+            $listCandidate = $listCandidate->orderBy('created_at', $dataSend["sort"])->get()->toArray();
         }
 
-        $order = $column.'_'.Request::input('order')[0]['dir'];
-
-        if (Request::input('search')['value'] == null) {
-        	$search = "NULL";
-        }else{
-        	$search = '"'.Request::input('search')['value'].'"';
-        }
-        $listCandidate = DB::select('EXEC get_kandidat NULL, '.$ipkMinimum.', '.$job.', '.$major.', '.$university.', '.$usia.', '.$tahunLulus.', NULL, NULL, '.$search.', "'.$order.'", "'.Request::input('start').'", "'.Request::input('length').'" ');
-        $countCandidate = DB::select('EXEC get_kandidat_count NULL,'.$ipkMinimum.', '.$job.', '.$major.', '.$university.', '.$usia.', '.$tahunLulus.', NULL, NULL, '.$search.' ');
         for ($i=0; $i < count($listCandidate); $i++) { 
-            $date = date('m/d/Y', strtotime($listCandidate[$i]->tanggal_lahir));
-            $birthDate = explode("/", $date);
-            //get age from date or birthdate
-            $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[0], $birthDate[1], $birthDate[2]))) > date("md")
-                ? ((date("Y") - $birthDate[2]) - 1)
-                : (date("Y") - $birthDate[2]));
-
-            $listCandidate[$i]->age = $age;
-
-            $listCandidate[$i]->submit_date = date('m/d/Y', strtotime($listCandidate[$i]->submit_date));
+            $listCandidate[$i]['tanggal_lahir'] = date('d/m/y', strtotime($listCandidate[$i]['tanggal_lahir']));
         }
-        // dd($listCandidate, $countCandidate);
-
+        
         if ($listCandidate != null) {
             $response = array(
                 "draw"              => Request::get('draw'),
-                "recordsTotal"      => $countCandidate[0]->total,
-                "recordsFiltered"   => $countCandidate[0]->total,
+                "recordsTotal"      => $countCandidate,
+                "recordsFiltered"   => $countCandidate,
                 "data"              => $listCandidate
             );
         }else{
@@ -135,19 +82,21 @@ class CandidateController extends Controller
     public function viewCandidateAdd(){
         $universitas = MasterUniversitas::get()->toArray();
         $major = MasterMajor::get()->toArray();
+        $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
         $breadcrumb = [
             "page"      => "Manage Candidate",
             "detail"    => "Add Candidate",
             "route"     => "/HR/candidate"
         ];
-        return view('admin.candidate.candidate-add')->with(['pageTitle' => 'Manajemen Candidate', 'title' => 'Manajemen Candidate', 'sidebar' => 'manajemen_candidate', 'breadcrumb' => $breadcrumb, 'universitas' => $universitas, 'major' => $major]);
+        return view('admin.candidate.candidate-add')->with(['pageTitle' => 'Manajemen Candidate', 'title' => 'Manajemen Candidate', 'sidebar' => 'manajemen_candidate', 'breadcrumb' => $breadcrumb, 'universitas' => $universitas, 'major' => $major, 'wilayah' => $wilayah]);
     }
 
     public function viewCandidateEdit($id){
-        $idJob = base64_decode(urldecode($id));
-        $listCandidate = Job_application::where('job_application.id', $idJob)->select('job_application.*', 'kandidat.first_name', 'kandidat.last_name', 'kandidat.tanggal_lahir', 'vacancies.job_title', 'vacancies.lokasi')
-                    ->join('kandidat', 'job_application.kandidat_id', 'kandidat.id')
-                    ->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')->get()->toArray();
+        $idCandidate = base64_decode(urldecode($id));
+        // dd($idCandidate);
+        $listCandidate = Candidate::select('kandidat.*', 'users.email')
+                                    ->join('users', 'kandidat.user_id', 'users.id')
+                                    ->where('kandidat.id', $idCandidate)->get()->toArray();
         if ($listCandidate) {
             $listCandidate[0]['pendidikan'] = [];
             $listCandidate[0]['submit_date'] = date('m/d/Y', strtotime($listCandidate[0]['created_at']));
@@ -160,9 +109,10 @@ class CandidateController extends Controller
                 : (date("Y") - $birthDate[2]));
 
             $listCandidate[0]['age'] = $age;
+            $listCandidate[0]['tanggal_lahir'] = date('d/m/Y', strtotime($listCandidate[0]['tanggal_lahir']));
 
             $kandidat_id = [];
-            array_push($kandidat_id, $listCandidate[0]['kandidat_id']);
+            array_push($kandidat_id, $listCandidate[0]['id']);
 
             $pendidikan_kandidat_id = [];
             $education = Education::get()->toArray();
@@ -184,14 +134,23 @@ class CandidateController extends Controller
                 }
     
             }
-    
+            $universitas = MasterUniversitas::get()->toArray();
+            $major = MasterMajor::get()->toArray();
             // dd($listCandidate);
             $breadcrumb = [
                 "page"      => "Manage Candidate",
                 "detail"    => "Edit Candidate",
                 "route"     => "/HR/candidate"
             ];
-            return view('admin.candidate.candidate-edit')->with(['pageTitle' => 'Manajemen Candidate', 'title' => 'Manajemen Candidate', 'sidebar' => 'manajemen_candidate', 'breadcrumb' => $breadcrumb, 'data'=>$listCandidate[0]]);
+            return view('admin.candidate.candidate-edit')->with([
+                'pageTitle' => 'Manajemen Candidate', 
+                'title' => 'Manajemen Candidate', 
+                'sidebar' => 'manajemen_candidate', 
+                'breadcrumb' => $breadcrumb, 
+                'data'=>$listCandidate[0],
+                'universitas' => $universitas, 
+                'major' => $major
+            ]);
         }else{
             abort(404);
         }
@@ -200,45 +159,34 @@ class CandidateController extends Controller
     public function editCandidate(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
-        $getJob = Job_Application::where('id', $data['idJob'])->get()->toArray();
-        if ($getJob[0]['status'] != $data['aplicationStatus']) {
-            $track = $this->statusTrackApply($data['idJob'], $data['aplicationStatus']);
-        }
-        $updateJob = Job_Application::where('id', $data['idJob'])->update(['status' => $data['aplicationStatus']]);
-        if ($updateJob) {
-            if (is_array($data['idPendidikan']) && count($data['idPendidikan']) > 1) {
-                for ($i=0; $i < count($data['idPendidikan']); $i++) { 
-                    $updatePendidikan = Education::where('id', $data['idPendidikan'][$i])->update([
-                        'universitas' => $data['universitas'][$i],
-                        'fakultas' => $data['faculty'][$i],
-                        'jurusan' => $data['jurusan'][$i],
-                        'start_year' => $data['start_year'][$i],
-                        'end_year' => $data['end_year'][$i]
-                    ]);
-                }
-            }else{
-                $updatePendidikan = Education::where('id', $data['idPendidikan'])->update([
-                    'universitas' => $data['universitas'],
-                    'fakultas' => $data['faculty'],
-                    'jurusan' => $data['jurusan'],
-                    'start_year' => $data['start_year'],
-                    'end_year' => $data['end_year']
+        
+        if (is_array($data['idPendidikan']) && count($data['idPendidikan']) > 1) {
+            for ($i=0; $i < count($data['idPendidikan']); $i++) { 
+                $updatePendidikan = Education::where('id', $data['idPendidikan'][$i])->update([
+                    'universitas' => $data['universitas'][$i],
+                    'fakultas' => $data['faculty'][$i],
+                    'jurusan' => $data['jurusan'][$i],
+                    'start_year' => $data['start_year'][$i],
+                    'end_year' => $data['end_year'][$i]
                 ]);
             }
+        }else{
+            $updatePendidikan = Education::where('id', $data['idPendidikan'])->update([
+                'universitas' => $data['universitas'],
+                'fakultas' => $data['faculty'],
+                'jurusan' => $data['jurusan'],
+                'start_year' => $data['start_year'],
+                'end_year' => $data['end_year']
+            ]);
+        }
 
-            if ($updatePendidikan) {
-                return [
-                    'status'   => 'success',
-                    'message'  => 'Berhasil Mengubah Data Kandidat',
-                    'url'      => '/HR/candidate',
-                    'callback' => 'redirect'
-                ];
-            }else{
-                return [
-                    'status'   => 'error',
-                    'message'  => 'Gagal Mengubah Data Kandidat',
-                ];
-            }
+        if ($updatePendidikan) {
+            return [
+                'status'   => 'success',
+                'message'  => 'Berhasil Mengubah Data Kandidat',
+                'url'      => '/HR/candidate',
+                'callback' => 'redirect'
+            ];
         }else{
             return [
                 'status'   => 'error',

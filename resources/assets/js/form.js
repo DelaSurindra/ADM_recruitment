@@ -627,9 +627,9 @@ if ($("#formFirstLogin").length) {
 									'<label for="">Major<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-										'<select name="major" id="major" class="select2-custom form-control">'+
-											'<option selected disabled>Choose or input your major</option>'+
-											dataMajor+
+											'<select name="major" id="major" class="select2-custom form-control">'+
+												'<option selected disabled>Choose or input your major</option>'+
+												dataMajor+
 											'</select>'+
 										'</div>'+
 									'</div>'+
@@ -666,7 +666,7 @@ if ($("#formFirstLogin").length) {
 									'<label for="">GPA<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<input type="text" class="form-control" placeholder="0 - 100" id="gpa" name="gpa">'+
+											'<input type="text" class="form-control" placeholder="0 - 4" id="gpa" name="gpa">'+
 										'</div>'+
 									'</div>'+
 								'</div>'+
@@ -933,7 +933,7 @@ if ($("#formEditEducationInformation").length) {
 									'<label for="">GPA<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<input type="text" class="form-control" placeholder="0 - 100" id="gpa" name="gpa">'+
+											'<input type="text" class="form-control" placeholder="0 - 4" id="gpa" name="gpa">'+
 										'</div>'+
 									'</div>'+
 								'</div>'+
@@ -1785,8 +1785,8 @@ if ($("#formAddCandidate").length) {
 										'<label for="">School/University<span class="required-sign">*</span></label>'+
 										'<div class="row">'+
 											'<div class="col-lg-12 col-md-12">'+
-												'<select name="university" id="university" class="select2 form-control" required>'+
-													'<option value="">Choose your University</option>'+
+												'<select name="university" class="select2-custom form-control">'+
+												'<option selected disabled>Choose or input your university</option>'+
 													dataUniv+
 												'</select>'+
 											'</div>'+
@@ -1825,8 +1825,8 @@ if ($("#formAddCandidate").length) {
 										'<label for="">Major<span class="required-sign">*</span></label>'+
 										'<div class="row">'+
 											'<div class="col-lg-12 col-md-12">'+
-												'<select name="major" id="major" class="select2 form-control" required>'+
-													'<option value="">Choose your major</option>'+
+												'<select name="major" id="major" class="select2-custom form-control">'+
+													'<option selected disabled>Choose or input your major</option>'+
 													dataMajor+
 												'</select>'+
 											'</div>'+
@@ -1864,7 +1864,7 @@ if ($("#formAddCandidate").length) {
 										'<label for="">GPA<span class="required-sign">*</span></label>'+
 										'<div class="row">'+
 											'<div class="col-lg-12 col-md-12">'+
-												'<input type="text" class="form-control" placeholder="0 - 100" id="gpa" name="gpa" required>'+
+												'<input type="text" class="form-control" placeholder="0 - 4" id="gpa" name="gpa" required>'+
 											'</div>'+
 										'</div>'+
 									'</div>'+
@@ -1911,8 +1911,11 @@ if ($("#formAddCandidate").length) {
 		
 			$('#listEducationCandidate').append(option)
 		
-			if ($('.select2').length) {
-				$('.select2').select2();
+			if ($('.select2-custom').length) {
+				$('.select2-custom').select2({
+					tags: true,
+					placeholder: 'Pilih atau Input'
+				});
 			}
 
 			$('input[name="startDateEducation"]').datetimepicker({

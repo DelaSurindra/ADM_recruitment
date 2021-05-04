@@ -107,7 +107,7 @@ var ajax = {
 									var rawData = result.options;
 									console.log(rawData)
 									for (let i = 0; i < rawData.length; i++) {
-										var item = '<option value="'+rawData[i].source+'">'+rawData[i].source+'</option>'
+										var item = '<option value="'+rawData[i].id+'">'+rawData[i].source+'</option>'
 										option.push(item);
 									}
 																	

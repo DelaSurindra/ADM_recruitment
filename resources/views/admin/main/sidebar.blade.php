@@ -74,6 +74,18 @@
                 </a>
             </li>
             <li class="tree-menu custom-height-menu-sidebar">
+                <a href="{{ route('get.job') }}" class="menu {{($sidebar== 'manajemen_job'?'active':'')}}">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="{{ $sidebar== 'manajemen_job' ? asset('image/icon/sidebar/icon_menu_job_active.svg') : asset('image/icon/sidebar/icon_menu_job.svg')}}" alt="" width="25px" class="right-icon-sidebar icon-sidebar-mobile">
+                        </div>
+                        <div class="col-md-10">
+                            <span class="font-color-sidebar">Manage Job Application</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="tree-menu custom-height-menu-sidebar">
                 <a href="{{ route('get.vacancy') }}" class="menu {{($sidebar== 'manajemen_vacancy'?'active':'')}}">
                     <div class="row">
                         <div class="col-md-2">

@@ -270,7 +270,76 @@ var table = {
 		}
 
 		if ($('#tableCandidate').length) {
-			var value = $('#filterCandidate').serialize();
+			var column = [
+				{'data':'first_name'},
+				{'data':'email'},
+				{'data':'tanggal_lahir'},
+				{'data':'gender'},
+				{'data':'telp'},
+				{'data':'kota'}
+			];
+
+			columnDefs = [
+				{
+					"targets": 0,
+					"data": "first_name",
+					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.kandidat_id));
+						var image = '';
+						if (full.foto_profil == null || full.foto_profil == "") {
+							image = baseUrl+'image/icon/homepage/dummy-profile.svg';
+						}else{
+							image = baseImage+'/'+full.foto_profil;
+						}
+						var data = '<img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.first_name+' '+full.last_name;
+						return data;
+					}
+				},
+				{
+					"targets": 2,
+					"data": "gelar",
+					"render": function(data, type, full, meta){
+						var data = '';
+						if (full.gelar == "1") {
+							data = "D3";
+						}else if (full.gelar == "2") {
+							data = "S1";
+						}else{
+							data = "S2"
+						}
+						return data;
+					}
+				},
+				{
+					"targets": 3,
+					"data": "gender",
+					"render": function(data, type, full, meta){
+						var data = '';
+						if (full.gender == "1") {
+							data = "Male";
+						}else if (full.gender == "2") {
+							data = "Female";
+						}
+						return data;
+					}
+				},
+				{
+					"targets": 6,
+					"data": "id",
+					"className": "action-poster-news",
+					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.id));
+						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/candidate/edit-candidate/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Detail Job Application"> Edit&nbsp</a></button>';
+		            	return data;
+					}
+				}
+			];
+
+		 	table.serverSide('tableCandidate',column,'HR/candidate/list-candidate',null,columnDefs)
+        }
+
+		if ($('#tableJob').length) {
+			var value = $('#filterJob').serialize();
 			var column = [
 				{'data':null},
 				{'data':'submit_date'},
@@ -308,7 +377,7 @@ var table = {
 						}else{
 							image = baseImage+'/'+full.foto_profil;
 						}
-						var data = '<a href="/HR/candidate/detail-candidate/'+id+'" class="name-candidate"><img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name+'</a';
+						var data = '<img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name;
 						return data;
 					}
 				},
@@ -384,12 +453,12 @@ var table = {
 				},
 				{
 					"targets": 13,
-					"data": "job_application_id",
+					"data": "kandidat_id",
 					"className": "action-poster-news",
 					"render": function(data, type, full, meta){
-						var id = encodeURIComponent(window.btoa(full.job_application_id));
+						var id = encodeURIComponent(window.btoa(full.kandidat_id));
 						// var konfirm = '';
-						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/candidate/edit-candidate/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Candidate"> Edit&nbsp</a></button>';
+						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/job/edit-job/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Detail Job Application"> Detail&nbsp</a></button>';
 						// if (full.status == '1') {
 						// 	konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy edit-table"><img style="margin-right: 1px;" src="/image/icon/main/deactive.svg" title="Deaktif Vacancy">Deactive</button>';
 						// } else {
@@ -401,7 +470,7 @@ var table = {
 				}
 			];
 
-		 	table.serverSide('tableCandidate',column,'HR/candidate/list-candidate',value,columnDefs)
+		 	table.serverSide('tableJob',column,'HR/job/list-job',value,columnDefs)
         }
 
 		if ($('#tableParticipantTest').length) {
@@ -1363,7 +1432,7 @@ var table = {
 			})
 		}
 
-		if (id == 'filterCandidate') {
+		if (id == 'filterJob') {
 			var column = [
 				{'data':null},
 				{'data':'submit_date'},
@@ -1476,12 +1545,12 @@ var table = {
 				},
 				{
 					"targets": 13,
-					"data": "id",
+					"data": "kandidat_id",
 					"className": "action-poster-news",
 					"render": function(data, type, full, meta){
-						var id = encodeURIComponent(window.btoa(full.job_id));
+						var id = encodeURIComponent(window.btoa(full.kandidat_id));
 						// var konfirm = '';
-						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/candidate/edit-candidate/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Candidate"> Edit&nbsp</a></button>';
+						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/job/edit-job/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Detail Job Application"> Detail&nbsp</a></button>';
 						// if (full.status == '1') {
 						// 	konfirm = '<button type="button" class="btn btn-table btn-transparent konfirmVacancy edit-table"><img style="margin-right: 1px;" src="/image/icon/main/deactive.svg" title="Deaktif Vacancy">Deactive</button>';
 						// } else {
@@ -1493,7 +1562,7 @@ var table = {
 				}
 			];
 
-		 	table.serverSide('tableCandidate',column,'HR/candidate/list-candidate',value,columnDefs)
+		 	table.serverSide('tableJob',column,'HR/job/list-job',value,columnDefs)
 		}
 
 		if (id == 'formFilterDashboard') {
@@ -1695,7 +1764,7 @@ var table = {
 			ordering = false;
 		}
 
-		if (id == "tableCandidate" || id == "tableChooseCandidate" || id == "tableParticipantTest" || id=="tableParticipantTestTheDay" || id == "tableChooseInterview") {
+		if (id == "tableJob" || id == "tableChooseCandidate" || id == "tableParticipantTest" || id=="tableParticipantTestTheDay" || id == "tableChooseInterview") {
 			urutan = [1, 'desc'];
 		}
 
@@ -1858,8 +1927,8 @@ $('#tableVacancy tbody').on( 'click', 'button.konfirmVacancy', function (e) {
 });
 
 
-$("#tableCandidate tbody").on('click', 'input', function(e) {
-	var table = $('#tableCandidate').DataTable();
+$("#tableJob tbody").on('click', 'input', function(e) {
+	var table = $('#tableJob').DataTable();
 	var dataRow = table.row($(this).closest('tr')).data();
 	var count = $("#countCheck").val();
 	var jumlah = "";
@@ -1875,7 +1944,7 @@ $("#tableCandidate tbody").on('click', 'input', function(e) {
 		$("#input_"+dataRow.job_application_id+"_"+dataRow.kandidat_id).remove();
 	}
 	$("#textItem").html(jumlah+" item selected")
-	if (jumlah > 1) {
+	if (jumlah > 0) {
 		$(".btn-bulk-candidate").removeClass('hidden');
 	}else{
 		if (jumlah == 0) {

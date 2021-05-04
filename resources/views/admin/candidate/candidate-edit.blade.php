@@ -2,10 +2,9 @@
 @section('pageTitle',$pageTitle)
 @section('title',$title)
 @section('content')
-
 <form action="{{route('post.candidate.edit')}}" class="form stacked form-hr" method="POST" id="formEditCandidate" ajax="true">
     @csrf
-    <input type="hidden" name="idJob" value="{{$data['id']}}">
+    <input type="hidden" name="idKandidat" value="{{$data['id']}}">
     <div class="card clear">
         <div class="card-body">
             <div class="row mb-4">
@@ -20,63 +19,51 @@
                         <div class="col-xl-10 col-md-12">
                             <div class="row">
                                 <div class="col-xl-6 col-md-6 col-sm-12">
-                                    <div class="form-group" >
-                                        <label>Submit Date</label>
-                                        <input type="text" class="form-control" name="submitDate" id="submitDate" value="{{$data['submit_date']}}" disabled>
+                                    <div class="form-group">
+                                        <label>First Name</label>
+                                        <input id="first_name" name="first_name" class="form-control" type="text" value="{{$data['first_name']}}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-md-6 col-sm-12">
-                                    <div class="form-group" >
-                                        <label>Job Position</label>
-                                        <input type="text" class="form-control" name="jobPosition" id="jobPosition" value="{{$data['job_title']}}" disabled>
+                                    <div class="form-group">
+                                        <label>Last Name</label>
+                                        <input id="last_name" name="last_name" class="form-control" type="text" value="{{$data['last_name']}}" disabled>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-10 col-md-12">
                             <div class="row">
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group">
-                                        <label>Area</label>
-                                        <input id="area" name="area" class="form-control" type="text" value="{{$data['lokasi']}}" disabled>
+                                        <label>Email</label>
+                                        <input id="email" name="email" class="form-control" type="text" value="{{$data['email']}}" disabled>
                                     </div>
                                 </div>
-                                <div class="col-xl-6 col-md-6 col-sm-12" id="aplicationStatusDiv">
-                                    <label>Application Status</label>
-                                    <select class="select2 tex-center select2-width" id="aplicationStatus" name="aplicationStatus">
-                                        <option {{$data['status'] == '0' ? 'selected':''}} value="0">Application Resume</option>
-                                        <option {{$data['status'] == '1' ? 'selected':''}} value="1">Proses to Written Test</option>
-                                        <option {{$data['status'] == '2' ? 'selected':''}} value="2">Scheduled to Written Test</option>
-                                        <option {{$data['status'] == '3' ? 'selected':''}} value="3">Written Test Pass</option>
-                                        <option {{$data['status'] == '4' ? 'selected':''}} value="4">Written Test failed</option>
-                                        <option {{$data['status'] == '5' ? 'selected':''}} value="5">Process to HR interview</option>
-                                        <option {{$data['status'] == '6' ? 'selected':''}} value="6">Process to User Interview 1</option>
-                                        <option {{$data['status'] == '7' ? 'selected':''}} value="7">Process to User Interview 2</option>
-                                        <option {{$data['status'] == '8' ? 'selected':''}} value="8">Process to User Interview 3</option>
-                                        <option {{$data['status'] == '9' ? 'selected':''}} value="9">Process to MCU</option>
-                                        <option {{$data['status'] == '10' ? 'selected':''}} value="10">Process to Doc Sign</option>
-                                        <option {{$data['status'] == '11' ? 'selected':''}} value="11">Failed</option>
-                                        <option {{$data['status'] == '12' ? 'selected':''}} value="12">Hired</option>
-                                    </select>
+                                <div class="col-xl-6 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Date of Birth</label>
+                                        <input id="age" name="age" class="form-control" type="text" value="{{$data['tanggal_lahir']}}" disabled>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-10 col-md-12">
                             <div class="row">
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group">
-                                        <label>Name</label>
-                                        <input id="name" name="name" class="form-control" type="text" value="{{$data['first_name']}} {{$data['last_name']}}" disabled>
+                                        <label>Gender</label>
+                                        <input id="gender" name="gender" class="form-control" type="text" value="{{$data['gender'] == '1' ? 'Male' : 'Female'}}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group">
-                                        <label>Age</label>
-                                        <input id="age" name="age" class="form-control" type="text" value="{{$data['age']}}" disabled>
+                                        <label>Phone Number</label>
+                                        <input id="phone" name="phone" class="form-control" type="text" value="{{$data['telp']}}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-6 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Location</label>
+                                        <input id="location" name="location" class="form-control" type="text" value="{{$data['kota']}}" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -102,12 +89,16 @@
                             <div class="row">
                                 <div class="col-xl-10 col-md-12">
                                     <div class="row">
-                                    <div class="col-xl-6 col-md-6 col-sm-12" id="universitasDiv">
-                                            <label>School/University<span class="required-sign">*</span></label>
-                                            <select class="select2 tex-center select2-width" id="universitas" name="universitas">
-                                                <option {{$pendidikan['universitas'] == 'UPN' ? 'selected':''}} value="UPN">UPN</option>
-                                                <option {{$pendidikan['universitas'] == 'Universitas Brawijaya' ? 'selected':''}} value="Universitas Brawijaya">Universitas Brawijaya</option>
-                                            </select>
+                                        <div class="col-xl-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label>School/University<span class="required-sign">*</span></label>
+                                                <select class="select2 tex-center select2-width" id="universitas" name="universitas" required>
+                                                    <option value="">Choose Universitas</option>
+                                                    @foreach($universitas as $dataUniv)
+                                                        <option {{$pendidikan['universitas'] == $dataUniv['universitas'] ? 'selected':''}} value="{{$dataUniv['universitas']}}">{{$dataUniv['universitas']}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="col-xl-6 col-md-6 col-sm-12">
                                             <div class="form-group" >
@@ -135,8 +126,10 @@
                                             <div class="form-group">
                                                 <label>Major<span class="required-sign">*</span></label>
                                                 <select class="select2 tex-center select2-width" id="jurusan" name="jurusan">
-                                                    <option value="Sistem Informasi" {{ $pendidikan['jurusan'] == 'Sistem Informasi' ? 'selected' : '' }}>Sistem Informasi</option>
-                                                    <option value="Akuntansi" {{ $pendidikan['jurusan'] == 'Akuntansi' ? 'selected' : '' }}>Akuntansi</option>
+                                                    <option value="">Choose Major</option>
+                                                    @foreach($major as $dataMajor)
+                                                        <option {{$pendidikan['jurusan'] == $dataMajor['major'] ? 'selected':''}} value="{{$dataMajor['major']}}">{{$dataMajor['major']}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>

@@ -232,7 +232,7 @@
                                 <label for="">Major<span class="required-sign">*</span></label>
                                 <div class="row">
                                     <div class="col-lg-11 col-md-12">
-                                    <select name="major" id="major" class="select2-custom form-control">
+                                        <select name="major" id="major" class="select2-custom form-control">
                                             <option selected disabled>Choose or input  your major</option>
                                             @foreach($major as $options)
                                             <option value="{{$options['major']}}">{{$options['major']}}</option>

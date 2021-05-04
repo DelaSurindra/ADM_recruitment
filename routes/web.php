@@ -25,6 +25,13 @@ Route::prefix('HR')->group(function(){
 		Route::get('/', 'Admin\LoginController@loginAdminView')->name('get.login.view');
 		Route::post('/login-admin', 'Admin\LoginController@loginAdmin')->name('post.login-admin');
 	});
+
+	Route::prefix('forget-password')->group(function (){
+		Route::post('/', 'Admin\LoginController@forgetPassword')->name('post.forget.password');
+		Route::get('/view-reset/{id}', 'Admin\LoginController@viewResetPassword')->name('get.reset.password');
+		Route::post('/reset-password', 'Admin\LoginController@resetPassword')->name('post.reset.password');
+	});
+
 	Route::middleware('authuser')->group(function(){
 		Route::get('/', 'Admin\HomeController@HomeView')->name('home.admin');
 		Route::post('/chart-total-application', 'Admin\HomeController@chartTotalApplication')->name('post.chart.total.application');
@@ -35,6 +42,11 @@ Route::prefix('HR')->group(function(){
 		Route::post('/application-university', 'Admin\HomeController@applicationUniversity')->name('post.application.university');
 		Route::post('/application-major', 'Admin\HomeController@applicationMajor')->name('post.application.major');
 		Route::get('/download-dashboard/{date}', 'Admin\HomeController@downloadDashboard')->name('post.download.dashboard');
+
+		Route::prefix('change-password')->group(function () {
+			Route::get('/', 'Admin\HomeController@editPasswordView')->name('get.change-password');
+			Route::post('/', 'Admin\HomeController@editPassword')->name('post.change-password');
+		});
 
 		Route::prefix('news_event')->group(function () {
 			Route::get('/', 'Admin\NewsEventController@viewNewsEvent')->name('get.news.event');
@@ -80,6 +92,15 @@ Route::prefix('HR')->group(function(){
 			Route::post('/post-bulk-update','Admin\CandidateController@bulkUpdate')->name('post.bulk.update.candidate');
 			Route::post('/get-master','Admin\CandidateController@getMaster')->name('post.data.master');
 			Route::post('/post-add-bulk','Admin\CandidateController@addBulk')->name('post.bulk.add.candidate');
+		});
+
+		Route::prefix('job')->group(function () {
+			Route::get('/', 'Admin\JobController@viewJob')->name('get.job');
+			Route::post('/list-job','Admin\JobController@listJob')->name('post.job.list');
+			Route::get('/edit-job/{id}', 'Admin\JobController@viewJobEdit')->name('get.job.edit');
+			Route::post('/post-edit-job','Admin\JobController@editJob')->name('post.job.edit');
+			Route::get('/download-file/{file}','Admin\CandidateController@downloadFile')->name('post.download.file');
+			Route::post('/post-bulk-update','Admin\JobController@bulkUpdate')->name('post.bulk.update.job');
 		});
 
 		Route::prefix('test')->group(function () {

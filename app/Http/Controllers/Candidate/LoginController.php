@@ -157,7 +157,7 @@ class LoginController extends Controller
                 'token' => $token,
                 'created_date' => $tgl,
                 'expired' => $exp,
-                'status' => 1,
+                'status' => 0,
                 'user_id' => $searchEmail[0]['id']
             ]);
             $username = encrypt('dsad' . ',' . date('Y-m-d') . ',' . $token); 
@@ -186,7 +186,7 @@ class LoginController extends Controller
             'status' => $checkToken[0]['status'],
         ];
         if ($checkToken != null) {
-            if ($checkToken[0]['status'] == "1") {
+            if ($checkToken[0]['status'] == "0") {
                 Token::where('token', $token)->update(['status' => "1"]);
                 if ($date > $now) {
                     return view('candidate.editpassword')->with(['topbar'=>'education_information','data' => $dataView, 'type' => '2']);

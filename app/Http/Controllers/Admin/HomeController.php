@@ -15,7 +15,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Request;
 use Session;
 use DB;
-
+use Hash;
 class HomeController extends Controller
 {
     public function homeView() {
@@ -268,5 +268,55 @@ class HomeController extends Controller
         }
     
         return $n_format . $suffix;
+    }
+
+    public function editPasswordView() {
+        
+        return view('admin.change-password')->with(['pageTitle' => 'Change Password', 'title' => 'Change Password', 'sidebar' => 'dashboard']);
+    }
+
+    public function editPassword(){
+        $encrypt = new EncryptController;
+        $data = $encrypt->fnDecrypt(Request::input('data'),true);
+        $user = User::where('id', $data['idUser'])->where('type', '2')->first();
+        if ($user) {
+            if (Hash::check($data['oldPassword'].env('SALT_PASS_HR'), $user->password)) {
+                $updatePass = User::where('id', $data['idUser'])->update([
+                    'password' => bcrypt($data['newPassword'].env('SALT_PASS_HR'))
+                ]);
+                if ($updatePass) {
+                    $messages = [
+                        'status' => 'success',
+                        'message' => 'Change Password Success',
+                        'url' => '/HR/change-password',
+                        'callback' => 'redirect'
+                    ];
+        
+                    return response()->json($messages);
+                } else {
+                    $messages = [
+                        'status' => 'error',
+                        'message' => 'Change Password Failed',
+                    ];
+        
+                    return response()->json($messages);
+                }
+                
+            } else {
+                $messages = [
+                    'status' => 'error',
+                    'message' => 'Wrong Password',
+                ];
+        
+                return response()->json($messages);
+            }
+        }else{
+            $messages = [
+                'status' => 'error',
+                'message' => 'User Not Found',
+            ];
+    
+            return response()->json($messages);
+        }
     }
 }

@@ -140,9 +140,38 @@
                 </div>
             </form>
             <div class="mt-3 text-gray link-bottom">
-                <a href="" class="text-red">Lupa Password</a>
+                <a type="button" data-toggle="modal" data-target="#modalForgetPass" class="text-red">Lupa Password</a>
             </div>
             <div class="mt-5 login-forget text-secondary"></div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalForgetPass" tabindex="-1" aria-labelledby="modalForgetPassLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-hr">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-up mb-3">
+                        <h4 class="modal-hr-title mb-0">Forget Password</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis" alt="icon">
+                        </button>
+                    </div>
+                    <p class="mb-4">Enter email that associated to your account and we’ll send an email with instructions to reset password</p>
+                    <form action="{{route('post.forget.password')}}" class="form stacked form-hr" ajax=true id="formForgetPassword">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" >
+                                    <input id="email" name="email" class="form-control" type="text" placeholder="Email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-red w-100 btn-confirm">Send Instructions</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </body>

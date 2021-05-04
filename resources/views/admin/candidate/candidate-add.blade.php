@@ -117,10 +117,15 @@
                             <div class="row">
                                 <div class="col-xl-10 col-md-12">
                                     <div class="row">
-                                        <div class="col-xl-6 col-md-6 col-sm-12">
-                                            <div class="form-group" >
-                                                <label>Location (City)<span class="required-sign">*</span></label>
-                                                <input id="myLocation" name="myLocation" class="form-control" type="text" placeholder="Enter Location">
+                                        <div class="col-xl-6 col-md-6 col-sm-12" id="myLocationDiv">
+                                            <div class="form-group">
+                                                <label>Location<span class="required-sign">*</span></label>
+                                                <select name="myLocation" id="myLocation" class="select2 form-control">
+                                                    <option value="">Choose Location</option>
+                                                    @foreach($wilayah as $options)
+                                                    <option value="{{$options['kabupaten']}}">{{$options['kabupaten']}}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -165,10 +170,10 @@
                                                 <label for="">School/University<span class="required-sign">*</span></label>
                                                 <div class="row">
                                                     <div class="col-lg-12 col-md-12">
-                                                        <select name="university" id="university" class="select2 form-control">
-                                                            <option value="">Choose your University</option>
-                                                            @foreach($universitas as $dataUniv)
-                                                            <option value="{{$dataUniv['universitas']}}">{{$dataUniv['universitas']}}</option>
+                                                        <select name="university" id="university" class="select2-custom form-control">
+                                                            <option selected disabled>Choose or input your university</option>
+                                                            @foreach($universitas as $options)
+                                                            <option value="{{$options['universitas']}}">{{$options['universitas']}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -207,10 +212,10 @@
                                                 <label for="">Major<span class="required-sign">*</span></label>
                                                 <div class="row">
                                                     <div class="col-lg-12 col-md-12">
-                                                        <select name="major" id="major" class="select2 form-control">
-                                                            <option value="">Choose your major</option>
-                                                            @foreach($major as $dataMajor)
-                                                            <option value="{{$dataMajor['major']}}">{{$dataMajor['major']}}</option>
+                                                            <select name="major" id="major" class="select2-custom form-control">
+                                                            <option selected disabled>Choose or input  your major</option>
+                                                            @foreach($major as $options)
+                                                            <option value="{{$options['major']}}">{{$options['major']}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -248,7 +253,7 @@
                                                 <label for="">GPA<span class="required-sign">*</span></label>
                                                 <div class="row">
                                                     <div class="col-lg-12 col-md-12">
-                                                        <input type="text" class="form-control" placeholder="0 - 100" id="gpa" name="gpa">
+                                                        <input type="text" class="form-control" placeholder="0 - 4" id="gpa" name="gpa">
                                                     </div>
                                                 </div>
                                             </div>
