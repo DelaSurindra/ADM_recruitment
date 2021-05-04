@@ -195,50 +195,6 @@ class CandidateController extends Controller
         }
     }
 
-    public function viewCandidateDetail($id){
-
-        $idKandidat = base64_decode(urldecode($id));
-        $listCandidate = Candidate::where('id', $idKandidat)->get()->toArray();
-        // dd($listCandidate);
-        if ($listCandidate) {
-            $listCandidate[0]['tanggal_lahir'] = date('d F Y', strtotime($listCandidate[0]['tanggal_lahir']));
-            $listCandidate[0]['pendidikan'] = [];
-            $kandidat_id = [];
-            array_push($kandidat_id, $listCandidate[0]['id']);
-
-            $pendidikan_kandidat_id = [];
-            $education = Education::get()->toArray();
-            
-            for ($i=0; $i < count($education); $i++) { 
-                array_push($pendidikan_kandidat_id, $education[$i]['kandidat_id']);
-            }
-
-            
-            $dummy = [];
-            for ($i=0; $i < count($pendidikan_kandidat_id); $i++) { 
-                $search = array_search($pendidikan_kandidat_id[$i], $kandidat_id);
-                array_push($dummy, $search.','.$i);
-            }
-            foreach ($dummy as $key => $value) {
-                $exp = explode(",", $value);
-                if ($exp[0] != "") {
-                    array_push($listCandidate[$exp[0]]['pendidikan'], $education[$exp[1]]);
-                }
-    
-            }
-    
-            // dd($listCandidate);
-            $breadcrumb = [
-                "page"      => "Manage Candidate",
-                "detail"    => "View Candidate",
-                "route"     => "/HR/candidate"
-            ];
-            return view('admin.candidate.candidate-detail')->with(['pageTitle' => 'Manajemen Candidate', 'title' => 'Manajemen Candidate', 'sidebar' => 'manajemen_candidate', 'breadcrumb' => $breadcrumb, 'data'=>$listCandidate[0]]);
-        }else{
-            abort(404);
-        }
-    }
-
     public function downloadFile($file){
         $data = base64_decode(urldecode($file));
         $str = str_replace("%2F", "/", $data);
