@@ -1,3 +1,9 @@
+.table-report thead th{
+    vertical-align: middle !important;
+    text-align: center;
+    background: #F7F7FA;
+}
+
 .text-add-bulk{
     font-family: 'inter_bold', sans-serif !important;
     font-style: normal;
@@ -6,13 +12,6 @@
     line-height: 130%;
     letter-spacing: -0.02em;
     color: #4F4F4F;
-}
-
-.link-add-bulk{
-    font-weight: 700;
-    color:#DF0E2C;
-    text-decoration: none;
-    cursor: pointer;
 }
 
 .btn-edit-status{
@@ -172,18 +171,13 @@
 }
 
 .download-bulk-default{
-    font-family: 'inter_bold', sans-serif !important;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 130%;
-    letter-spacing: -0.02em;
-    color: #050401;
+    font-weight: 700;
+    color:#DF0E2C;
 }
 
 .download-bulk-default:hover{
     text-decoration: none;
-    color: #050401;
+    color: #DF0E2C;;
 }
 
 .photoProfileImage {

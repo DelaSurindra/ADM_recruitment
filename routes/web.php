@@ -156,6 +156,11 @@ Route::prefix('HR')->group(function(){
 			Route::post('/edit-user','Admin\UserController@editUser')->name('post.user.edit');
 			Route::post('/delete-user','Admin\UserController@deleteUser')->name('post.user.delete');
 		});
+
+		Route::prefix('report')->group(function (){
+			Route::get('/', 'Admin\ReportController@viewReport')->name('get.report');
+			Route::post('/get-report', 'Admin\ReportController@getReport')->name('post.report');
+		});
 	});
 });
 

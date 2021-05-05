@@ -1736,6 +1736,88 @@ var table = {
 				});
 			})
 		}
+
+		if (id == "filterReport") {
+			var type = $("#categoryReport").val();
+			$(".div-report").addClass('hidden');
+			$(".tbody-data").empty();
+			// $("#modalFilterReport").modal('hide');
+			if (type == "1") {
+				ajax.getData('/HR/report/get-report', 'post', value, function(report){
+					$("#divTrenKelulusan").removeClass('hidden')
+					if (report.length) {
+						var data = ''
+						for (let i = 0; i < report.length; i++) {
+							data = '<tr>'+
+									'<td>'+report[i].date_test+'</td>'+
+									'<td>'+report[i].event_id+'</td>'+
+									'<td>'+report[i].city+'</td>'+
+									'<td>'+report[i].total_peserta+'</td>'+
+									'<td>'+report[i].verbal+'</td>'+
+									'<td>'+report[i].abstrak+'</td>'+
+									'<td>'+report[i].numerical+'</td>'+
+									'<td>'+report[i].jumlah_lulus+'</td>'+
+								'</tr>'
+							$("#tableTrenKelulusan").append(data);
+						}
+						
+					}
+				})
+			}else if (type == "2") {
+				ajax.getData('/HR/report/get-report', 'post', value, function(report){
+					$("#divAverageScore").removeClass('hidden')
+					if (report.length) {
+						var data = ''
+						for (let i = 0; i < report.length; i++) {
+							data = '<tr>'+
+									'<td>'+report[i].jurusan+'</td>'+
+									'<td>'+report[i].verbal+'</td>'+
+									'<td>'+report[i].abstrak+'</td>'+
+									'<td>'+report[i].numerical+'</td>'+
+								'</tr>'
+							$("#tableAverageScore").append(data);
+						}
+						
+					}
+				})
+			}else if (type == "3") {
+				ajax.getData('/HR/report/get-report', 'post', value, function(report){
+					$("#divTingkatUniv").removeClass('hidden')
+					if (report.length) {
+						var data = ''
+						for (let i = 0; i < report.length; i++) {
+							data = '<tr>'+
+									'<td>'+report[i].universitas+'</td>'+
+									'<td>'+report[i].total_peserta+'</td>'+
+									'<td>'+report[i].jumlah_lulus+'</td>'+
+									'<td>'+report[i].jumlah_gagal+'</td>'+
+									'<td>'+report[i].persentase_lulus+'%</td>'+
+								'</tr>'
+							$("#tableTingkatUniv").append(data);
+						}
+						
+					}
+				})
+			}else if (type == "4") {
+				ajax.getData('/HR/report/get-report', 'post', value, function(report){
+					$("#divTingkatJurusan").removeClass('hidden')
+					if (report.length) {
+						var data = ''
+						for (let i = 0; i < report.length; i++) {
+							data = '<tr>'+
+									'<td>'+report[i].jurusan+'</td>'+
+									'<td>'+report[i].total_peserta+'</td>'+
+									'<td>'+report[i].jumlah_lulus+'</td>'+
+									'<td>'+report[i].jumlah_gagal+'</td>'+
+									'<td>'+report[i].persentase_lulus+'%</td>'+
+								'</tr>'
+							$("#tableTingkatJurusan").append(data);
+						}
+						
+					}
+				})
+			}
+		}
 	},
 	getData:function(url,params,callback){
 		$.ajax({

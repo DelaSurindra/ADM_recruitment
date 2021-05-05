@@ -306,6 +306,7 @@ class CandidateController extends Controller
             ]);
 
             if ($candidate) {
+                
                 if (is_array($data['university'])) {
                     for ($i=0; $i < count($data['university']); $i++) {
                         if (Request::has('certificate')) {
@@ -331,8 +332,8 @@ class CandidateController extends Controller
                 } else {
                     if (Request::has('certificate')) {
                         $image = Request::file('certificate');
-                        $ext = $image->getClientOriginalExtension();
-                        $path_certificate = $image[$i]->storeAs('certificate', 'certificate_'.time().'.'.$ext, 'public');
+                        $ext = $image[0]->getClientOriginalExtension();
+                        $path_certificate = $image[0]->storeAs('certificate', 'certificate_'.time().'.'.$ext, 'public');
                     }else{
                         $path_certificate = '';
                     }

@@ -269,6 +269,67 @@ if ($("#formAddEventNews").length) {
             }
         });
     });
+
+	$("#tipeNewsEvent").change(function(){
+		var valueTipe = $("#tipeNewsEvent").val();
+		
+		if (valueTipe == "1") {
+			$("#divDateNewsEvent").addClass('hidden');
+			$(".dateNewsEvent").attr('disabled', true);
+		} else {
+			$("#divDateNewsEvent").removeClass('hidden');
+			$(".dateNewsEvent").attr('disabled', false);
+		}
+	})
+
+	function readFile(input) {
+		console.log(input.files, input.files[0])
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+	
+			reader.onload = function (e) {
+				var htmlPreview = '<img src="' + e.target.result + '" style="width:100%;height:auto" />';
+				var wrapperZone = $(input).parent();
+				var previewZone = $(input).parent().parent().find('.preview-zone');
+				var boxZone = $(input).parent().find('.dropzone-desc');
+				var top = Math.floor(150/2);
+	
+				wrapperZone.removeClass('dragover');
+				previewZone.removeClass('hidden');
+				boxZone.empty();
+				boxZone.css('top', '0');
+				boxZone.append(htmlPreview);
+			};
+	
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	function reset(e) {
+		e.wrap('<form>').closest('form').get(0).reset();
+		e.unwrap();
+	}
+	
+	$(".dropzone").change(function(){
+		readFile(this);
+	});
+	$('.dropzone-wrapper').on('dragover', function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		$(this).addClass('dragover');
+	});
+	$('.dropzone-wrapper').on('dragleave', function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		$(this).removeClass('dragover');
+	});
+	$('.remove-preview').on('click', function() {
+		var boxZone = $(this).parents('.preview-zone').find('.box-body');
+		var previewZone = $(this).parents('.preview-zone');
+		var dropzone = $(this).parents('.form-group').find('.dropzone');
+		boxZone.empty();
+		previewZone.addClass('hidden');
+		reset(dropzone);
+	});
 }
 
 if ($("#formEditEventNews").length) {
@@ -294,6 +355,67 @@ if ($("#formEditEventNews").length) {
             }
         });
     });
+
+	$("#tipeNewsEvent").change(function(){
+		var valueTipe = $("#tipeNewsEvent").val();
+		
+		if (valueTipe == "1") {
+			$("#divDateNewsEvent").addClass('hidden');
+			$(".dateNewsEvent").attr('disabled', true);
+		} else {
+			$("#divDateNewsEvent").removeClass('hidden');
+			$(".dateNewsEvent").attr('disabled', false);
+		}
+	})
+
+	function readFile(input) {
+		console.log(input.files, input.files[0])
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+	
+			reader.onload = function (e) {
+				var htmlPreview = '<img src="' + e.target.result + '" style="width:100%;height:auto" />';
+				var wrapperZone = $(input).parent();
+				var previewZone = $(input).parent().parent().find('.preview-zone');
+				var boxZone = $(input).parent().find('.dropzone-desc');
+				var top = Math.floor(150/2);
+	
+				wrapperZone.removeClass('dragover');
+				previewZone.removeClass('hidden');
+				boxZone.empty();
+				boxZone.css('top', '0');
+				boxZone.append(htmlPreview);
+			};
+	
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	function reset(e) {
+		e.wrap('<form>').closest('form').get(0).reset();
+		e.unwrap();
+	}
+	
+	$(".dropzone").change(function(){
+		readFile(this);
+	});
+	$('.dropzone-wrapper').on('dragover', function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		$(this).addClass('dragover');
+	});
+	$('.dropzone-wrapper').on('dragleave', function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		$(this).removeClass('dragover');
+	});
+	$('.remove-preview').on('click', function() {
+		var boxZone = $(this).parents('.preview-zone').find('.box-body');
+		var previewZone = $(this).parents('.preview-zone');
+		var dropzone = $(this).parents('.form-group').find('.dropzone');
+		boxZone.empty();
+		previewZone.addClass('hidden');
+		reset(dropzone);
+	});
 }
 
 if ($("#formAddVacancy").length) {
@@ -445,66 +567,8 @@ if ($("#formEditVacancy").length) {
 	});
 }
 
-function readFile(input) {
-    console.log(input.files, input.files[0])
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
 
-        reader.onload = function (e) {
-            var htmlPreview = '<img src="' + e.target.result + '" style="width:100%;height:auto" />';
-            var wrapperZone = $(input).parent();
-            var previewZone = $(input).parent().parent().find('.preview-zone');
-            var boxZone = $(input).parent().find('.dropzone-desc');
-			var top = Math.floor(150/2);
 
-            wrapperZone.removeClass('dragover');
-            previewZone.removeClass('hidden');
-            boxZone.empty();
-			boxZone.css('top', '0');
-            boxZone.append(htmlPreview);
-        };
-
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-function reset(e) {
-    e.wrap('<form>').closest('form').get(0).reset();
-    e.unwrap();
-}
-
-$(".dropzone").change(function(){
-    readFile(this);
-});
-$('.dropzone-wrapper').on('dragover', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    $(this).addClass('dragover');
-});
-$('.dropzone-wrapper').on('dragleave', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    $(this).removeClass('dragover');
-});
-$('.remove-preview').on('click', function() {
-    var boxZone = $(this).parents('.preview-zone').find('.box-body');
-    var previewZone = $(this).parents('.preview-zone');
-    var dropzone = $(this).parents('.form-group').find('.dropzone');
-    boxZone.empty();
-    previewZone.addClass('hidden');
-    reset(dropzone);
-});
-
-$("#tipeNewsEvent").change(function(){
-	var valueTipe = $("#tipeNewsEvent").val();
-	
-	if (valueTipe == "1") {
-		$("#divDateNewsEvent").addClass('hidden');
-		$(".dateNewsEvent").attr('disabled', true);
-	} else {
-		$("#divDateNewsEvent").removeClass('hidden');
-		$(".dateNewsEvent").attr('disabled', false);
-	}
-})
 
 if ($("#formFirstLogin").length) {
 	function readFile(input) {
@@ -1973,8 +2037,8 @@ if ($("#addBulkCandidate").length) {
 			
 			reader.onload = function (e) {
 				var inputLabel = $(input).parent().parent().find('.file-input-label');
-				inputLabel.val();
-				inputLabel.val(input.files[0].name);
+				inputLabel.html("");
+				inputLabel.html(input.files[0].name);
 			};
 			
 			reader.readAsDataURL(input.files[0]);
@@ -1984,5 +2048,25 @@ if ($("#addBulkCandidate").length) {
 	$('#fileBulk').change(function(e){
 		e.preventDefault();
 		readFileInput(this);
+	});
+}
+
+if ($("#filterReport").length) {
+
+	$('#dateStartReport').datetimepicker({
+		format: 'DD-MM-YYYY',
+	});
+
+	$('#dateEndReport').datetimepicker({
+		format: 'DD-MM-YYYY',
+	});
+
+	$("#categoryReport").change(function(){
+		var tipe = $("#categoryReport").val();
+		if (tipe == "8") {
+			$(".row-kota-univ").removeClass('hidden');
+		}else{
+			$(".row-kota-univ").addClass('hidden')
+		}
 	});
 }

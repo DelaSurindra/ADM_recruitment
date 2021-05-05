@@ -51,30 +51,25 @@
                         <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis" alt="icon">
                     </button>
                 </div>
-                <p class="text-add-bulk">You can download excel format example here</p>
+                <p class="text-add-bulk">You can download excel format example <a href="{{route('post.download.file', base64_encode('default-bulk.xlsx'))}}" class="download-bulk-default">here</a></p>
                 <form action="{{route('post.bulk.add.candidate')}}" method="POST" class="form stacked form-hr" enctype="multipart/form-data" id="addBulkCandidate">
                     @csrf
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-lg-12 col-md-12">
                             <div class="form-group">
-                                <label>File Name</label>
-                                <input type="text" class="form-control file-input-label" placeholder="Format xlsx" disabled>
-                                <span class="btn btn-file pl-1 mb-2">
-                                    Upload File <input type="file" name="fileBulk" id="fileBulk" class="uploadCertificate">
-                                </span>
+                                <div class="dropzone-wrapper">
+                                    <div class="dropzone-desc">
+                                        <img src="{{ asset('image/icon/main/icon_add_bulk.svg') }}" alt="icon">
+                                        <p class="file-input-label">Upload excel file that match with format example</p>
+                                    </div>
+                                    <input type="file" name="fileBulk" class="dropzone" id="fileBulk">
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col-md-12">
-                            <a href="{{route('post.download.file', base64_encode('default-bulk.xlsx'))}}" class="download-bulk-default">
-                                <img class="image-copy" src="{{ asset('image/icon/main/icon_donwload.svg') }}" alt="icon">&nbsp Download Default File
-                            </a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-red w-100">Update</button>
+                            <button type="submit" class="btn btn-red w-100">Upload File</button>
                         </div>
                     </div>
                 </form>

@@ -21,6 +21,18 @@
                     </div>
                 </a>
             </li>
+            <li class="tree-menu custom-height-menu-sidebar">
+                <a href="{{ route('get.report') }}" class="menu {{($sidebar== 'manajemen_report'?'active':'')}}">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="{{ $sidebar== 'manajemen_report' ? asset('image/icon/sidebar/icon_menu_master_active.svg') : asset('image/icon/sidebar/icon_menu_master.svg')}}" alt="" width="25px" class="right-icon-sidebar icon-sidebar-mobile">
+                        </div>
+                        <div class="col-md-10">
+                            <span class="font-color-sidebar">Report</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
             @if(session('session_id.role') == "1")
             <li class="tree-menu custom-height-menu-sidebar">
                 <a href="{{ route('get.user') }}" class="menu {{($sidebar== 'manajemen_user'?'active':'')}}">
