@@ -52,7 +52,7 @@
                         <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis" alt="icon">
                     </button>
                 </div>
-                <p class="text-add-bulk">You can download excel format example <a href="{{route('post.download.bulk', base64_encode('default-bulk.xlsx'))}}" class="download-bulk-default">here</a></p>
+                <p class="text-add-bulk">You can download excel format example <a href="{{route('get.download.bulk')}}" class="download-bulk-default">here</a></p>
                 <form action="{{route('post.bulk.add.candidate')}}" method="POST" class="form stacked form-hr" enctype="multipart/form-data" id="addBulkCandidate">
                     @csrf
                     <div class="row">

@@ -88,7 +88,7 @@ Route::prefix('HR')->group(function(){
 			Route::get('/detail-candidate/{id}', 'Admin\CandidateController@viewCandidateDetail')->name('get.candidate.detail');
 			Route::get('/edit-candidate/{id}', 'Admin\CandidateController@viewCandidateEdit')->name('get.candidate.edit');
 			Route::post('/post-edit-candidate','Admin\CandidateController@editCandidate')->name('post.candidate.edit');
-			Route::get('/download-file/{file}','Admin\CandidateController@downloadFile')->name('post.download.bulk');
+			Route::get('/download-file-bulk','Admin\CandidateController@downloadFile')->name('get.download.bulk');
 			Route::post('/post-bulk-update','Admin\CandidateController@bulkUpdate')->name('post.bulk.update.candidate');
 			Route::post('/get-master','Admin\CandidateController@getMaster')->name('post.data.master');
 			Route::post('/post-add-bulk','Admin\CandidateController@addBulk')->name('post.bulk.add.candidate');

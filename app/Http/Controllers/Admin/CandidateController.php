@@ -17,6 +17,7 @@ use App\Model\MasterMajor;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\addBulkCandidate;
+use App\Exports\DownloadDefault;
 use Hash;
 use Request;
 use Session;
@@ -196,12 +197,8 @@ class CandidateController extends Controller
         }
     }
 
-    public function downloadFile($file){
-        $data = base64_decode(urldecode($file));
-        $str = str_replace("%2F", "/", $data);
-        $path = public_path('storage').'/'.$str;
-        // dd($path);
-        return Response::download($path);
+    public function downloadFile(){
+        return Excel::download(new DownloadDefault(), 'Default-add-bulk-candidate.xlsx');
     }
 
     public function bulkUpdate(){
