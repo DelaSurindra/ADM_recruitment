@@ -239,22 +239,11 @@ const formrules = {
 			},
 			'gpa':{
 				required:true,
+				max:4
 			},
 			'certificate[]':{
 				required:true,
-			},
-			// 'coverLetter':{
-			// 	STD_VAL_WEB_20:true,
-			// },
-			// 'resume':{
-			// 	STD_VAL_WEB_20:true,
-			// },
-			// 'portofolio':{
-			// 	STD_VAL_WEB_20:true,
-			// },
-			// 'skill':{
-			// 	STD_VAL_WEB_20:true,
-			// },
+			}
 		},
 		submitHandler:false,
 		messages: {
@@ -682,6 +671,7 @@ const formrules = {
 			},
 			'gpa':{
 				required:true,
+				max:4
 			}
 		},
 		submitHandler:false,

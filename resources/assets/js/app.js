@@ -123,11 +123,11 @@ $(document).ready(function () {
     }
 })
 
-$('.modal').on('hidden.bs.modal', function (e) {
-    $(this).find('form')[0].reset();
-    $('.select').val('').trigger('change');
+// $('.modal').on('hidden.bs.modal', function (e) {
+//     $(this).find('form')[0].reset();
+//     $('.select').val('').trigger('change');
     
-})
+// })
 
 //FAQ
 if ($("#divFaq").length) {

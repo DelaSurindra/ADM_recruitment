@@ -58,7 +58,7 @@
 @endsection
 
 @section('modal')
-<div class="modal fade" id="modalAddMaster" tabindex="-1" aria-labelledby="modalAddMasterLabel" aria-hidden="true">
+<div class="modal fade" id="modalAddMaster" aria-labelledby="modalAddMasterLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-hr">
         <div class="modal-content">
             <div class="modal-body">
@@ -103,7 +103,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalEditMaster" tabindex="-1" aria-labelledby="modalEditMasterLabel" aria-hidden="true">
+<div class="modal fade" id="modalEditMaster" aria-labelledby="modalEditMasterLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-hr">
         <div class="modal-content">
             <div class="modal-body">
@@ -135,7 +135,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalDeleteMaster" tabindex="-1" aria-labelledby="modalDeleteMasterLabel" aria-hidden="true">
+<div class="modal fade" id="modalDeleteMaster" aria-labelledby="modalDeleteMasterLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-hr">
         <div class="modal-content">
             <div class="modal-body">

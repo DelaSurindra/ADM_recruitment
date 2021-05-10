@@ -79,7 +79,7 @@
     </div>
 
     <!-- Modal Notif For SUCCESS -->
-    <div class="modal fade" id="modalNotifForSuccess" tabindex="-1" aria-labelledby="modalNotifForSuccessLabel" aria-hidden="true">
+    <div class="modal fade" id="modalNotifForSuccess" aria-labelledby="modalNotifForSuccessLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm modal-for-notif">
             <div class="modal-content">
                 <div class="modal-body">
@@ -105,7 +105,7 @@
         </div>
     </div>
     <!-- Modal Notif For ERROR -->
-    <div class="modal fade" id="modalNotifForError" tabindex="-1" aria-labelledby="modalNotifForErrorLabel" aria-hidden="true">
+    <div class="modal fade" id="modalNotifForError" aria-labelledby="modalNotifForErrorLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm modal-for-notif">
             <div class="modal-content">
                 <div class="modal-body">
@@ -129,7 +129,7 @@
     </div>
 
     <!-- Modal Notif Must Login -->
-    <div class="modal fade" id="modalNotifForLogin" tabindex="-1" aria-labelledby="modalNotifForLoginLabel" aria-hidden="true">
+    <div class="modal fade" id="modalNotifForLogin" aria-labelledby="modalNotifForLoginLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm modal-for-notif">
             <div class="modal-content">
                 <div class="modal-body">
@@ -152,7 +152,7 @@
     </div>
 
     <!-- Modal Notif For Profile Saved -->
-    <div class="modal fade" id="modalNotifProfileSaved" tabindex="-1" aria-labelledby="modalNotifProfileSavedLabel" aria-hidden="true">
+    <div class="modal fade" id="modalNotifProfileSaved" aria-labelledby="modalNotifProfileSavedLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm modal-for-notif">
             <div class="modal-content">
                 <div class="modal-body">
@@ -184,7 +184,7 @@
     </div>
 
     <!-- Modal Notif For Apply Success -->
-    <div class="modal fade" id="modalNotifApplySuccess" tabindex="-1" aria-labelledby="modalNotifProfileSavedLabel" aria-hidden="true">
+    <div class="modal fade" id="modalNotifApplySuccess" aria-labelledby="modalNotifProfileSavedLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm modal-for-notif">
             <div class="modal-content">
                 <div class="modal-body">

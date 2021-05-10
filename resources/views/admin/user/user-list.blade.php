@@ -39,7 +39,7 @@
 @endsection
 
 @section('modal')
-<div class="modal fade" id="modalDeleteUser" tabindex="-1" aria-labelledby="modalDeleteUserLabel" aria-hidden="true">
+<div class="modal fade" id="modalDeleteUser" aria-labelledby="modalDeleteUserLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-hr">
         <div class="modal-content">
             <div class="modal-body">

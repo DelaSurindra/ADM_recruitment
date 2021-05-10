@@ -33,7 +33,21 @@ class addBulkCandidate implements ToCollection
 
             return back()->with('notif', $messages);
         }else{
-            for ($i=1; $i < count($collection); $i++) { 
+            for ($i=1; $i < count($collection); $i++) {
+                if ($collection[$i][4] == "male" || $collection[$i][4] == "Male" || $collection[$i][4] == "MALE") {
+                    $gender = "1";
+                } else {
+                    $gender = "2";
+                }
+
+                if($collection[$i][8] == "d3" || $collection[$i][8] == "D3"){
+                    $gelar = "1";
+                }elseif ($collection[$i][8] == "s1" || $collection[$i][8] == "S1") {
+                    $gelar = "2";
+                }else{
+                    $gelar = "3";
+                }
+                
                 $password = $this->generateRandomString(8);
                 $insertUser = User::insertGetId([
                     'email' => $collection[$i][2],
@@ -45,7 +59,7 @@ class addBulkCandidate implements ToCollection
                     'first_name' => $collection[$i][0],
                     'last_name' => $collection[$i][1],
                     'tanggal_lahir' => date('Y-m-d', strtotime($collection[$i][3])),
-                    'gender' => $collection[$i][4],
+                    'gender' => $gender,
                     'telp' => $collection[$i][5],
                     'kota' => $collection[$i][6],
                     'linkedin' => "",
@@ -59,7 +73,7 @@ class addBulkCandidate implements ToCollection
                 ]);
                 $education = Education::insert([
                     "universitas" => $collection[$i][7],
-                    "gelar" => $collection[$i][8],
+                    "gelar" => $gelar,
                     "fakultas" => $collection[$i][9],
                     "jurusan" => $collection[$i][10],
                     "start_year" => $collection[$i][11],

@@ -182,7 +182,7 @@
 @endsection
 
 @section('modal')
-<div class="modal fade" id="modalOnlineTest" tabindex="-1" aria-labelledby="modalOnlineTestLabel" aria-hidden="true">
+<div class="modal fade" id="modalOnlineTest" aria-labelledby="modalOnlineTestLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm modal-online-test">
         <div class="modal-content">
             <div class="modal-body">
@@ -238,7 +238,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="modalOnlineInterview" tabindex="-1" aria-labelledby="modalOnlineInterviewLabel" aria-hidden="true">
+<div class="modal fade" id="modalOnlineInterview" aria-labelledby="modalOnlineInterviewLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm modal-online-test">
         <div class="modal-content">
             <div class="modal-body">

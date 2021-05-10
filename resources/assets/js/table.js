@@ -271,6 +271,7 @@ var table = {
 
 		if ($('#tableCandidate').length) {
 			var column = [
+				{'data':'created_at'},
 				{'data':'first_name'},
 				{'data':'email'},
 				{'data':'tanggal_lahir'},
@@ -281,7 +282,7 @@ var table = {
 
 			columnDefs = [
 				{
-					"targets": 0,
+					"targets": 1,
 					"data": "first_name",
 					"render": function(data, type, full, meta){
 						var id = encodeURIComponent(window.btoa(full.kandidat_id));
@@ -296,22 +297,7 @@ var table = {
 					}
 				},
 				{
-					"targets": 2,
-					"data": "gelar",
-					"render": function(data, type, full, meta){
-						var data = '';
-						if (full.gelar == "1") {
-							data = "D3";
-						}else if (full.gelar == "2") {
-							data = "S1";
-						}else{
-							data = "S2"
-						}
-						return data;
-					}
-				},
-				{
-					"targets": 3,
+					"targets": 4,
 					"data": "gender",
 					"render": function(data, type, full, meta){
 						var data = '';
@@ -324,7 +310,7 @@ var table = {
 					}
 				},
 				{
-					"targets": 6,
+					"targets": 7,
 					"data": "id",
 					"className": "action-poster-news",
 					"render": function(data, type, full, meta){
@@ -1739,6 +1725,12 @@ var table = {
 
 		if (id == "filterReport") {
 			var type = $("#categoryReport").val();
+			var dateStart = $("#dateStartReport").val();
+			var dateEnd = $("#dateEndReport").val();
+			var kota = $("#kotaReport").val();
+			var univ = $("#universitasReport").val();
+			var linkDonwload = encodeURIComponent(window.btoa(dateStart+'_'+dateEnd+'_'+type+'_'+kota+'_'+univ));
+			$(".btn-download-report").attr('href', '/HR/report/download-report/'+linkDonwload)
 			$(".div-report").addClass('hidden');
 			$(".tbody-data").empty();
 			// $("#modalFilterReport").modal('hide');
@@ -1812,6 +1804,79 @@ var table = {
 									'<td>'+report[i].persentase_lulus+'%</td>'+
 								'</tr>'
 							$("#tableTingkatJurusan").append(data);
+						}
+						
+					}
+				})
+			}else if (type == "5") {
+				ajax.getData('/HR/report/get-report', 'post', value, function(report){
+					$("#divTrenAverage").removeClass('hidden')
+					if (report.length) {
+						var data = ''
+						for (let i = 0; i < report.length; i++) {
+							data = '<tr>'+
+									'<td>'+report[i].periode+'</td>'+
+									'<td>'+report[i].verbal+'</td>'+
+									'<td>'+report[i].abstrak+'</td>'+
+									'<td>'+report[i].numerical+'</td>'+
+								'</tr>'
+							$("#tableTrenAverage").append(data);
+						}
+						
+					}
+				})
+			}else if (type == "6") {
+				ajax.getData('/HR/report/get-report', 'post', value, function(report){
+					$("#divAverageFull").removeClass('hidden')
+					if (report.length) {
+						var data = ''
+						for (let i = 0; i < report.length; i++) {
+							data = '<tr>'+
+									'<td>'+report[i].job_title+'</td>'+
+									'<td>'+report[i].average_wirrten_test+'</td>'+
+									'<td>'+report[i].average_hr_review+'</td>'+
+									'<td>'+report[i].average_final_review+'</td>'+
+									'<td>'+report[i].average_user_review+'</td>'+
+									'<td>'+report[i].average_mcu+'</td>'+
+									'<td>'+report[i].average_hired+'</td>'+
+									'<td>'+report[i].total_time+'</td>'+
+								'</tr>'
+							$("#tableAverageFull").append(data);
+						}
+						
+					}
+				})
+			}else if (type == "7") {
+				ajax.getData('/HR/report/get-report', 'post', value, function(report){
+					$("#divTrenApplicant").removeClass('hidden')
+					if (report.length) {
+						var data = ''
+						for (let i = 0; i < report.length; i++) {
+							data = '<tr>'+
+									'<td>'+report[i].periode+'</td>'+
+									'<td>'+report[i].d3+'</td>'+
+									'<td>'+report[i].s1+'</td>'+
+									'<td>'+report[i].s2+'</td>'+
+								'</tr>'
+							$("#tableTrenApplicant").append(data);
+						}
+						
+					}
+				})
+			}else if (type == "8") {
+				ajax.getData('/HR/report/get-report', 'post', value, function(report){
+					$("#divApply").removeClass('hidden')
+					if (report.length) {
+						var data = ''
+						for (let i = 0; i < report.length; i++) {
+							data = '<tr>'+
+									'<td>'+report[i].kota+'</td>'+
+									'<td>'+report[i].universitas+'</td>'+
+									'<td>'+report[i].jurusan+'</td>'+
+									'<td>'+report[i].gender+'</td>'+
+									'<td>'+report[i].total_kandidat+'</td>'+
+								'</tr>'
+							$("#tableApply").append(data);
 						}
 						
 					}

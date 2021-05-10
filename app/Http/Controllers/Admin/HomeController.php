@@ -147,9 +147,9 @@ class HomeController extends Controller
                                         DB::raw('AVG(abstrak4) as abstrak4'),
                                     )->whereBetween('created_at', [$dateStart, $dateEnd])->get()->toArray();
 
-        $averageVerbal = (float)$average[0]['verbal1']+(float)$average[0]['verbal2']+(float)$average[0]['verbal3']+(float)$average[0]['verbal4'];
-        $averageNumeric = (float)$average[0]['numerical1']+(float)$average[0]['numerical2']+(float)$average[0]['numerical3']+(float)$average[0]['numerical4'];
-        $averageAbstrak = (float)$average[0]['abstrak1']+(float)$average[0]['abstrak2']+(float)$average[0]['abstrak3']+(float)$average[0]['abstrak4'];
+        $averageVerbal = ((float)$average[0]['verbal1']+(float)$average[0]['verbal2']+(float)$average[0]['verbal3']+(float)$average[0]['verbal4'])/4;
+        $averageNumeric = ((float)$average[0]['numerical1']+(float)$average[0]['numerical2']+(float)$average[0]['numerical3']+(float)$average[0]['numerical4'])/4;
+        $averageAbstrak = ((float)$average[0]['abstrak1']+(float)$average[0]['abstrak2']+(float)$average[0]['abstrak3']+(float)$average[0]['abstrak4'])/4;
         
         $averageAll = [
             'verbal' => round($averageVerbal, 2),

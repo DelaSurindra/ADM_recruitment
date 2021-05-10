@@ -222,7 +222,7 @@
                                     <label for="">GPA<span class="required-sign">*</span></label>
                                     <div class="row">
                                         <div class="col-lg-11 col-md-12">
-                                            <input type="text" class="form-control" placeholder="0 - 100" id="gpa" name="gpa">
+                                            <input type="text" class="form-control" placeholder="0 - 4" id="gpa" name="gpa">
                                         </div>
                                     </div>
                                 </div>

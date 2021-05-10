@@ -2063,6 +2063,13 @@ if ($("#filterReport").length) {
 
 	$("#categoryReport").change(function(){
 		var tipe = $("#categoryReport").val();
+
+		if (tipe == "5" || tipe == "7") {
+			$(".row-date").addClass("hidden")
+		}else{
+			$(".row-date").removeClass("hidden")
+		}
+
 		if (tipe == "8") {
 			$(".row-kota-univ").removeClass('hidden');
 		}else{

@@ -201,7 +201,7 @@
 @endsection
 
 @section('modal')
-<div class="modal fade" id="modalUpdateStatus" tabindex="-1" aria-labelledby="modalUpdateStatusLabel" aria-hidden="true">
+<div class="modal fade" id="modalUpdateStatus" aria-labelledby="modalUpdateStatusLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-hr">
         <div class="modal-content">
             <div class="modal-body">
@@ -259,7 +259,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalDeclineReschedule" tabindex="-1" aria-labelledby="modalDeclineRescheduleLabel" aria-hidden="true">
+<div class="modal fade" id="modalDeclineReschedule" aria-labelledby="modalDeclineRescheduleLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-hr">
         <div class="modal-content">
             <div class="modal-body">
@@ -284,7 +284,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalAcceptReschedule" tabindex="-1" aria-labelledby="modalAcceptRescheduleLabel" aria-hidden="true">
+<div class="modal fade" id="modalAcceptReschedule" aria-labelledby="modalAcceptRescheduleLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-hr">
         <div class="modal-content">
             <div class="modal-body">

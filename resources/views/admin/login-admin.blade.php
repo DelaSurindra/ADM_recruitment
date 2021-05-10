@@ -145,7 +145,7 @@
             <div class="mt-5 login-forget text-secondary"></div>
         </div>
     </div>
-    <div class="modal fade" id="modalForgetPass" tabindex="-1" aria-labelledby="modalForgetPassLabel" aria-hidden="true">
+    <div class="modal fade" id="modalForgetPass" aria-labelledby="modalForgetPassLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-hr">
             <div class="modal-content">
                 <div class="modal-body">

@@ -19,6 +19,7 @@
                 <table id="tableCandidate" class="table-hr table table-strip stripe hover">
                     <thead>
                         <tr>
+                            <th>Date</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Date of Birth</th>
@@ -41,7 +42,7 @@
 
 @section('modal')
 
-<div class="modal fade" id="modalAddBulk" tabindex="-1" aria-labelledby="modalAddBulkLabel" aria-hidden="true">
+<div class="modal fade" id="modalAddBulk" aria-labelledby="modalAddBulkLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-hr">
         <div class="modal-content">
             <div class="modal-body">
@@ -51,7 +52,7 @@
                         <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis" alt="icon">
                     </button>
                 </div>
-                <p class="text-add-bulk">You can download excel format example <a href="{{route('post.download.file', base64_encode('default-bulk.xlsx'))}}" class="download-bulk-default">here</a></p>
+                <p class="text-add-bulk">You can download excel format example <a href="{{route('post.download.bulk', base64_encode('default-bulk.xlsx'))}}" class="download-bulk-default">here</a></p>
                 <form action="{{route('post.bulk.add.candidate')}}" method="POST" class="form stacked form-hr" enctype="multipart/form-data" id="addBulkCandidate">
                     @csrf
                     <div class="row">

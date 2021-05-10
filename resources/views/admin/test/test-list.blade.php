@@ -45,7 +45,7 @@
 @endsection
 @section('modal')
     <!-- Modal Notif For Apply Success -->
-    <div class="modal fade" id="modalSuccessAddTest" tabindex="-1" aria-labelledby="modalSuccessAddTestLabel" aria-hidden="true">
+    <div class="modal fade" id="modalSuccessAddTest" aria-labelledby="modalSuccessAddTestLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm modal-for-notif">
             <div class="modal-content">
                 <div class="modal-body">

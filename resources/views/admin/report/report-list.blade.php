@@ -8,12 +8,26 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <p class="title-page"><img src="{{asset('image/icon/main/icon_title_candidate.svg')}}" alt=""> Report</p>
+                        <p class="title-page"><img src="{{asset('image/icon/main/icon_title_report.svg')}}" alt=""> Report</p>
                     </div>
                     <div class="col-md-8">
                         <button type="button" data-toggle="modal" data-target="#modalFilterReport" class="btn btn-red right"><img src="{{asset('image/icon/main/icon_filter.svg')}}" alt="">&nbsp&nbspFilter</button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row div-report">
+    <div class="col-md-12">
+        <div class="card clear">
+            <div class="card-body">
+                <center>
+                    <img src="{{asset('image/icon/main/icon_empty_report.svg')}}" alt="">
+                    <p class="title-empty-report mt-3">Reporting to much data</p>
+                    <p class="text-empty-report">Use <span class="span-empty-report">Filter Feature</span> above to show data report that you want</p>
+                </center>
             </div>
         </div>
     </div>
@@ -28,9 +42,11 @@
                     <div class="col-md-6">
                         <p class="title-page">Tren Kelulusan</p>
                     </div>
+                    @if(session('session_id.role') == "1")
                     <div class="col-md-6">
-                        <button class="btn btn-white right">Download</button>
+                        <a href="" class="btn-download-report"><button class="btn btn-white right">Download</button></a>
                     </div>
+                    @endif
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -70,9 +86,11 @@
                     <div class="col-md-6">
                         <p class="title-page">Average Score VS Jurusan</p>
                     </div>
+                    @if(session('session_id.role') == "1")
                     <div class="col-md-6">
-                        <button class="btn btn-white right">Download</button>
+                        <a href="" class="btn-download-report"><button class="btn btn-white right">Download</button></a>
                     </div>
+                    @endif
                 </div>
                 <div class="row" >
                     <div class="col-md-12">
@@ -108,9 +126,11 @@
                     <div class="col-md-6">
                         <p class="title-page">Tingkat Kelulusan Per Universitas</p>
                     </div>
+                    @if(session('session_id.role') == "1")
                     <div class="col-md-6">
-                        <button class="btn btn-white right">Download</button>
+                        <a href="" class="btn-download-report"><button class="btn btn-white right">Download</button></a>
                     </div>
+                    @endif
                 </div>
                 <div class="row" >
                     <div class="col-md-12">
@@ -144,9 +164,11 @@
                     <div class="col-md-6">
                         <p class="title-page">Tingkat Kelulusan Per Jurusan</p>
                     </div>
+                    @if(session('session_id.role') == "1")
                     <div class="col-md-6">
-                        <button class="btn btn-white right">Download</button>
+                        <a href="" class="btn-download-report"><button class="btn btn-white right">Download</button></a>
                     </div>
+                    @endif
                 </div>
                 <div class="row" >
                     <div class="col-md-12">
@@ -180,9 +202,11 @@
                     <div class="col-md-6">
                         <p class="title-page">Tren Average Score per Subtes</p>
                     </div>
+                    @if(session('session_id.role') == "1")
                     <div class="col-md-6">
-                        <button class="btn btn-white right">Download</button>
+                        <a href="" class="btn-download-report"><button class="btn btn-white right">Download</button></a>
                     </div>
+                    @endif
                 </div>
                 <div class="row" >
                     <div class="col-md-12">
@@ -218,9 +242,11 @@
                     <div class="col-md-6">
                         <p class="title-page">Average fulfillment lead time per job vacancy</p>
                     </div>
+                    @if(session('session_id.role') == "1")
                     <div class="col-md-6">
-                        <button class="btn btn-white right">Download</button>
+                        <a href="" class="btn-download-report"><button class="btn btn-white right">Download</button></a>
                     </div>
+                    @endif
                 </div>
                 <div class="row" >
                     <div class="col-md-12">
@@ -260,9 +286,11 @@
                     <div class="col-md-6">
                         <p class="title-page">Tren Applicant : Analisa jml peningkatan/penurunan jumlah pelamar</p>
                     </div>
+                    @if(session('session_id.role') == "1")
                     <div class="col-md-6">
-                        <button class="btn btn-white right">Download</button>
+                        <a href="" class="btn-download-report"><button class="btn btn-white right">Download</button></a>
                     </div>
+                    @endif
                 </div>
                 <div class="row" >
                     <div class="col-md-12">
@@ -298,9 +326,11 @@
                     <div class="col-md-6">
                         <p class="title-page">Apply : analisa profil kandidat2 yang apply melalui web</p>
                     </div>
+                    @if(session('session_id.role') == "1")
                     <div class="col-md-6">
-                        <button class="btn btn-white right">Download</button>
+                        <a href="" class="btn-download-report"><button class="btn btn-white right">Download</button></a>
                     </div>
+                    @endif
                 </div>
                 <div class="row" >
                     <div class="col-md-12">
@@ -329,7 +359,7 @@
 
 @section('modal')
 
-<div class="modal fade" id="modalFilterReport" tabindex="-1" aria-labelledby="modalFilterReportLabel" aria-hidden="true">
+<div class="modal fade" id="modalFilterReport" aria-labelledby="modalFilterReportLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-hr">
         <div class="modal-content">
             <div class="modal-body">
@@ -345,20 +375,20 @@
                         <div class="col-md-11">
                             <div class="form-group d-flex flex-column">
                                 <label>Data Category</label>
-                                <select class="select2 tex-center" id="categoryReport" name="categoryReport">
+                                <select class="select2 form-control" id="categoryReport" name="categoryReport">
                                     <option value="1">Tren Kelulusan</option>
                                     <option value="2">Average Skor vs Jurusan</option>
                                     <option value="3">Tingkat kelulusan per Universitas</option>
                                     <option value="4">Tingkat kelulusan per Jurusan</option>
                                     <option value="5">Tren Average Skor per Subtest</option>
                                     <option value="6">Average fulfilment lead time per Job vacancy</option>
-                                    <option value="7">Tren Applicant : Analisan Jumlah peningkatan / Penurunan Jumlah pelamar</option>
+                                    <option value="7">Tren Applicant : Analisa Jumlah peningkatan / Penurunan Jumlah pelamar</option>
                                     <option value="8">Analisa Profil kandidat</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row row-date">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Date</label>
@@ -386,7 +416,7 @@
                         <div class="col-md-11">
                             <div class="form-group d-flex flex-column">
                                 <label>Kota</label>
-                                <select class="select2 tex-center" id="kotaReport" name="kotaReport">
+                                <select class="select2 form-control" id="kotaReport" name="kotaReport">
                                     @foreach($wilayah as $dataWilayah)
                                         <option value="{{$dataWilayah['kabupaten']}}">{{$dataWilayah['kabupaten']}}</option>
                                     @endforeach
@@ -398,7 +428,7 @@
                         <div class="col-md-11">
                             <div class="form-group d-flex flex-column">
                                 <label>Universitas</label>
-                                <select class="select2 tex-center" id="universitasReport" name="universitasReport">
+                                <select class="select2 form-control" id="universitasReport" name="universitasReport">
                                     @foreach($universitas as $dataUniv)
                                         <option value="{{$dataUniv['universitas']}}">{{$dataUniv['universitas']}}</option>
                                     @endforeach
@@ -408,7 +438,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-red w-100" for="filterReport">Upload File</button>
+                            <button type="submit" class="btn btn-red w-100" for="filterReport">Filter</button>
                         </div>
                     </div>
                 </form>

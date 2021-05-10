@@ -45,7 +45,7 @@ class CandidateController extends Controller
                                 ->join('users', 'kandidat.user_id', 'users.id');
 
         if ($dataSend['search']){
-            $candidate = $candidate->where('title','like','%'.$dataSend['search'].'%');
+            $candidate = $candidate->where('first_name','like','%'.$dataSend['search'].'%')->orWhere('last_name','like','%'.$dataSend['search'].'%');
         }
         $countCandidate = $candidate->count();
 
@@ -58,7 +58,8 @@ class CandidateController extends Controller
         }
 
         for ($i=0; $i < count($listCandidate); $i++) { 
-            $listCandidate[$i]['tanggal_lahir'] = date('d/m/y', strtotime($listCandidate[$i]['tanggal_lahir']));
+            $listCandidate[$i]['created_at'] = date('d/m/Y', strtotime($listCandidate[$i]['created_at']));
+            $listCandidate[$i]['tanggal_lahir'] = date('d/m/Y', strtotime($listCandidate[$i]['tanggal_lahir']));
         }
         
         if ($listCandidate != null) {

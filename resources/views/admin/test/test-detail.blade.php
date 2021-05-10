@@ -278,7 +278,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="modalSetAbsen" tabindex="-1" aria-labelledby="modalSetAbsenLabel" aria-hidden="true">
+<div class="modal fade" id="modalSetAbsen" aria-labelledby="modalSetAbsenLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-hr">
         <div class="modal-content">
             <div class="modal-body">
@@ -315,7 +315,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalSetTest" tabindex="-1" aria-labelledby="modalSetTestLabel" aria-hidden="true">
+<div class="modal fade" id="modalSetTest" aria-labelledby="modalSetTestLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-hr">
         <div class="modal-content">
             <div class="modal-body">
@@ -353,7 +353,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalSetTest" tabindex="-1" aria-labelledby="modalSetTestLabel" aria-hidden="true">
+<div class="modal fade" id="modalSetTest" aria-labelledby="modalSetTestLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-hr">
         <div class="modal-content">
             <div class="modal-body">
@@ -391,7 +391,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalEndTest" tabindex="-1" aria-labelledby="modalEndTestLabel" aria-hidden="true">
+<div class="modal fade" id="modalEndTest" aria-labelledby="modalEndTestLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-hr">
         <div class="modal-content">
             <div class="modal-body">
@@ -416,7 +416,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalReschedule" tabindex="-1" aria-labelledby="modalRescheduleLabel" aria-hidden="true">
+<div class="modal fade" id="modalReschedule" aria-labelledby="modalRescheduleLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-hr">
         <div class="modal-content">
             <div class="modal-body">

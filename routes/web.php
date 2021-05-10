@@ -41,7 +41,7 @@ Route::prefix('HR')->group(function(){
 		Route::post('/average-score', 'Admin\HomeController@averageScore')->name('post.average.score');
 		Route::post('/application-university', 'Admin\HomeController@applicationUniversity')->name('post.application.university');
 		Route::post('/application-major', 'Admin\HomeController@applicationMajor')->name('post.application.major');
-		Route::get('/download-dashboard/{date}', 'Admin\HomeController@downloadDashboard')->name('post.download.dashboard');
+		Route::get('/download-dashboard/{date}', 'Admin\HomeController@downloadDashboard')->middleware('role:1')->name('post.download.dashboard');
 
 		Route::prefix('change-password')->group(function () {
 			Route::get('/', 'Admin\HomeController@editPasswordView')->name('get.change-password');
@@ -88,7 +88,7 @@ Route::prefix('HR')->group(function(){
 			Route::get('/detail-candidate/{id}', 'Admin\CandidateController@viewCandidateDetail')->name('get.candidate.detail');
 			Route::get('/edit-candidate/{id}', 'Admin\CandidateController@viewCandidateEdit')->name('get.candidate.edit');
 			Route::post('/post-edit-candidate','Admin\CandidateController@editCandidate')->name('post.candidate.edit');
-			Route::get('/download-file/{file}','Admin\CandidateController@downloadFile')->name('post.download.file');
+			Route::get('/download-file/{file}','Admin\CandidateController@downloadFile')->name('post.download.bulk');
 			Route::post('/post-bulk-update','Admin\CandidateController@bulkUpdate')->name('post.bulk.update.candidate');
 			Route::post('/get-master','Admin\CandidateController@getMaster')->name('post.data.master');
 			Route::post('/post-add-bulk','Admin\CandidateController@addBulk')->name('post.bulk.add.candidate');
@@ -147,7 +147,7 @@ Route::prefix('HR')->group(function(){
 			Route::post('/delete-master','Admin\MasterController@deleteMaster')->name('post.master.delete');
 		});
 
-		Route::prefix('user')->middleware('role:1')->group(function () {
+		Route::prefix('user')->group(function () {
 			Route::get('/', 'Admin\UserController@viewUser')->name('get.user');
 			Route::post('/list-user','Admin\UserController@listUser')->name('post.user.list');
 			Route::get('/add-user', 'Admin\UserController@viewUserAdd')->name('get.user.add');
@@ -160,6 +160,7 @@ Route::prefix('HR')->group(function(){
 		Route::prefix('report')->group(function (){
 			Route::get('/', 'Admin\ReportController@viewReport')->name('get.report');
 			Route::post('/get-report', 'Admin\ReportController@getReport')->name('post.report');
+			Route::get('/download-report/{date}', 'Admin\ReportController@downloadReport')->middleware('role:1')->name('get.download.report');
 		});
 	});
 });

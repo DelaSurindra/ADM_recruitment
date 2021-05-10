@@ -104,7 +104,7 @@
 </nav>
 
 @section('modal')
-<div class="modal fade" id="modalSignUpCandidate" tabindex="-1" aria-labelledby="modalSignUpCandidateLabel" aria-hidden="true">
+<div class="modal fade" id="modalSignUpCandidate" aria-labelledby="modalSignUpCandidateLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sign-up">
         <div class="modal-content">
             <div class="modal-body">
@@ -155,7 +155,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalLoginCandidate" tabindex="-1" aria-labelledby="modalLoginCandidateLabel" aria-hidden="true">
+<div class="modal fade" id="modalLoginCandidate" aria-labelledby="modalLoginCandidateLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm modal-sign-up">
         <div class="modal-content">
             <div class="modal-body">
@@ -197,7 +197,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalForgetPassword" tabindex="-1" aria-labelledby="modalForgetPasswordLabel" aria-hidden="true">
+<div class="modal fade" id="modalForgetPassword" aria-labelledby="modalForgetPasswordLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm modal-sign-up">
         <div class="modal-content">
             <div class="modal-body">
