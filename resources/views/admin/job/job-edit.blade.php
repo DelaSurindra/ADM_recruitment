@@ -228,11 +228,315 @@
             </div>
         </div>
         <div class="tab-pane fade show" id="detailCandidate2" role="tabpanel" aria-labelledby="detailCandidate2-tab">
-            <div class="card">
-                <div class="card-body">
-                    aaaa
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card clear">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="text-title-page-small">View</p>
+                                    <p class="text-title-page-big">Summary Recruitment Result</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="track-applican-line">
+                                        @if($history['online_test'] != [])
+                                            <div class="green-line"></div>
+                                        @else
+                                            <div class="gray-line"></div>
+                                        @endif
+
+                                        @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['user_interview3'] != [] || $history['user_interview2'] != [] || $history['user_interview1'] != [] || $history['hr_interview'] != [])
+                                            <div class="green-line"></div>
+                                        @else
+                                            <div class="gray-line"></div>
+                                        @endif
+
+                                        @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['user_interview3'] != [] || $history['user_interview2'] != [] || $history['user_interview1'] != [])
+                                            <div class="green-line"></div>
+                                        @else
+                                            <div class="gray-line"></div>
+                                        @endif
+
+                                        @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['user_interview3'] != [] || $history['user_interview2'] != [])
+                                            <div class="green-line"></div>
+                                        @else
+                                            <div class="gray-line"></div>
+                                        @endif
+
+                                        @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['user_interview3'] != [])
+                                            <div class="green-line"></div>
+                                        @else
+                                            <div class="gray-line"></div>
+                                        @endif
+
+                                        @if($history['document_sign'] != [] || $history['mcu'] != [])
+                                            <div class="green-line"></div>
+                                        @else
+                                            <div class="gray-line"></div>
+                                        @endif
+                                        @if($history['document_sign'] != [])
+                                            <div class="green-line"></div>
+                                        @else
+                                            <div class="gray-line"></div>
+                                        @endif
+                                    </div>
+                                    <div class="track-applican">
+                                        <div class="track-item {{ $history['apply'] != [] ? 'active' : '' }}">
+                                            <img src="{{$history['apply'] != [] ? asset('image/icon/homepage/track/track-resume-red.svg') : asset('image/icon/homepage/track/track-resume.svg') }}" alt="icon">
+                                            <div class="track-text">
+                                                <p class="title">Resume Application</p>
+                                                @if($history['apply'] != [])
+                                                <p class="subtitle">{{last($history['apply'])}}</p>
+                                                @else
+                                                <p class="subtitle"></p>
+                                                @endif
+                                                <div class="track-status success"><p class="success">Success</p></div>
+                                            </div>
+                                        </div>
+                                        <div class="track-item {{ $history['online_test'] != [] ? 'active' : '' }}">
+                                            <img src="{{$history['online_test'] != [] ? asset('image/icon/homepage/track/track-online-test-red.svg') : asset('image/icon/homepage/track/track-online-test.svg') }}" alt="icon">
+                                            <div class="track-text">
+                                                <p class="title">Online Test </p>
+                                                @if($history['online_test'] != [])
+                                                <p class="subtitle">{{last($history['online_test'])}}</p>
+                                                @else
+                                                <p class="subtitle"></p>
+                                                @endif
+                                                @if($status['status_online_test'] != '')
+                                                <div class="track-status {{$status['status_online_test']}}"><p class="{{$status['status_online_test']}}">{{ucfirst($status['status_online_test'])}}</p></div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="track-item {{ $history['hr_interview'] != [] ? 'active' : '' }}">
+                                            <img src="{{$history['hr_interview'] != [] ? asset('image/icon/homepage/track/track-hr-interview-red.svg') : asset('image/icon/homepage/track/track-hr-interview.svg') }}" alt="icon">
+                                            <div class="track-text">
+                                                <p class="title">HR Interview</p>
+                                                @if($history['hr_interview'] != [])
+                                                <p class="subtitle">{{last($history['hr_interview'])}}</p>
+                                                @else
+                                                <p class="subtitle"></p>
+                                                @endif
+                                                @if($status['status_hr_interview'] != '')
+                                                <div class="track-status {{$status['status_hr_interview']}}"><p class="{{$status['status_hr_interview']}}">{{ucfirst($status['status_hr_interview'])}}</p></div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="track-item {{ $history['user_interview1'] != [] ? 'active' : '' }}">
+                                            <img src="{{$history['user_interview1'] != [] ? asset('image/icon/homepage/track/track-user-interview-red.svg') : asset('image/icon/homepage/track/track-user-interview.svg') }}" alt="icon">
+                                            <div class="track-text">
+                                                <p class="title">User Interview 1</p>
+                                                @if($history['user_interview1'] != [])
+                                                <p class="subtitle">{{last($history['user_interview1'])}}</p>
+                                                @else
+                                                <p class="subtitle"></p>
+                                                @endif
+                                                @if($status['status_user_interview1'] != '')
+                                                <div class="track-status {{$status['status_user_interview1']}}"><p class="{{$status['status_user_interview1']}}">{{ucfirst($status['status_user_interview1'])}}</p></div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="track-item {{ $history['user_interview2'] != [] ? 'active' : '' }}">
+                                            <img src="{{$history['user_interview2'] != [] ? asset('image/icon/homepage/track/track-user-interview-red.svg') : asset('image/icon/homepage/track/track-user-interview.svg') }}" alt="icon">
+                                            <div class="track-text">
+                                                <p class="title">User Interview 2</p>
+                                                @if($history['user_interview2'] != [])
+                                                <p class="subtitle">{{last($history['user_interview2'])}}</p>
+                                                @else
+                                                <p class="subtitle"></p>
+                                                @endif
+                                                @if($status['status_user_interview2'] != '')
+                                                <div class="track-status {{$status['status_user_interview2']}}"><p class="{{$status['status_user_interview2']}}">{{ucfirst($status['status_user_interview2'])}}</p></div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="track-item {{ $history['user_interview3'] != [] ? 'active' : '' }}">
+                                            <img src="{{$history['user_interview3'] != [] ? asset('image/icon/homepage/track/track-user-interview-red.svg') : asset('image/icon/homepage/track/track-user-interview.svg') }}" alt="icon">
+                                            <div class="track-text">
+                                                <p class="title">User Interview 3</p>
+                                                @if($history['user_interview3'] != [])
+                                                <p class="subtitle">{{last($history['user_interview3'])}}</p>
+                                                @else
+                                                <p class="subtitle"></p>
+                                                @endif
+                                                @if($status['status_user_interview3'] != '')
+                                                <div class="track-status {{$status['status_user_interview3']}}"><p class="{{$status['status_user_interview3']}}">{{ucfirst($status['status_user_interview3'])}}</p></div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="track-item {{ $history['mcu'] != [] ? 'active' : '' }}">
+                                            <img src="{{$history['mcu'] != [] ? asset('image/icon/homepage/track/track-medical-checkup-red.svg') : asset('image/icon/homepage/track/track-medical-checkup.svg') }}" alt="icon">
+                                            <div class="track-text">
+                                                <p class="title">Medical Checkup</p>
+                                                @if($history['mcu'] != [])
+                                                <p class="subtitle">{{last($history['mcu'])}}</p>
+                                                @else
+                                                <p class="subtitle"></p>
+                                                @endif
+                                                @if($status['status_mcu'] != '')
+                                                <div class="track-status {{$status['status_mcu']}}"><p class="{{$status['status_mcu']}}">{{ucfirst($status['status_mcu'])}}</p></div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="track-item {{ $history['document_sign'] != [] ? 'active' : '' }}">
+                                            <img src="{{$history['document_sign'] != [] ? asset('image/icon/homepage/track/track-document-sign-red.svg') : asset('image/icon/homepage/track/track-document-sign.svg') }}" alt="icon">
+                                            <div class="track-text">
+                                                <p class="title">Document Sign and Contract</p>
+                                                @if($history['document_sign'] != [])
+                                                <p class="subtitle">{{last($history['document_sign'])}}</p>
+                                                @else
+                                                <p class="subtitle"></p>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            @if(isset($cognitiveResult))
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card clear">
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <p class="text-title-page-small">Test Result</p>
+                                    <p class="text-title-page-big">Kognitif</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-result stripe">
+                                        <tbody>
+                                            <tr>
+                                                <td rowspan="4" class="green"><center><b>Abstrak</b></center></td>
+                                                <td class="green">Subtest 1 : {{$masterSubtest[0]['name']}}</td>
+                                                <td class="green">{{(int)$cognitiveResult[0]['abstrak1']}}</td>
+                                                <td rowspan="4" class="green">
+                                                    <center>
+                                                        <p class="mb-0">{{$cognitiveResult[0]['skorAbstrak']}}</p>
+                                                        @if($cognitiveResult[0]['resultAbstrak'] == "PASS")
+                                                        <b class="test-pass">({{$cognitiveResult[0]['resultAbstrak']}})</b>
+                                                        @elseif($cognitiveResult[0]['resultAbstrak'] == "FAIL")
+                                                        <b class="test-fail">({{$cognitiveResult[0]['resultAbstrak']}})</b>
+                                                        @else
+                                                        @endif
+                                                    </center
+                                                ></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Subtest 2 : {{$masterSubtest[1]['name']}}</td>
+                                                <td>{{(int)$cognitiveResult[0]['abstrak2']}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="green">Subtest 3 : {{$masterSubtest[2]['name']}}</td>
+                                                <td class="green">{{(int)$cognitiveResult[0]['abstrak3']}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Subtest 4 : {{$masterSubtest[3]['name']}}</td>
+                                                <td>{{(int)$cognitiveResult[0]['abstrak4']}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td rowspan="4"><b><center><b>Numeric</b></center></b></td>
+                                                <td class="green">Subtest 1 : {{$masterSubtest[4]['name']}}</td>
+                                                <td class="green">{{(int)$cognitiveResult[0]['numerical1']}}</td>
+                                                <td rowspan="4" class="green">
+                                                    <center>
+                                                        <p class="mb-0">{{$cognitiveResult[0]['skorNumeric']}}</p>
+                                                        @if($cognitiveResult[0]['resultNumeric'] == "PASS")
+                                                        <b class="test-pass">({{$cognitiveResult[0]['resultNumeric']}})</b>
+                                                        @elseif($cognitiveResult[0]['resultNumeric'] == "FAIL")
+                                                        <b class="test-fail">({{$cognitiveResult[0]['resultNumeric']}})</b>
+                                                        @else
+                                                        @endif
+                                                    </center
+                                                ></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Subtest 2 : {{$masterSubtest[5]['name']}}</td>
+                                                <td>{{(int)$cognitiveResult[0]['numerical2']}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="green">Subtest 3 : {{$masterSubtest[6]['name']}}</td>
+                                                <td class="green">{{(int)$cognitiveResult[0]['numerical3']}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Subtest 4 : {{$masterSubtest[7]['name']}}</td>
+                                                <td>{{(int)$cognitiveResult[0]['numerical4']}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td rowspan="4" class="green"><b><center><b>Verbal</b></center></b></td>
+                                                <td class="green">Subtest 1 : {{$masterSubtest[8]['name']}}</td>
+                                                <td class="green">{{(int)$cognitiveResult[0]['verbal1']}}</td>
+                                                <td rowspan="4" class="green">
+                                                    <center>
+                                                        <p class="mb-0">{{$cognitiveResult[0]['skorVerbal']}}</p>
+                                                        @if($cognitiveResult[0]['resultVerbal'] == "PASS")
+                                                        <b class="test-pass">({{$cognitiveResult[0]['resultVerbal']}})</b>
+                                                        @elseif($cognitiveResult[0]['resultVerbal'] == "FAIL")
+                                                        <b class="test-fail">({{$cognitiveResult[0]['resultVerbal']}})</b>
+                                                        @else
+                                                        @endif
+                                                    </center
+                                                ></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Subtest 2 : {{$masterSubtest[9]['name']}}</td>
+                                                <td>{{(int)$cognitiveResult[0]['verbal2']}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="green">Subtest 3 : {{$masterSubtest[10]['name']}}</td>
+                                                <td class="green">{{(int)$cognitiveResult[0]['verbal3']}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Subtest 4 : {{$masterSubtest[11]['name']}}</td>
+                                                <td>{{(int)$cognitiveResult[0]['verbal4']}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="dropdown-divider mb-4"></div>
+                                    <center>
+                                        <p class="title-result">Overall Result</p>
+                                        <p class="value-result">{{(int)$cognitiveResult[0]['skor']}} <span class="{{$cognitiveResult[0]['resultSkor'] == 'PASS' ? 'test-past' : 'test-fail'}}">({{$cognitiveResult[0]['resultSkor']}})</span></p>
+                                    </center>
+                                    <div class="dropdown-divider mt-4"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card clear">
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <p class="text-title-page-small">Test Result</p>
+                                    <p class="text-title-page-big">Inventory</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="hidden" value="{{$test['id']}}" id="idPart">
+                                    <canvas id="grafikResultInventory" class="grafik-result"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </div>

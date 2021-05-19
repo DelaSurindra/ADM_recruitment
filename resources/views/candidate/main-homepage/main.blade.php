@@ -24,7 +24,7 @@
     <title>ADM Recruitment</title>
 </head>
 
-<body>
+<body id="bodyCandidate">
     <div id="loading-overlay">
         <div class="loader"></div>
     </div>
@@ -96,8 +96,8 @@
                         <h4 id="titleSuccessNotif" class="candidate-page-subtitle mb-2">Your Password Saved</h4>
                         <p id="subtitleSuccessNotif" class="mb-0"></p>
                         <div id="changeBtnNotif">
-                            <a href="#" class="btn btn-red btn-block mt-4 d-none">Okay</a>
-                            <button class="btn btn-red btn-block mt-4" data-dismiss="modal" type="button">Okay</button>
+                            <a href="#" class="btn btn-home-color btn-block mt-4 d-none">Okay</a>
+                            <button class="btn btn-home-color btn-block mt-4" data-dismiss="modal" type="button">Okay</button>
                         </div>
                     </div>
                 </div>
@@ -121,7 +121,7 @@
                     <div class="modal-content-notif">
                         <h4 id="titleErrorNotif" class="candidate-page-subtitle mb-2">Edit Password Failed</h4>
                         <p id="subtitleErrorNotif" class="mb-0"></p>
-                        <button class="btn btn-red btn-block mt-4" data-dismiss="modal" type="button">Okay</button>
+                        <button class="btn btn-home-color btn-block mt-4" data-dismiss="modal" type="button">Okay</button>
                     </div>
                 </div>
             </div>
@@ -174,7 +174,7 @@
                                 <a href="{{ route('get.profile.view') }}" class="btn btn-block btn-blue-red">Go to Profile</a>
                             </div>
                             <div class="col-6" style="padding-left:7px; padding-right:7px">
-                                <a href="{{ route('get.job.page') }}" class="btn btn-block btn-red">See Job List</a>
+                                <a href="{{ route('get.job.page') }}" class="btn btn-block btn-home-color">See Job List</a>
                             </div>
                         </div>
                     </div>
@@ -208,7 +208,7 @@
                                 <option selected disabled>Choose or input</option>
                                 
                             </select>
-                            <button type="submit" class="btn btn-red btn-block">Go to My Application</button>
+                            <button type="submit" class="btn btn-home-color btn-block">Go to My Application</button>
                         </form>
                     </div>
                 </div>

@@ -46,16 +46,18 @@ class CandidateController extends Controller
                                 ->join('users', 'kandidat.user_id', 'users.id');
 
         if ($dataSend['search']){
-            $candidate = $candidate->where('first_name','like','%'.$dataSend['search'].'%')->orWhere('last_name','like','%'.$dataSend['search'].'%');
+            $candidate = $candidate->where('kandidat.first_name','like','%'.$dataSend['search'].'%')->orWhere('kandidat.last_name','like','%'.$dataSend['search'].'%');
         }
         $countCandidate = $candidate->count();
 
         $listCandidate = $candidate->skip(intval( $dataSend["offset"]))->take(intval($dataSend["limit"]));
-
         if ($dataSend["order"]) {
+            if ($dataSend["order"] == "created_at") {
+                $dataSend["order"] = 'kandidat.created_at';
+            }
             $listCandidate = $listCandidate->orderBy($dataSend["order"], $dataSend["sort"])->get()->toArray();
         } else {
-            $listCandidate = $listCandidate->orderBy('created_at', $dataSend["sort"])->get()->toArray();
+            $listCandidate = $listCandidate->orderBy('kandidat.created_at', $dataSend["sort"])->get()->toArray();
         }
 
         for ($i=0; $i < count($listCandidate); $i++) { 

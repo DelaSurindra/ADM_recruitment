@@ -239,7 +239,7 @@ const formrules = {
 			},
 			'gpa':{
 				required:true,
-				max:4
+				maxDec:4
 			},
 			'certificate[]':{
 				required:true,
@@ -671,7 +671,7 @@ const formrules = {
 			},
 			'gpa':{
 				required:true,
-				max:4
+				maxDec:4
 			}
 		},
 		submitHandler:false,

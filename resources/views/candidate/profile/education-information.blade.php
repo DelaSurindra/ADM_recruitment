@@ -24,7 +24,12 @@
                                     <label for="">School/University<span class="required-sign">*</span></label>
                                     <div class="row">
                                         <div class="col-lg-11 col-md-12">
-                                            <input type="text" name="university" id="university" class="form-control" value="{{ Session::get('session_candidate')['pendidikan'][$i]['universitas'] }}" placeholder="School/University">
+                                            <select name="university" id="university" class="select2-custom form-control">
+                                                <option selected disabled>Choose or input your university</option>
+                                                @foreach($univ as $options)
+                                                    <option {{ Session::get('session_candidate')['pendidikan'][$i]['universitas'] == $options['universitas'] ? 'selected' : ''}} value="{{$options['universitas']}}">{{$options['universitas']}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -61,10 +66,10 @@
                                     <label for="">Major<span class="required-sign">*</span></label>
                                     <div class="row">
                                         <div class="col-lg-11 col-md-12">
-                                            <select name="major" id="major" class="select2 form-control">
-                                                <option value="">Choose your major</option>
-                                                <option value="Sistem Informasi" {{ trim(Session::get('session_candidate')['pendidikan'][$i]['jurusan'], " ") == 'Sistem Informasi' ? 'selected' : '' }}>Sistem Informasi</option>
-                                                <option value="Akuntansi" {{ trim(Session::get('session_candidate')['pendidikan'][$i]['jurusan'], " ") == 'Akuntansi' ? 'selected' : '' }}>Akuntansi</option>
+                                            <select name="major" id="major" class="select2-custom form-control">
+                                                @foreach($major as $options)
+                                                    <option {{Session::get('session_candidate')['pendidikan'][$i]['jurusan'] == $options['major'] ? 'selected' : ''}} value="{{$options['major']}}">{{$options['major']}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -266,7 +271,7 @@
 
             <div class="row mb-4 margin-right-2rem">
                 <div class="col-lg-12 col-md-12">
-                    <button type="submit" class="btn btn-red btn-block">Save</button>
+                    <button type="submit" class="btn btn-home-color btn-block">Save</button>
                 </div>
             </div>
         </form>

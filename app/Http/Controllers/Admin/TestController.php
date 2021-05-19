@@ -539,7 +539,8 @@ class TestController extends Controller
                     "kandidat_id" => $exp[0],
                     "test_id"     => $data["idTest"],
                     "status"      => 0,
-                    "reshedule_count" => 0
+                    "reshedule_count" => 0,
+                    "id_job_application" => $exp[1]
                 ]);
                 $addOtp = TestOtp::insert([
                     "otp"               => $rand,

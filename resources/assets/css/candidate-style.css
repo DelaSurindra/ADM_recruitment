@@ -278,21 +278,6 @@ label.error {
    display: block;
 }
 
-.btn-red {
-   background: #df0e2c;
-   border-radius: 8px;
-   font-family: 'inter_semibold', sans-serif !important;
-   font-style: normal;
-   font-weight: bold;
-   font-size: 14px;
-   line-height: 17px;
-   color: #ffffff;
-   padding: 12px;
-}
-.btn-red:hover {
-   background: #e23e56;
-   color: #ffffff;
-}
 .btn-white {
    background: #ffffff;
    border: 1px solid #bdbdbd;
@@ -329,6 +314,7 @@ label.error {
 .btn-gray:hover {
    background: #ececec;
    color: #df0e2c;
+   box-shadow: none;
 }
 .btn-blue {
    background: #e8f7ee;
@@ -711,7 +697,7 @@ label.error {
 .track-item {
    display: flex;
    align-items: flex-start;
-   height: 80px;
+   height: 100px;
 }
 .track-item .track-text {
    margin-left: 1rem;
@@ -745,15 +731,25 @@ label.error {
    line-height: 17px;
    border-radius: 10px;
    width: fit-content;
-   padding: 3px 8px;
+   padding: 4px 11px;
+   width: 73px;
+   height: 25px;
+   border-radius: 10px;
 }
-.track-item .track-text .track-status.red {
+
+.track-item .track-text .track-status.success{
+   background: #fde7ea;
+}
+
+.track-item .track-text .track-status.failed{
+   background: #f6f8c5;
+}
+
+.track-item .track-text .track-status .success {
    color: #df0e2c;
-   background-color: #fde7ea;
 }
-.track-item .track-text .track-status.yellow {
-   color: #e4a83b;
-   background-color: #fcf5e9;
+.track-item .track-text .track-status .failed {
+   color: #E4A83B;
 }
 
 .modal-online-test {

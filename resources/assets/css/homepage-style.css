@@ -1,3 +1,85 @@
+.btn-home-color {
+   background: #f2f2f2;
+   border-radius: 8px;
+   font-family: 'inter_semibold', sans-serif !important;
+   font-style: normal;
+   font-weight: bold;
+   font-size: 14px;
+   line-height: 17px;
+   color: #ffffff;
+   padding: 12px;
+}
+
+.btn-home-color.blue{
+   background: #2785C5;
+}
+
+.btn-home-color.blue:hover{
+   background: #2785C5;
+   color: #ffffff;
+   box-shadow: none;
+}
+
+.btn-home-color.dark-blue{
+   background: #1976D3;
+}
+
+.btn-home-color.dark-blue:hover{
+   background: #1976D3;
+   color: #ffffff;
+   box-shadow: none;
+}
+
+.btn-home-color.green{
+   background: #008001;
+}
+
+.btn-home-color.green:hover{
+   background: #008001;
+   color: #ffffff;
+   box-shadow: none;
+}
+
+.btn-home-color.grey{
+   background: #808080;
+}
+
+.btn-home-color.grey:hover{
+   background: #808080;
+   color: #ffffff;
+   box-shadow: none;
+}
+
+.btn-home-color.purple{
+   background: #81007F;
+}
+
+.btn-home-color.purple:hover{
+   background: #81007F;
+   color: #ffffff;
+   box-shadow: none;
+}
+
+.btn-home-color.red{
+   background: #DF0E2C;
+}
+
+.btn-home-color.red:hover{
+   background: #DF0E2C;
+   color: #ffffff;
+   box-shadow: none;
+}
+
+.btn-home-color.yellow{
+   background: #FF9700;
+}
+
+.btn-home-color.yellow:hover{
+   background: #FF9700;
+   color: #ffffff;
+   box-shadow: none;
+}
+
 #loading-overlay {
    display: none;
 }
@@ -1006,8 +1088,4 @@ ul.location-list li p {
 
 .text-warning-home span {
    font-weight: bold;
-}
-
-.btn-red:hover {
-   background: #df0e2c;
 }

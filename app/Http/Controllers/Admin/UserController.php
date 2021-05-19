@@ -42,9 +42,16 @@ class UserController extends Controller
         $listUser = $user->skip(intval( $dataSend["offset"]))->take(intval($dataSend["limit"]));
 
         if ($dataSend["order"]) {
+            if ($dataSend["order"] == "created_at") {
+                $dataSend["order"] = 'human_resource.created_at';
+            }
             $listUser = $listUser->orderBy($dataSend["order"], $dataSend["sort"])->get()->toArray();
         } else {
             $listUser = $listUser->orderBy('created_at', $dataSend["sort"])->get()->toArray();
+        }
+
+        for ($i=0; $i < count($listUser); $i++) { 
+            $listUser[$i]['created_at'] = date('d/m/Y', strtotime($listUser[$i]['created_at']));
         }
         
         if ($listUser != null) {

@@ -45,7 +45,15 @@ Route::prefix('HR')->group(function(){
 
 		Route::prefix('change-password')->group(function () {
 			Route::get('/', 'Admin\HomeController@editPasswordView')->name('get.change-password');
-			Route::post('/', 'Admin\HomeController@editPassword')->name('post.change-password');
+			Route::post('/post-change-password', 'Admin\HomeController@editPassword')->name('post.change-password');
+		});
+
+		Route::prefix('homepage')->group(function () {
+			Route::get('/', 'Admin\HomepageController@viewHomepage')->name('get.homepage');
+			Route::post('/edit-color', 'Admin\HomepageController@editColor')->name('post.edit.color');
+			Route::post('/add-banner', 'Admin\HomepageController@addBanner')->name('post.add.banner');
+			Route::post('/edit-banner', 'Admin\HomepageController@editBanner')->name('post.edit.banner');
+			Route::post('/delete-banner', 'Admin\HomepageController@deleteBanner')->name('post.delete.banner');
 		});
 
 		Route::prefix('news_event')->group(function () {
@@ -101,6 +109,7 @@ Route::prefix('HR')->group(function(){
 			Route::post('/post-edit-job','Admin\JobController@editJob')->name('post.job.edit');
 			Route::get('/download-file/{file}','Admin\CandidateController@downloadFile')->name('post.download.file');
 			Route::post('/post-bulk-update','Admin\JobController@bulkUpdate')->name('post.bulk.update.job');
+			Route::post('/inventory-result','Admin\TestController@inventoryResult')->name('inventory.result');
 		});
 
 		Route::prefix('test')->group(function () {
@@ -171,7 +180,7 @@ Route::middleware('authcandidate')->group(function(){
 
 	Route::get('/complete-account', 'Candidate\ProfileController@viewFirstLogin')->name('get.first-login');
 	Route::post('/post-first-login', 'Candidate\ProfileController@postFirstLogin')->name('post.first-login');
-	Route::get('/master-education', 'EducationController@getAllData')->name('get.master-edu');
+	Route::post('/master-education', 'EducationController@getAllData')->name('get.master-edu');
 	Route::prefix('signout')->group(function () {
 		Route::get('/', 'Candidate\LoginController@logout')->name('get.logout-candidate');
 	});
@@ -234,3 +243,9 @@ Route::get('/contact-us', 'Candidate\ContactUsController@viewContactUs')->name('
 
 //COMPANY PROFILE
 Route::get('/company-profile', 'Candidate\CompanyProfileController@viewCompanyProfile')->name('get.candidate.company-profile');
+
+Route::post('/get-color', 'Candidate\HomeController@getColor')->name('get.color');
+
+Route::get('/test-email', function(){
+	return view('email.email-application-submission');
+});

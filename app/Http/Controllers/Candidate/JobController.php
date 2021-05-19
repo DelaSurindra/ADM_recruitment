@@ -13,7 +13,7 @@ use App\Model\Wilayah;
 use App\Model\User;
 use App\Model\Candidate;
 use App\Model\MasterSource;
-
+use App\Jobs\JobSendEmail;
 
 use Request;
 use Session;
@@ -182,7 +182,14 @@ class JobController extends Controller
                     $track = $this->statusTrackApply($apply, 0);
                     $updateStatus = Candidate::where('id', Session::get('session_candidate')['id'])->update(['status'=>1]);
                     $souce = MasterSource::get()->toArray();
-                    
+                    $dataEmail = [
+                        'email'         => session('session_candidate.user_email'),
+                        'nama'          => session('session_candidate.first_name').' '.session('session_candidate.last_name'),
+                        'subject'       => 'Application Submission',
+                        'view'          => 'email.email-application-submission'
+                    ];
+            
+                    $response = JobSendEmail::dispatch($dataEmail);
                     if ($updateStatus) {
                         session()->forget('session_candidate.status_kandidat');
                         session()->put('session_candidate.status_kandidat', 1);

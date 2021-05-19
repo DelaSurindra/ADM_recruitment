@@ -96,7 +96,7 @@
                 </div>
                 @else
                 <button class="btn btn-gray px-3 mr-3" data-toggle="modal" data-target="#modalSignUpCandidate" type="button">Sign Up</button>
-                <button class="btn btn-red px-3" data-toggle="modal" data-target="#modalLoginCandidate" type="button">Login</button>
+                <button class="btn btn-home-color px-3" data-toggle="modal" data-target="#modalLoginCandidate" type="button">Login</button>
                 @endif
             </div>
         </div>
@@ -144,7 +144,7 @@
                         </label>
                     </div> -->
                     <div class="form-group pt-3">
-                        <button class="btn btn-red btn-block">Sign Up</button>
+                        <button class="btn btn-home-color btn-block">Sign Up</button>
                     </div>
                     <div class="form-group mb-0 signup-text">
                         <p class="text-center">Do you have an account? <span class="goToLogin">Login</span></p>
@@ -186,7 +186,7 @@
                         <a class="goToForget" >Forgot Password?</a>
                     </div>
                     <div class="form-group pt-3">
-                        <button class="btn btn-red btn-block">Login</button>
+                        <button class="btn btn-home-color btn-block">Login</button>
                     </div>
                     <div class="form-group mb-0 signup-text">
                         <p class="text-center">Dont you have an account? <span class="goToRegister">Sign Up</span></p>
@@ -218,7 +218,7 @@
                         </div>
                     </div>
                     <div class="form-group pt-3">
-                        <button class="btn btn-red btn-block">Send Instructions</button>
+                        <button class="btn btn-home-color btn-block">Send Instructions</button>
                     </div>
                 </form>
             </div>

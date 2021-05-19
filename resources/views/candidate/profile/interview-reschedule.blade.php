@@ -99,7 +99,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <button class="btn btn-red btn-block">Submit</button>
+                    <button class="btn btn-home-color btn-block">Submit</button>
 
                 </div>
             </div>

@@ -37,7 +37,7 @@
                                 <div class="col-lg-4 col-md-12 border-left1">
                                     <a href="{{route('get.profile.my-app-detail', base64_encode(urlencode($apply['id'])))}}" class="btn btn-white btn-block">View Detail</a>
                                     @if($apply['button'] == "Y")
-                                    <button class="btn btn-red btn-block">{{$apply['status_text']}}</button>
+                                    <button class="btn btn-home-color btn-block">{{$apply['status_text']}}</button>
                                     @else
                                     @endif
                                 </div>
@@ -52,7 +52,7 @@
                         <img src="{{ asset('image/icon/homepage/icon-koper.svg') }}" alt="icon">
                         <h4 class="candidate-page-subtitle mb-2 mt-5">You haven't applied for a job </h4>
                         <p class="text-empty-job mb-3">Join our team right now</p>
-                        <a href="{{ route('get.job.page') }}" class="btn btn-red px-5">See Job Vacancy</a>
+                        <a href="{{ route('get.job.page') }}" class="btn btn-home-color px-5">See Job Vacancy</a>
                     </div>
                 </div>
                 @endif

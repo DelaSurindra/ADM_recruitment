@@ -33,6 +33,15 @@ $(document).ready(function () {
     // if ($('#main-wrapper').length) {
     //     other.checkSession.init();
     // }
+
+    if ($("#bodyCandidate").length) {
+        if ($('.btn-home-color').length) {
+            ajax.getData('/get-color', 'post', null, function(result){
+                $(".btn-home-color").addClass(result.value);
+            })
+        }
+    }
+
     $(document).ajaxError(function (event, jqxhr, settings, exception) {
         console.log('exception = ' + exception)
     });

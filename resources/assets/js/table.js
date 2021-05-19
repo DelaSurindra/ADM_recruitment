@@ -442,7 +442,7 @@ var table = {
 					"data": "kandidat_id",
 					"className": "action-poster-news",
 					"render": function(data, type, full, meta){
-						var id = encodeURIComponent(window.btoa(full.kandidat_id));
+						var id = encodeURIComponent(window.btoa(full.job_application_id));
 						// var konfirm = '';
 						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/job/edit-job/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Detail Job Application"> Detail&nbsp</a></button>';
 						// if (full.status == '1') {
@@ -1305,6 +1305,7 @@ var table = {
 
 		if ($('#tableUser').length) {
 			var column = [
+				{'data':'created_at'},
 				{'data':'first_name'},
 				{'data':'last_name'},
 				{'data':'email'},
@@ -1316,7 +1317,7 @@ var table = {
 
 			columnDefs = [
 				{
-					"targets": 3,
+					"targets": 4,
 					"data": "id",
 					"render": function(data, type, full, meta){
 						var data = '';
@@ -1329,7 +1330,7 @@ var table = {
 					}
 				},
 				{
-					"targets": 6,
+					"targets": 7,
 					"data": "id",
 					"render": function(data, type, full, meta){
 						var data = '';
@@ -1342,7 +1343,7 @@ var table = {
 					}
 				},
 				{
-					"targets": 7,
+					"targets": 8,
 					"data": "id",
 					"className": "action-poster-news",
 					"render": function(data, type, full, meta){

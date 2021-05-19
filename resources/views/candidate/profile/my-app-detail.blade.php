@@ -51,12 +51,12 @@
     </div>
     @if($job['status'] == '2')
     <div class="col-lg-5 col-md-12">
-        <button class="btn btn-red btn-block"type="button" data-toggle="modal" data-target="#modalOnlineTest">Check Online Test</button>
+        <button class="btn btn-home-color btn-block"type="button" data-toggle="modal" data-target="#modalOnlineTest">Check Online Test</button>
     </div>
     @endif
     @if($job['status'] == '5' || $job['status'] == '6' || $job['status'] == '7' || $job['status'] == '8' || $job['status'] == '9' || $job['status'] == '10')
     <div class="col-lg-5 col-md-12">
-        <button class="btn btn-red btn-block"type="button" data-toggle="modal" data-target="#modalOnlineInterview">Check Online Interview</button>
+        <button class="btn btn-home-color btn-block"type="button" data-toggle="modal" data-target="#modalOnlineInterview">Check Online Interview</button>
     </div>
     @endif
 </div>
@@ -78,19 +78,36 @@
                         <div class="gray-line"></div>
                     @endif
 
-                    @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['user_interview'] != [] || $history['hr_interview'] != [])
+                    @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['user_interview3'] != [] || $history['user_interview2'] != [] || $history['user_interview1'] != [] || $history['hr_interview'] != [])
                         <div class="green-line"></div>
                     @else
                         <div class="gray-line"></div>
                     @endif
 
-                    @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['user_interview'] != [])
+                    @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['user_interview3'] != [] || $history['user_interview2'] != [] || $history['user_interview1'] != [])
+                        <div class="green-line"></div>
+                    @else
+                        <div class="gray-line"></div>
+                    @endif
+
+                    @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['user_interview3'] != [] || $history['user_interview2'] != [])
+                        <div class="green-line"></div>
+                    @else
+                        <div class="gray-line"></div>
+                    @endif
+
+                    @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['user_interview3'] != [])
                         <div class="green-line"></div>
                     @else
                         <div class="gray-line"></div>
                     @endif
 
                     @if($history['document_sign'] != [] || $history['mcu'] != [])
+                        <div class="green-line"></div>
+                    @else
+                        <div class="gray-line"></div>
+                    @endif
+                    @if($history['document_sign'] != [])
                         <div class="green-line"></div>
                     @else
                         <div class="gray-line"></div>
@@ -106,6 +123,7 @@
                             @else
                             <p class="subtitle"></p>
                             @endif
+                            <div class="track-status success"><p class="success">Success</p></div>
                         </div>
                     </div>
                     <div class="track-item {{ $history['online_test'] != [] ? 'active' : '' }}">
@@ -116,6 +134,9 @@
                             <p class="subtitle">{{last($history['online_test'])}}</p>
                             @else
                             <p class="subtitle"></p>
+                            @endif
+                            @if($status['status_online_test'] != '')
+                            <div class="track-status {{$status['status_online_test']}}"><p class="{{$status['status_online_test']}}">{{ucfirst($status['status_online_test'])}}</p></div>
                             @endif
                         </div>
                     </div>
@@ -128,16 +149,50 @@
                             @else
                             <p class="subtitle"></p>
                             @endif
+                            @if($status['status_hr_interview'] != '')
+                            <div class="track-status {{$status['status_hr_interview']}}"><p class="{{$status['status_hr_interview']}}">{{ucfirst($status['status_hr_interview'])}}</p></div>
+                            @endif
                         </div>
                     </div>
-                    <div class="track-item {{ $history['user_interview'] != [] ? 'active' : '' }}">
-                        <img src="{{$history['user_interview'] != [] ? asset('image/icon/homepage/track/track-user-interview-red.svg') : asset('image/icon/homepage/track/track-user-interview.svg') }}" alt="icon">
+                    <div class="track-item {{ $history['user_interview1'] != [] ? 'active' : '' }}">
+                        <img src="{{$history['user_interview1'] != [] ? asset('image/icon/homepage/track/track-user-interview-red.svg') : asset('image/icon/homepage/track/track-user-interview.svg') }}" alt="icon">
                         <div class="track-text">
-                            <p class="title">User Interview</p>
-                            @if($history['user_interview'] != [])
-                            <p class="subtitle">{{last($history['user_interview'])}}</p>
+                            <p class="title">User Interview 1</p>
+                            @if($history['user_interview1'] != [])
+                            <p class="subtitle">{{last($history['user_interview1'])}}</p>
                             @else
                             <p class="subtitle"></p>
+                            @endif
+                            @if($status['status_user_interview1'] != '')
+                            <div class="track-status {{$status['status_user_interview1']}}"><p class="{{$status['status_user_interview1']}}">{{ucfirst($status['status_user_interview1'])}}</p></div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="track-item {{ $history['user_interview2'] != [] ? 'active' : '' }}">
+                        <img src="{{$history['user_interview2'] != [] ? asset('image/icon/homepage/track/track-user-interview-red.svg') : asset('image/icon/homepage/track/track-user-interview.svg') }}" alt="icon">
+                        <div class="track-text">
+                            <p class="title">User Interview 2</p>
+                            @if($history['user_interview2'] != [])
+                            <p class="subtitle">{{last($history['user_interview2'])}}</p>
+                            @else
+                            <p class="subtitle"></p>
+                            @endif
+                            @if($status['status_user_interview2'] != '')
+                            <div class="track-status {{$status['status_user_interview2']}}"><p class="{{$status['status_user_interview2']}}">{{ucfirst($status['status_user_interview2'])}}</p></div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="track-item {{ $history['user_interview3'] != [] ? 'active' : '' }}">
+                        <img src="{{$history['user_interview3'] != [] ? asset('image/icon/homepage/track/track-user-interview-red.svg') : asset('image/icon/homepage/track/track-user-interview.svg') }}" alt="icon">
+                        <div class="track-text">
+                            <p class="title">User Interview 3</p>
+                            @if($history['user_interview3'] != [])
+                            <p class="subtitle">{{last($history['user_interview3'])}}</p>
+                            @else
+                            <p class="subtitle"></p>
+                            @endif
+                            @if($status['status_user_interview3'] != '')
+                            <div class="track-status {{$status['status_user_interview3']}}"><p class="{{$status['status_user_interview3']}}">{{ucfirst($status['status_user_interview3'])}}</p></div>
                             @endif
                         </div>
                     </div>
@@ -149,6 +204,9 @@
                             <p class="subtitle">{{last($history['mcu'])}}</p>
                             @else
                             <p class="subtitle"></p>
+                            @endif
+                            @if($status['status_mcu'] != '')
+                            <div class="track-status {{$status['status_mcu']}}"><p class="{{$status['status_mcu']}}">{{ucfirst($status['status_mcu'])}}</p></div>
                             @endif
                         </div>
                     </div>
@@ -227,7 +285,7 @@
                     <form action="{{route('post.confirm.test')}}" class="form stacked form-hr" ajax=true id="formConfirmTest">
                         <input type="hidden" name="idParticipant" value="{{$test['id_participant']}}">
                         <input type="hidden" name="idJob" value="{{$job['id']}}">
-                        <button type="submit" class="btn btn-red btn-block">Confirmation</button>
+                        <button type="submit" class="btn btn-home-color btn-block">Confirmation</button>
                     </form>
                     <a href="{{route('get.profile.test-reschedule', base64_encode(urlencode($job['id'])))}}" class="a-rescehdule"><button class="btn btn-white btn-block mt-2">Reschedule Test</button></a>
                     @endif
@@ -284,7 +342,7 @@
                         <form action="{{route('post.confirm.interview')}}" class="form stacked form-hr" ajax=true id="formConfirmInterview">
                             <input type="hidden" name="idInterview" value="{{isset($interview[0]['id']) ? $interview[0]['id'] : ''}}">
                             <input type="hidden" name="idJob" value="{{$job['id']}}">
-                            <button type="submit" class="btn btn-red btn-block">Confirmation</button>
+                            <button type="submit" class="btn btn-home-color btn-block">Confirmation</button>
                         </form>
                         <a href="{{route('get.profile.interview-reschedule', base64_encode(urlencode($job['id'])))}}" class="a-rescehdule"><button class="btn btn-white btn-block mt-2">Reschedule Test</button></a>
                         @endif

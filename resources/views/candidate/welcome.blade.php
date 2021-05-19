@@ -6,15 +6,35 @@
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                <!-- <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                <li data-target="#carouselExampleCaptions" data-slide-to="2"></li> -->
+                @if(isset($banner[1]))
+                <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+                @endif
+                @if(isset($banner[2]))
+                <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+                @endif
             </ol>
             <div class="carousel-inner">
+                @isset($banner[0])
                 <div class="carousel-item active">
                     <div class="div-image-carousel">
-                        <img src="{{asset('image/candidate/slide_home.png')}}" class="d-block w-100 img-carousel">
+                        <img src="{{asset('storage/').'/'.$banner[0]['value'] }}" class="d-block w-100 img-carousel">
                     </div>
                 </div>
+                @endif
+                @if(isset($banner[1]))
+                <div class="carousel-item">
+                    <div class="div-image-carousel">
+                        <img src="{{asset('storage/').'/'.$banner[1]['value'] }}" class="d-block w-100 img-carousel">
+                    </div>
+                </div>
+                @endif
+                @if(isset($banner[2]))
+                <div class="carousel-item">
+                    <div class="div-image-carousel">
+                        <img src="{{asset('storage/').'/'.$banner[2]['value'] }}" class="d-block w-100 img-carousel">
+                    </div>
+                </div>
+                @endif
             </div>
             <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"><img src="{{asset('/image/icon/homepage/news-prev.svg')}}" class="img-prev-next"></span>
@@ -148,7 +168,7 @@
         </div>
         <div class="col-md-3">
             <center>
-                <a href="{{route('get.candidate.contact-us')}}"><button class="btn btn-red mt-5 w-75">Contact Us</button></a>
+                <a href="{{route('get.candidate.contact-us')}}"><button class="btn btn-home-color mt-5 w-75">Contact Us</button></a>
 
             </center>
         </div>

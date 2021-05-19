@@ -140,7 +140,7 @@
             </div>
             <div class="row mt-3 margin-right-1rem">
                 <div class="col-lg-12 col-md-12">
-                    <button type="submit" class="btn btn-red btn-block">Save</button>
+                    <button type="submit" class="btn btn-home-color btn-block">Save</button>
                 </div>
             </div>
         </form>

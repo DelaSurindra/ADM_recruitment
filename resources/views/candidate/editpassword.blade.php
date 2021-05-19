@@ -44,7 +44,7 @@
                     <div class="row">
                         <div class="col-lg-11 col-md-12">
                             <div class="form-group pt-3">
-                                <button class="btn btn-red btn-block">Submit</button>
+                                <button class="btn btn-home-color btn-block">Submit</button>
                             </div>
                         </div>
                     </div>

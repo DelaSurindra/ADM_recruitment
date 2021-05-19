@@ -17,6 +17,7 @@
                 <table id="tableUser" class="table-hr table table-strip stripe hover">
                     <thead>
                         <tr>
+                            <th>Date</th>
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Email</th>

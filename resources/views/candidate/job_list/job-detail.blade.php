@@ -54,7 +54,7 @@
                         <input type="hidden" name="degreeJob" id="degreeJob" value="{{ $jobDetail['degree'] }}">
                         <input type="hidden" name="majorJob" id="majorJob" value="{{ $jobDetail['major'] }}">
                         @if(session('session_candidate.status_kandidat') != 1 || session('session_candidate.status_kandidat') != 2)
-                        <button class="btn btn-red btn-block" type="submit">Apply This Job</button>
+                        <button class="btn btn-home-color btn-block" type="submit">Apply This Job</button>
                         @endif
                     </form>
                 </div>

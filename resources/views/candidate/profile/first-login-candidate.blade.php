@@ -174,7 +174,7 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="row">
                         <div class="col-lg-11 col-md-12">
-                            <button type="button" class="btn btn-red btn-block right slideBtn btn-next" for="page-1">Next</button>
+                            <button type="button" class="btn btn-home-color btn-block right slideBtn btn-next" for="page-1">Next</button>
                         </div>
                     </div>
                 </div>
@@ -333,8 +333,8 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="row">
                         <div class="col-lg-11 col-md-12 d-flex">
-                            <button class="btn btn-red slideBtn mr-2" for="page-2"><i class="fas fa-chevron-circle-left"></i></button>
-                            <button type="button" class="btn btn-red btn-block right slideBtn btn-next" for="page-2">Next</button>
+                            <button class="btn btn-home-color slideBtn mr-2" for="page-2"><i class="fas fa-chevron-circle-left"></i></button>
+                            <button type="button" class="btn btn-home-color btn-block right slideBtn btn-next" for="page-2">Next</button>
                         </div>
                     </div>
                 </div>
@@ -409,8 +409,8 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="row">
                         <div class="col-lg-11 col-md-12 d-flex">
-                            <button class="btn btn-red slideBtn mr-2" for="page-3"><i class="fas fa-chevron-circle-left"></i></button>
-                            <button type="submit" class="btn btn-red btn-block">Save Profile</button>
+                            <button class="btn btn-home-color slideBtn mr-2" for="page-3"><i class="fas fa-chevron-circle-left"></i></button>
+                            <button type="submit" class="btn btn-home-color btn-block">Save Profile</button>
                         </div>
                     </div>
                 </div>

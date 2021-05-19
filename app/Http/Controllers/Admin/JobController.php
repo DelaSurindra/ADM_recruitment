@@ -14,6 +14,13 @@ use App\Model\Job_Application;
 use App\Model\Education;
 use App\Model\MasterUniversitas;
 use App\Model\MasterMajor;
+use App\Model\Status_History_Application;
+use App\Model\MasterSubtest;
+use App\Model\MasterFacet;
+use App\Model\CognitiveTestResult;
+use App\Model\InventoryTestResult;
+use App\Model\SetTest;
+use App\Model\TestParticipant;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\addBulkCandidate;
@@ -134,11 +141,12 @@ class JobController extends Controller
 
     public function viewJobEdit($id){
 
-        $idKandidat = base64_decode(urldecode($id));
-        $listCandidate = Candidate::select('kandidat.*', 'job_application.id as job_id', 'job_application.status as status_job', 'users.email')
-                                    ->join('job_application', 'job_application.kandidat_id', 'kandidat.id')
+        $idJob = base64_decode(urldecode($id));
+        $listCandidate = Job_Application::select('kandidat.*', 'job_application.id as job_id', 'job_application.vacancy_id', 'vacancies.job_title', 'job_application.status as status_job', 'users.email')
+                                    ->join('kandidat', 'job_application.kandidat_id', 'kandidat.id')
+                                    ->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')
                                     ->join('users', 'users.id', 'kandidat.user_id')
-                                    ->where('kandidat.id', $idKandidat)->get()->toArray();
+                                    ->where('job_application.id', $idJob)->get()->toArray();
         // dd($listCandidate);
         if ($listCandidate) {
             $listCandidate[0]['tanggal_lahir'] = date('d F Y', strtotime($listCandidate[0]['tanggal_lahir']));
@@ -164,19 +172,236 @@ class JobController extends Controller
                 if ($exp[0] != "") {
                     array_push($listCandidate[$exp[0]]['pendidikan'], $education[$exp[1]]);
                 }
-    
             }
-    
-            // dd($listCandidate);
+
+            $history = Status_History_Application::where('job_application_id', $idJob)->get()->toArray();
+            // dd($history);
+            $apply = [];
+            $online_test = [];
+            $hr_interview = [];
+            $user_interview1 = [];
+            $user_interview2 = [];
+            $user_interview3 = [];
+            $mcu = [];
+            $document_sign = [];
+
+            $status_online_test = '';
+            $status_hr_interview = '';
+            $status_user_interview1 = '';
+            $status_user_interview2 = '';
+            $status_user_interview3 = '';
+            $status_mcu = '';
+
+            if ($history) {
+                for ($i=0; $i < count($history) ; $i++) { 
+                    $history[$i]['tanggal'] = date("d F Y H:i", strtotime($history[$i]['created_at']));
+                    if ($history[$i]['status'] == "0") {
+                        array_push($apply, $history[$i]['tanggal']);
+                    }else if ($history[$i]['status'] == "1") {
+                        array_push($online_test, $history[$i]['tanggal']);
+                    }else if ($history[$i]['status'] == "2") {
+                        array_push($online_test, $history[$i]['tanggal']);
+                    }else if ($history[$i]['status'] == "3") {
+                        array_push($online_test, $history[$i]['tanggal']);
+                        $status_online_test = 'success';
+                    }else if ($history[$i]['status'] == "4") {
+                        array_push($online_test, $history[$i]['tanggal']);
+                        $status_online_test = 'failed';
+                    }else if ($history[$i]['status'] == "5") {
+                        array_push($hr_interview, $history[$i]['tanggal']);
+                    }else if ($history[$i]['status'] == "6") {
+                        array_push($user_interview1, $history[$i]['tanggal']);
+                    }else if ($history[$i]['status'] == "7") {
+                        array_push($user_interview2, $history[$i]['tanggal']);
+                    }else if ($history[$i]['status'] == "8") {
+                        array_push($user_interview3, $history[$i]['tanggal']);
+                    }else if ($history[$i]['status'] == "9") {
+                        array_push($mcu, $history[$i]['tanggal']);
+                    }else if ($history[$i]['status'] == "10") {
+                        array_push($document_sign, $history[$i]['tanggal']);
+                    }else if ($history[$i]['status'] == "13") {
+                        array_push($hr_interview, $history[$i]['tanggal']);
+                        $status_hr_interview = 'success';
+                    }else if ($history[$i]['status'] == "14") {
+                        array_push($hr_interview, $history[$i]['tanggal']);
+                        $status_hr_interview = 'failed';
+                    }else if ($history[$i]['status'] == "15") {
+                        array_push($user_interview1, $history[$i]['tanggal']);
+                        $status_user_interview1 = 'success';
+                    }else if ($history[$i]['status'] == "16") {
+                        array_push($user_interview1, $history[$i]['tanggal']);
+                        $status_user_interview1 = 'failed';
+                    }else if ($history[$i]['status'] == "17") {
+                        array_push($user_interview2, $history[$i]['tanggal']);
+                        $status_user_interview2 = 'success';
+                    }else if ($history[$i]['status'] == "18") {
+                        array_push($user_interview2, $history[$i]['tanggal']);
+                        $status_user_interview2 = 'failed';
+                    }else if ($history[$i]['status'] == "19") {
+                        array_push($user_interview3, $history[$i]['tanggal']);
+                        $status_user_interview3 = 'success';
+                    }else if ($history[$i]['status'] == "20") {
+                        array_push($user_interview3, $history[$i]['tanggal']);
+                        $status_user_interview3 = 'failed';
+                    }else if ($history[$i]['status'] == "21") {
+                        array_push($mcu, $history[$i]['tanggal']);
+                        $status_mcu = 'success';
+                    }else if ($history[$i]['status'] == "22") {
+                        array_push($mcu, $history[$i]['tanggal']);
+                        $status_mcu = 'failed';
+                    }
+                }
+            }
+
             $breadcrumb = [
                 "page"      => "Manage Job Application",
                 "detail"    => "View Job Application",
                 "route"     => "/HR/job"
             ];
-            return view('admin.job.job-edit')->with(['pageTitle' => 'Manajemen Job Application', 'title' => 'Manajemen Job Application', 'sidebar' => 'manajemen_job', 'breadcrumb' => $breadcrumb, 'data'=>$listCandidate[0]]);
+
+            if ($listCandidate[0]['status_job'] >= 3) {
+                $masterSubtest = MasterSubtest::where('id', '!=', '13')->orderBy('sub_type', 'ASC')->get()->toArray();
+                $testPart = TestParticipant::where('test_participant.id_job_application', $idJob)
+                                            ->get()->toArray();
+                // dd($testPart, $idJob);
+                $setTest = SetTest::where('set', $testPart[0]['set_test'])->get()->toArray();
+                $cognitiveResult = CognitiveTestResult::where('id_participant', $testPart[0]['id'])->get()->toArray();
+                if ($cognitiveResult) {
+                    $cognitiveResult[0]['skorAbstrak'] = $cognitiveResult[0]['abstrak1']+$cognitiveResult[0]['abstrak2']+$cognitiveResult[0]['abstrak3']+$cognitiveResult[0]['abstrak4'];
+                    
+                    if ($cognitiveResult[0]['skorAbstrak'] >= $setTest[0]['abstrak']) {
+                        $cognitiveResult[0]['resultAbstrak'] = "PASS";
+                    }else{
+                        $cognitiveResult[0]['resultAbstrak'] = "FAIL";
+                    }
+    
+                    $cognitiveResult[0]['skorNumeric'] = $cognitiveResult[0]['numerical1']+$cognitiveResult[0]['numerical2']+$cognitiveResult[0]['numerical3']+$cognitiveResult[0]['numerical4'];
+    
+                    if ($cognitiveResult[0]['skorNumeric'] >= $setTest[0]['numerical']) {
+                        $cognitiveResult[0]['resultNumeric'] = "PASS";
+                    }else{
+                        $cognitiveResult[0]['resultNumeric'] = "FAIL";
+                    }
+    
+                    $cognitiveResult[0]['skorVerbal'] = $cognitiveResult[0]['verbal1']+$cognitiveResult[0]['verbal2']+$cognitiveResult[0]['verbal3']+$cognitiveResult[0]['verbal4'];
+    
+                    if ($cognitiveResult[0]['skorVerbal'] >= $setTest[0]['verbal']) {
+                        $cognitiveResult[0]['resultVerbal'] = "PASS";
+                    }else{
+                        $cognitiveResult[0]['resultVerbal'] = "FAIL";
+                    }
+    
+                    if ($cognitiveResult[0]['skor'] >= $setTest[0]['total']) {
+                        $cognitiveResult[0]['resultSkor'] = "PASS";
+                    }else{
+                        $cognitiveResult[0]['resultSkor'] = "FAIL";
+                    }
+    
+                } else {
+                    $cognitiveResult[0]['skorAbstrak'] = "Not Set";
+                    $cognitiveResult[0]['abstrak1'] = "Not Set";
+                    $cognitiveResult[0]['abstrak2'] = "Not Set";
+                    $cognitiveResult[0]['abstrak3'] = "Not Set";
+                    $cognitiveResult[0]['abstrak4'] = "Not Set";
+                    $cognitiveResult[0]['skorNumeric'] = "Not Set";
+                    $cognitiveResult[0]['numerical1'] = "Not Set";
+                    $cognitiveResult[0]['numerical2'] = "Not Set";
+                    $cognitiveResult[0]['numerical3'] = "Not Set";
+                    $cognitiveResult[0]['numerical4'] = "Not Set";
+                    $cognitiveResult[0]['skorVerbal'] = "Not Set";
+                    $cognitiveResult[0]['verbal1'] = "Not Set";
+                    $cognitiveResult[0]['verbal2'] = "Not Set";
+                    $cognitiveResult[0]['verbal3'] = "Not Set";
+                    $cognitiveResult[0]['verbal4'] = "Not Set";
+                    $cognitiveResult[0]['skor'] = "Not Set";
+                    $cognitiveResult[0]['resultAbstrak'] = "";
+                    $cognitiveResult[0]['resultNumeric'] = "";
+                    $cognitiveResult[0]['resultVerbal'] = "";
+                    $cognitiveResult[0]['resultSkor'] = "";
+                }
+                // dd($cognitiveResult);
+                return view('admin.job.job-edit')->with([
+                    'pageTitle' => 'Manajemen Job Application', 
+                    'title' => 'Manajemen Job Application', 
+                    'sidebar' => 'manajemen_job', 
+                    'breadcrumb' => $breadcrumb, 
+                    'data'=>$listCandidate[0],
+                    'history'=>[
+                        'apply'          => $apply,
+                        'online_test'    => $online_test,
+                        'hr_interview'   => $hr_interview,
+                        'user_interview1'=> $user_interview1,
+                        'user_interview2'=> $user_interview2,
+                        'user_interview3'=> $user_interview3,
+                        'mcu'            => $mcu,
+                        'document_sign'  => $document_sign
+                    ],
+                    'status' => [
+                        'status_online_test'     => $status_online_test,
+                        'status_hr_interview'    => $status_hr_interview,
+                        'status_user_interview1' => $status_user_interview1,
+                        'status_user_interview2' => $status_user_interview2,
+                        'status_user_interview3' => $status_user_interview3,
+                        'status_mcu'             => $status_mcu
+                    ],
+                    "masterSubtest" => $masterSubtest,
+                    "cognitiveResult" => $cognitiveResult,
+                    "test" => $testPart[0]
+                ]);
+            }else{
+                return view('admin.job.job-edit')->with([
+                    'pageTitle' => 'Manajemen Job Application', 
+                    'title' => 'Manajemen Job Application', 
+                    'sidebar' => 'manajemen_job', 
+                    'breadcrumb' => $breadcrumb, 
+                    'data'=>$listCandidate[0],
+                    'history'=>[
+                        'apply'          => $apply,
+                        'online_test'    => $online_test,
+                        'hr_interview'   => $hr_interview,
+                        'user_interview1'=> $user_interview1,
+                        'user_interview2'=> $user_interview2,
+                        'user_interview3'=> $user_interview3,
+                        'mcu'            => $mcu,
+                        'document_sign'  => $document_sign
+                    ],
+                    'status' => [
+                        'status_online_test'     => $status_online_test,
+                        'status_hr_interview'    => $status_hr_interview,
+                        'status_user_interview1' => $status_user_interview1,
+                        'status_user_interview2' => $status_user_interview2,
+                        'status_user_interview3' => $status_user_interview3,
+                        'status_mcu'             => $status_mcu
+                    ]
+                ]);
+            }
         }else{
             abort(404);
         }
+    }
+
+    public function inventoryResult(){
+        $idParticipant = Request::input('id');
+        $inventory = InventoryTestResult::select('inventory_test_result.*', 'master_facet.category', 'master_facet.facet_name')
+                                        ->join('master_facet', 'master_facet.id', 'inventory_test_result.facet_id')
+                                        ->where('inventory_test_result.id_participant', $idParticipant)->get()->toArray();
+        // dd($inventory);
+        $label = [];
+        $result = [];
+        if ($inventory) {
+            for ($i=0; $i < count($inventory) ; $i++) { 
+                $dataLabel = $inventory[$i]['category'].' ('.$inventory[$i]['facet_name'].')';
+                array_push($label, $dataLabel);
+                array_push($result, (int)$inventory[$i]['skor']);
+            }
+        }
+
+        $value = [
+            'label'  => $label,
+            'result' => $result
+        ];
+
+        return response()->json($value);
     }
 
     public function editJob(){

@@ -59,10 +59,22 @@
             </li>
             <p class="text-title title-bottom">HOMEPAGE CONTENT</p>
             <li class="tree-menu custom-height-menu-sidebar">
+                <a href="{{ route('get.homepage') }}" class="menu {{($sidebar== 'manajemen_homepage'?'active':'')}}">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="{{ $sidebar== 'manajemen_homepage' ? asset('image/icon/sidebar/icon_menu_homepage_active.svg') : asset('image/icon/sidebar/icon_menu_homepage.svg')}}" alt="" width="25px" class="right-icon-sidebar icon-sidebar-mobile">
+                        </div>
+                        <div class="col-md-10">
+                            <span class="font-color-sidebar">Manage Homepage</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="tree-menu custom-height-menu-sidebar">
                 <a href="{{ route('get.news.event') }}" class="menu {{($sidebar== 'manajemen_news_event'?'active':'')}}">
                     <div class="row">
                         <div class="col-md-2">
-                            <img src="{{asset('image/icon/sidebar/icon_menu_news_event.svg')}}" alt="" width="25px" class="right-icon-sidebar icon-sidebar-mobile">
+                            <img src="{{ $sidebar== 'manajemen_news_event' ? asset('image/icon/sidebar/icon_menu_news_event_active.svg') : asset('image/icon/sidebar/icon_menu_news_event.svg')}}" alt="" width="25px" class="right-icon-sidebar icon-sidebar-mobile">
                         </div>
                         <div class="col-md-10">
                             <span class="font-color-sidebar">Manage News & Event</span>

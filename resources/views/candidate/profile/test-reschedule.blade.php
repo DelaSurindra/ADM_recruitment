@@ -45,7 +45,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-red btn-block">Submit</button>
+                    <button type="submit" class="btn btn-home-color btn-block">Submit</button>
 
                 </div>
             </div>
@@ -69,7 +69,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-red btn-block">Remind Me Later</button>
+                    <button type="submit" class="btn btn-home-color btn-block">Remind Me Later</button>
                 </div>
             </div>
         </form>
