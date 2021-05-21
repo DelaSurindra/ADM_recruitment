@@ -91,25 +91,112 @@
             .span-footer{
                 font-weight:normal !important;
             }
+
+            .card-result{
+                background: #E8F7EE;
+                border-radius: 8px;
+                height: 76px;
+                padding-top:3px;
+            }
+
+            .text-result{
+                font-style: normal;
+                font-weight: 600;
+                font-size: 18px;
+                line-height: 22px;
+                align-items: center;
+                text-align: center;
+                letter-spacing: -0.02em;
+                color: #050401;
+            }
+
+            .value-table{
+                font-style: normal;
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 150%;
+                text-align: right;
+                color: #504F4D;
+            }
+            .btn-red{
+                background: #DF0E2C;
+                color: #FFFFFF;
+                box-sizing: border-box;
+                border-radius: 8px;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 14px;
+                line-height: 17px;
+                padding: 12px;
+                width:100%;
+                border:none;
+                cursor: pointer;
+                height: 54px;
+                margin-bottom:10px;
+            }
+
+            .btn-green{
+                background: #E8F7EE;
+                color: #DF0E2C;
+                box-sizing: border-box;
+                border:1px solid #DF0E2C;
+                border-radius: 8px;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 14px;
+                line-height: 17px;
+                padding: 12px;
+                width:100%;
+                cursor: pointer;
+                height: 54px;
+            }
         </style>
     </head>
     <body style="font-family: 'inter_bold', sans-serif;line-height: 1.6; background:#E8F7EE;">
         <center>
-            <img src="{{url('/').'/'.'image/icon/email/icon_logo.svg'}}" class="img-top">
+            <img src="https://adm.vasdev.co.id/image/icon/email/icon_logo.svg" class="img-top">
         </center>
         <div class="container">
             <div class="card">
                 <center>
-                    <img src="{{url('/').'/'.'image/icon/email/icon_application_resume.svg'}}" class="img-title">
+                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_written_test_result.svg" class="img-title">
                 </center>
-                <p class="title-email">Application Submission</p>
-                <p class="subtitle-email">Thank you for your application to PT Astra Daihatsu Motor</p>
+                <p class="title-email">Written Test Result Announcement</p>
+                <p class="subtitle-email">Your written result is here!</p>
                 <div class="card-content">
-                    <p class="title-content-email">Hello, {{$data['nama']}}</p>
-                    <p class="content-email">We have received your application and thank you for your interest to be part of our family. We might take a couple of days to check your fit, since every application matters to us. And we will get back to you as soon as we can. </p>
-                    <p class="content-email">But, If you don’t get a follow up email from us, it’s probably because : <br> 1. We haven’t find a fit position for your profile. But you’re welcome to reapply again after 1 year period. <br> 2. We don’t have that position open anymore. But we’ll note your resume and we’ll reach out to you if there’s an opportunity in the future.</p>
+                    <p class="title-content-email">Hello, Budi</p>
+                    <div class="card-result">
+                        <p class="text-result">Congratulation! You’ve passed written test <br>Successfully</p>
+                    </div>
+                    <p class="content-email">For next step we will invite you to join HR Interview. You will meet our HR Crew and the interview will last about 20-40 minutes. We would like to conduct your interview on :</p>
+                    <table style="width:40%;">
+                        <tr style="height:40px;">
+                            <td class="content-email">Day/Date</td>
+                            <td class="value-table">Friday, 7 Mei 2021</td>
+                        </tr>
+                        <tr style="height:40px;">
+                            <td class="content-email">Location</td>
+                            <td class="value-table">2972 Westheimer Rd. Santa AnaIllinois 85486 </td>
+                        </tr>
+                        <tr style="height:40px;">
+                            <td class="content-email">Item Need to Prepare</td>
+                            <td class="value-table">KTP And Test Device</td>
+                        </tr>
+                        <tr style="height:40px;">
+                            <td class="content-email">PIC</td>
+                            <td class="value-table">Any Hartini</td>
+                        </tr>
+                    </table>
+                    <p class="content-email">Please kindly complete your data profile and confirm your attendance at the latest <span class="footer-email">6 Mei 2021</span> <br> If you need a reschedule, kindly check our available schedule on ‘reschedule’ menu.</p>
+                    <a href="https://adm.vasdev.co.id"><button class="btn-red">Confirmation Test</button></a>
+                    <a href="https://adm.vasdev.co.id"><button class="btn-green">Reschedule Test</button></a>
                     <hr>
                     <p class="content-email">Thank you and have a great time untill you hear from us very soon!</p>
+                    <div class="card-result">
+                        <p class="text-result">Sorry! Your written test result hasn’t passed <br> our standart requirement</p>
+                    </div>
+                    <p class="content-email">Through this email we would like to inform that your written test result hasn’t passed our standart requirement. Therefor, you can’t continue to next selection step. We appreciate you taking the time to join our selection process and wish all the best for your future endeavors.</p>
+                    
                 </div>
                 <center>
                     <p class="footer-email"><span class="span-footer">Regards,</span><br>Recruitment Team<br>PT Astra Daihatsu Motor</p>

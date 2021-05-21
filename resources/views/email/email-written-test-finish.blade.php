@@ -91,25 +91,42 @@
             .span-footer{
                 font-weight:normal !important;
             }
+
+            .btn-red{
+                background: #DF0E2C;
+                color: #FFFFFF;
+                box-sizing: border-box;
+                border-radius: 8px;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 14px;
+                line-height: 17px;
+                padding: 12px;
+                width:100%;
+                border:none;
+                cursor: pointer;
+                height: 54px;
+            }
         </style>
     </head>
     <body style="font-family: 'inter_bold', sans-serif;line-height: 1.6; background:#E8F7EE;">
         <center>
-            <img src="{{url('/').'/'.'image/icon/email/icon_logo.svg'}}" class="img-top">
+            <img src="https://adm.vasdev.co.id/image/icon/email/icon_logo.svg" class="img-top">
         </center>
         <div class="container">
             <div class="card">
                 <center>
-                    <img src="{{url('/').'/'.'image/icon/email/icon_application_resume.svg'}}" class="img-title">
+                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_written_test_finish.svg" class="img-title">
                 </center>
-                <p class="title-email">Application Submission</p>
-                <p class="subtitle-email">Thank you for your application to PT Astra Daihatsu Motor</p>
+                <p class="title-email">Written Test Finished Confirmation</p>
+                <p class="subtitle-email">You’ve been done PT Astra Daihatsu Motor Written test</p>
                 <div class="card-content">
-                    <p class="title-content-email">Hello, {{$data['nama']}}</p>
-                    <p class="content-email">We have received your application and thank you for your interest to be part of our family. We might take a couple of days to check your fit, since every application matters to us. And we will get back to you as soon as we can. </p>
-                    <p class="content-email">But, If you don’t get a follow up email from us, it’s probably because : <br> 1. We haven’t find a fit position for your profile. But you’re welcome to reapply again after 1 year period. <br> 2. We don’t have that position open anymore. But we’ll note your resume and we’ll reach out to you if there’s an opportunity in the future.</p>
+                    <p class="title-content-email">Hello, Budi</p>
+                    <p class="content-email">Thank you for making time to join our written test!</p>
+                    <p class="content-email">We will announce your test result within 2 weeks and meanwhile, get to know about PT Astra Daihatsu Motor by taking a closer look on our website.</p>
+                    <a href="https://adm.vasdev.co.id"><button class="btn-red">Go To Website</button></a>
                     <hr>
-                    <p class="content-email">Thank you and have a great time untill you hear from us very soon!</p>
+                    <p class="content-email">Thank you and have a great time until you hear from us very soon!</p>
                 </div>
                 <center>
                     <p class="footer-email"><span class="span-footer">Regards,</span><br>Recruitment Team<br>PT Astra Daihatsu Motor</p>
