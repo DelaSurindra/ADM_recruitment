@@ -423,8 +423,16 @@ const formrules = {
 			'subCognitive':{
                 required: true
             },
+			'chooseAnswer':{
+				required:true
+			}
 		},
 		submitHandler:false,
+		messages: {
+			chooseAnswer: {
+				required: 'Mohon pilih salah satu jawaban',
+			}
+        },
         errorPlacement: function (error, element) {
 			if (element.is("#setTest")) {
 				error.appendTo(element.parents('#setTestDiv'));

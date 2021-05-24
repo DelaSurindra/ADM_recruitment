@@ -18,6 +18,16 @@ use Session;
 class VacancyController extends Controller
 {
     public function viewVacancy(){
+        $getVacancy = Vacancy::get()->toArray();
+        if($getVacancy){
+            $now=date("Y-m-d");
+            for ($i=0; $i < count($getVacancy); $i++) { 
+                $dateActive=date('Y-m-d', strtotime($getVacancy[$i]['active_date']));
+                if ($now > $dateActive) {
+                    Vacancy::where('job_id', $getVacancy[$i]['job_id'])->update(['status' => 0]);
+                }
+            }
+        }
         return view('admin.vacancy.vacancy-list')->with(['pageTitle' => 'Manajemen vacancy', 'title' => 'Manajemen vacancy', 'sidebar' => 'manajemen_vacancy']);
     }
 
@@ -43,18 +53,6 @@ class VacancyController extends Controller
         } else {
             $listVacancy = $listVacancy->orderBy('created_at', $dataSend["sort"])->get()->toArray();
         }
-        // DUMMY
-        // $listVacancy = [
-        //     [
-        //         'job_poster' => 'https://images.unsplash.com/photo-1597404294360-feeeda04612e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
-        //         'job_title' => 1,
-        //         'id' => 1,
-        //     ], [
-        //         'job_poster' => 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
-        //         'job_title' => 1,
-        //         'id' => 2,
-        //     ],
-        // ];
         
         if ($listVacancy != null) {
             $response = array(

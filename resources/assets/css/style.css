@@ -337,6 +337,10 @@
     cursor: pointer;
 }
 
+.card-top-score{
+    min-height: 249px;
+}
+
 .title-dashboard{
     font-family: 'inter_bold', sans-serif !important;
     font-style: normal;

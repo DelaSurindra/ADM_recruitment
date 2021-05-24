@@ -959,7 +959,7 @@ class ProfileController extends Controller
                                 ->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')
                                 ->where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
         for ($i=0; $i < count($job_apply); $i++) { 
-            if($job_apply[$i]['status'] >= 0 && $job_apply[$i]['status'] < 11 && $job_apply[$i]['status'] > 12){
+            if($job_apply[$i]['status'] >= 0 || $job_apply[$i]['status'] < 11 || $job_apply[$i]['status'] > 12){
                 if ($job_apply[$i]['status'] == 0) {
                     $job_apply[$i]['status_text'] = "Application Resume";
                     $job_apply[$i]['button'] = "N";

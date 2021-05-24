@@ -125,21 +125,6 @@ var table = {
 					}
 				},
 				{
-					"targets": 3,
-					"data": "degree",
-					"render": function(data, type, full, meta){
-						var data = ''
-		            	if (full.degree == 1) {
-		            	    data = 'D3';
-		            	} else if(full.degree == 2) {
-		            	    data = 'S1';
-		            	}else{
-							data = "S2"
-						}
-		               	return data;
-					}
-				},
-				{
 					"targets": 7,
 					"data": "status",
 					"render": function(data, type, full, meta){

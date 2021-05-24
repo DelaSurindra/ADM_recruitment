@@ -24,7 +24,8 @@ class JobController extends Controller
         // Get data lokasi
         $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
         // Get data Job
-        $job = Vacancy::where('status', 1)->orderBy('created_at', 'desc')->take(9)->get()->toArray();
+        $now=date("Y-m-d");
+        $job = Vacancy::where('status', 1)->where('active_date', '>', $now)->orderBy('created_at', 'desc')->take(9)->get()->toArray();
         // dd($job);
         for ($i=0; $i < count($job); $i++) { 
             if($job[$i]['degree'] == 1) {
@@ -114,8 +115,8 @@ class JobController extends Controller
 
     public function viewJobDetail($id) {
         $id = base64_decode(urldecode($id));
-
-        $job = Vacancy::orderBy('created_at', 'desc')->take(3)->get()->toArray();
+        $now=date("Y-m-d");
+        $job = Vacancy::where('status', 1)->where('active_date', '>', $now)->orderBy('created_at', 'desc')->take(3)->get()->toArray();
         // dd($job);
         for ($i=0; $i < count($job); $i++) { 
             if($job[$i]['degree'] == 1) {
@@ -155,20 +156,19 @@ class JobController extends Controller
             $education = Education::where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
             // get data job
             $job = Vacancy::where('job_id', $data['idJob'])->first()->toArray();
-            
+            $expJob = explode(",", $job['major']);
             $state = false;
             if (count($education) > 1) {
                 foreach ($education as $pendidikan) {
-                    if ($pendidikan['gelar'] >= $job['degree'] && trim($pendidikan['jurusan'], " ") === $job['major']) {
+                    if ($pendidikan['gelar'] >= $job['degree'] && in_array($pendidikan['jurusan'], $expJob)) {
                         $state = true;
                     }
                 }
             } else {
-                if ($education[0]['gelar'] >= $job['degree'] && trim($education[0]['jurusan'], " ") === $job['major']) {
+                if ($education[0]['gelar'] >= $job['degree'] && in_array($education[0]['jurusan'], $expJob)) {
                     $state = true;
                 }
             }
-            
             if ($state) {
                 $apply = Job_Application::insertGetId([
                     'interview_count' => '',

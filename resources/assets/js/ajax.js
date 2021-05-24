@@ -144,10 +144,10 @@ var ajax = {
 									ui.popup.show(result.status, result.message, result.url);
 								} else if (result.callback == 'mustLogin') {
 									$('#modalNotifForLogin').modal('show')
+								}else{
+									$('#titleErrorNotif').html(result.message)
+									$('#modalNotifForError').modal('show')
 								}
-
-								$('#titleErrorNotif').html(result.message)
-								$('#modalNotifForError').modal('show')
 							}else{
 								if(result.messages == '<p>Error: Validation</p>') {
 									ui.popup.hideLoader();

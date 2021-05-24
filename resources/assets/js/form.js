@@ -788,7 +788,6 @@ if ($("#formFirstLogin").length) {
 			if ($('.select2-custom').length) {
 				$('.select2-custom').select2({
 					tags: true,
-
 				  });
 			}
 			if ($('.removeThisEducation').length) {

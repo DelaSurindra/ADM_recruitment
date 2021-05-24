@@ -162,14 +162,10 @@
                             <td class="content-email">Item Need to Prepare</td>
                             <td class="value-table">KTP And Test Device</td>
                         </tr>
-                        <tr style="height:40px;">
-                            <td class="content-email">PIC</td>
-                            <td class="value-table">Any Hartini</td>
-                        </tr>
                     </table>
                     <p class="content-email">Please kindly complete your data profile and confirm your attendance at the latest <span class="footer-email">6 Mei 2021</span> <br> If you need a reschedule, kindly check our available schedule on ‘reschedule’ menu.</p>
                     <a href="https://adm.vasdev.co.id"><button class="btn-red">Confirmation Test</button></a>
-                    <a href="https://adm.vasdev.co.id"><button class="btn-green">Reschedule Test</button></a>
+                    <!-- <a href="https://adm.vasdev.co.id"><button class="btn-green">Reschedule Test</button></a> -->
                     <hr>
                     <p class="content-email">Thank you and have a great time untill you hear from us very soon!</p>
                 </div>

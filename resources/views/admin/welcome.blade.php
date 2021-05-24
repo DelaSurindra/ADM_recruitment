@@ -136,7 +136,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <div class="card clear">
+        <div class="card clear card-top-score">
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col-md-10">

@@ -109,7 +109,7 @@
                                             <input type="text" class="form-control file-input-label" value="{{ Session::get('session_candidate')['pendidikan'][$i]['ijazah'] }}" placeholder="Format jpg/png maximum 2MB file" disabled>
                                             <p id="filenameCertificateStudy" class="m-1"></p>
                                             <span class="btn btn-file pl-1 mb-2">
-                                                Upload File <input type="file" name="certificate[]" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg">
+                                                Upload File <input type="file" name="certificate[]" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg" value="{{ Session::get('session_candidate')['pendidikan'][$i]['ijazah'] }}">
                                             </span>
                                         </div>
                                     </div>

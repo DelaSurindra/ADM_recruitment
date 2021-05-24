@@ -19,6 +19,7 @@ use App\Model\InventoryTestResult;
 use App\Model\SetTest;
 use App\AdminSession;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Jobs\JobSendEmail;
 use Response;
 use Hash;
 use Request;
@@ -28,6 +29,16 @@ use DB;
 class TestController extends Controller
 {
     public function viewTest(){
+        $getTest = Test::get()->toArray();
+        if($getTest){
+            $now=date("Y-m-d");
+            for ($i=0; $i < count($getTest); $i++) { 
+                $dateTest=date('Y-m-d', strtotime($getTest[$i]['date_test']));
+                if ($now > $dateTest) {
+                    Test::where('id', $getTest[$i]['id'])->update(['status_test' => 3]);
+                }
+            }
+        }
         return view('admin.test.test-list')->with(['pageTitle' => 'Manajemen Test', 'title' => 'Manajemen Test', 'sidebar' => 'manajemen_test']);
     }
 
@@ -275,13 +286,6 @@ class TestController extends Controller
         $getTest = Test::where('id', $idTest)->get()->toArray();
         // dd($getTest);
         if ($getTest) {
-            if($getTest[0]['status_test'] != 3){
-                $dateTest=date('Y-m-d', strtotime($getTest[0]['date_test']));
-                $now=date("Y-m-d");
-                if ($now > $dateTest) {
-                    Test::where('id', $idTest)->update(['status_test' => 3]);
-                }
-            }
             $getTest[0]['set_test_array'] = explode(",", $getTest[0]['set_test']);
             $countTestPart = TestParticipant::where('test_id', $idTest)->get()->count();
             $getAlternatif = AlternatifTest::select('alternative_test_event.*', 'test_event.event_id')->join('test_event', 'test_event.id', 'alternative_test_event.alternative_test_id')->where('test_id', $idTest)->get()->toArray();
@@ -514,7 +518,7 @@ class TestController extends Controller
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
         $now = date('Y-m-d');
         $tomorrow = date('Y-m-d', strtotime($now . "+1 days"));
-        // dd($now, $tomorrow, $data, $rand);
+        dd($now, $tomorrow, $data, $rand);
         if ($data['countChoose'] == "1") {
             $rand = rand(pow(10, 6-1), pow(10, 6)-1);
             $exp = explode("_", $data['idCandidate']);
@@ -522,7 +526,8 @@ class TestController extends Controller
                 "kandidat_id" => $exp[0],
                 "test_id"     => $data["idTest"],
                 "status"      => 0,
-                "reshedule_count" => 0
+                "reshedule_count" => 0,
+                "id_job_application" => $exp[1]
             ]);
             $addOtp = TestOtp::insert([
                 "otp"               => $rand,

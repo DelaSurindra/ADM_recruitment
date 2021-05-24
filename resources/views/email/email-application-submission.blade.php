@@ -95,7 +95,7 @@
     </head>
     <body style="font-family: 'inter_bold', sans-serif;line-height: 1.6; background:#E8F7EE;">
         <center>
-            <img src="https://adm.vasdev.co.id/image/icon/email/icon_logo.svg" class="img-top">
+            <img src="https://adm.vasdev.co.id/image/icon/email/icon_logo.png" class="img-top">
         </center>
         <div class="container">
             <div class="card">

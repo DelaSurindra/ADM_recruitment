@@ -863,75 +863,78 @@ ul.location-list li p {
 }
 
 /* CONTACT US */
-.main-container-contact-us h1 {
-   font-weight: 700;
+.title-contact{
+   font-family: 'inter_bold', sans-serif !important;
+   font-style: normal;
+   font-weight: bold;
    font-size: 36px;
+   line-height: 130%;
    color: #050401;
 }
 
-.main-container-contact-us h2 {
-   font-weight: 700;
+.content-contact{
+   font-family: 'inter_bold', sans-serif !important;
+   font-style: normal;
+   font-weight: bold;
    font-size: 18px;
+   line-height: 130%;
    color: #050401;
 }
 
-.main-container-contact-us h3 {
-   font-weight: 400;
+.text-contact{
+   font-family: 'inter_bold', sans-serif !important;
+   font-style: normal;
+   font-weight: 600;
    font-size: 14px;
-   color: #050401;
+   line-height: 130%;
+   letter-spacing: -0.02em;
+   text-transform: capitalize;
+   color: #333333;
+   margin-bottom: 0px;
 }
 
-.heading-container-contact-us {
-   width: 90%;
-   margin-left: 120px;
-   padding-top: 100px;
-}
-
-.content-container-contact-us {
-   width: 90%;
-   margin-left: 120px;
-   margin-top: 100px;
+.li-contact{
+   font-family: 'inter_bold', sans-serif !important;
+   font-style: normal;
+   font-weight: normal;
+   font-size: 14px;
+   line-height: 130%;
+   letter-spacing: -0.02em;
+   text-transform: capitalize;
+   color: #333333;
 }
 
 /* COMPANY PROFILE */
-.bg {
-   position: absolute;
-   right: 0;
-}
-
-.heading-container-company {
-   display: flex;
-   width: 100%;
-   justify-content: left;
-   margin: 0 auto;
-}
-
-.heading-container-company h1 {
+.title-company{
+   font-family: 'inter_bold', sans-serif !important;
+   font-style: normal;
    font-weight: 900;
    font-size: 64px;
    line-height: 130%;
-   margin-top: 160px;
-   margin-left: 120px;
    color: #050401;
+   padding-top: 100px;
 }
 
-.content-container-company {
-   display: flex;
-   width: 60%;
-   justify-content: left;
-   margin-left: 120px;
-   margin-top: 160px;
+.img-company {
+   width: 1011px;
+   height: 424px;
 }
 
-.body-container-company h3 {
+.content-company{
+   font-family: 'inter_bold', sans-serif !important;
+   font-style: normal;
    font-weight: 500;
    font-size: 18px;
-   color: #050401;
+   line-height: 150%;
+   color: #333333
 }
 
-.body-container-company h1 {
-   font-weight: 700;
+.visi-company{
+   font-family: 'inter_bold', sans-serif !important;
+   font-style: normal;
+   font-weight: bold;
    font-size: 36px;
+   line-height: 130%;
    color: #050401;
 }
 
