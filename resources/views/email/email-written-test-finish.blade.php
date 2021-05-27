@@ -111,17 +111,17 @@
     </head>
     <body style="font-family: 'inter_bold', sans-serif;line-height: 1.6; background:#E8F7EE;">
         <center>
-            <img src="https://adm.vasdev.co.id/image/icon/email/icon_logo.svg" class="img-top">
+            <img src="https://adm.vasdev.co.id/image/icon/email/icon_logo.png" class="img-top">
         </center>
         <div class="container">
             <div class="card">
                 <center>
-                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_written_test_finish.svg" class="img-title">
+                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_written_test_finish.png" class="img-title">
                 </center>
                 <p class="title-email">Written Test Finished Confirmation</p>
                 <p class="subtitle-email">You’ve been done PT Astra Daihatsu Motor Written test</p>
                 <div class="card-content">
-                    <p class="title-content-email">Hello, Budi</p>
+                    <p class="title-content-email">Hello, {{$data['nama']}}</p>
                     <p class="content-email">Thank you for making time to join our written test!</p>
                     <p class="content-email">We will announce your test result within 2 weeks and meanwhile, get to know about PT Astra Daihatsu Motor by taking a closer look on our website.</p>
                     <a href="https://adm.vasdev.co.id"><button class="btn-red">Go To Website</button></a>

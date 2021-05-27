@@ -11,6 +11,7 @@ use App\Model\InterviewType;
 use App\Model\InterviewReschedule;
 use App\Model\Job_Application;
 use App\Model\Candidate;
+use App\Jobs\JobSendEmail;
 use App\AdminSession;
 use Response;
 use Hash;
@@ -94,6 +95,7 @@ class InterviewController extends Controller
     public function addInterview(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
+        
         if ($data['countChoose'] == "0") {
             $messages = [
                 'status' => 'error',
@@ -118,6 +120,7 @@ class InterviewController extends Controller
             }
 
             if ($addInterview) {
+
                 if ($data['typeInterview'] == "1") {
                     $statusJob = 5;
                 }elseif ($data['typeInterview'] == "2") {
@@ -133,6 +136,26 @@ class InterviewController extends Controller
                 }
 
                 for ($i=0; $i < $data['countChoose']; $i++) { 
+
+                    $interview = InterviewType::where('id', $data['typeInterview'])->get()->toArray();
+                    $kandidat = Job_Application::select('kandidat.first_name', 'kandidat.last_name', 'users.email')->join('kandidat', 'job_application.kandidat_id', 'kandidat.id')->join('users', 'kandidat.user_id', 'users.id')->where('job_application.id', is_array($data["idJOb"]) ? $data["idJOb"][$i] : $data["idJOb"])->get()->toArray();
+                    $date = date('D, d M Y', strtotime($data['dateInterview']));
+                    
+                    $dataEmail = [
+                        'email'         => $kandidat[0]['email'],
+                        'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
+                        'tanggal'       => $date,
+                        'waktu'         => $data['timeInterview'],
+                        'lokasi'        => $data['locationInterview'],
+                        'pic'           => $data['interviewer'],
+                        'interview'     => $interview[0]['name'],
+                        'tipe'          => 1,
+                        'subject'       => 'Written Test Invitation',
+                        'view'          => 'email.email-written-test-result'
+                    ];
+    
+                    $response = JobSendEmail::dispatch($dataEmail);
+
                     $updateJob = Job_Application::where('id', is_array($data["idJOb"]) ? $data["idJOb"][$i] : $data["idJOb"])->update(["status"=> $statusJob]);
                     $track = $this->statusTrackApply(is_array($data["idJOb"]) ? $data["idJOb"][$i] : $data["idJOb"], $statusJob);
                 }

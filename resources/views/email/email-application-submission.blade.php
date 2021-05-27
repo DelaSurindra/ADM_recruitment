@@ -100,12 +100,12 @@
         <div class="container">
             <div class="card">
                 <center>
-                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_application_resume.svg" class="img-title">
+                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_application_resume.png" class="img-title">
                 </center>
                 <p class="title-email">Application Submission</p>
                 <p class="subtitle-email">Thank you for your application to PT Astra Daihatsu Motor</p>
                 <div class="card-content">
-                    <p class="title-content-email">Hello, Budi</p>
+                    <p class="title-content-email">Hello, {{$data['nama']}}</p>
                     <p class="content-email">We have received your application and thank you for your interest to be part of our family. We might take a couple of days to check your fit, since every application matters to us. And we will get back to you as soon as we can. </p>
                     <p class="content-email">But, If you don’t get a follow up email from us, it’s probably because : <br> 1. We haven’t find a fit position for your profile. But you’re welcome to reapply again after 1 year period. <br> 2. We don’t have that position open anymore. But we’ll note your resume and we’ll reach out to you if there’s an opportunity in the future.</p>
                     <hr>

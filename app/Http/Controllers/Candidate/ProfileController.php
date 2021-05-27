@@ -19,7 +19,7 @@ use App\Model\InterviewEvent;
 use App\Model\interviewReschedule;
 use App\Model\MasterUniversitas;
 use App\Model\MasterMajor;
-
+use App\Jobs\JobSendEmail;
 use Request;
 use Session;
 use Hash;
@@ -1179,9 +1179,18 @@ class ProfileController extends Controller
     public function postConfirmTest(){
         $encrypt = new EncryptController;
     	$data = $encrypt->fnDecrypt(Request::input('data'),true);
-        // dd($data);
+        
         $confirmTest = TestParticipant::where('id', $data['idParticipant'])->update(['status' => 1]);
         if ($confirmTest) {
+            $dataEmail = [
+                'email'         => session('session_candidate.user_email'),
+                'nama'          => session('session_candidate.first_name').' '.session('session_candidate.last_name'),
+                'subject'       => 'Written Test Attendance Confirmed',
+                'view'          => 'email.email-written-test-attendance'
+            ];
+    
+            $response = JobSendEmail::dispatch($dataEmail);
+            
             $id = base64_encode(urlencode($data["idJob"]));
             $messages = [
                 'status' => 'success',

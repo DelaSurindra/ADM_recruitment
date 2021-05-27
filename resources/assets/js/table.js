@@ -2077,7 +2077,7 @@ $("#tableJob tbody").on('click', 'input', function(e) {
 		$("#input_"+dataRow.job_application_id+"_"+dataRow.kandidat_id).remove();
 	}
 	$("#textItem").html(jumlah+" item selected")
-	if (jumlah > 0) {
+	if (jumlah > 1) {
 		$(".btn-bulk-candidate").removeClass('hidden');
 	}else{
 		if (jumlah == 0) {

@@ -9,6 +9,7 @@ use App\Http\Controllers\RequestController;
 use App\Exports\DownloadResult;
 use App\Model\Test;
 use App\Model\TestOtp;
+use App\Model\Candidate;
 use App\Model\AlternatifTest;
 use App\Model\TestParticipant;
 use App\Model\Job_Application;
@@ -224,6 +225,7 @@ class TestController extends Controller
             "date_test" => date("Y-m-d", strtotime($data['dateTest'])),
             "latlong" => $data['longlatTest'],
             "set_test" => $setTest,
+            "status_test" => 1
         ]);
 
         if ($editTest) {
@@ -518,7 +520,7 @@ class TestController extends Controller
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
         $now = date('Y-m-d');
         $tomorrow = date('Y-m-d', strtotime($now . "+1 days"));
-        dd($now, $tomorrow, $data, $rand);
+        // dd($data);
         if ($data['countChoose'] == "1") {
             $rand = rand(pow(10, 6-1), pow(10, 6)-1);
             $exp = explode("_", $data['idCandidate']);
@@ -564,15 +566,41 @@ class TestController extends Controller
         }
 
         if ($addParticipan) {
+            $test = Test::where('id', $data['idTest'])->get()->toArray();
+            $date = date('D, d M Y', strtotime($test[0]['date_test']));
             if ($data['countChoose'] == "1") {
                 $exp = explode("_", $data['idCandidate']);
                 Job_Application::where('id', $exp[1])->update(['status'=>2]);
                 $track = $this->statusTrackApply($exp[1], 2);
+                $kandidat = Candidate::select('kandidat.first_name', 'kandidat.last_name', 'users.email')->join('users', 'kandidat.user_id', 'users.id')->where('kandidat.id', $exp[0])->get()->toArray();
+                $dataEmail = [
+                    'email'         => $kandidat[0]['email'],
+                    'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
+                    'tanggal'       => $date,
+                    'waktu'         => $test[0]['time'],
+                    'lokasi'        => $test[0]['location'],
+                    'subject'       => 'Written Test Invitation',
+                    'view'          => 'email.email-written-test-invit'
+                ];
+
+                $response = JobSendEmail::dispatch($dataEmail);
             }else if ($data["countChoose"] > 1) {
                 for ($i=0; $i < $data["countChoose"]; $i++) { 
                     $exp = explode("_", $data['idCandidate'][$i]);
                     Job_Application::where('id', $exp[1])->update(['status'=>2]);
                     $track = $this->statusTrackApply($exp[1], 2);
+                    $kandidat = Candidate::select('kandidat.first_name', 'kandidat.last_name', 'users.email')->join('users', 'kandidat.user_id', 'users.id')->where('kandidat.id', $exp[0])->get()->toArray();
+                    $dataEmail = [
+                        'email'         => $kandidat[0]['email'],
+                        'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
+                        'tanggal'       => $date,
+                        'waktu'         => $test[0]['time'],
+                        'lokasi'        => $test[0]['location'],
+                        'subject'       => 'Written Test Invitation',
+                        'view'          => 'email.email-written-test-invit'
+                    ];
+
+                    $response = JobSendEmail::dispatch($dataEmail);
                 }
             }
             $id = base64_encode(urlencode($data["idTest"]));

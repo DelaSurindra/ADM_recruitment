@@ -137,33 +137,37 @@
     </head>
     <body style="font-family: 'inter_bold', sans-serif;line-height: 1.6; background:#E8F7EE;">
         <center>
-            <img src="https://adm.vasdev.co.id/image/icon/email/icon_logo.svg" class="img-top">
+            <img src="https://adm.vasdev.co.id/image/icon/email/icon_logo.png" class="img-top">
         </center>
         <div class="container">
             <div class="card">
                 <center>
-                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_written_test_invit.svg" class="img-title">
+                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_written_test_invit.png" class="img-title">
                 </center>
                 <p class="title-email">Written Test Invitation</p>
                 <p class="subtitle-email">You’re invited to PT Astra Daihatsu Motor Written test</p>
                 <div class="card-content">
-                    <p class="title-content-email">Hello, Budi</p>
+                    <p class="title-content-email">Hello, {{$data['nama']}}</p>
                     <p class="content-email">Congratulation! We found your profile match our needs for the role. You’ve passed our administration selection and we would like to invite you to join our written test on :</p>
                     <table style="width:40%;">
                         <tr style="height:40px;">
                             <td class="content-email">Day/Date</td>
-                            <td class="value-table">Friday, 7 Mei 2021</td>
+                            <td class="value-table">{{$data['tanggal']}}</td>
+                        </tr>
+                        <tr style="height:40px;">
+                            <td class="content-email">Time</td>
+                            <td class="value-table">{{$data['waktu']}}</td>
                         </tr>
                         <tr style="height:40px;">
                             <td class="content-email">Location</td>
-                            <td class="value-table">2972 Westheimer Rd. Santa AnaIllinois 85486 </td>
+                            <td class="value-table">{{$data['lokasi']}}</td>
                         </tr>
                         <tr style="height:40px;">
                             <td class="content-email">Item Need to Prepare</td>
                             <td class="value-table">KTP And Test Device</td>
                         </tr>
                     </table>
-                    <p class="content-email">Please kindly complete your data profile and confirm your attendance at the latest <span class="footer-email">6 Mei 2021</span> <br> If you need a reschedule, kindly check our available schedule on ‘reschedule’ menu.</p>
+                    <p class="content-email">Please kindly complete your data profile and confirm your attendance at the latest <span class="footer-email">{{$data['tanggal']}}</span> <br> If you need a reschedule, kindly check our available schedule on ‘reschedule’ menu.</p>
                     <a href="https://adm.vasdev.co.id"><button class="btn-red">Confirmation Test</button></a>
                     <!-- <a href="https://adm.vasdev.co.id"><button class="btn-green">Reschedule Test</button></a> -->
                     <hr>

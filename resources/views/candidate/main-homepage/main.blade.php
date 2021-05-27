@@ -208,7 +208,7 @@
                                 <option selected disabled>Choose or input</option>
                                 
                             </select>
-                            <button type="submit" class="btn btn-home-color btn-block">Go to My Application</button>
+                            <button type="submit" class="btn btn-home-color btn-block mt-3">Go to My Application</button>
                         </form>
                     </div>
                 </div>
