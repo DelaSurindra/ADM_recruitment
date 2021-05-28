@@ -3,10 +3,10 @@
 <div class="container">
     <div class="row">
         <div class="main-container-faq" id="divFaq">
-            <div class="heading-container-faq">
+            <div class="heading-container-faq mt-5">
                 <h1>Frequently Asked Question</h1>
             </div>
-            <div class="content-container-faq">
+            <div class="content-container-faq mt-5">
                 <div class="question-box">
                     <div class="question1 tab-links" onclick="openContent(event,'content-1')" id="defaultOpen">
                         <h3>Persiapan Pendaftaran Online</h3>

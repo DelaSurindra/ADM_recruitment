@@ -862,6 +862,11 @@ if ($('#formEditPersonalInformation').length) {
 }
 
 if ($("#formEditEducationInformation").length) {
+	if ($('.listStudy').length < 2) {
+		$('.btnAddListEducation.large').show()
+	}else{
+		$('.btnAddListEducation.large').hide()
+	}
 	function readFileInput(input) {
 		console.log(input)
 		console.log(input.files)
@@ -892,7 +897,30 @@ if ($("#formEditEducationInformation").length) {
 		format: 'YYYY',
 	});
 
-	$('.btnAddListEducation').click(function(e){
+	$("#gpa").mask('0.00')
+
+	if ($('.removeThisEducation').length) {
+		$('.removeThisEducationVal').click(function(){
+			// alert('test');
+			$('#removeThisEducation'+this.value).parent().parent().remove()
+			$("#listEducationCandidate").append(
+				'<input type="hidden" name="idEducation[]" id="idEducation" value="'+this.value+'">'+
+				'<input type="hidden" name="tipeInput[]" id="tipeInput" value="delete">'
+			)
+			if ($('.listStudy').length < 2) {
+				$('.btnAddListEducation.large').show()
+			}
+		})
+	}
+
+	if ($('.secondBtnEducation').length) {
+		$('.secondBtnEducation').click(function(){
+			$(this).remove()
+			$('.btnAddListEducation.large').click();
+		})
+	}
+
+	$('#btnAddListEducation').click(function(e){
 		e.preventDefault()
 		$('.btnAddListEducation.large').hide()
 		$('.firstBtnListEducation').removeClass('margin-right-2rem')
@@ -913,6 +941,7 @@ if ($("#formEditEducationInformation").length) {
 			}
 
 			var option = '<div class="listStudy">'+
+						'<input type="hidden" name="tipeInput[]" id="tipeInput" value="add">'+
 						'<hr>'+
 						'<div class="row">'+
 							'<div class="col-lg-6 col-md-12">'+
@@ -933,7 +962,7 @@ if ($("#formEditEducationInformation").length) {
 									'<label for="">Degree<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<select name="degree" id="degree" class="select2 form-control">'+
+											'<select name="degree" id="degree" class="select2-custom form-control">'+
 												'<option value="">Choose your degree</option>'+
 												'<option value="1">Diploma Degree</option>'+
 												'<option value="2">Bachelor Degree</option>'+
@@ -1013,6 +1042,7 @@ if ($("#formEditEducationInformation").length) {
 											'<span class="btn btn-file pl-1 mb-2">'+
 												'Upload File <input type="file" name="certificate[]" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg">'+
 											'</span>'+
+											'<input type="hidden" name="oldCertificate[]" value="">'+
 										'</div>'+
 									'</div>'+
 								'</div>'+
@@ -1057,14 +1087,12 @@ if ($("#formEditEducationInformation").length) {
 			if ($('.select2-custom').length) {
 				$('.select2-custom').select2({
 					tags: true,
-
-				  });
+				});
 			}
+			
 			if ($('.removeThisEducation').length) {
 				$('.removeThisEducation').click(function(){
-					console.log('click')
 					$(this).parent().parent().remove()
-	
 					if ($('.listStudy').length < 2) {
 						$('.btnAddListEducation.large').show()
 					}
@@ -1810,7 +1838,7 @@ if ($("#formAddCandidate").length) {
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
-	
+	$("#gpa").mask('0.00')
 	$('.uploadCertificate').change(function(e){
 		e.preventDefault();
 		readFileInput(this);

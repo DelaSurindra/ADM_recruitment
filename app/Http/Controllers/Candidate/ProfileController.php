@@ -657,134 +657,65 @@ class ProfileController extends Controller
     public function postEditEducationInformation(){
         $encrypt = new EncryptController;
     	$data = $encrypt->fnDecrypt(Request::input('data'),true);
-        // dd($data, Request::file('certificate'));
+        // dd($data, Request::all());
 
-        if (Request::has('certificate')) {
-            $temp = [];
-            $image = Request::file('certificate');
-            foreach ($image as $key => $value) {
-                $ext = $value->getClientOriginalExtension();
-                $path_certificate = $value->storeAs('certificate', 'certificate_'.$key.time().'.'.$ext, 'public');
+        if(!is_array($data['tipeInput'])){
+            if (isset(Request::file('certificate')[0])) {
+                $image = Request::file('certificate')[0];
+                $ext = $image->getClientOriginalExtension();
+                $certificate = $image->storeAs('certificate', 'certificate_'.time().'.'.$ext, 'public');
+            }else{
+                $certificate = $data['oldCertificate'];
+            }
 
-                $temp[$key] = $path_certificate;
-            }
-            // dd($temp);
-            if (is_array($data['idEducation']) && count($data['idEducation']) > 1) {
-                for ($i=0; $i < count($data['idEducation']); $i++) { 
-                    if (!empty($data['idEducation'][$i])) {
-                        $sql = Education::where('id', $data['idEducation'][$i])->first();
-                        $sql->universitas = $data['university'][$i];
-                        $sql->gelar = $data['degree'][$i];
-                        $sql->fakultas = $data['faculty'][$i];
-                        $sql->jurusan = $data['major'][$i];
-                        $sql->start_year = $data['startDateEducation'][$i];
-                        $sql->end_year = $data['endDateEducation'][$i];
-                        $sql->gpa = $data['gpa'][$i];
-                        $sql->kandidat_id = $data['idCandidate'];
-                        if (isset($temp[$i])) {
-                            $sql->ijazah = $temp[$i];
-                        }
-                        $sql->save();
+            $sql = Education::where('id', $data['idEducation'])->update([
+                'universitas' => $data['university'],
+                'gelar' => $data['degree'],
+                'fakultas' => $data['faculty'],
+                'jurusan' => $data['major'],
+                'start_year' => $data['startDateEducation'],
+                'end_year' => $data['endDateEducation'],
+                'gpa' => $data['gpa'],
+                'ijazah' => $certificate
+            ]);
+        }else{
+            for ($i=0; $i < count($data['tipeInput']); $i++) { 
+                if ($data['tipeInput'][$i] == "delete") {
+                    $sql = Education::where('id', $data['idEducation'][$i])->delete();
+                }else{
+                    if (isset(Request::file('certificate')[$i])) {
+                        $image = Request::file('certificate')[$i];
+                        $ext = $image->getClientOriginalExtension();
+                        $certificate = $image->storeAs('certificate', 'certificate_'.time().'.'.$ext, 'public');
                     } else {
-                        $sql = new Education;
-                        $sql->universitas = $data['university'][$i];
-                        $sql->gelar = $data['degree'][$i];
-                        $sql->fakultas = $data['faculty'][$i];
-                        $sql->jurusan = $data['major'][$i];
-                        $sql->start_year = $data['startDateEducation'][$i];
-                        $sql->end_year = $data['endDateEducation'][$i];
-                        $sql->gpa = $data['gpa'][$i];
-                        $sql->kandidat_id = $data['idCandidate'];
-                        if (isset($temp[$i])) {
-                            $sql->ijazah = $temp[$i];
-                        }
-                        $sql->save();
+                        $certificate = is_array($data['oldCertificate']) ? $data['oldCertificate'][$i] : $data['oldCertificate'];
                     }
-                }
-            } else {
-                for ($i=0; $i < count($temp); $i++) {
-                    if (!empty($data['idEducation'])) {
-                        $sql = Education::where('id', $data['idEducation'])->first();
-                        $sql->universitas = $data['university'];
-                        $sql->gelar = $data['degree'];
-                        $sql->fakultas = $data['faculty'];
-                        $sql->jurusan = $data['major'];
-                        $sql->start_year = $data['startDateEducation'];
-                        $sql->end_year = $data['endDateEducation'];
-                        $sql->gpa = $data['gpa'];
-                        $sql->kandidat_id = $data['idCandidate'];
-                        if (isset($temp[$i])) {
-                            $sql->ijazah = $temp[$i];
-                        }
-                        $sql->save();
-                    } else {
-                        $sql = new Education;
-                        $sql->universitas = $data['university'];
-                        $sql->gelar = $data['degree'];
-                        $sql->fakultas = $data['faculty'];
-                        $sql->jurusan = $data['major'];
-                        $sql->start_year = $data['startDateEducation'];
-                        $sql->end_year = $data['endDateEducation'];
-                        $sql->gpa = $data['gpa'];
-                        $sql->kandidat_id = $data['idCandidate'];
-                        if (isset($temp[$i])) {
-                            $sql->ijazah = $temp[$i];
-                        }
-                        $sql->save();
-                    }
-                }
-            }
-        } else {
-            if (is_array($data['idEducation']) && count($data['idEducation']) > 1) {
-                for ($i=0; $i < count($data['idEducation']); $i++) { 
-                    if (!empty($data['idEducation'][$i])) {
+
+                    if ($data['tipeInput'][$i] == "update") {
                         $sql = Education::where('id', $data['idEducation'][$i])->update([
-                            'universitas' => $data['university'][$i],
-                            'gelar' => $data['degree'][$i],
-                            'fakultas' => $data['faculty'][$i],
-                            'jurusan' => $data['major'][$i],
-                            'start_year' => $data['startDateEducation'][$i],
-                            'end_year' => $data['endDateEducation'][$i],
-                            'gpa' => $data['gpa'][$i],
-                            'kandidat_id' => $data['idCandidate'],
+                            'universitas' => is_array($data['university']) ? $data['university'][$i] : $data['university'],
+                            'gelar' => is_array($data['degree']) ? $data['degree'][$i] : $data['degree'],
+                            'fakultas' => is_array($data['faculty']) ? $data['faculty'][$i] : $data['faculty'],
+                            'jurusan' => is_array($data['major']) ? $data['major'][$i] : $data['major'],
+                            'start_year' => is_array($data['startDateEducation']) ? $data['startDateEducation'][$i] : $data['startDateEducation'],
+                            'end_year' => is_array($data['startDateEducation']) ? $data['endDateEducation'][$i] : $data['startDateEducation'],
+                            'gpa' => is_array($data['gpa']) ? $data['gpa'][$i] : $data['gpa'],
+                            'ijazah' => $certificate,
                         ]);
                     } else {
                         $sql = Education::insert([
-                            'universitas' => $data['university'][$i],
-                            'gelar' => $data['degree'][$i],
-                            'fakultas' => $data['faculty'][$i],
-                            'jurusan' => $data['major'][$i],
-                            'start_year' => $data['startDateEducation'][$i],
-                            'end_year' => $data['endDateEducation'][$i],
-                            'gpa' => $data['gpa'][$i],
-                            'kandidat_id' => $data['idCandidate'],
+                            'universitas' => is_array($data['university']) ? $data['university'][$i] : $data['university'],
+                            'gelar' => is_array($data['degree']) ? $data['degree'][$i] : $data['degree'],
+                            'fakultas' => is_array($data['faculty']) ? $data['faculty'][$i] : $data['faculty'],
+                            'jurusan' => is_array($data['major']) ? $data['major'][$i] : $data['major'],
+                            'start_year' => is_array($data['startDateEducation']) ? $data['startDateEducation'][$i] : $data['startDateEducation'],
+                            'end_year' => is_array($data['startDateEducation']) ? $data['endDateEducation'][$i] : $data['startDateEducation'],
+                            'gpa' => is_array($data['gpa']) ? $data['gpa'][$i] : $data['gpa'],
+                            'ijazah' => $certificate,
+                            'kandidat_id' => $data['idCandidate']
                         ]);
                     }
-                }
-            } else {
-                if (!empty($data['idEducation'])) {
-                    $sql = Education::where('id', $data['idEducation'])->update([
-                        'universitas' => $data['university'],
-                        'gelar' => $data['degree'],
-                        'fakultas' => $data['faculty'],
-                        'jurusan' => $data['major'],
-                        'start_year' => $data['startDateEducation'],
-                        'end_year' => $data['endDateEducation'],
-                        'gpa' => $data['gpa'],
-                        'kandidat_id' => $data['idCandidate'],
-                    ]);
-                } else {
-                    $sql = Education::insert([
-                        'universitas' => $data['university'],
-                        'gelar' => $data['degree'],
-                        'fakultas' => $data['faculty'],
-                        'jurusan' => $data['major'],
-                        'start_year' => $data['startDateEducation'],
-                        'end_year' => $data['endDateEducation'],
-                        'gpa' => $data['gpa'],
-                        'kandidat_id' => $data['idCandidate'],
-                    ]);
-                }
+                } 
             }
         }
         
