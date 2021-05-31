@@ -160,17 +160,13 @@
         <div class="container">
             <div class="card">
                 <center>
-                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_written_test_result.png" class="img-title">
+                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_doc_sign.png" class="img-title">
                 </center>
-                <p class="title-email">{{$data['text']}} Result Announcement</p>
-                <p class="subtitle-email">Your written result is here!</p>
+                <p class="title-email">Document Sign Invitation</p>
+                <p class="subtitle-email">You’re invited to PT Astra Daihatsu Motor Document Sign</p>
                 <div class="card-content">
                     <p class="title-content-email">Hello, {{$data['nama']}}</p>
-                    @if($data['tipe'] == 1)
-                    <div class="card-result">
-                        <p class="text-result">Congratulation! You’ve passed {{$data['text']}} Successfully</p>
-                    </div>
-                    <p class="content-email">For next step we will invite you to join {{$data['interview']}}. You will meet our User and the interview will last about 20-40 minutes. We would like to conduct your interview on :</p>
+                    <p class="content-email">Regarding to your hiring process for <span class="footer-email">{{$data['vacancy']}}</span> position in PT Astra Daihatsu Motor, we would like to invite you for Document Signing on :</p>
                     <table style="width:100%;">
                         <tr style="height:40px;">
                             <td class="content-email">Day/Date</td>
@@ -193,20 +189,10 @@
                             <td class="value-table">{{$data['pic']}}</td>
                         </tr>
                     </table>
-                    @if($data['mcu'] == "Y")
-                    <p class="content-email"><span class="footer-email">Note :</span> Please do fasting for about 12 hours (can drink mineral water) before check up, print & bring hardcopy of the reference letter for MCU, Residential Identity Car (KTP) original & copy, and 2 pcs ID Photo (size 3x4)</p>
-                    <p class="content-email">Within this email, we attached your MCU Reference letter (password : adm).</p>
-                    @endif
                     <p class="content-email">Please confirm your attendance at the latest <span class="footer-email">{{$data['tanggal']}}</span> If you need a reschedule, kindly check our available schedule on ‘reschedule’ menu.</p>
                     <a href="https://adm.vasdev.co.id"><button class="btn-red">Go to Website</button></a>
                     <hr>
                     <p class="content-email">Looking forward to hearing back from you soon!</p>
-                    @else
-                    <div class="card-result">
-                        <p class="text-result">Sorry! Your written test result hasn’t passed <br> our standart requirement</p>
-                    </div>
-                    <p class="content-email">Through this email we would like to inform that your written test result hasn’t passed our standart requirement. Therefor, you can’t continue to next selection step. We appreciate you taking the time to join our selection process and wish all the best for your future endeavors.</p>
-                    @endif
                 </div>
                 <center>
                     <p class="footer-email"><span class="span-footer">Regards,</span><br>Recruitment Team<br>PT Astra Daihatsu Motor</p>

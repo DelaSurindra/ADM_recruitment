@@ -537,6 +537,16 @@ class TestController extends Controller
                 "id_kandidat"       => $exp[0],
                 "id_participant"    => $addParticipan
             ]);
+            $kandidat = Candidate::select('kandidat.first_name', 'kandidat.last_name', 'users.email')->join('users', 'kandidat.user_id', 'users.id')->where('kandidat.id', $exp[0])->get()->toArray();
+            $dataEmail = [
+                'email'         => $kandidat[0]['email'],
+                'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
+                'otp'           => $rand,
+                'subject'       => 'Written Test OTP',
+                'view'          => 'email.email-written-test-otp'
+            ];
+
+            $response = JobSendEmail::dispatch($dataEmail);
         }else if ($data["countChoose"] > 1) {
             $getId = [];
             for ($i=0; $i < $data["countChoose"]; $i++) {
@@ -555,6 +565,16 @@ class TestController extends Controller
                     "id_kandidat"       => $exp[0],
                     "id_participant"    => $addParticipan
                 ]);
+                $kandidat = Candidate::select('kandidat.first_name', 'kandidat.last_name', 'users.email')->join('users', 'kandidat.user_id', 'users.id')->where('kandidat.id', $exp[0])->get()->toArray();
+                $dataEmail = [
+                    'email'         => $kandidat[0]['email'],
+                    'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
+                    'otp'           => $rand,
+                    'subject'       => 'Written Test OTP',
+                    'view'          => 'email.email-written-test-otp'
+                ];
+
+                $response = JobSendEmail::dispatch($dataEmail);
             }
         }else{
             $messages = [

@@ -247,5 +247,5 @@ Route::get('/company-profile', 'Candidate\CompanyProfileController@viewCompanyPr
 Route::post('/get-color', 'Candidate\HomeController@getColor')->name('get.color');
 
 Route::get('/test-email', function(){
-	return view('email.email-written-test-result');
+	return view('email.email-written-test-otp');
 });

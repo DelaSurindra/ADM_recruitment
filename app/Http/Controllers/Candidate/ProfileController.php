@@ -1191,6 +1191,15 @@ class ProfileController extends Controller
                         "reshedule_test_id" => $data['idReschedule']
                     ]);
                     if ($reschedule) {
+                        $dataEmail = [
+                            'email'         => session('session_candidate.user_email'),
+                            'nama'          => session('session_candidate.first_name').' '.session('session_candidate.last_name'),
+                            'subject'       => 'Reschedule Confirmation',
+                            'view'          => 'email.email-reschedule-confirm'
+                        ];
+                
+                        $response = JobSendEmail::dispatch($dataEmail);
+
                         $id = base64_encode(urlencode($data["idJob"]));
                         $messages = [
                             'status' => 'success',

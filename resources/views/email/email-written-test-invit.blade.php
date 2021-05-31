@@ -57,7 +57,8 @@
                 box-sizing: border-box;
                 border-radius: 8px;
                 padding:32px;
-                margin:40px 0px;
+                margin: 40px 26%;
+                width: 50%;
             }
 
             .title-content-email{

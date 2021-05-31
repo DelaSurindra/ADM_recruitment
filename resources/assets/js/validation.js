@@ -1,5 +1,37 @@
 const formrules = {
 	// contoh validasi id form
+	'formSignUpCandidate':{
+		ignore: null,
+		rules:{
+			'firstNameCandidate':{
+				required:true,
+				STD_VAL_WEB_3: true,
+			},
+			'lastNameCandidate':{
+				required:true,
+				STD_VAL_WEB_3: true,
+			},
+			'emailCandidate':{
+				required:true,
+				STD_VAL_WEB_5:true
+			},
+			'passwordCandidate':{
+				required:true,
+				STD_VAL_WEB_2:true
+			}
+		},
+		submitHandler:false,
+	},
+
+	'formLoginCandidate':{
+		ignore: null,
+		rules:{
+			'email':'required',
+			'password':'required',
+		},
+		submitHandler:false,
+	},
+
 	'formLoginAdmin':{
 		ignore: null,
 		rules:{
@@ -285,7 +317,8 @@ const formrules = {
                 required:true
             },
             'newPassword':{
-                required:true
+                required:true,
+				STD_VAL_WEB_2:true
             },
             'newPasswordConfirm':{
                 required:true,
@@ -318,7 +351,8 @@ const formrules = {
         ignore: null,
 		rules:{
             'password':{
-                required:true
+                required:true,
+				STD_VAL_WEB_2:true
             },
             'passwordRe':{
                 required:true,

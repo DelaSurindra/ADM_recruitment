@@ -92,6 +92,70 @@
             .span-footer{
                 font-weight:normal !important;
             }
+
+            .card-result{
+                background: #E8F7EE;
+                border-radius: 8px;
+                height: 76px;
+                padding-top:3px;
+                margin-bottom:20px;
+            }
+
+            .text-result{
+                font-style: normal;
+                font-weight: normal;
+                font-size: 18px;
+                line-height: 22px;
+                align-items: center;
+                text-align: center;
+                letter-spacing: -0.02em;
+                color: #050401;
+            }
+
+            .text-otp{
+                font-weight:600;
+            }
+
+            .value-table{
+                font-style: normal;
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 150%;
+                text-align: right;
+                color: #504F4D;
+            }
+            .btn-red{
+                background: #DF0E2C;
+                color: #FFFFFF;
+                box-sizing: border-box;
+                border-radius: 8px;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 14px;
+                line-height: 17px;
+                padding: 12px;
+                width:100%;
+                border:none;
+                cursor: pointer;
+                height: 54px;
+                margin-bottom:10px;
+            }
+
+            .btn-green{
+                background: #E8F7EE;
+                color: #DF0E2C;
+                box-sizing: border-box;
+                border:1px solid #DF0E2C;
+                border-radius: 8px;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 14px;
+                line-height: 17px;
+                padding: 12px;
+                width:100%;
+                cursor: pointer;
+                height: 54px;
+            }
         </style>
     </head>
     <body style="font-family: 'inter_bold', sans-serif;line-height: 1.6; background:#E8F7EE;">
@@ -101,18 +165,17 @@
         <div class="container">
             <div class="card">
                 <center>
-                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_written_test_attendence.png" class="img-title">
+                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_test_otp.png" class="img-title">
                 </center>
-                <p class="title-email">Written Test Attendance Confirmed</p>
-                <p class="subtitle-email">You’re confirmed to PT Astra Daihatsu Motor Written test</p>
+                <p class="title-email">Written Test OTP</p>
+                <p class="subtitle-email">You’re requested OTP to PT Astra Daihatsu Motor Written Test</p>
                 <div class="card-content">
                     <p class="title-content-email">Hello, {{$data['nama']}}</p>
-                    <p class="content-email">We have received your application and thank you for your interest to be part of our family. We might take a couple of days to check your fit, since every application matters to us. And we will get back to you as soon as we can. </p>
-                    <p class="content-email">We’ve received your confirmation. Here are few things you need to prepare for the written test : <br> 1.  Device (Smartphone android/apple) with minimum screen 6” inch & full charged battery. <br> 2. Be sure you’ve already download PT Astra Daihatsu Motor Online Test Apps from link below. <br> 3. Ensure good & stable internet connection for 3 hours online test. <br> 4. Kindly come along 30 minutes before the test start</p>
-                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_appstore.png" class="img-store">
-                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_playstrore.png" class="img-store">
+                    <div class="card-result">
+                        <p class="text-result">Here is your response code <span class="text-otp">{{$data['otp']}}</span> to join <br> written test.</p>
+                    </div>
                     <hr>
-                    <p class="content-email">Thank you and wish you best of luck!</p>
+                    <p class="content-email">Wish you luck !!!</p>
                 </div>
                 <center>
                     <p class="footer-email"><span class="span-footer">Regards,</span><br>Recruitment Team<br>PT Astra Daihatsu Motor</p>
