@@ -14,6 +14,7 @@ use App\Model\SetTest;
 use App\Model\Job_Application as JobApplication;
 use App\Model\Status_History_Application as HistoryApplication;
 use App\Model\MasterFacet;
+use App\Jobs\JobSendEmail;
 
 class ScoringController extends Controller
 {
