@@ -167,7 +167,7 @@ class LoginController extends Controller
                         ->join("job_application","job_application.kandidat_id","kandidat.id")
                         ->join("users","users.id","=","kandidat.user_id")
                         ->where("users.email",$email)
-                        ->select("users.password","users.id as user_id","test_event.*","test_event.status as te_status","test_otp.*","test_participant.id as tp_id","test_participant.status as tp_status","job_application.created_at as application_date","job_application.vacancy_id")
+                        ->select("users.password","users.id as user_id","test_event.*","test_event.status_test as te_status","test_otp.*","test_participant.id as tp_id","test_participant.status as tp_status","job_application.created_at as application_date","job_application.vacancy_id")
                         ->orderBy("application_date","desc")
                         ->get();
         // dd($userData);
