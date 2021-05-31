@@ -150,7 +150,7 @@
                 <div class="card-content">
                     <p class="title-content-email">Hello, {{$data['nama']}}</p>
                     <p class="content-email">Congratulation! We found your profile match our needs for the role. You’ve passed our administration selection and we would like to invite you to join our written test on :</p>
-                    <table style="width:40%;">
+                    <table style="width:100%;">
                         <tr style="height:40px;">
                             <td class="content-email">Day/Date</td>
                             <td class="value-table">{{$data['tanggal']}}</td>

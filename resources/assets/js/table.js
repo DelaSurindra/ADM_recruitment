@@ -605,6 +605,8 @@ var table = {
 							data = "<span class='test-status-attend'>End Test</span>"
 						}else if (full.status_participant == "6") {
 							data = "<span class='test-status-absen'>Block</span>"
+						}else if(full.status_participant == "1"){
+							data = "<span class='test-status-attend'>Confirmed</span>"
 						}else{
 							data = "<span class='test-status-notset'>Not Set</span>"
 						}

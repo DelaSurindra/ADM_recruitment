@@ -139,7 +139,7 @@
                     </button>
                 </div>
                 <p class="mb-3" id="textItem"></p>
-                <form action="{{route('post.bulk.update.candidate')}}" class="form stacked form-hr" ajax=true id="updateStatusCandidate">
+                <form action="{{route('post.bulk.update.job')}}" class="form stacked form-hr" ajax=true id="updateStatusCandidate">
                     <div id="inputID"></div>
                     <div class="row">
                         <div class="col-md-12">
@@ -147,19 +147,10 @@
                                 <label>Application Status</label>
                                 <select class="select2 tex-center select2-width" id="aplicationStatus" name="aplicationStatus">
                                     <option value="">-- Pilih Status --</option>
-                                    <option value="0">Application Resume</option>
                                     <option value="1">Proses to Written Test</option>
-                                    <option value="2">Scheduled to Written Test</option>
-                                    <option value="3">Written Test Pass</option>
-                                    <option value="4">Written Test failed</option>
-                                    <option value="5">Process to HR interview</option>
-                                    <option value="6">Process to User Interview 1</option>
-                                    <option value="7">Process to User Interview 2</option>
-                                    <option value="8">Process to User Interview 3</option>
-                                    <option value="9">Process to MCU</option>
-                                    <option value="10">Process to Doc Sign</option>
                                     <option value="11">Failed</option>
                                     <option value="12">Hired</option>
+                                    <option value="99">Talent Stock</option>
                                 </select>
                             </div>
                         </div>
