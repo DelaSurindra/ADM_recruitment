@@ -99,6 +99,18 @@ class ScoringController extends Controller
     	// Update status test participant
     	$participant->status = 5;
     	$participant->save();
+
+        $participantDetail = self::getParticipantDetail($participantId);
+        $participantName = $participantDetail->first_name." ".$participantDetail->last_name;
+        $participantEmail = $participantDetail->email;
+
+        // Send finish Email
+        self::sendEmail('finish_test',$participantName, $participantEmail);
+
+        // Send failed email
+        if(!$isPassed["status"]){
+            self::sendEmail('failed_test',$participantName, $participantEmail);
+        }
         
         // Delete id participant from inventory results
         foreach ($inventoryScores as $key => $value) {
@@ -113,6 +125,37 @@ class ScoringController extends Controller
                 "is_passed" => $isPassed["status"]
             ]]);
 
+    }
+
+    private function getParticipantDetail($participantId){
+        $participantDetail = TestParticipant::where('test_participant.id',$participantId)
+                        ->join('kandidat', 'kandidat.id','test_participant.kandidat_id')
+                        ->join('users','users.id', 'kandidat.user_id')
+                        ->select('kandidat.first_name','kandidat.last_name','users.email')
+                        ->first();
+        
+        return $participantDetail;
+    }
+
+    private function sendEmail($type, $name, $email){
+        if($type == 'finish_test'){
+            $dataEmail = [
+                'email'  => $email,
+                'nama'  => $name,
+                'subject' => 'Written Test Finished Confirmation',
+                'view'  => 'email.email-written-test-finish'
+             ];   
+        }else{
+            $dataEmail = [
+                 'email'  => $email,
+                 'nama'  => $name,
+                 'tipe' => 2,
+                 'subject' => 'Written Test Result Announcement',
+                 'view' => 'email.email-written-test-result'
+            ];  
+        }
+
+        $response = JobSendEmail::dispatch($dataEmail);
     }
 
      /**
