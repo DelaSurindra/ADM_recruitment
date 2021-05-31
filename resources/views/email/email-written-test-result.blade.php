@@ -170,7 +170,11 @@
                     <div class="card-result">
                         <p class="text-result">Congratulation! You’ve passed {{$data['text']}} Successfully</p>
                     </div>
+                    @if($data['mcu'] == "N")
                     <p class="content-email">For next step we will invite you to join {{$data['interview']}}. You will meet our User and the interview will last about 20-40 minutes. We would like to conduct your interview on :</p>
+                    @else
+                    <p class="content-email">the next step is <span>{{$data['interview']}}</span>. We would like to conduct your medical check up on :</p>
+                    @endif
                     <table style="width:100%;">
                         <tr style="height:40px;">
                             <td class="content-email">Day/Date</td>
