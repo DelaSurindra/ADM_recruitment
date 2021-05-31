@@ -588,7 +588,12 @@ var table = {
 					"targets": 6,
 					"data": "set_test",
 					"render": function(data, type, full, meta){
-						var data = "<span class='test-status-attend'>"+full.set_test+"</span>";
+						var data = "";
+						if (full.set_test == null) {
+							data = "<span class='test-status-notset'>Not Set</span>"
+						}else{
+							data = "<span class='test-status-attend'>"+full.set_test+"</span>"
+						}
 						return data;
 					}
 				},
@@ -605,6 +610,8 @@ var table = {
 							data = "<span class='test-status-attend'>End Test</span>"
 						}else if (full.status_participant == "6") {
 							data = "<span class='test-status-absen'>Block</span>"
+						}else if(full.status_participant == "1"){
+							data = "<span class='test-status-attend'>Confirmed</span>"
 						}else{
 							data = "<span class='test-status-notset'>Not Set</span>"
 						}
