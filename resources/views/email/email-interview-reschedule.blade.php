@@ -143,34 +143,13 @@
         <div class="container">
             <div class="card">
                 <center>
-                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_written_test_invit.png" class="img-title">
+                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_reschedule.png" class="img-title">
                 </center>
-                <p class="title-email">Written Test Invitation</p>
-                <p class="subtitle-email">You’re invited to PT Astra Daihatsu Motor Written test</p>
+                <p class="title-email">Interview Reschedule Confirmation</p>
                 <div class="card-content">
                     <p class="title-content-email">Hello, {{$data['nama']}}</p>
-                    <p class="content-email">Congratulation! We found your profile match our needs for the role. You’ve passed our administration selection and we would like to invite you to join our written test on :</p>
-                    <table style="width:40%;">
-                        <tr style="height:40px;">
-                            <td class="content-email">Day/Date</td>
-                            <td class="value-table">{{$data['tanggal']}}</td>
-                        </tr>
-                        <tr style="height:40px;">
-                            <td class="content-email">Time</td>
-                            <td class="value-table">{{$data['waktu']}}</td>
-                        </tr>
-                        <tr style="height:40px;">
-                            <td class="content-email">Location</td>
-                            <td class="value-table">{{$data['lokasi']}}</td>
-                        </tr>
-                        <tr style="height:40px;">
-                            <td class="content-email">Item Need to Prepare</td>
-                            <td class="value-table">KTP And Test Device</td>
-                        </tr>
-                    </table>
-                    <p class="content-email">Please kindly complete your data profile and confirm your attendance at the latest <span class="footer-email">{{$data['tanggal']}}</span> <br> If you need a reschedule, kindly check our available schedule on ‘reschedule’ menu.</p>
-                    <a href="https://adm.vasdev.co.id"><button class="btn-red">Confirmation Test</button></a>
-                    <!-- <a href="https://adm.vasdev.co.id"><button class="btn-green">Reschedule Test</button></a> -->
+                    <p class="content-email">Regarding to your request for written interview reschedule, we would like to confirm that we're able to conduct the interview on <span class="footer-email">{{$data['tanggal']}} {{$data['waktu']}}</span></p>
+                    
                     <hr>
                     <p class="content-email">Thank you and see you soon !</p>
                 </div>

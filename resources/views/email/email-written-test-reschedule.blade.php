@@ -143,13 +143,12 @@
         <div class="container">
             <div class="card">
                 <center>
-                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_written_test_invit.png" class="img-title">
+                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_reschedule.png" class="img-title">
                 </center>
-                <p class="title-email">Written Test Invitation</p>
-                <p class="subtitle-email">You’re invited to PT Astra Daihatsu Motor Written test</p>
+                <p class="title-email">Written Test Reschedule Confirmation</p>
                 <div class="card-content">
                     <p class="title-content-email">Hello, {{$data['nama']}}</p>
-                    <p class="content-email">Congratulation! We found your profile match our needs for the role. You’ve passed our administration selection and we would like to invite you to join our written test on :</p>
+                    <p class="content-email">Your Written Test has scheduled for :</p>
                     <table style="width:40%;">
                         <tr style="height:40px;">
                             <td class="content-email">Day/Date</td>

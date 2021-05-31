@@ -537,18 +537,8 @@ class TestController extends Controller
                 "id_kandidat"       => $exp[0],
                 "id_participant"    => $addParticipan
             ]);
-            $kandidat = Candidate::select('kandidat.first_name', 'kandidat.last_name', 'users.email')->join('users', 'kandidat.user_id', 'users.id')->where('kandidat.id', $exp[0])->get()->toArray();
-            $dataEmail = [
-                'email'         => $kandidat[0]['email'],
-                'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
-                'otp'           => $rand,
-                'subject'       => 'Written Test OTP',
-                'view'          => 'email.email-written-test-otp'
-            ];
-
-            $response = JobSendEmail::dispatch($dataEmail);
+            
         }else if ($data["countChoose"] > 1) {
-            $getId = [];
             for ($i=0; $i < $data["countChoose"]; $i++) {
                 $rand = rand(pow(10, 6-1), pow(10, 6)-1);
                 $exp = explode("_", $data['idCandidate'][$i]);
@@ -565,16 +555,6 @@ class TestController extends Controller
                     "id_kandidat"       => $exp[0],
                     "id_participant"    => $addParticipan
                 ]);
-                $kandidat = Candidate::select('kandidat.first_name', 'kandidat.last_name', 'users.email')->join('users', 'kandidat.user_id', 'users.id')->where('kandidat.id', $exp[0])->get()->toArray();
-                $dataEmail = [
-                    'email'         => $kandidat[0]['email'],
-                    'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
-                    'otp'           => $rand,
-                    'subject'       => 'Written Test OTP',
-                    'view'          => 'email.email-written-test-otp'
-                ];
-
-                $response = JobSendEmail::dispatch($dataEmail);
             }
         }else{
             $messages = [
@@ -685,6 +665,37 @@ class TestController extends Controller
             $editSetTest = TestParticipant::where("id", $data["absenPart"])->update(["status" => $data["absenParticipant"]]);
         }
         if ($editSetTest) {
+            if ($data['absenParticipant'] == "3") {
+                if (is_array($data["absenPart"])) {
+                    for ($i=0; $i < count($data["absenPart"]); $i++) { 
+                        $otp = TestOtp::where("id_participant", $data["absenPart"][$i])->get()->toArray();
+
+                        $kandidat = Candidate::select('kandidat.first_name', 'kandidat.last_name', 'users.email')->join('users', 'kandidat.user_id', 'users.id')->where('kandidat.id', $otp[0]['id_kandidat'])->get()->toArray();
+                        $dataEmail = [
+                            'email'         => $kandidat[0]['email'],
+                            'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
+                            'otp'           => $otp[0]['otp'],
+                            'subject'       => 'Written Test OTP',
+                            'view'          => 'email.email-written-test-otp'
+                        ];
+                        $response = JobSendEmail::dispatch($dataEmail);
+                    }
+                }else{
+                    $otp = TestOtp::where("id_participant", $data["absenPart"])->get()->toArray();
+                    $kandidat = Candidate::select('kandidat.first_name', 'kandidat.last_name', 'users.email')->join('users', 'kandidat.user_id', 'users.id')->where('kandidat.id', $otp[0]['id_kandidat'])->get()->toArray();
+                    $dataEmail = [
+                        'email'         => $kandidat[0]['email'],
+                        'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
+                        'otp'           => $otp[0]['otp'],
+                        'subject'       => 'Written Test OTP',
+                        'view'          => 'email.email-written-test-otp'
+                    ];
+
+                    $response = JobSendEmail::dispatch($dataEmail);
+                }
+                
+            }
+            
             $id = base64_encode(urlencode($data["idSetAbsen"]));
             $messages = [
                 'status' => 'success',
@@ -771,6 +782,7 @@ class TestController extends Controller
             ]);
             $messageSucc = "Confirm Reschedule Participant Success";
             $messageFail = "Confirm Reschedule Participant Failed";
+
         } else {
             $confirmReschedule = TestParticipant::where('id', $data['idParticipant'])->update([
                 'status' => 7
@@ -780,6 +792,23 @@ class TestController extends Controller
         }
         
         if ($confirmReschedule) {
+            if ($data['valueBtn'] == "confirm") {
+                $test = Test::where('id',$data['idTestRechedule'])->get()->toArray();
+                $date = date('D, d M Y', strtotime($test[0]['date_test']));
+                $kandidat = TestParticipant::select('kandidat.first_name', 'kandidat.last_name', 'users.email')->join('kandidat', 'test_participant.kandidat_id', 'kandidat.id')->join('users', 'kandidat.user_id', 'users.id')->where('test_participant.id', $data['idParticipant'])->get()->toArray();
+                $dataEmail = [
+                    'email'         => $kandidat[0]['email'],
+                    'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
+                    'tanggal'       => $date,
+                    'waktu'         => $test[0]['time'],
+                    'lokasi'        => $test[0]['location'],
+                    'subject'       => 'Written Test Reschedule Confirmation',
+                    'view'          => 'email.email-written-test-reschedule'
+                ];
+    
+                $response = JobSendEmail::dispatch($dataEmail);
+    
+            }
             $id = base64_encode(urlencode($data["idTestValue"]));
             $messages = [
                 'status' => 'success',

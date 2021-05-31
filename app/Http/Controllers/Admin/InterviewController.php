@@ -554,13 +554,27 @@ class InterviewController extends Controller
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
         // dd($data);
-        $declineInterview = InterviewEvent::where('id', $data['idAcc'])->update([
+        $accInterview = InterviewEvent::where('id', $data['idAcc'])->update([
             "interview_date" => date("Y-m-d", strtotime($data["dateAccInterview"])),
             "time"           => $data["timeAccInterview"],
             "status"         => 1,
         ]);
 
-        if ($declineInterview) {
+        if ($accInterview) {
+            $kandidat = InterviewEvent::select('kandidat.first_name', 'kandidat.last_name', 'users.email', 'vacancies.job_title')->join('job_application', 'interview_event.id_job_application', 'job_application.id')->join('kandidat', 'job_application.kandidat_id', 'kandidat.id')->join('users', 'kandidat.user_id', 'users.id')->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')->where('interview_event.id', $data['idAcc'])->get()->toArray();
+            $date = date('D, d M Y', strtotime($data["dateAccInterview"]));
+            
+            $dataEmail = [
+                'email'         => $kandidat[0]['email'],
+                'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
+                'tanggal'       => $date,
+                'waktu'         => $data["timeAccInterview"],
+                'subject'       => 'Interview Reschedule Confirmation',
+                'view'          => 'email.email-interview-reschedule'
+            ];
+
+            $response = JobSendEmail::dispatch($dataEmail);
+
             InterviewReschedule::where('id', $data['idReschedule'])->delete();
             $messages = [
                 'status' => 'success',
