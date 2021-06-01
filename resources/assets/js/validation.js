@@ -219,6 +219,76 @@ const formrules = {
 		}
     },
 
+	'formEditVacancy':{
+        ignore: null,
+		rules:{
+			'titleVacancy':{
+                required:true
+            },
+			'locationVacancy':{
+                required:true
+            },
+            'degreeVacancy':{
+                required:true
+            },
+            'typeVacancy':{
+                required:true
+            },
+			'workingTimeVacancy':{
+                required:true
+            },
+			'activatedDate':{
+				required:true
+			},
+			'majorVacancy':{
+				required:true
+			},
+			'descriptionVacancy':{
+				required:true
+			},
+		},
+		submitHandler:false,
+		messages: {
+			titleVacancy: {
+				required: 'Mohon isi Title',
+			},
+			locationVacancy: {
+				required:'Mohon Pilih Lokasi'
+            },
+            degreeVacancy: {
+				required:'Mohon pilih Degree'
+            },
+            typeVacancy: {
+				required:'Mohon pilih Tipe'
+            },
+			workingTimeVacancy: {
+				required:'Mohon isi Working Time'
+            },
+			activatedDate: {
+				required:'Mohon isi Active Date'
+            },
+			majorVacancy: {
+				required:'Mohon pilih Major'
+            },
+			descriptionVacancy: {
+				required:'Mohon isi Description'
+            },
+        },
+        errorPlacement: function (error, element) {
+			if (element.is("#locationVacancy")) {
+				error.appendTo(element.parents('#locationVacancyDiv'));
+			}else if(element.is("#degreeVacancy")) {
+				error.appendTo(element.parents('#degreeVacancyDiv'));
+			}else if(element.is("#typeVacancy")) {
+				error.appendTo(element.parents('#typeVacancyDiv'));
+			}else if(element.is("#majorVacancy")) {
+				error.appendTo(element.parents('#majorVacancyDiv'));
+			}else { // This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+    },
+
 	'formFirstLogin':{
         ignore: null,
 		rules:{
@@ -309,6 +379,50 @@ const formrules = {
 			}
 		}
     },
+
+	'formEditEducationInformation':{
+		ignore: null,
+		rules:{
+			'university':{
+				required:true,
+				STD_VAL_WEB_25: true,
+			},
+			'degree':{
+				required:true,
+			},
+			'faculty':{
+				required:true,
+				STD_VAL_WEB_25: true,
+			},
+			'major':{
+				required:true,
+			},
+			'startDateEducation':{
+				required:true,
+			},
+			'endDateEducation':{
+				required:true,
+			},
+			'gpa':{
+				required:true,
+				maxDec:4
+			}
+		},
+		submitHandler:false,
+        errorPlacement: function (error, element) {
+			if (element.is("#photoProfile")) {
+				error.appendTo(element.parent().parent().parent());
+			} else if (element.is("input[type=radio]") || element.is("input[type=checkbox]")) {
+				error.appendTo(element.parents('.form-group'));
+			} else if (element.hasClass("select2")) {
+				error.appendTo(element.parents('.form-group'));
+			} else if (element.is("#certificate")) {
+				error.appendTo(element.parents('.form-group'));
+			} else { // This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+	},
 
 	'formEditPassword':{
         ignore: null,

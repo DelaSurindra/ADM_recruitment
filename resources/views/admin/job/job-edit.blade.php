@@ -36,10 +36,21 @@
                                                     <option {{$data['status_job'] == '11' ? 'selected':''}} value="11">Failed</option>
                                                     <option {{$data['status_job'] == '12' ? 'selected':''}} value="12">Hired</option>
                                                     <option {{$data['status'] == '3' ? 'selected':''}} value="99">Talent Stock</option>
+                                                    <option {{$data['status_job'] == '0' ? 'selected':''}} disabled value="0">Application Resume</option>
+                                                    <option {{$data['status_job'] == '2' ? 'selected':''}} disabled value="2">Scheduled to Written Test</option>
+                                                    <option {{$data['status_job'] == '3' ? 'selected':''}} disabled value="3">Written Test Pass</option>
+                                                    <option {{$data['status_job'] == '4' ? 'selected':''}} disabled value="4">Written Test failed</option>
+                                                    <option {{$data['status_job'] == '5' ? 'selected':''}} disabled value="5">Process to HR interview</option>
+                                                    <option {{$data['status_job'] == '6' ? 'selected':''}} disabled value="6">Process to User Interview 1</option>
+                                                    <option {{$data['status_job'] == '7' ? 'selected':''}} disabled value="7">Process to User Interview 2</option>
+                                                    <option {{$data['status_job'] == '8' ? 'selected':''}} disabled value="8">Process to User Interview 3</option>
+                                                    <option {{$data['status_job'] == '9' ? 'selected':''}} disabled value="9">Process to MCU</option>
+                                                    <option {{$data['status_job'] == '10' ? 'selected':''}} disabled value="10">Process to Doc Sign</option>
+
                                                 </select>
                                             </div>
                                             <div class="col-xl-6 col-md-6 col-sm-12">
-                                                <button type="submit" class="btn btn-red btn-edit-status">Edit Status Job</button>
+                                                <button type="submit" class="btn btn-red btn-edit-status" id="btnEditJob">Edit Status Job</button>
                                             </div>
                                         </div>
                                     </div>

@@ -160,13 +160,17 @@ class JobController extends Controller
             $state = false;
             if (count($education) > 1) {
                 foreach ($education as $pendidikan) {
-                    if ($pendidikan['gelar'] >= $job['degree'] && in_array($pendidikan['jurusan'], $expJob)) {
-                        $state = true;
+                    if ($pendidikan['gelar'] >= $job['degree']) {
+                        if (in_array('all', $expJob) || in_array($pendidikan['jurusan'], $expJob)) {
+                            $state = true;
+                        }
                     }
                 }
             } else {
-                if ($education[0]['gelar'] >= $job['degree'] && in_array($education[0]['jurusan'], $expJob)) {
-                    $state = true;
+                if ($education[0]['gelar'] >= $job['degree']) {
+                    if (in_array('all', $expJob) || in_array($education[0]['jurusan'], $expJob)) {
+                        $state = true;
+                    }
                 }
             }
             if ($state) {

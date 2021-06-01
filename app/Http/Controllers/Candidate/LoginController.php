@@ -9,6 +9,7 @@ use App\Model\User;
 use App\Model\Candidate;
 use App\Model\Education;
 use App\Model\Token;
+use App\Jobs\JobSendEmail;
 use File;
 
 use Illuminate\View\View;
@@ -147,7 +148,7 @@ class LoginController extends Controller
     {
         $encrypt = new EncryptController;
     	$data = $encrypt->fnDecrypt(Request::input('data'),true);
-        $searchEmail = User::where('email', $data['email'])->get()->toArray();
+        $searchEmail = User::select('kandidat.first_name', 'kandidat.last_name', 'users.id', 'users.email')->join('kandidat', 'users.id', 'kandidat.user_id')->where('email', $data['email'])->get()->toArray();
         if ($searchEmail) {
             date_default_timezone_set("Asia/Jakarta");
             $tgl = date_create();
@@ -160,8 +161,22 @@ class LoginController extends Controller
                 'status' => 0,
                 'user_id' => $searchEmail[0]['id']
             ]);
-            $username = encrypt('dsad' . ',' . date('Y-m-d') . ',' . $token); 
-            dd($username,$insertCandidate);
+            $username = encrypt($searchEmail[0]['id'] . ',' . date('Y-m-d') . ',' . $token); 
+            $dataEmail = [
+                'username'      => $username,
+                'email'         => $searchEmail[0]['email'],
+                'nama'          => $searchEmail[0]['first_name'].' '.$searchEmail[0]['last_name'],
+                'subject'       => 'Renew Password',
+                'view'          => 'email.email-renew-password-candidate'
+            ];
+
+            $response = JobSendEmail::dispatch($dataEmail);
+            return [
+                'status'   => 'success',
+                'message'  => 'Reset password success, please check your email',
+                'url'      => '/',
+                'callback' => 'modal'
+            ];
         } else {
             return [
                 'status'  => 'warning',

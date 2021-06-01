@@ -144,7 +144,7 @@ class ProfileController extends Controller
                 'user_id' => $user['user_id'],
                 'user_email' => $user['email'],
                 'user_type' => $user['type'],
-                'user_status' => $user['status'],
+                'user_status' => $user['user_status'],
                 'id' => $user['id'],
                 'first_name' => $user['first_name'],
                 'last_name' => $user['last_name'],
@@ -158,6 +158,7 @@ class ProfileController extends Controller
                 'protofolio' => $user['protofolio'],
                 'skill' => $user['skill'],
                 'foto_profil' => $user['foto_profil'],
+                'status_kandidat' => $user['status'],
                 'pendidikan' => $education
             ];
 
@@ -358,7 +359,7 @@ class ProfileController extends Controller
                 'user_id' => $user['user_id'],
                 'user_email' => $user['email'],
                 'user_type' => $user['type'],
-                'user_status' => $user['status'],
+                'user_status' => $user['user_status'],
                 'id' => $user['id'],
                 'first_name' => $user['first_name'],
                 'last_name' => $user['last_name'],
@@ -372,6 +373,7 @@ class ProfileController extends Controller
                 'protofolio' => $user['protofolio'],
                 'skill' => $user['skill'],
                 'foto_profil' => $user['foto_profil'],
+                'status_kandidat' => $user['status'],
                 'pendidikan' => $education
             ];
 
@@ -528,7 +530,7 @@ class ProfileController extends Controller
                 'user_id' => $user['user_id'],
                 'user_email' => $user['email'],
                 'user_type' => $user['type'],
-                'user_status' => $user['status'],
+                'user_status' => $user['user_status'],
                 'id' => $user['id'],
                 'first_name' => $user['first_name'],
                 'last_name' => $user['last_name'],
@@ -542,6 +544,7 @@ class ProfileController extends Controller
                 'protofolio' => $user['protofolio'],
                 'skill' => $user['skill'],
                 'foto_profil' => $user['foto_profil'],
+                'status_kandidat' => $user['status'],
                 'pendidikan' => $education
             ];
 
@@ -731,7 +734,7 @@ class ProfileController extends Controller
                 'user_id' => $user['user_id'],
                 'user_email' => $user['email'],
                 'user_type' => $user['type'],
-                'user_status' => $user['status'],
+                'user_status' => $user['user_status'],
                 'id' => $user['id'],
                 'first_name' => $user['first_name'],
                 'last_name' => $user['last_name'],
@@ -745,6 +748,7 @@ class ProfileController extends Controller
                 'protofolio' => $user['protofolio'],
                 'skill' => $user['skill'],
                 'foto_profil' => $user['foto_profil'],
+                'status_kandidat' => $user['status'],
                 'pendidikan' => $education
             ];
 

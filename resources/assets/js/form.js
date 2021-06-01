@@ -247,12 +247,22 @@ function formatRupiah(angka) {
 }
 
 if ($("#formAddEventNews").length) {
+	var today = new Date();
 	$('#tglMulaiNewsEvent').datetimepicker({
 		format: 'DD-MM-YYYY',
 	});
 
+	$("#tglMulaiNewsEvent").on("dp.change", function (e) {
+		$('#tglSelesaiNewsEvent').data("DateTimePicker").minDate(e.date);
+	});
+
+	$("#tglSelesaiNewsEvent").on("dp.change", function (e) {
+		$('#tglMulaiNewsEvent').data("DateTimePicker").maxDate(e.date);
+	});
+
 	$('#tglSelesaiNewsEvent').datetimepicker({
 		format: 'DD-MM-YYYY',
+		minDate: today
 	});
 
 	$('#descriptionNewsEvent').summernote({
@@ -333,12 +343,22 @@ if ($("#formAddEventNews").length) {
 }
 
 if ($("#formEditEventNews").length) {
+	var today = new Date();
 	$('#tglMulaiNewsEvent').datetimepicker({
 		format: 'DD-MM-YYYY',
 	});
 
+	$("#tglMulaiNewsEvent").on("dp.change", function (e) {
+		$('#tglSelesaiNewsEvent').data("DateTimePicker").minDate(e.date);
+	});
+
+	$("#tglSelesaiNewsEvent").on("dp.change", function (e) {
+		$('#tglMulaiNewsEvent').data("DateTimePicker").maxDate(e.date);
+	});
+
 	$('#tglSelesaiNewsEvent').datetimepicker({
 		format: 'DD-MM-YYYY',
+		minDate: today
 	});
 
 	$('#descriptionNewsEvent').summernote({
@@ -651,7 +671,7 @@ if ($("#formFirstLogin").length) {
 									'<label for="">School/University<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<select name="university" class="select2-custom form-control">'+
+											'<select name="university" class="select2-custom form-control" required>'+
 											'<option selected disabled>Choose or input your university</option>'+
 												dataUniv+
 											'</select>'+
@@ -664,7 +684,7 @@ if ($("#formFirstLogin").length) {
 									'<label for="">Degree<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<select name="degree" id="degree" class="select2 form-control">'+
+											'<select name="degree" id="degree" class="select2 form-control required">'+
 												'<option value="">Choose your degree</option>'+
 												'<option value="1">Diploma Degree</option>'+
 												'<option value="2">Bachelor Degree</option>'+
@@ -681,7 +701,7 @@ if ($("#formFirstLogin").length) {
 									'<label for="">Faculty<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<input type="text" name="faculty" id="faculty" class="form-control" placeholder="Faculty">'+
+											'<input type="text" name="faculty" id="faculty" class="form-control" placeholder="Faculty" required>'+
 										'</div>'+
 									'</div>'+
 								'</div>'+
@@ -691,7 +711,7 @@ if ($("#formFirstLogin").length) {
 									'<label for="">Major<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<select name="major" id="major" class="select2-custom form-control">'+
+											'<select name="major" id="major" class="select2-custom form-control" required>'+
 												'<option selected disabled>Choose or input your major</option>'+
 												dataMajor+
 											'</select>'+
@@ -706,7 +726,7 @@ if ($("#formFirstLogin").length) {
 									'<label for="">Start Date<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12 with-icon">'+
-											'<input type="text" class="form-control" placeholder="Choose date" id="startDateEducation" name="startDateEducation">'+
+											'<input type="text" class="form-control" placeholder="Choose date" id="startDateEducation" name="startDateEducation" required>'+
 											'<img src="/image/icon/homepage/icon-calender-input.svg" class="this-icon" alt="icon">'+
 										'</div>'+
 									'</div>'+
@@ -717,7 +737,7 @@ if ($("#formFirstLogin").length) {
 									'<label for="">End Date<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12 with-icon">'+
-											'<input type="text" class="form-control" placeholder="Choose date" id="endDateEducation" name="endDateEducation">'+
+											'<input type="text" class="form-control" placeholder="Choose date" id="endDateEducation" name="endDateEducation" required>'+
 											'<img src="/image/icon/homepage/icon-calender-input.svg" class="this-icon" alt="icon">'+
 										'</div>'+
 									'</div>'+
@@ -730,7 +750,7 @@ if ($("#formFirstLogin").length) {
 									'<label for="">GPA<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<input type="text" class="form-control" placeholder="0 - 4" id="gpa" name="gpa">'+
+											'<input type="text" class="form-control" placeholder="0 - 4" id="gpa" name="gpa" required>'+
 										'</div>'+
 									'</div>'+
 								'</div>'+
@@ -742,7 +762,7 @@ if ($("#formFirstLogin").length) {
 										'<div class="col-lg-11 col-md-12">'+
 											'<input type="text" class="form-control file-input-label" placeholder="Format jpg/png maximum 2MB file" disabled>'+
 											'<span class="btn btn-file pl-1 mb-2">'+
-												'Upload File <input type="file" name="certificate[]" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg">'+
+												'Upload File <input type="file" name="certificate[]" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg" required>'+
 											'</span>'+
 										'</div>'+
 									'</div>'+
@@ -949,7 +969,7 @@ if ($("#formEditEducationInformation").length) {
 									'<label for="">School/University<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<select name="university" class="select2-custom form-control">'+
+											'<select name="university" class="select2-custom form-control" required>'+
 											'<option selected disabled>Choose or input your university</option>'+
 												dataUniv+
 											'</select>'+
@@ -962,7 +982,7 @@ if ($("#formEditEducationInformation").length) {
 									'<label for="">Degree<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<select name="degree" id="degree" class="select2-custom form-control">'+
+											'<select name="degree" id="degree" class="select2-custom form-control" required>'+
 												'<option value="">Choose your degree</option>'+
 												'<option value="1">Diploma Degree</option>'+
 												'<option value="2">Bachelor Degree</option>'+
@@ -979,7 +999,7 @@ if ($("#formEditEducationInformation").length) {
 									'<label for="">Faculty<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<input type="text" name="faculty" id="faculty" class="form-control" placeholder="Faculty">'+
+											'<input type="text" name="faculty" id="faculty" class="form-control" placeholder="Faculty" required>'+
 										'</div>'+
 									'</div>'+
 								'</div>'+
@@ -989,7 +1009,7 @@ if ($("#formEditEducationInformation").length) {
 									'<label for="">Major<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<select name="major" id="major" class="select2-custom form-control">'+
+											'<select name="major" id="major" class="select2-custom form-control" required>'+
 												'<option selected disabled>Choose or input your major</option>'+
 												dataMajor+
 											'</select>'+
@@ -1004,7 +1024,7 @@ if ($("#formEditEducationInformation").length) {
 									'<label for="">Start Date<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12 with-icon">'+
-											'<input type="text" class="form-control" placeholder="Choose date" id="startDateEducation" name="startDateEducation">'+
+											'<input type="text" class="form-control" placeholder="Choose date" id="startDateEducation" name="startDateEducation" required>'+
 											'<img src="/image/icon/homepage/icon-calender-input.svg" class="this-icon" alt="icon">'+
 										'</div>'+
 									'</div>'+
@@ -1015,7 +1035,7 @@ if ($("#formEditEducationInformation").length) {
 									'<label for="">End Date<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12 with-icon">'+
-											'<input type="text" class="form-control" placeholder="Choose date" id="endDateEducation" name="endDateEducation">'+
+											'<input type="text" class="form-control" placeholder="Choose date" id="endDateEducation" name="endDateEducation" required>'+
 											'<img src="/image/icon/homepage/icon-calender-input.svg" class="this-icon" alt="icon">'+
 										'</div>'+
 									'</div>'+
@@ -1028,7 +1048,7 @@ if ($("#formEditEducationInformation").length) {
 									'<label for="">GPA<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<input type="text" class="form-control" placeholder="0 - 4" id="gpa" name="gpa">'+
+											'<input type="text" class="form-control" placeholder="0 - 4" id="gpa" name="gpa" required>'+
 										'</div>'+
 									'</div>'+
 								'</div>'+
@@ -1040,7 +1060,7 @@ if ($("#formEditEducationInformation").length) {
 										'<div class="col-lg-11 col-md-12">'+
 											'<input type="text" class="form-control file-input-label" placeholder="Format jpg/png maximum 2MB file" disabled>'+
 											'<span class="btn btn-file pl-1 mb-2">'+
-												'Upload File <input type="file" name="certificate[]" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg">'+
+												'Upload File <input type="file" name="certificate[]" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg" required>'+
 											'</span>'+
 											'<input type="hidden" name="oldCertificate[]" value="">'+
 										'</div>'+
@@ -1844,6 +1864,21 @@ if ($("#formAddCandidate").length) {
 		readFileInput(this);
 	});
 
+	$('#coverLetter').change(function(e){
+		e.preventDefault();
+		readFileInput(this);
+	});
+
+	$('#resume').change(function(e){
+		e.preventDefault();
+		readFileInput(this);
+	});
+
+	$('#portofolio').change(function(e){
+		e.preventDefault();
+		readFileInput(this);
+	});
+
 	$('#birthDate').datetimepicker({
 		format: 'DD-MM-YYYY',
 	});
@@ -2191,5 +2226,23 @@ if ($(".btn-banner").length) {
 		$("#idDeleteBanner").val(id);
 		$("#imageDelete").attr('src', baseImage+image);
 		$("#modalDeleteBanner").modal('show')
+	})
+}
+
+if ($("#formEditJob").length) {
+	var status = $("#aplicationStatus").val();
+	if (status == "1" || status == "11" || status == "12" || status == "99") {
+		$("#btnEditJob").attr('disabled', false);
+	} else {
+		$("#btnEditJob").attr('disabled', true);
+	}
+
+	$("#aplicationStatus").change(function(){
+		var status = $("#aplicationStatus").val();
+		if (status == "1" || status == "11" || status == "12" || status == "99") {
+			$("#btnEditJob").attr('disabled', false);
+		} else {
+			$("#btnEditJob").attr('disabled', true);
+		}
 	})
 }

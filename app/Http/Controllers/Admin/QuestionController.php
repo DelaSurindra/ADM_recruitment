@@ -580,7 +580,7 @@ class QuestionController extends Controller
     public function editQuestion(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
-
+        
         // dd($data, Request::all());
 
         if ($data['testType'] == "2") {
@@ -880,14 +880,33 @@ class QuestionController extends Controller
         }
 
         if ($updateAnswer) {
-            $messages = [
-                'status' => 'success',
-                'message' => 'Berhasil mengubah data Question Bank',
-                'url' => 'close',
-                'value' => '',
-                'id'    => ''
-            ];
-            return redirect('/HR/question_bank/detail-question-bank/'.$data['id'])->with('notif', $messages);
+            $idQuestion = base64_decode(urldecode($data['id']));
+            $exp = explode("_", $idQuestion);
+            if($exp[2] == "2"){
+                $listQuestion = Question::where('master_subtest_id', $exp[0])->where('set', $exp[1])->with('answerInventory')->get()->toArray();
+            }else{
+                $listQuestion = Question::where('master_subtest_id', $exp[0])->where('set', $exp[1])->with('answerCognitive')->get()->toArray();   
+            }
+            if ($listQuestion) {
+                $messages = [
+                    'status' => 'success',
+                    'message' => 'Berhasil mengubah data Question Bank',
+                    'url' => 'close',
+                    'value' => '',
+                    'id'    => ''
+                ];
+                return redirect('/HR/question_bank/detail-question-bank/'.$data['id'])->with('notif', $messages);
+            } else {
+                $messages = [
+                    'status' => 'success',
+                    'message' => 'Berhasil mengubah data Question Bank',
+                    'url' => 'close',
+                    'value' => '',
+                    'id'    => ''
+                ];
+                return redirect('/HR/question_bank')->with('notif', $messages);
+            }
+            
         }else{
             $messages = [
                 'status' => 'error',

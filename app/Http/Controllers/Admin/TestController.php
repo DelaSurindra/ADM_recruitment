@@ -54,7 +54,7 @@ class TestController extends Controller
         );
         $test = new Test;
         if ($dataSend['search']){
-            $test = $test->where('title','like','%'.$dataSend['search'].'%');
+            $test = $test->where('event_id','like','%'.$dataSend['search'].'%');
         }
         $countTest = $test->count();
 

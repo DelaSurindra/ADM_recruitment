@@ -90,6 +90,7 @@ var table = {
 				{'data':'type'},
 				{'data':'degree'},
 				{'data':'major'},
+				{'data':'lokasi'},
 				{'data':'work_time'},
 				{'data':'active_date'},
 				{'data':'status'},
@@ -125,12 +126,12 @@ var table = {
 					}
 				},
 				{
-					"targets": 7,
+					"targets": 8,
 					"data": "status",
 					"render": function(data, type, full, meta){
 						var data = ''
 		            	if (full.status == 1) {
-		            	    data = '<strong>Publised</strong>';
+		            	    data = '<strong>Published</strong>';
 		            	}else{
 							data = "<p>Deaktif</p>"
 						}
@@ -138,7 +139,7 @@ var table = {
 					}
 				},
 				{
-					"targets": 8,
+					"targets": 9,
 					"data": "id",
 					"className": "action-poster-news",
 					"render": function(data, type, full, meta){

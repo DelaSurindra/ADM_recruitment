@@ -23,6 +23,7 @@
                             <th>Job Type</th>
                             <th>Degree</th>
                             <th>Major</th>
+                            <th>Location</th>
                             <th>Working TIme</th>
                             <th>Actived Date</th>
                             <th>Status</th>

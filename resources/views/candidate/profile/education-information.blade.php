@@ -14,8 +14,8 @@
                 @if(!empty(Session::get('session_candidate')))
                     @for ($i = 0; $i < count(Session::get('session_candidate')['pendidikan']); $i++)
                     <div class="listStudy">
-                        <input type="hidden" name="idEducation[]" id="idEducation" value="{{ Session::get('session_candidate')['pendidikan'][$i]['id'] }}">
-                        <input type="hidden" name="tipeInput[]" id="tipeInput" value="update">
+                        <input type="hidden" name="idEducation" id="idEducation" value="{{ Session::get('session_candidate')['pendidikan'][$i]['id'] }}">
+                        <input type="hidden" name="tipeInput" id="tipeInput" value="update">
                         @if($i > 0)
                         <hr>
                         @endif
@@ -25,7 +25,7 @@
                                     <label for="">School/University<span class="required-sign">*</span></label>
                                     <div class="row">
                                         <div class="col-lg-11 col-md-12">
-                                            <select name="university[]" id="university" class="select2-custom form-control">
+                                            <select name="university" id="university" class="select2-custom form-control">
                                                 <option selected disabled>Choose or input your university</option>
                                                 @foreach($univ as $options)
                                                     <option {{ Session::get('session_candidate')['pendidikan'][$i]['universitas'] == $options['universitas'] ? 'selected' : ''}} value="{{$options['universitas']}}">{{$options['universitas']}}</option>
@@ -40,7 +40,7 @@
                                     <label for="">Degree<span class="required-sign">*</span></label>
                                     <div class="row">
                                         <div class="col-lg-11 col-md-12">
-                                            <select name="degree[]" id="degree" class="select2-custom form-control">
+                                            <select name="degree" id="degree" class="select2-custom form-control">
                                                 <option value="">Choose your degree</option>
                                                 <option value="1" {{ Session::get('session_candidate')['pendidikan'][$i]['gelar'] == '1' ? 'selected' : '' }}>Diploma Degree</option>
                                                 <option value="2" {{ Session::get('session_candidate')['pendidikan'][$i]['gelar'] == '2' ? 'selected' : '' }}>Bachelor Degree</option>
@@ -57,7 +57,7 @@
                                     <label for="">Faculty<span class="required-sign">*</span></label>
                                     <div class="row">
                                         <div class="col-lg-11 col-md-12">
-                                            <input type="text" name="faculty[]" id="faculty" class="form-control" value="{{ Session::get('session_candidate')['pendidikan'][$i]['fakultas'] }}" placeholder="Faculty">
+                                            <input type="text" name="faculty" id="faculty" class="form-control" value="{{ Session::get('session_candidate')['pendidikan'][$i]['fakultas'] }}" placeholder="Faculty">
                                         </div>
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@
                                     <label for="">Major<span class="required-sign">*</span></label>
                                     <div class="row">
                                         <div class="col-lg-11 col-md-12">
-                                            <select name="major[]" id="major" class="select2-custom form-control">
+                                            <select name="major" id="major" class="select2-custom form-control">
                                                 @foreach($major as $options)
                                                     <option {{Session::get('session_candidate')['pendidikan'][$i]['jurusan'] == $options['major'] ? 'selected' : ''}} value="{{$options['major']}}">{{$options['major']}}</option>
                                                 @endforeach
@@ -83,7 +83,7 @@
                                     <label for="">Start Year<span class="required-sign">*</span></label>
                                     <div class="row">
                                         <div class="col-lg-11 col-md-12 with-icon">
-                                            <input type="text" class="form-control" placeholder="Choose date" value="{{ Session::get('session_candidate')['pendidikan'][$i]['start_year'] }}" id="startDateEducation" name="startDateEducation[]">
+                                            <input type="text" class="form-control" placeholder="Choose date" value="{{ Session::get('session_candidate')['pendidikan'][$i]['start_year'] }}" id="startDateEducation" name="startDateEducation">
                                             <img src="{{ asset('image/icon/homepage/icon-calender-input.svg') }}" class="this-icon" alt="icon">
                                         </div>
                                     </div>
@@ -94,7 +94,7 @@
                                     <label for="">End Year<span class="required-sign">*</span></label>
                                     <div class="row">
                                         <div class="col-lg-11 col-md-12 with-icon">
-                                            <input type="text" class="form-control" placeholder="Choose date" value="{{ Session::get('session_candidate')['pendidikan'][$i]['end_year'] }}" id="endDateEducation" name="endDateEducation[]">
+                                            <input type="text" class="form-control" placeholder="Choose date" value="{{ Session::get('session_candidate')['pendidikan'][$i]['end_year'] }}" id="endDateEducation" name="endDateEducation">
                                             <img src="{{ asset('image/icon/homepage/icon-calender-input.svg') }}" class="this-icon" alt="icon">
                                         </div>
                                     </div>
@@ -110,9 +110,9 @@
                                             <input type="text" class="form-control file-input-label" value="{{ Session::get('session_candidate')['pendidikan'][$i]['ijazah'] }}" placeholder="Format jpg/png maximum 2MB file" disabled>
                                             <p id="filenameCertificateStudy" class="m-1"></p>
                                             <span class="btn btn-file pl-1 mb-2">
-                                                Upload File <input type="file" name="certificate[]" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg" value="{{ Session::get('session_candidate')['pendidikan'][$i]['ijazah'] }}">
+                                                Upload File <input type="file" name="certificate" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg" value="{{ Session::get('session_candidate')['pendidikan'][$i]['ijazah'] }}">
                                             </span>
-                                            <input type="hidden" name="oldCertificate[]" value="{{Session::get('session_candidate')['pendidikan'][$i]['ijazah']}}">
+                                            <input type="hidden" name="oldCertificate" value="{{Session::get('session_candidate')['pendidikan'][$i]['ijazah']}}">
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@
                                     <label for="">GPA<span class="required-sign">*</span></label>
                                     <div class="row">
                                         <div class="col-lg-11 col-md-12">
-                                            <input type="text" class="form-control" placeholder="0 - 100" value="{{ round(Session::get('session_candidate')['pendidikan'][$i]['gpa'], 2) }}" id="gpa" name="gpa[]">
+                                            <input type="text" class="form-control" placeholder="0 - 100" value="{{ round(Session::get('session_candidate')['pendidikan'][$i]['gpa'], 2) }}" id="gpa" name="gpa">
                                         </div>
                                     </div>
                                 </div>

@@ -31,7 +31,7 @@
                                                             <label class="photoProfileLabel mb-0">Filename</label>
                                                         </div>
                                                         <span class="btn btn-file d-flex justify-content-end">
-                                                            Upload <input type="file" name="photoProfile" id="photoProfile">
+                                                            Upload <input type="file" name="photoProfile" id="photoProfile" accept=".jpg, .png, .jpeg">
                                                         </span>
                                                     </div>
                                                 </div>
@@ -306,7 +306,7 @@
                                     <div class="col-xl-6 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label>Cover Letter</label>
-                                            <input type="text" class="form-control file-input-label" placeholder="Format jpg/png maximum 2MB file" disabled>
+                                            <input type="text" name="coverLetterLink" id="coverLetterLink" class="form-control file-input-label" placeholder="Attach file Here" readonly>
                                             <span class="btn btn-file pl-1 mb-2">
                                                 Upload File <input type="file" name="coverLetter[]" id="coverLetter" class="uploadCertificate" accept=".jpg, .png, .jpeg">
                                             </span>
@@ -317,7 +317,7 @@
                                     <div class="col-xl-6 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label>Resume</label>
-                                            <input type="text" class="form-control file-input-label" placeholder="Format jpg/png maximum 2MB file" disabled>
+                                            <input type="text" name="resumeLink" id="resumeLink" class="form-control file-input-label" placeholder="Attach file Here" readonly>
                                             <span class="btn btn-file pl-1 mb-2">
                                                 Upload File <input type="file" name="resume[]" id="resume" class="uploadCertificate" accept=".jpg, .png, .jpeg">
                                             </span>
@@ -328,7 +328,7 @@
                                     <div class="col-xl-6 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label>Portofolio</label>
-                                            <input type="text" class="form-control file-input-label" placeholder="Format jpg/png maximum 2MB file" disabled>
+                                            <input type="text" name="portofolioLink" id="portofolioLink" class="form-control file-input-label" readonly placeholder="Attach file Here">
                                             <span class="btn btn-file pl-1 mb-2">
                                                 Upload File <input type="file" name="portofolio[]" id="portofolio" class="uploadCertificate" accept=".jpg, .png, .jpeg">
                                             </span>

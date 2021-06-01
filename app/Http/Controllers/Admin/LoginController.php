@@ -8,6 +8,7 @@ use App\Http\Controllers\RequestController;
 use App\Model\User;
 use App\Model\HumanResource;
 use App\Model\Token;
+use App\Jobs\JobSendEmail;
 use Hash;
 use DB;
 use Request;
@@ -92,7 +93,7 @@ class LoginController extends Controller
     public function forgetPassword(){
         $encrypt = new EncryptController;
     	$data = $encrypt->fnDecrypt(Request::input('data'),true);
-        $searchEmail = User::where('email', $data['email'])->get()->toArray();
+        $searchEmail = User::select('human_resource.first_name', 'human_resource.last_name', 'users.id', 'users.email')->join('human_resource', 'users.id', 'human_resource.user_id')->where('email', $data['email'])->get()->toArray();
         if ($searchEmail) {
             date_default_timezone_set("Asia/Jakarta");
             $tgl = date_create();
@@ -105,8 +106,25 @@ class LoginController extends Controller
                 'status' => 0,
                 'user_id' => $searchEmail[0]['id']
             ]);
-            $username = encrypt('dsad' . ',' . date('Y-m-d') . ',' . $token); 
-            dd($username,$insertCandidate);
+            $username = encrypt($searchEmail[0]['id'] . ',' . date('Y-m-d') . ',' . $token); 
+            $dataEmail = [
+                'username'      => $username,
+                'email'         => $searchEmail[0]['email'],
+                'nama'          => $searchEmail[0]['first_name'].' '.$searchEmail[0]['last_name'],
+                'subject'       => 'Renew Password',
+                'view'          => 'email.email-renew-password'
+            ];
+
+            $response = JobSendEmail::dispatch($dataEmail);
+
+            $messages = [
+                'status' => 'success',
+                'message' => 'Reset password success, please check your email',
+                'url' => '/HR/login',
+                'callback' => 'redirect'
+            ];
+
+            return response()->json($messages);
         } else {
             return [
                 'status'  => 'warning',
@@ -117,7 +135,6 @@ class LoginController extends Controller
 
     public function viewResetPassword($data){
         date_default_timezone_set("Asia/Jakarta");
-        $data = encrypt('dsad' . ',' . date('Y-m-d') . ',' . $data); 
         $dataEmail = decrypt($data);
         $explode = explode(',', $dataEmail);
         $date = $explode[1];
