@@ -408,6 +408,8 @@ class InterviewController extends Controller
                 $getInterview[0]['status_interview'] = "Rescheduled";
             }else if ($getInterview[0]['status'] == 5) {
                 $getInterview[0]['status_interview'] = "Decline  Reschedule";
+            }else {
+                $getInterview[0]['status_interview'] = "New";
             }
             $interviewType = InterviewType::get()->toArray();
             $getJob = Job_Application::select('job_application.id as job_application_id', 'job_application.kandidat_id', 'job_application.status', 'kandidat.foto_profil', 'kandidat.first_name', 'kandidat.last_name', 'kandidat.gender', 'kandidat.telp', 'kandidat.kota', 'vacancies.job_title')
