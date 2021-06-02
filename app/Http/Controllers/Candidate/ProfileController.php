@@ -135,7 +135,7 @@ class ProfileController extends Controller
         if ($candidate) {
             $id = session('session_candidate.user_id');
             Session::forget('session_candidate');
-            $user = User::select('kandidat.*', 'users.email', 'users.password', 'users.type', 'users.status')
+            $user = User::select('kandidat.*', 'users.email', 'users.password', 'users.type', 'users.status as user_status')
                 ->join('kandidat', 'users.id', 'kandidat.user_id')
                 ->where('users.id', $id)->first()->toArray();
             $education = Education::where('kandidat_id', $user['id'])->get()->toArray();
@@ -350,7 +350,7 @@ class ProfileController extends Controller
         if ($candidate) {
             $id = session('session_candidate.user_id');
             Session::forget('session_candidate');
-            $user = User::select('kandidat.*', 'users.email', 'users.password', 'users.type', 'users.status')
+            $user = User::select('kandidat.*', 'users.email', 'users.password', 'users.type', 'users.status as user_status')
                 ->join('kandidat', 'users.id', 'kandidat.user_id')
                 ->where('users.id', $id)->first()->toArray();
             $education = Education::where('kandidat_id', $user['id'])->get()->toArray();
@@ -521,7 +521,7 @@ class ProfileController extends Controller
         if ($candidate) {
             $id = session('session_candidate.user_id');
             Session::forget('session_candidate');
-            $user = User::select('kandidat.*', 'users.email', 'users.password', 'users.type', 'users.status')
+            $user = User::select('kandidat.*', 'users.email', 'users.password', 'users.type', 'users.status as user_status')
                 ->join('kandidat', 'users.id', 'kandidat.user_id')
                 ->where('users.id', $id)->first()->toArray();
             $education = Education::where('kandidat_id', $user['id'])->get()->toArray();
@@ -725,7 +725,7 @@ class ProfileController extends Controller
         if ($sql) {
             $id = session('session_candidate.user_id');
             Session::forget('session_candidate');
-            $user = User::select('kandidat.*', 'users.email', 'users.password', 'users.type', 'users.status')
+            $user = User::select('kandidat.*', 'users.email', 'users.password', 'users.type', 'users.status as user_status')
                 ->join('kandidat', 'users.id', 'kandidat.user_id')
                 ->where('users.id', $id)->first()->toArray();
             $education = Education::where('kandidat_id', $user['id'])->get()->toArray();
