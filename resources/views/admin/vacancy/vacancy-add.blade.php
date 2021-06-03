@@ -61,7 +61,7 @@
                             <div class="row">
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group" >
-                                        <label>Activated Date<span class="required-sign">*</span></label>
+                                        <label>Actived Date<span class="required-sign">*</span></label>
                                         <input id="activatedDate" name="activatedDate" class="form-control" type="text" placeholder="Activated Date">
                                     </div>
                                 </div>
