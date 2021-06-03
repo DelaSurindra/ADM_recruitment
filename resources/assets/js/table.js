@@ -376,7 +376,7 @@ var table = {
 						if (full.status == 0) {
 							data = "Application Resume";
 						}else if (full.status == 1) {
-							data = "Proses to Written Test";
+							data = "Process To Writen Test";
 						}else if (full.status == 2) {
 							data = "Scheduled to Written Test";
 						}else if (full.status == 3) {
@@ -683,7 +683,12 @@ var table = {
 					"targets": 5,
 					"data": "set_test",
 					"render": function(data, type, full, meta){
-						var data = "<span class='test-status-attend'>"+full.set_test+"</span>";
+						var data = "";
+						if (full.set_test == null) {
+							data = "<span class='test-status-notset'>Not Set</span>"
+						}else{
+							data = "<span class='test-status-attend'>"+full.set_test+"</span>"
+						}
 						return data;
 					}
 				},
@@ -1000,7 +1005,7 @@ var table = {
 						if (full.status == 0) {
 							data = "Application Resume";
 						}else if (full.status == 1) {
-							data = "Proses to Written Test";
+							data = "Process To Writen Test";
 						}else if (full.status == 2) {
 							data = "Scheduled to Written Test";
 						}else if (full.status == 3) {
@@ -1476,7 +1481,7 @@ var table = {
 						if (full.status == 0) {
 							data = "Application Resume";
 						}else if (full.status == 1) {
-							data = "Proses to Written Test";
+							data = "Process To Writen Test";
 						}else if (full.status == 2) {
 							data = "Scheduled to Written Test";
 						}else if (full.status == 3) {
@@ -2245,7 +2250,7 @@ $("#tableChooseInterview tbody").on('click', 'input', function(e) {
 		if (dataRow.status == 0) {
 			status = "Application Resume";
 		}else if (dataRow.status == 1) {
-			status = "Proses to Written Test";
+			status = "Process To Writen Test";
 		}else if (dataRow.status == 2) {
 			status = "Scheduled to Written Test";
 		}else if (dataRow.status == 3) {

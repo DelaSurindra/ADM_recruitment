@@ -191,7 +191,7 @@ class ProfileController extends Controller
                     $job_apply[$i]['status_text'] = "Application Resume";
                     $job_apply[$i]['button'] = "N";
                 }elseif ($job_apply[$i]['status'] == 1) {
-                    $job_apply[$i]['status_text'] = "Proses to Written Test";
+                    $job_apply[$i]['status_text'] = "Process To Writen Test";
                     $job_apply[$i]['button'] = "N";
                 }elseif ($job_apply[$i]['status'] == 2) {
                     $job_apply[$i]['status_text'] = "Check Online Test";
@@ -277,7 +277,7 @@ class ProfileController extends Controller
                     $job_apply[$i]['status_text'] = "Application Resume";
                     $job_apply[$i]['button'] = "N";
                 }elseif ($job_apply[$i]['status'] == 1) {
-                    $job_apply[$i]['status_text'] = "Proses to Written Test";
+                    $job_apply[$i]['status_text'] = "Process To Writen Test";
                     $job_apply[$i]['button'] = "N";
                 }elseif ($job_apply[$i]['status'] == 2) {
                     $job_apply[$i]['status_text'] = "Scheduled to Written Test";
@@ -406,7 +406,7 @@ class ProfileController extends Controller
                     $job_apply[$i]['status_text'] = "Application Resume";
                     $job_apply[$i]['button'] = "N";
                 }elseif ($job_apply[$i]['status'] == 1) {
-                    $job_apply[$i]['status_text'] = "Proses to Written Test";
+                    $job_apply[$i]['status_text'] = "Process To Writen Test";
                     $job_apply[$i]['button'] = "N";
                 }elseif ($job_apply[$i]['status'] == 2) {
                     $job_apply[$i]['status_text'] = "Check Online Test";
@@ -579,7 +579,7 @@ class ProfileController extends Controller
                     $job_apply[$i]['status_text'] = "Application Resume";
                     $job_apply[$i]['button'] = "N";
                 }elseif ($job_apply[$i]['status'] == 1) {
-                    $job_apply[$i]['status_text'] = "Proses to Written Test";
+                    $job_apply[$i]['status_text'] = "Process To Writen Test";
                     $job_apply[$i]['button'] = "N";
                 }elseif ($job_apply[$i]['status'] == 2) {
                     $job_apply[$i]['status_text'] = "Check Online Test";
@@ -782,7 +782,7 @@ class ProfileController extends Controller
                     $job_apply[$i]['status_text'] = "Application Resume";
                     $job_apply[$i]['button'] = "N";
                 }elseif ($job_apply[$i]['status'] == 1) {
-                    $job_apply[$i]['status_text'] = "Proses to Written Test";
+                    $job_apply[$i]['status_text'] = "Process To Writen Test";
                     $job_apply[$i]['button'] = "N";
                 }elseif ($job_apply[$i]['status'] == 2) {
                     $job_apply[$i]['status_text'] = "Check Online Test";
@@ -899,7 +899,7 @@ class ProfileController extends Controller
                     $job_apply[$i]['status_text'] = "Application Resume";
                     $job_apply[$i]['button'] = "N";
                 }elseif ($job_apply[$i]['status'] == 1) {
-                    $job_apply[$i]['status_text'] = "Proses to Written Test";
+                    $job_apply[$i]['status_text'] = "Process To Writen Test";
                     $job_apply[$i]['button'] = "N";
                 }elseif ($job_apply[$i]['status'] == 2) {
                     $job_apply[$i]['status_text'] = "Check Online Test";

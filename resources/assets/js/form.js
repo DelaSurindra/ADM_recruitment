@@ -2231,11 +2231,20 @@ if ($(".btn-banner").length) {
 
 if ($("#formEditJob").length) {
 	var status = $("#aplicationStatus").val();
-	if (status == "1" || status == "11" || status == "12" || status == "99") {
-		$("#btnEditJob").attr('disabled', false);
+
+	if (status == "11" || status == "12") {
+		$("#aplicationStatus").attr('disabled', true);
+		$("#btnEditJob").addClass("hidden")
 	} else {
-		$("#btnEditJob").attr('disabled', true);
+		$("#aplicationStatus").attr('disabled', false);
+		$("#btnEditJob").removeClass("hidden")
+		if (status == "1" || status == "99") {
+			$("#btnEditJob").attr('disabled', false);
+		} else {
+			$("#btnEditJob").attr('disabled', true);
+		}
 	}
+
 
 	$("#aplicationStatus").change(function(){
 		var status = $("#aplicationStatus").val();
