@@ -147,7 +147,7 @@
                                 <label>Application Status</label>
                                 <select class="select2 tex-center select2-width" id="aplicationStatus" name="aplicationStatus">
                                     <option value="">-- Pilih Status --</option>
-                                    <option value="1">Process To Writen Test</option>
+                                    <option value="1">Process To Written Test</option>
                                     <option value="11">Failed</option>
                                     <option value="12">Hired</option>
                                     <option value="99">Talent Stock</option>

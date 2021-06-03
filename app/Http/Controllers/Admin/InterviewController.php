@@ -421,7 +421,7 @@ class InterviewController extends Controller
                 if ($getJob[0]['status'] == 0) {
                     $getJob[0]['status_user'] = "Application Resume";
                 }else if ($getJob[0]['status'] == 1) {
-                    $getJob[0]['status_user'] = "Process To Writen Test";
+                    $getJob[0]['status_user'] = "Process To Written Test";
                 }else if ($getJob[0]['status'] == 2) {
                     $getJob[0]['status_user'] = "Scheduled to Written Test";
                 }else if ($getJob[0]['status'] == 3) {

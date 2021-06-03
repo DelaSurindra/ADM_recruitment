@@ -32,7 +32,7 @@
                                             <div class="col-xl-6 col-md-6 col-sm-12" id="aplicationStatusDiv">
                                                 <label>Application Status</label>
                                                 <select class="select2 tex-center select2-width" id="aplicationStatus" name="aplicationStatus">
-                                                    <option {{$data['status_job'] == '1' ? 'selected':''}} value="1">Process To Writen Test</option>
+                                                    <option {{$data['status_job'] == '1' ? 'selected':''}} value="1">Process To Written Test</option>
                                                     <option {{$data['status_job'] == '11' ? 'selected':''}} value="11">Failed</option>
                                                     <option {{$data['status_job'] == '12' ? 'selected':''}} value="12">Hired</option>
                                                     <option {{$data['status'] == '3' ? 'selected':''}} value="99">Talent Stock</option>
