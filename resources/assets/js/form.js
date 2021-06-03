@@ -637,6 +637,21 @@ if ($("#formFirstLogin").length) {
 		readFileInput(this);
 	});
 
+	$('#coverLetter').change(function(e){
+		e.preventDefault();
+		readFileInput(this);
+	});
+
+	$('#resume').change(function(e){
+		e.preventDefault();
+		readFileInput(this);
+	});
+
+	$('#portofolio').change(function(e){
+		e.preventDefault();
+		readFileInput(this);
+	});
+
 	$('input[name="birthDate"]').datetimepicker({
 		format: 'DD-MM-YYYY',
 	});
@@ -690,7 +705,7 @@ if ($("#formFirstLogin").length) {
 									'<label for="">Degree<span class="required-sign">*</span></label>'+
 									'<div class="row">'+
 										'<div class="col-lg-11 col-md-12">'+
-											'<select name="degree" id="degree" class="select2 form-control required">'+
+											'<select name="degree" id="degree" class="select2-custom form-control required">'+
 												'<option value="">Choose your degree</option>'+
 												'<option value="1">Diploma Degree</option>'+
 												'<option value="2">Bachelor Degree</option>'+
@@ -1941,7 +1956,7 @@ if ($("#formAddCandidate").length) {
 										'<label for="">Degree<span class="required-sign">*</span></label>'+
 										'<div class="row">'+
 											'<div class="col-lg-12 col-md-12">'+
-												'<select name="degree" id="degree" class="select2 form-control" required>'+
+												'<select name="degree" id="degree" class="select2-custom form-control" required>'+
 													'<option value="">Choose your degree</option>'+
 													'<option value="1">Diploma Degree</option>'+
 													'<option value="2">Bachelor Degree</option>'+

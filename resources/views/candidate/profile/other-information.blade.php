@@ -20,7 +20,7 @@
                                 <p id="filenameCertificateStudy" class="m-1"></p>
                                 <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis" alt="icon" id="deleteCoverLetter">
                                 <span class="btn btn-file pl-1 mb-2">
-                                    Upload File <input type="file" name="coverLetter" id="coverLetter">
+                                    Upload File <input type="file" name="coverLetter" id="coverLetter" accept=".jpg, .png, .jpeg, .pdf">
                                 </span>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                                 <p id="filenameCertificateStudy" class="m-1"></p>
                                 <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" id="deleteResume" class="this-icon click deleteThis" alt="icon">
                                 <span class="btn btn-file pl-1 mb-2">
-                                    Upload File <input type="file" name="resume" id="resume">
+                                    Upload File <input type="file" name="resume" id="resume" accept=".jpg, .png, .jpeg, .pdf">
                                 </span>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                                 <p id="filenameCertificateStudy" class="m-1"></p>
                                 <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" id="deletePortofolio" class="this-icon click deleteThis" alt="icon">
                                 <span class="btn btn-file pl-1 mb-2">
-                                    Upload File <input type="file" name="portofolio" id="portofolio">
+                                    Upload File <input type="file" name="portofolio" id="portofolio" accept=".jpg, .png, .jpeg, .pdf">
                                 </span>
                             </div>
                         </div>

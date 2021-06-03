@@ -351,7 +351,7 @@
                                 <input type="text" name="coverLetterLink" id="coverLetterLink" class="form-control" placeholder="Attach file Here" readonly>
                                 <p id="filenameCertificateStudy" class="m-1"></p>
                                 <span class="btn btn-file pl-1 mb-2">
-                                    Upload File <input type="file" name="coverLetter" id="coverLetter" accept=".jpg, .png, .jpeg">
+                                    Upload File <input type="file" name="coverLetter" id="coverLetter" accept=".jpg, .png, .jpeg, .pdf">
                                 </span>
                             </div>
                         </div>
@@ -367,7 +367,7 @@
                                 <input type="text" name="resumeLink" id="resumeLink" class="form-control" placeholder="Attach file Here" readonly>
                                 <p id="filenameCertificateStudy" class="m-1"></p>
                                 <span class="btn btn-file pl-1 mb-2">
-                                    Upload File <input type="file" name="resume" id="resume" accept=".jpg, .png, .jpeg">
+                                    Upload File <input type="file" name="resume" id="resume" accept=".jpg, .png, .jpeg, .pdf">
                                 </span>
                             </div>
                         </div>
@@ -383,7 +383,7 @@
                                 <input type="text" name="portofolioLink" id="portofolioLink" class="form-control" readonly placeholder="You can attach file or send a link direct to your file">
                                 <p id="filenameCertificateStudy" class="m-1"></p>
                                 <span class="btn btn-file pl-1 mb-2">
-                                    Upload File <input type="file" name="portofolio" id="portofolio" accept=".jpg, .png, .jpeg">
+                                    Upload File <input type="file" name="portofolio" id="portofolio" accept=".jpg, .png, .jpeg, .pdf">
                                 </span>
                             </div>
                         </div>
