@@ -286,7 +286,10 @@ if ($("#formAddEventNews").length) {
 		if (valueTipe == "1") {
 			$("#divDateNewsEvent").addClass('hidden');
 			$(".dateNewsEvent").attr('disabled', true);
-		} else {
+		}else if (valueTipe == "") {
+			$("#divDateNewsEvent").addClass('hidden');
+			$(".dateNewsEvent").attr('disabled', true);
+		}else {
 			$("#divDateNewsEvent").removeClass('hidden');
 			$(".dateNewsEvent").attr('disabled', false);
 		}
@@ -382,7 +385,10 @@ if ($("#formEditEventNews").length) {
 		if (valueTipe == "1") {
 			$("#divDateNewsEvent").addClass('hidden');
 			$(".dateNewsEvent").attr('disabled', true);
-		} else {
+		}else if (valueTipe == "") {
+			$("#divDateNewsEvent").addClass('hidden');
+			$(".dateNewsEvent").attr('disabled', true);
+		}else {
 			$("#divDateNewsEvent").removeClass('hidden');
 			$(".dateNewsEvent").attr('disabled', false);
 		}
