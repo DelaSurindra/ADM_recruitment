@@ -776,6 +776,7 @@ class ProfileController extends Controller
         $job_apply = Job_Application::select('job_application.*', 'vacancies.job_title', 'vacancies.type', 'vacancies.lokasi')
                                 ->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')
                                 ->where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
+        
         for ($i=0; $i < count($job_apply); $i++) { 
             if($job_apply[$i]['status'] >= 0 && $job_apply[$i]['status'] < 11 && $job_apply[$i]['status'] > 12){
                 if ($job_apply[$i]['status'] == 0) {
@@ -852,9 +853,9 @@ class ProfileController extends Controller
                 $job_apply[$i]['status_css'] = 'success';
                 $job_apply[$i]['button'] = "N";
             }
-        } 
+        }
 
-        return view('candidate.profile.education-information')->with(['topbar'=>'education_information', 'tab_profile'=>'profile-password', 'job_apply'=>$job_apply]);
+        return view('candidate.profile.profile-child')->with(['topbar'=>'profile', 'tab_profile'=>'profile-password', 'job_apply'=>$job_apply]);
     }
 
     public function postEditPassword(){
