@@ -55,9 +55,9 @@ var table = {
 					"render": function(data, type, full, meta){
 						var data = ''
 		            	if (full.status == 1) {
-		            	    data = '<span class="status status-success">Aktif</span>';
+		            	    data = '<span class="status status-success">Active</span>';
 		            	} else {
-		            	    data = '<span class="status status-delete">Deaktif</span>';
+		            	    data = '<span class="status status-delete">Deactive</span>';
 		            	}
 		               	return data;
 					}
