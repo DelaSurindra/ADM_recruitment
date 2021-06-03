@@ -133,7 +133,7 @@ var table = {
 		            	if (full.status == 1) {
 		            	    data = '<strong>Published</strong>';
 		            	}else{
-							data = "<p>Deaktif</p>"
+							data = "<p>Deactive</p>"
 						}
 		               	return data;
 					}
