@@ -380,7 +380,7 @@
                         <label for="">Portofolio</label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <input type="text" name="portofolioLink" id="portofolioLink" class="form-control" readonly placeholder="You can attach file or send a link direct to your file">
+                                <input type="text" name="portofolioLink" id="portofolioLink" class="form-control" readonly placeholder="you can attach jpg,png, and pdf">
                                 <p id="filenameCertificateStudy" class="m-1"></p>
                                 <span class="btn btn-file pl-1 mb-2">
                                     Upload File <input type="file" name="portofolio" id="portofolio" accept=".jpg, .png, .jpeg, .pdf">

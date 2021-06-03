@@ -16,7 +16,7 @@
                         <label for="">Cover Letter</label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12 with-icon">
-                                <input type="text" name="coverLetterLink" id="coverLetterLink" class="form-control file-input-label" placeholder="You can attach file or send a link direct to your file" readonly value="{{session('session_candidate.cover_letter')}}">
+                                <input type="text" name="coverLetterLink" id="coverLetterLink" class="form-control file-input-label" placeholder="you can attach jpg,png, and pdf" readonly value="{{session('session_candidate.cover_letter')}}">
                                 <p id="filenameCertificateStudy" class="m-1"></p>
                                 <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis" alt="icon" id="deleteCoverLetter">
                                 <span class="btn btn-file pl-1 mb-2">
@@ -33,7 +33,7 @@
                         <label for="">Resume</label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12 with-icon">
-                                <input type="text" name="resumeLink" id="resumeLink" class="form-control file-input-label" placeholder="You can attach file or send a link direct to your file" readonly value="{{session('session_candidate.resume')}}">
+                                <input type="text" name="resumeLink" id="resumeLink" class="form-control file-input-label" placeholder="you can attach jpg,png, and pdf" readonly value="{{session('session_candidate.resume')}}">
                                 <p id="filenameCertificateStudy" class="m-1"></p>
                                 <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" id="deleteResume" class="this-icon click deleteThis" alt="icon">
                                 <span class="btn btn-file pl-1 mb-2">
@@ -50,7 +50,7 @@
                         <label for="">Portofolio</label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12 with-icon">
-                                <input type="text" name="portofolioLink" id="portofolioLink" class="form-control file-input-label" readonly placeholder="You can attach file or send a link direct to your file" value="{{session('session_candidate.protofolio')}}">
+                                <input type="text" name="portofolioLink" id="portofolioLink" class="form-control file-input-label" readonly placeholder="you can attach jpg,png, and pdf" value="{{session('session_candidate.protofolio')}}">
                                 <p id="filenameCertificateStudy" class="m-1"></p>
                                 <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" id="deletePortofolio" class="this-icon click deleteThis" alt="icon">
                                 <span class="btn btn-file pl-1 mb-2">
