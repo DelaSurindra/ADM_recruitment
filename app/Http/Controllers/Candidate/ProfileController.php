@@ -980,13 +980,7 @@ class ProfileController extends Controller
         $idJob = base64_decode(urldecode($id));
         $job_apply = Job_Application::where('id', $idJob)->get()->toArray();
         if ($job_apply) {
-            $test = TestParticipant::select('test_event.*', 'test_participant.id as id_participant', 'test_participant.kandidat_id', 'test_participant.test_id', 'test_participant.status as status_participant')
-                                    ->where('kandidat_id', session('session_candidate.id'))
-                                    ->join('test_event', 'test_event.id', 'test_participant.test_id')
-                                    ->get()->toArray();
-            if ($test) {
-                // dd($test, $job_apply, $interview);
-                $interview = InterviewEvent::where('id_job_application', $job_apply[0]['id'])->orderBy('created_at', 'DESC')->limit(1)->get()->toArray();
+            $interview = InterviewEvent::where('id_job_application', $job_apply[0]['id'])->orderBy('created_at', 'DESC')->limit(1)->get()->toArray();
                 $vacancy = Vacancy::where('job_id', $job_apply[0]['vacancy_id'])->get()->toArray();
                 if ($vacancy) {
                     $history = Status_History_Application::where('job_application_id', $job_apply[0]['id'])->get()->toArray();
@@ -1071,6 +1065,11 @@ class ProfileController extends Controller
                     }else{
                         $last_update = '';
                     }
+
+                    $test = TestParticipant::select('test_event.*', 'test_participant.id as id_participant', 'test_participant.kandidat_id', 'test_participant.test_id', 'test_participant.status as status_participant')
+                                    ->where('kandidat_id', session('session_candidate.id'))
+                                    ->join('test_event', 'test_event.id', 'test_participant.test_id')
+                                    ->get()->toArray();
                     // dd($history);
                     return view('candidate.profile.my-app-detail')->with([
                         'topbar'=>'myapp_detail',
@@ -1096,16 +1095,12 @@ class ProfileController extends Controller
                             'status_mcu'             => $status_mcu
                         ],
                         'job' => $job_apply[0],
-                        'test' => $test[0],
+                        'test' => $test,
                         'interview' => $interview
                     ]);
                 } else {
                     abort(404);
                 }
-            } else {
-                abort(404);
-            }
-            
         } else {
             abort(404);
         }
