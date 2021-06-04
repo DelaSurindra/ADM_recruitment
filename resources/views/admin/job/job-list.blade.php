@@ -11,7 +11,7 @@
             </div>
             <div class="col-md-8">
                 <button type="button" class="btn btn-bulk-candidate right mr-3 hidden">Send Notification</button>
-                <button type="button" class="btn btn-bulk-candidate right mr-3 hidden" data-toggle="modal" data-target="#modalUpdateBulk">Bulk Update</button>
+                <button type="button" class="btn btn-bulk-candidate right mr-3 hidden" id="btnBulkUpdate">Bulk Update</button>
             </div>
         </div>
         <div class="row">
@@ -151,6 +151,16 @@
                                     <option value="11">Failed</option>
                                     <option value="12">Hired</option>
                                     <option value="99">Talent Stock</option>
+                                    <option disabled value="0">Application Resume</option>
+                                    <option disabled value="2">Scheduled to Written Test</option>
+                                    <option disabled value="3">Written Test Pass</option>
+                                    <option disabled value="4">Written Test failed</option>
+                                    <option disabled value="5">Process to HR interview</option>
+                                    <option disabled value="6">Process to User Interview 1</option>
+                                    <option disabled value="7">Process to User Interview 2</option>
+                                    <option disabled value="8">Process to User Interview 3</option>
+                                    <option disabled value="9">Process to MCU</option>
+                                    <option disabled value="10">Process to Doc Sign</option>
                                 </select>
                             </div>
                         </div>
@@ -165,7 +175,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-red w-100">Update</button>
+                            <button type="submit" class="btn btn-red w-100" id="btnUpdateStatusBulk">Update</button>
                         </div>
                     </div>
                 </form>

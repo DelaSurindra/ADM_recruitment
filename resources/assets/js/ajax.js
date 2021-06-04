@@ -110,9 +110,11 @@ var ajax = {
 										var item = '<option value="'+rawData[i].id+'">'+rawData[i].source+'</option>'
 										option.push(item);
 									}
-																	
-									console.log(rawData)
-									$('#modalNotifApplySuccess').modal('show')
+									// $('#modalNotifApplySuccess').modal('show')
+									$('#modalNotifApplySuccess').modal({
+										backdrop:'static',
+										show:true
+									});
 									if ($('#tellMe').length) {
 										$('#tellMe').append(option)
 									}

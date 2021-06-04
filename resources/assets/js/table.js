@@ -1440,7 +1440,7 @@ var table = {
 					"orderable": false,
 					"data": "job_application_id",
 					"render": function(data, type, full, meta){
-						var data = '<input type="checkbox">';
+						var data = '<input class="check box'+full.status+'" type="checkbox" id="job_'+full.job_application_id+'_'+full.kandidat_id+'">';
 						return data;
 					}
 				},
@@ -1448,13 +1448,14 @@ var table = {
 					"targets": 2,
 					"data": "name",
 					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.kandidat_id));
 						var image = '';
 						if (full.foto_profil == null || full.foto_profil == "") {
 							image = baseUrl+'image/icon/homepage/dummy-profile.svg';
 						}else{
 							image = baseImage+'/'+full.foto_profil;
 						}
-						var data = '<img class="img-candidate" src="'+image+'" />'+' '+full.name;
+						var data = '<img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name;
 						return data;
 					}
 				},
@@ -1533,7 +1534,7 @@ var table = {
 					"data": "kandidat_id",
 					"className": "action-poster-news",
 					"render": function(data, type, full, meta){
-						var id = encodeURIComponent(window.btoa(full.kandidat_id));
+						var id = encodeURIComponent(window.btoa(full.job_application_id));
 						// var konfirm = '';
 						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/job/edit-job/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Detail Job Application"> Detail&nbsp</a></button>';
 						// if (full.status == '1') {
@@ -2090,7 +2091,7 @@ $("#tableJob tbody").on('click', 'input', function(e) {
 		$("#input_"+dataRow.job_application_id+"_"+dataRow.kandidat_id).remove();
 	}
 	$("#textItem").html(jumlah+" item selected")
-	if (jumlah > 1) {
+	if (jumlah > 0) {
 		$(".btn-bulk-candidate").removeClass('hidden');
 	}else{
 		if (jumlah == 0) {
@@ -2098,6 +2099,19 @@ $("#tableJob tbody").on('click', 'input', function(e) {
 		}
 		$(".btn-bulk-candidate").addClass('hidden');
 	}
+
+	$("#btnBulkUpdate").click(function(){
+		// console.log(dataRow.status)
+		if (dataRow.status == "11" || dataRow.status == "12") {
+			$("#aplicationStatus").attr('disabled', true)
+			$("#btnUpdateStatusBulk").addClass('hidden')
+		}else{
+			$("#aplicationStatus").attr('disabled', false)
+			$("#btnUpdateStatusBulk").removeClass('hidden')
+		}
+		$("#aplicationStatus").val(dataRow.status).trigger('change')
+		$("#modalUpdateBulk").modal('show')
+	})
 	// alert(jumlah);
 	// console.log(this.className, this.id);
 })
