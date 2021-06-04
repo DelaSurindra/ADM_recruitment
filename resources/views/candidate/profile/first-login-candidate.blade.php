@@ -348,7 +348,7 @@
                         <label for="">Cover Letter</label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <input type="text" name="coverLetterLink" id="coverLetterLink" class="form-control" placeholder="Attach file Here" readonly>
+                                <input type="text" name="coverLetterLink" id="coverLetterLink" class="form-control file-input-label" placeholder="you can attach jpg,png, and pdf" readonly>
                                 <p id="filenameCertificateStudy" class="m-1"></p>
                                 <span class="btn btn-file pl-1 mb-2">
                                     Upload File <input type="file" name="coverLetter" id="coverLetter" accept=".jpg, .png, .jpeg, .pdf">
@@ -364,7 +364,7 @@
                         <label for="">Resume</label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <input type="text" name="resumeLink" id="resumeLink" class="form-control" placeholder="Attach file Here" readonly>
+                                <input type="text" name="resumeLink" id="resumeLink" class="form-control file-input-label" placeholder="you can attach jpg,png, and pdf" readonly>
                                 <p id="filenameCertificateStudy" class="m-1"></p>
                                 <span class="btn btn-file pl-1 mb-2">
                                     Upload File <input type="file" name="resume" id="resume" accept=".jpg, .png, .jpeg, .pdf">
@@ -380,7 +380,7 @@
                         <label for="">Portofolio</label>
                         <div class="row">
                             <div class="col-lg-11 col-md-12">
-                                <input type="text" name="portofolioLink" id="portofolioLink" class="form-control" readonly placeholder="you can attach jpg,png, and pdf">
+                                <input type="text" name="portofolioLink" id="portofolioLink" class="form-control file-input-label" readonly placeholder="you can attach jpg,png, and pdf">
                                 <p id="filenameCertificateStudy" class="m-1"></p>
                                 <span class="btn btn-file pl-1 mb-2">
                                     Upload File <input type="file" name="portofolio" id="portofolio" accept=".jpg, .png, .jpeg, .pdf">
