@@ -50,7 +50,7 @@
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label>Working Time<span class="required-sign">*</span></label>
-                                        <input id="workingTimeVacancy" name="workingTimeVacancy" class="form-control" type="text" placeholder="Working Time">
+                                        <input id="workingTimeVacancy" name="workingTimeVacancy" class="form-control" type="text" placeholder="Days and Hours">
                                     </div>
                                 </div>
                             </div>
