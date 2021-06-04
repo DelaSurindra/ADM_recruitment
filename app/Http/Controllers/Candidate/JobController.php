@@ -230,7 +230,7 @@ class JobController extends Controller
         $encrypt = new EncryptController;
     	$data = $encrypt->fnDecrypt(Request::input('data'),true);
         // dd($data);
-        if ($data['tellMe'] == "") {
+        if (!isset($data['tellMe'])) {
             $messages = [
                 'status' => 'error',
                 'message' => 'Please choose one',
@@ -238,6 +238,7 @@ class JobController extends Controller
 
             return response()->json($messages);
         }
+
         $sql = Job_Application::where('id', $data['idApply'])->update([
             'referensi' => $data['tellMe'],
         ]);
