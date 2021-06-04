@@ -1942,12 +1942,6 @@ var table = {
 					}else if(result.status=='logout'){
 	        			ui.popup.alert(result.messages.title,result.messages.message,'logout');
 	        		}else{
-						// if untuk menampilkan respon summary ketika servicenya jadi 1
-						if (id == 'tableReport') {
-							$('#summary_unpaid').html(result.summary.unpaid)
-							$('#summary_paid').html(result.summary.paid)
-							$('#summary_expired').html(result.summary.expired)
-						}
 						callback(result);
 					}
 				})
@@ -2091,7 +2085,7 @@ $("#tableJob tbody").on('click', 'input', function(e) {
 		$("#input_"+dataRow.job_application_id+"_"+dataRow.kandidat_id).remove();
 	}
 	$("#textItem").html(jumlah+" item selected")
-	if (jumlah > 0) {
+	if (jumlah > 1) {
 		$(".btn-bulk-candidate").removeClass('hidden');
 	}else{
 		if (jumlah == 0) {

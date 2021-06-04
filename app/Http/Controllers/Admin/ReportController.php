@@ -272,6 +272,16 @@ class ReportController extends Controller
                     $bulan = "Desember";
                 }
                 $dataReport[$i]->periode = $bulan.' '.$dataReport[$i]->tahun;
+
+                if ($dataReport[$i]->d3 == null) {
+                    $dataReport[$i]->d3 = 0;
+                }
+                if ($dataReport[$i]->s1 == null) {
+                    $dataReport[$i]->s1 = 0;
+                }
+                if ($dataReport[$i]->s2 == null) {
+                    $dataReport[$i]->s2 = 0;
+                }
             }
         }elseif ($tipe == "8") {
             $dataReport = DB::select('SELECT k.gender, COUNT(k.id) as total_kandidat, k.kota, p.jurusan, p.universitas FROM kandidat k LEFT JOIN pendidikan p ON k.id = p.kandidat_id WHERE k.kota = '.$kota.' AND p.universitas = '.$univ.' AND k.created_at BETWEEN '.$dateStart.' AND '.$dateEnd.' GROUP BY k.gender, k.kota, p.jurusan, p.universitas');
