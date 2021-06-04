@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 use App\Model\Candidate;
 use App\Model\User;
 use App\Model\Education;
+use App\Jobs\JobSendEmail;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class addBulkCandidate implements ToCollection
@@ -82,6 +83,16 @@ class addBulkCandidate implements ToCollection
                     "kandidat_id" => $candidate,
         
                 ]);
+
+                $dataEmail = [
+                    'email'         => $collection[$i][2],
+                    'nama'          => $collection[$i][0].' '.$collection[$i][1],
+                    'password'      => $password,
+                    'subject'       => 'Register Invitation',
+                    'view'          => 'email.email-invit-candidate'
+                ];
+        
+                $response = JobSendEmail::dispatch($dataEmail);
             }
         }
     }

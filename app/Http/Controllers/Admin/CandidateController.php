@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\addBulkCandidate;
 use App\Exports\DownloadDefault;
+use App\Jobs\JobSendEmail;
 use Hash;
 use Request;
 use Session;
@@ -351,6 +352,16 @@ class CandidateController extends Controller
                     $education->save();
                 }
 
+                $dataEmail = [
+                    'email'         => $data['email'],
+                    'nama'          => $data['first_name'].' '.$data['last_name'],
+                    'password'      => $password,
+                    'subject'       => 'Register Invitation',
+                    'view'          => 'email.email-invit-candidate'
+                ];
+        
+                $response = JobSendEmail::dispatch($dataEmail);
+                
                 $messages = [
                     'status' => 'success',
                     'message' => 'Create Candidate Success',
