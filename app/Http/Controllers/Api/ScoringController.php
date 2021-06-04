@@ -150,6 +150,7 @@ class ScoringController extends Controller
             $dataEmail = [
                  'email'  => $email,
                  'nama'  => $name,
+                 'text'  => 'Written Test',
                  'tipe' => 2,
                  'subject' => 'Written Test Result Announcement',
                  'view' => 'email.email-written-test-result'
