@@ -264,27 +264,27 @@
                         </div>
                         <div>
                             <label for="">Time</label>
-                            <p class="mb-0">{{isset($test[0]) ? $test['time'] : ''}}</p>
+                            <p class="mb-0">{{isset($test[0]) ? $test[0]['time'] : ''}}</p>
                         </div>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between">
                         <div>
                             <label for="">City</label>
-                            <p class="mb-0">{{isset($test[0]) ? $test['city'] : ''}}</p>
+                            <p class="mb-0">{{isset($test[0]) ? $test[0]['city'] : ''}}</p>
                         </div>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between mb-4">
                         <div>
                             <label for="">Location</label>
-                            <p class="mb-0">{{isset($test[0]) ? $test['location'] : ''}}</p>
+                            <p class="mb-0">{{isset($test[0]) ? $test[0]['location'] : ''}}</p>
                         </div>
                     </div>
                     @if(isset($test[0]))
-                    @if($test['status_participant'] == 0 || $test['status_participant'] == 2 || $test['status_participant'] == 7)
+                    @if($test[0]['status_participant'] == 0 || $test[0]['status_participant'] == 2 || $test[0]['status_participant'] == 7)
                     <form action="{{route('post.confirm.test')}}" class="form stacked form-hr" ajax=true id="formConfirmTest">
-                        <input type="hidden" name="idParticipant" value="{{$test['id_participant']}}">
+                        <input type="hidden" name="idParticipant" value="{{$test[0]['id_participant']}}">
                         <input type="hidden" name="idJob" value="{{$job['id']}}">
                         <button type="submit" class="btn btn-home-color btn-block">Confirmation</button>
                     </form>
