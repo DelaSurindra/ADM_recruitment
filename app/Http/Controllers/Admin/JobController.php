@@ -450,9 +450,15 @@ class JobController extends Controller
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
         // dd($data);
-        for ($i=0; $i < count($data['idJob']); $i++) { 
-            $exp = explode("_", $data['idJob'][$i]);
-            // dd($exp);
+        if (is_array($data['idJob'])) {
+            for ($i=0; $i < count($data['idJob']); $i++) { 
+                $exp = explode("_", $data['idJob'][$i]);
+                // dd($exp);
+                $update = Job_application::where('id', $exp[0])->update(['status'=>$data['aplicationStatus']]);
+                $track = $this->statusTrackApply($exp[0], $data['aplicationStatus']);
+            }
+        }else{
+            $exp = explode("_", $data['idJob']);
             $update = Job_application::where('id', $exp[0])->update(['status'=>$data['aplicationStatus']]);
             $track = $this->statusTrackApply($exp[0], $data['aplicationStatus']);
         }
