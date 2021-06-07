@@ -354,7 +354,7 @@ class CandidateController extends Controller
 
                 $dataEmail = [
                     'email'         => $data['email'],
-                    'nama'          => $data['first_name'].' '.$data['last_name'],
+                    'nama'          => $data['firstName'].' '.$data['lastName'],
                     'password'      => $password,
                     'subject'       => 'Register Invitation',
                     'view'          => 'email.email-invit-candidate'
