@@ -480,7 +480,7 @@ var table = {
 						}else{
 							image = baseImage+'/'+full.foto_profil;
 						}
-						var data = '<a href="/HR/candidate/detail-candidate/'+id+'" class="name-candidate"><img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name+'</a';
+						var data = '<img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name;
 						return data;
 					}
 				},
@@ -568,7 +568,7 @@ var table = {
 						}else{
 							image = baseImage+'/'+full.foto_profil;
 						}
-						var data = '<a href="/HR/candidate/detail-candidate/'+id+'" class="name-candidate"><img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name+'</a';
+						var data = '<img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name;
 						return data;
 					}
 				},
@@ -662,7 +662,7 @@ var table = {
 						}else{
 							image = baseImage+'/'+full.foto_profil;
 						}
-						var data = '<a href="/HR/candidate/detail-candidate/'+id+'" class="name-candidate"><img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name+'</a';
+						var data = '<img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name;
 						return data;
 					}
 				},

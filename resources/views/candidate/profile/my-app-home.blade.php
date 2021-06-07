@@ -36,10 +36,7 @@
                                 </div>
                                 <div class="col-lg-4 col-md-12 border-left1">
                                     <a href="{{route('get.profile.my-app-detail', base64_encode(urlencode($apply['id'])))}}" class="btn btn-white btn-block">View Detail</a>
-                                    @if($apply['button'] == "Y")
-                                    <button class="btn btn-home-color btn-block">{{$apply['status_text']}}</button>
-                                    @else
-                                    @endif
+                                    
                                 </div>
                             </div>
                         </div>
