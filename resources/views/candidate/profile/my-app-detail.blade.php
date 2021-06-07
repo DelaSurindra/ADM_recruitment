@@ -288,7 +288,7 @@
                                 <input type="hidden" name="idJob" value="{{$job['id']}}">
                                 <button type="submit" class="btn btn-home-color btn-block">Confirmation</button>
                             </form>
-                            @if(date('Y-m-d') <= date('Y-m-d', strtotime($test[0]['date_test'])))
+                            @if(date('Y-m-d') < date('Y-m-d', strtotime($test[0]['date_test'])))
                             <a href="{{route('get.profile.test-reschedule', base64_encode(urlencode($job['id'])))}}" class="a-rescehdule"><button class="btn btn-white btn-block mt-2">Reschedule Test</button></a>
                             @endif
                         @endif
@@ -348,7 +348,7 @@
                             <input type="hidden" name="idJob" value="{{$job['id']}}">
                             <button type="submit" class="btn btn-home-color btn-block">Confirmation</button>
                         </form>
-                        @if(date('Y-m-d') <= date('Y-m-d', strtotime($interview[0]['interview_date'])))
+                        @if(date('Y-m-d') < date('Y-m-d', strtotime($interview[0]['interview_date'])))
                         <a href="{{route('get.profile.interview-reschedule', base64_encode(urlencode($job['id'])))}}" class="a-rescehdule"><button class="btn btn-white btn-block mt-2">Reschedule Test</button></a>
                         @endif
                         @endif
