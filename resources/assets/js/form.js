@@ -1793,6 +1793,13 @@ if ($("#formAddInterview").length) {
 	})
 }
 
+if ($("#formEditInterview").length) {
+	
+	$('#dateInterview').datetimepicker({
+		format: 'DD-MM-YYYY',
+	});
+}
+
 if ($("#updateStatusInterview").length) {
 	$("#statusInterview").change(function(){
 		var status = $("#statusInterview").val();
@@ -2277,3 +2284,56 @@ if ($("#formEditJob").length) {
 	})
 }
 
+$(".btn-online-test").click(function(){
+	$("#formCheckTest").empty();
+	$("#divRescheduleTest").empty();
+	ajax.getData('/profile/check-test', 'post', {value:this.value}, function(data){
+		$('#vacancyTitle').html(data.vacancy[0].job_title)
+		$('#vacancyLocation').html(data.vacancy[0].lokasi+', Indonesia')
+		$('#testDate').html(data.test[0].date_test_format)
+		$('#testTime').html(data.test[0].time)
+		$('#testCity').html(data.test[0].city)
+		$('#testLocation').html(data.test[0].location)
+
+		if (data.test[0].status_participant == 0 || data.test[0].status_participant == 2 || data.test[0].status_participant == 7) {
+			$("#formCheckTest").append(
+				'<input type="hidden" name="idParticipant" value="'+data.test[0].id_participant+'">'+
+				'<input type="hidden" name="idJob" value="'+data.job[0].job_id+'">'+
+				'<button type="submit" class="btn btn-home-color '+data.color[0].value+' btn-block">Confirmation</button>'
+			);
+			if (data.now < data.test[0].date_test) {
+				$("#divRescheduleTest").append(
+					'<a href="/profile/test-reschedule/'+data.job[0]['id_enc']+'" class="a-rescehdule"><button class="btn btn-white btn-block mt-2">Reschedule Test</button></a>'
+				)
+			}
+		}
+		$("#modalCheckTest").modal('show')
+	})
+})
+
+$(".btn-online-interview").click(function(){
+	$("#formCheckInterview").empty();
+	$("#divRescheduleInterview").empty();
+	ajax.getData('/profile/check-interview', 'post', {value:this.value}, function(data){
+		$('#interVacancyTitle').html(data.vacancy[0].job_title)
+		$('#interVacancyLocation').html(data.vacancy[0].lokasi+', Indonesia')
+		$('#interviewDate').html(data.interview[0].date_interview_format)
+		$('#interviewTime').html(data.interview[0].time)
+		$('#interviewCity').html(data.interview[0].city)
+		$('#interviewLocation').html(data.interview[0].location)
+
+		if (data.interview[0].status_participant == 1 || data.interview[0].status_participant == 5) {
+			$("#formCheckInterview").append(
+				'<input type="hidden" name="idInterview" value="'+data.interview[0].id+'">'+
+				'<input type="hidden" name="idJob" value="'+data.job[0].job_id+'">'+
+				'<button type="submit" class="btn btn-home-color '+data.color[0].value+' btn-block">Confirmation</button>'
+			);
+			if (data.now < data.interview[0].date_interview) {
+				$("#divRescheduleInterview").append(
+					'<a href="/profile/interview-reschedule/'+data.job[0]['id_enc']+'" class="a-rescehdule"><button class="btn btn-white btn-block mt-2">Reschedule Interview</button></a>'
+				)
+			}
+		}
+		$("#modalCheckInterview").modal('show')
+	})
+})

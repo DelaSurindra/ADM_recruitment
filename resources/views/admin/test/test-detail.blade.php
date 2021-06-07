@@ -67,11 +67,11 @@
                                     <div class="dropdown-divider mb-4"></div>
                                     <div class="row">
                                         <div class="col-md-5">
-                                            <p class="title-alternatif title-id">Test Alternative 1 ID</p>
+                                            <p class="title-alternatif title-id">Test Alternative ID</p>
                                             <p class="content-alternatif">{{$value['event_id']}}</p>
                                         </div>
                                         <div class="col-md-5">
-                                            <p class="title-alternatif title-date">Date Test Alternative 1</p>
+                                            <p class="title-alternatif title-date">Date Test Alternative</p>
                                             <p class="content-alternatif">{{date('d/m/Y', strtotime($value['date']))}}</p>
                                         </div>
                                         

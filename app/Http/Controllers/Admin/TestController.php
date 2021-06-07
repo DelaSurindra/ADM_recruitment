@@ -18,6 +18,7 @@ use App\Model\MasterFacet;
 use App\Model\CognitiveTestResult;
 use App\Model\InventoryTestResult;
 use App\Model\SetTest;
+use App\Model\Wilayah;
 use App\AdminSession;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Jobs\JobSendEmail;
@@ -95,8 +96,8 @@ class TestController extends Controller
             "detail"    => "Create Test",
             "route"     => "/HR/test"
         ];
-        // $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
-        return view('admin.test.test-add')->with(['pageTitle' => 'Manajemen Test', 'title' => 'Manajemen Test', 'sidebar' => 'manajemen_test', 'breadcrumb' => $breadcrumb]);
+        $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
+        return view('admin.test.test-add')->with(['pageTitle' => 'Manajemen Test', 'title' => 'Manajemen Test', 'sidebar' => 'manajemen_test', 'breadcrumb' => $breadcrumb, 'wilayah'=>$wilayah]);
     }
 
     public function addTest(){
@@ -187,7 +188,9 @@ class TestController extends Controller
         if ($getTest) {
             $getTest[0]['set_test'] = explode(",", $getTest[0]['set_test']);
             $getAlternatif = AlternatifTest::select('alternative_test_event.*', 'test_event.event_id')->join('test_event', 'test_event.id', 'alternative_test_event.alternative_test_id')->where('test_id', $idTest)->get()->toArray();
+            $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
             // dd($getTest, $getAlternatif);
+
             $breadcrumb = [
                 "page"      => "Manage Test",
                 "detail"    => "Edit Test",
@@ -200,7 +203,8 @@ class TestController extends Controller
                 'sidebar' => 'manajemen_test', 
                 'breadcrumb' => $breadcrumb,
                 'data' => $getTest[0],
-                'alternative' => $getAlternatif
+                'alternative' => $getAlternatif,
+                'wilayah' => $wilayah
             ]);
         }else{
             abort(404);

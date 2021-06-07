@@ -19,6 +19,7 @@ use App\Model\InterviewEvent;
 use App\Model\InterviewReschedule;
 use App\Model\MasterUniversitas;
 use App\Model\MasterMajor;
+use App\Model\ConfigHomepage;
 use App\Jobs\JobSendEmail;
 use Request;
 use Session;
@@ -1020,7 +1021,7 @@ class ProfileController extends Controller
         $idJob = base64_decode(urldecode($id));
         $job_apply = Job_Application::where('id', $idJob)->get()->toArray();
         if ($job_apply) {
-            $interview = InterviewEvent::where('id_job_application', $job_apply[0]['id'])->orderBy('created_at', 'DESC')->limit(1)->get()->toArray();
+            
                 $vacancy = Vacancy::where('job_id', $job_apply[0]['vacancy_id'])->get()->toArray();
                 if ($vacancy) {
                     $history = Status_History_Application::where('job_application_id', $job_apply[0]['id'])->get()->toArray();
@@ -1110,6 +1111,8 @@ class ProfileController extends Controller
                                     ->where('kandidat_id', session('session_candidate.id'))
                                     ->join('test_event', 'test_event.id', 'test_participant.test_id')
                                     ->get()->toArray();
+
+                    $interview = InterviewEvent::where('id_job_application', $job_apply[0]['id'])->orderBy('created_at', 'DESC')->limit(1)->get()->toArray();
                     // dd($history);
                     return view('candidate.profile.my-app-detail')->with([
                         'topbar'=>'myapp_detail',
@@ -1364,6 +1367,15 @@ class ProfileController extends Controller
             ]);
             
             if ($insertReschedule) {
+                $dataEmail = [
+                    'email'         => session('session_candidate.user_email'),
+                    'nama'          => session('session_candidate.first_name').' '.session('session_candidate.last_name'),
+                    'subject'       => 'Reschedule Confirmation',
+                    'view'          => 'email.email-reschedule-confirm'
+                ];
+        
+                $response = JobSendEmail::dispatch($dataEmail);
+                
                 $count = $data['countInterview']+1;
                 $updateInterview = InterviewEvent::where('id', $data['idInterview'])->update([
                     "status" => 4,
@@ -1397,4 +1409,77 @@ class ProfileController extends Controller
         }
     }
     
+
+    public function checkTest(){
+        $idJob = Request::input('value');
+        $job_apply = Job_Application::where('id', $idJob)->get()->toArray();
+        // dd($value);
+        if ($job_apply) {
+            $vacancy = Vacancy::where('job_id', $job_apply[0]['vacancy_id'])->get()->toArray();
+            $test = TestParticipant::select('test_event.*', 'test_participant.id as id_participant', 'test_participant.kandidat_id', 'test_participant.test_id', 'test_participant.status as status_participant')
+                                    ->where('kandidat_id', session('session_candidate.id'))
+                                    ->join('test_event', 'test_event.id', 'test_participant.test_id')
+                                    ->get()->toArray();
+            
+            $job_apply[0]['id_enc'] = base64_encode(urlencode($job_apply[0]['id']));
+            
+            if ($test) {
+                $test[0]['date_test_format'] = date('d M y', strtotime($test[0]['date_test']));
+                $test[0]['date_test'] = date('Y-m-d', strtotime($test[0]['date_test']));
+            }
+            $color = ConfigHomepage::select('value')->where('config', 1)->get()->toArray();
+            $now = date('Y-m-d');
+            $data = [
+                'job'   => $job_apply,
+                'vacancy'=>$vacancy,
+                'test'=>$test,
+                'color'=>$color,
+                'now'=>$now
+            ];
+
+            return response()->json($data);
+        }else{
+            $messages = [
+                'status' => 'error',
+                'message' => 'Data Not Found',
+            ];
+
+            return response()->json($messages);
+        }
+    }
+
+    public function checkInterview(){
+        $idJob = Request::input('value');
+        $job_apply = Job_Application::where('id', $idJob)->get()->toArray();
+        // dd($value);
+        if ($job_apply) {
+            $vacancy = Vacancy::where('job_id', $job_apply[0]['vacancy_id'])->get()->toArray();
+            $interview = InterviewEvent::where('id_job_application', $job_apply[0]['id'])->orderBy('created_at', 'DESC')->limit(1)->get()->toArray();
+            // dd($interview);
+            $job_apply[0]['id_enc'] = base64_encode(urlencode($job_apply[0]['id']));
+            
+            if ($interview) {
+                $interview[0]['date_interview_format'] = date('d M y', strtotime($interview[0]['interview_date']));
+                $interview[0]['date_interview'] = date('Y-m-d', strtotime($interview[0]['interview_date']));
+            }
+            $color = ConfigHomepage::select('value')->where('config', 1)->get()->toArray();
+            $now = date('Y-m-d');
+            $data = [
+                'job'   => $job_apply,
+                'vacancy'=>$vacancy,
+                'interview'=>$interview,
+                'color'=>$color,
+                'now'=>$now
+            ];
+
+            return response()->json($data);
+        }else{
+            $messages = [
+                'status' => 'error',
+                'message' => 'Data Not Found',
+            ];
+
+            return response()->json($messages);
+        }
+    }
 }

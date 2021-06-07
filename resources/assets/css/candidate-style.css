@@ -509,7 +509,7 @@ label.error {
 .card-head-my-app.success {
    background: #ebf1fa;
 }
-.card-head-my-app.reject {
+.card-head-my-app.failed {
    background: #fde7ea;
 }
 .card-head-my-app.other {
@@ -518,7 +518,7 @@ label.error {
 .card-head-my-app.success p {
    color: #2e61af;
 }
-.card-head-my-app.reject p {
+.card-head-my-app.failed p {
    color: #df0e2c;
 }
 .card-head-my-app.other p {

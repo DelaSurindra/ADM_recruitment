@@ -11,6 +11,7 @@ use App\Model\InterviewType;
 use App\Model\InterviewReschedule;
 use App\Model\Job_Application;
 use App\Model\Candidate;
+use App\Model\Wilayah;
 use App\Jobs\JobSendEmail;
 use App\AdminSession;
 use Response;
@@ -77,6 +78,7 @@ class InterviewController extends Controller
     }
 
     public function viewInterviewAdd(){
+        $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
         $interviewType = InterviewType::get()->toArray();
         $breadcrumb = [
             "page"      => "Manage Interview",
@@ -88,7 +90,8 @@ class InterviewController extends Controller
             'title' => 'Manajemen Interview', 
             'sidebar' => 'manajemen_interview', 
             'breadcrumb' => $breadcrumb,
-            'interviewType' => $interviewType
+            'interviewType' => $interviewType,
+            'wilayah'  => $wilayah
         ]);
     }
 
@@ -467,7 +470,7 @@ class InterviewController extends Controller
                 }
 
                 // dd($getJob, $getInterview);
-            
+                $wilayah = Wilayah::select('kabupaten')->groupBy('kabupaten')->orderBy('kabupaten', 'ASC')->get()->toArray();
                 $breadcrumb = [
                     "page"      => "Manage Interview",
                     "detail"    => "Edit Interview",
@@ -480,7 +483,8 @@ class InterviewController extends Controller
                     'breadcrumb' => $breadcrumb,
                     'interviewType' => $interviewType,
                     'interview' => $getInterview[0],
-                    'kandidat' => $getJob[0]
+                    'kandidat' => $getJob[0],
+                    'wilayah'  => $wilayah
                 ]);
             } else {
                 abort(404);

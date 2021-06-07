@@ -640,11 +640,14 @@ const formrules = {
         errorPlacement: function (error, element) {
 			if (element.is("input[name=setTest]")) {
 				error.appendTo(element.parents('#setTestDiv'));
-			}else { // This is the default behavior
+			}else if (element.hasClass("select2")) {
+				error.appendTo(element.parents('.form-group'));
+			} else { // This is the default behavior
 				error.insertAfter(element);
 			}
 		}
 	},
+	
 	'formForgetCandidate':{
 		ignore: null,
 		rules:{
@@ -682,15 +685,12 @@ const formrules = {
 				required: true
 			},
 		},
-		messages: {
-			setTest: {
-				required: 'Mohon pilih salah satu set test',
-			}
-        },
 		submitHandler:false,
         errorPlacement: function (error, element) {
 			if (element.is("#typeInterview")) {
 				error.appendTo(element.parents('#typeInterviewDiv'));
+			}else if (element.hasClass("select2")) {
+				error.appendTo(element.parents('.form-group'));
 			}else { // This is the default behavior
 				error.insertAfter(element);
 			}
@@ -716,15 +716,12 @@ const formrules = {
 				required: true
 			},
 		},
-		messages: {
-			setTest: {
-				required: 'Mohon pilih salah satu set test',
-			}
-        },
 		submitHandler:false,
         errorPlacement: function (error, element) {
 			if (element.is("#typeInterview")) {
 				error.appendTo(element.parents('#typeInterviewDiv'));
+			}else if (element.hasClass("select2")) {
+				error.appendTo(element.parents('.form-group'));
 			}else { // This is the default behavior
 				error.insertAfter(element);
 			}

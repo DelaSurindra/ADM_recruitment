@@ -68,7 +68,12 @@
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group" >
                                         <label>City<span class="required-sign">*</span></label>
-                                        <input id="cityInterview" name="cityInterview" class="form-control" type="text" placeholder="Enter City">
+                                        <select class="select2 tex-center select2-width" id="cityInterview" name="cityInterview">
+                                            <option value="">-- Choose Location --</option>
+                                            @foreach($wilayah as $dataWilayah)
+                                                <option value="{{$dataWilayah['kabupaten']}}">{{$dataWilayah['kabupaten']}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>

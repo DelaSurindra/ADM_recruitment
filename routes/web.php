@@ -198,11 +198,13 @@ Route::middleware('authcandidate')->group(function(){
 	
 			Route::get('/my-app', 'Candidate\ProfileController@myApp')->name('get.profile.my-app');
 			Route::get('/my-app-detail/{id}', 'Candidate\ProfileController@myAppDetail')->name('get.profile.my-app-detail');
+			Route::post('/check-test', 'Candidate\ProfileController@checkTest')->name('post.check.test');
 			Route::post('/post-confirm-test', 'Candidate\ProfileController@postConfirmTest')->name('post.confirm.test');
 			Route::get('/test-reschedule/{id}', 'Candidate\ProfileController@testReschedule')->name('get.profile.test-reschedule');
 			Route::post('/post-reschedule-test', 'Candidate\ProfileController@postRescheduleTest')->name('post.reschedule.test');
 			Route::post('/post-reschedule-wt', 'Candidate\ProfileController@postRescheduleWt')->name('post.reschedule.wt');
-
+			
+			Route::post('/check-interview', 'Candidate\ProfileController@checkInterview')->name('post.check.interview');
 			Route::post('/post-confirm-interview', 'Candidate\ProfileController@postConfirmInterview')->name('post.confirm.interview');
 			Route::get('/interview-reschedule/{id}', 'Candidate\ProfileController@interviewReschedule')->name('get.profile.interview-reschedule');
 			Route::post('/post-reschedule-interview', 'Candidate\ProfileController@postRescheduleInterview')->name('post.reschedule.interview');

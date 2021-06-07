@@ -990,9 +990,9 @@ var table = {
 					"render": function(data, type, full, meta){
 						var data = '';
 						if (full.gender == "1") {
-							data = "Laki-Laki";
+							data = "Male";
 						}else if (full.gender == "2") {
-							data = "Perempuan";
+							data = "Female";
 						}
 						return data;
 					}
@@ -2121,8 +2121,8 @@ $("#tableAlternatifTest tbody").on('click', 'input', function(e) {
 		$("#countTest").val(jumlah);
 		$("#divAlternatif").append(
 			'<div class="div-alternatif hidden" id="setAlternatif'+dataRow.id+'">'+
-				'<input type="hidden" name="alternatifTest" class="id-alternatif-test" value="'+dataRow.id+'" disabled>'+
-				'<input type="hidden" name="alternatifTestDate" class="id-alternatif-test" value="'+dataRow.date_test+'" disabled>'+
+				'<input type="hidden" name="alternatifTest" class="id-alternatif-test" value="'+dataRow.id+'">'+
+				'<input type="hidden" name="alternatifTestDate" class="id-alternatif-test" value="'+dataRow.date+'">'+
 				'<div class="dropdown-divider mb-4"></div>'+
 				'<div class="row">'+
 					'<div class="col-md-5">'+
@@ -2248,9 +2248,9 @@ $("#tableChooseInterview tbody").on('click', 'input', function(e) {
 		var dataNama = '<img class="img-candidate" src="'+image+'" />'+'&nbsp'+dataRow.first_name+' '+dataRow.last_name;
 		var gender = "";
 		if (dataRow.gender == "1") {
-			gender = "Laki-laki";
+			gender = "Male";
 		} else {
-			gender = "Perempuan"
+			gender = "Female"
 		}
 
 		var status = "";
