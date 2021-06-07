@@ -26,6 +26,7 @@
                             </div>
                             <form action="{{route('post.job.edit')}}" class="form stacked form-hr" method="POST" id="formEditJob" ajax="true">
                                 <input type="hidden" name="idJob" value="{{$data['job_id']}}">
+                                <input type="hidden" name="idKandidat" value="{{$data['id']}}">
                                 <div class="row">
                                     <div class="col-xl-10 col-md-12">
                                         <div class="row">
