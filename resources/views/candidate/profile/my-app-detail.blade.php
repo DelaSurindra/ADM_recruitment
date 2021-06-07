@@ -283,7 +283,7 @@
                     </div>
                     @if(isset($test[0]))
                         @if($test[0]['status_participant'] == 0 || $test[0]['status_participant'] == 2 || $test[0]['status_participant'] == 7)
-                            @if(date('Y-m-d', strtotime($test[0]['date_test'])) < date('Y-m-d'))
+                            @if(date('Y-m-d') <= date('Y-m-d', strtotime($test[0]['date_test'])))
                             <form action="{{route('post.confirm.test')}}" class="form stacked form-hr" ajax=true id="formConfirmTest">
                                 <input type="hidden" name="idParticipant" value="{{$test[0]['id_participant']}}">
                                 <input type="hidden" name="idJob" value="{{$job['id']}}">

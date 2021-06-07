@@ -35,7 +35,7 @@ class UserController extends Controller
                                     ->join('role', 'human_resource.role', 'role.id');
 
         if ($dataSend['search']){
-            $user = $user->where('title','like','%'.$dataSend['search'].'%');
+            $user = $user->where('human_resource.first_name','like','%'.$dataSend['search'].'%')->orWhere('human_resource.last_name','like','%'.$dataSend['search'].'%')->orWhere('users.email','like','%'.$dataSend['search'].'%');
         }
         $countUser = $user->count();
 

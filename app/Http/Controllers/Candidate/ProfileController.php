@@ -16,7 +16,7 @@ use App\Model\Status_History_Application;
 use App\Model\TestParticipant;
 use App\Model\AlternatifTest;
 use App\Model\InterviewEvent;
-use App\Model\interviewReschedule;
+use App\Model\InterviewReschedule;
 use App\Model\MasterUniversitas;
 use App\Model\MasterMajor;
 use App\Jobs\JobSendEmail;
@@ -1355,7 +1355,7 @@ class ProfileController extends Controller
         $encrypt = new EncryptController;
     	$data = $encrypt->fnDecrypt(Request::input('data'),true);
         if ($data['countInterview'] < 4) {
-            $insertReschedule = interviewReschedule::insert([
+            $insertReschedule = InterviewReschedule::insert([
                 "interview_event_id" => $data['idInterview'],
                 "date_start"         => date("Y-m-d", strtotime($data['dateStart'])),
                 "date_end"           => date("Y-m-d", strtotime($data['dateEnd'])),
