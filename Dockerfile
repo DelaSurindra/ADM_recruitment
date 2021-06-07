@@ -4,7 +4,7 @@ FROM composer:latest as build
 WORKDIR /var/www/html/project
 
 # Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=2.1.1
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 COPY . /var/www/html/project
 RUN composer install --no-scripts --no-autoloader --ignore-platform-reqs && \ 
