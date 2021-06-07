@@ -274,7 +274,7 @@ class InterviewController extends Controller
 
                 $kandidat = Job_Application::select('kandidat.first_name', 'kandidat.last_name', 'users.email')->join('kandidat', 'job_application.kandidat_id', 'kandidat.id')->join('users', 'kandidat.user_id', 'users.id')->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')->where('job_application.id', $data['idJobApp'])->get()->toArray();
                 $dataEmail = [
-                    'email'         => 'rrusniantoro@gmail.com',
+                    'email'         => $kandidat[0]['email'],
                     'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
                     'text'          => $interview[0]['name'],
                     'subject'       => $interview[0]['name'].' Result Announcement',

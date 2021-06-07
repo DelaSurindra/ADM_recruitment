@@ -282,14 +282,16 @@
                         </div>
                     </div>
                     @if(isset($test[0]))
-                    @if($test[0]['status_participant'] == 0 || $test[0]['status_participant'] == 2 || $test[0]['status_participant'] == 7)
-                    <form action="{{route('post.confirm.test')}}" class="form stacked form-hr" ajax=true id="formConfirmTest">
-                        <input type="hidden" name="idParticipant" value="{{$test[0]['id_participant']}}">
-                        <input type="hidden" name="idJob" value="{{$job['id']}}">
-                        <button type="submit" class="btn btn-home-color btn-block">Confirmation</button>
-                    </form>
-                    <a href="{{route('get.profile.test-reschedule', base64_encode(urlencode($job['id'])))}}" class="a-rescehdule"><button class="btn btn-white btn-block mt-2">Reschedule Test</button></a>
-                    @endif
+                        @if($test[0]['status_participant'] == 0 || $test[0]['status_participant'] == 2 || $test[0]['status_participant'] == 7)
+                            @if(date('Y-m-d', strtotime($test[0]['date_test'])) < date('Y-m-d'))
+                            <form action="{{route('post.confirm.test')}}" class="form stacked form-hr" ajax=true id="formConfirmTest">
+                                <input type="hidden" name="idParticipant" value="{{$test[0]['id_participant']}}">
+                                <input type="hidden" name="idJob" value="{{$job['id']}}">
+                                <button type="submit" class="btn btn-home-color btn-block">Confirmation</button>
+                            </form>
+                            <a href="{{route('get.profile.test-reschedule', base64_encode(urlencode($job['id'])))}}" class="a-rescehdule"><button class="btn btn-white btn-block mt-2">Reschedule Test</button></a>
+                            @endif
+                        @endif
                     @endif
                 </div>
                 <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
