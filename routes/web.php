@@ -131,6 +131,8 @@ Route::prefix('HR')->group(function(){
 			Route::get('/view-result-test/{id}', 'Admin\TestController@viewResultTest')->name('get.test.result');
 			Route::post('/inventory-result','Admin\TestController@inventoryResult')->name('inventory.result');
 			Route::get('/download-result/{id}','Admin\TestController@downloadResult')->name('download.result');
+			Route::post('/send-otp-one','Admin\TestController@sendOtpOne')->name('post.send.otp.one');
+			Route::post('/send-otp-bulk','Admin\TestController@sendOtpBulk')->name('post.send.otp.bulk');
 		});
 		
 		Route::prefix('interview')->group(function () {

@@ -962,4 +962,92 @@ class TestController extends Controller
 		}
 		
     }
+
+    public function sendOtpOne(){
+        $value = Request::input('value');
+        $data = explode('_', $value);
+        // dd($data);
+        
+        $otp = TestOtp::where("id_kandidat", $data[0])->get()->toArray();
+        if($otp){
+            $kandidat = Candidate::select('kandidat.first_name', 'kandidat.last_name', 'users.email')->join('users', 'kandidat.user_id', 'users.id')->where('kandidat.id', $data[0])->get()->toArray();
+            // dd($otp, $kandidat);
+            
+            $dataEmail = [
+                'email'         => $kandidat[0]['email'],
+                'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
+                'otp'           => $otp[0]['otp'],
+                'subject'       => 'Written Test OTP',
+                'view'          => 'email.email-written-test-otp'
+            ];
+    
+            $response = JobSendEmail::dispatch($dataEmail);
+            $id = base64_encode(urlencode($data[1]));
+            $res = [
+                'status' => 'success',
+                'message' => 'Send OTP Success',
+                'url' => '/HR/test/detail-test/'.$id
+            ];
+    
+            return response()->json($res);
+        }else{
+            $res = [
+                'status' => 'error',
+                'message' => "Send OTP Failed",
+            ];
+
+            return response()->json($res);
+        }
+    }
+
+    public function sendOtpBulk(){
+        $encrypt = new EncryptController;
+        $data = $encrypt->fnDecrypt(Request::input('data'),true);
+        if($data['countSend'] == "0"){
+            $messages = [
+                'status' => 'error',
+                'message' => "Please Choose Participant",
+            ];
+
+            return response()->json($messages);
+            
+        }else if ($data['countSend'] == "1") {
+            $otp = TestOtp::where("id_kandidat", $data['idSend'])->get()->toArray();
+            $kandidat = Candidate::select('kandidat.first_name', 'kandidat.last_name', 'users.email')->join('users', 'kandidat.user_id', 'users.id')->where('kandidat.id', $data['idSend'])->get()->toArray();
+            
+            $dataEmail = [
+                'email'         => $kandidat[0]['email'],
+                'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
+                'otp'           => $otp[0]['otp'],
+                'subject'       => 'Written Test OTP',
+                'view'          => 'email.email-written-test-otp'
+            ];
+    
+            $response = JobSendEmail::dispatch($dataEmail);
+        } else {
+            for ($i=0; $i < $data['countSend']; $i++) { 
+                $otp = TestOtp::where("id_kandidat", $data['idSend'][$i])->get()->toArray();
+                $kandidat = Candidate::select('kandidat.first_name', 'kandidat.last_name', 'users.email')->join('users', 'kandidat.user_id', 'users.id')->where('kandidat.id', $data['idSend'][$i])->get()->toArray();
+                
+                $dataEmail = [
+                    'email'         => $kandidat[0]['email'],
+                    'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
+                    'otp'           => $otp[0]['otp'],
+                    'subject'       => 'Written Test OTP',
+                    'view'          => 'email.email-written-test-otp'
+                ];
+        
+                $response = JobSendEmail::dispatch($dataEmail);
+            }
+        }
+        $id = base64_encode(urlencode($data['idSetAbsen']));
+        $messages = [
+            'status' => 'success',
+            'message' => 'Send OTP Success',
+            'url' => '/HR/test/detail-test/'.$id,
+            'callback' => 'redirect'
+        ];
+
+        return response()->json($messages);
+    }
 }

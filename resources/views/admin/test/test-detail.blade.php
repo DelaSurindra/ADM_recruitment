@@ -133,12 +133,12 @@
                                     <a class="btn btn-red right" href="{{route('download.result', base64_encode(urlencode($data['id'])))}}">Download Test Result</a>
                                         @else
                                     @if(date('Y-m-d', strtotime($data['date_test'])) == date('Y-m-d'))
-                                        <button class="btn btn-red right" type="button">Send OTP to All</button>
+                                        <!-- <button class="btn btn-red right" type="button">Send OTP to All</button> -->
                                     @else
                                         <button class="btn btn-red right choose-candidate" type="button">Add Participant</button>
                                     @endif
                                 @endif
-                                <button class="btn btn-white right mr-2 hidden" id="btnSendOtp" type="button">Send OTP to Selected Item</button>
+                                <button class="btn btn-white right mr-2 hidden" id="btnSendOtp" type="button" data-toggle="modal" data-target="#modalSendOtpBulk">Send OTP to Selected Item</button>
                                 <button class="btn btn-white right mr-2 hidden" id="btnSetAbsen" type="button" data-toggle="modal" data-target="#modalSetAbsen">Update Selected Item</button>
                                 <button class="btn btn-white right mr-2 hidden" type="button" id="btnUpdateSet" data-toggle="modal" data-target="#modalSetTest">Update Set Test</button>
                             </div>
@@ -288,7 +288,7 @@
                         <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis" alt="icon">
                     </button>
                 </div>
-                <p class="mb-3" class="textItem"></p>
+                <p class="mb-3 textItem" ></p>
                 <form action="{{route('post.set.absen.participant')}}" class="form stacked form-hr" ajax=true id="updateSetAbsenParticipant">
                     <input type="hidden" id="idSetAbsen" name="idSetAbsen" value="{{$data['id']}}">
                     <div id="listAbsen"></div>
@@ -438,6 +438,33 @@
                         </div>
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-green w-100 btn-confirm" value="decline">Decline Request</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalSendOtpBulk" aria-labelledby="modalSendOtpBulkLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-hr">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-up">
+                    <h4 class="modal-hr-title mb-0">Send OTP</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis" alt="icon">
+                    </button>
+                </div>
+                <p class="mb-3 textItem"></p>
+                <form action="{{route('post.send.otp.bulk')}}" class="form stacked form-hr" ajax=true id="formSendOTPBulk">
+                    <input type="hidden" id="idSetAbsen" name="idSetAbsen" value="{{$data['id']}}">
+                    <input type="hidden" id="countSend" name="countSend">
+                    <div id="listSendOtp"></div>
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-red w-100">Send OTP</button>
                         </div>
                     </div>
                 </form>

@@ -2294,11 +2294,11 @@ $(".btn-online-test").click(function(){
 		$('#testTime').html(data.test[0].time)
 		$('#testCity').html(data.test[0].city)
 		$('#testLocation').html(data.test[0].location)
-
+		
 		if (data.test[0].status_participant == 0 || data.test[0].status_participant == 2 || data.test[0].status_participant == 7) {
 			$("#formCheckTest").append(
 				'<input type="hidden" name="idParticipant" value="'+data.test[0].id_participant+'">'+
-				'<input type="hidden" name="idJob" value="'+data.job[0].job_id+'">'+
+				'<input type="hidden" name="idJob" value="'+data.job[0].id+'">'+
 				'<button type="submit" class="btn btn-home-color '+data.color[0].value+' btn-block">Confirmation</button>'
 			);
 			if (data.now < data.test[0].date_test) {
@@ -2325,7 +2325,7 @@ $(".btn-online-interview").click(function(){
 		if (data.interview[0].status_participant == 1 || data.interview[0].status_participant == 5) {
 			$("#formCheckInterview").append(
 				'<input type="hidden" name="idInterview" value="'+data.interview[0].id+'">'+
-				'<input type="hidden" name="idJob" value="'+data.job[0].job_id+'">'+
+				'<input type="hidden" name="idJob" value="'+data.job[0].id+'">'+
 				'<button type="submit" class="btn btn-home-color '+data.color[0].value+' btn-block">Confirmation</button>'
 			);
 			if (data.now < data.interview[0].date_interview) {
