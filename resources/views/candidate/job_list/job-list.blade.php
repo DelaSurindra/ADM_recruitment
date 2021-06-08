@@ -121,11 +121,13 @@
                 </div>
                 @endforeach
             </div>
+            @if(count($job) > 9)
             <div class="row">
                 <div class="col-12 d-flex justify-content-center mt-3">
                     <button class="btn btn-white px-5 loadMoreJob">Load More</button>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </div>

@@ -42,7 +42,7 @@ class VacancyController extends Controller
         );
         $vacancy = new Vacancy;
         if ($dataSend['search']){
-            $vacancy = $vacancy->where('title','like','%'.$dataSend['search'].'%');
+            $vacancy = $vacancy->where('job_title','like','%'.$dataSend['search'].'%');
         }
         $countVacancy = $vacancy->count();
 
