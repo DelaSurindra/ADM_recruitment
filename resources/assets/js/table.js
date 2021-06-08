@@ -215,6 +215,7 @@ var table = {
 
 		if($('#tableAlternatifTest').length){
 			var column = [
+				{'data':null},
 				{'data':'created_at'},
 				{'data':'event_id'},
 				{'data':'date_test'},
@@ -1911,7 +1912,7 @@ var table = {
 			ordering = false;
 		}
 
-		if (id == "tableJob" || id == "tableChooseCandidate" || id == "tableParticipantTest" || id=="tableParticipantTestTheDay" || id == "tableChooseInterview") {
+		if (id == "tableJob" || id == "tableChooseCandidate" || id == "tableParticipantTest" || id=="tableParticipantTestTheDay" || id == "tableChooseInterview" || id == "tableAlternatifTest") {
 			urutan = [1, 'desc'];
 		}
 
