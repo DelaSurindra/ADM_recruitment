@@ -103,10 +103,10 @@
     </div>
 </div>
 <div class="row mt-4">
-    <div class="col-md-5">
+    <div class="col-lg-5 col-md-12">
         <p class="title-dashboard">Written Test Result</p>
     </div>
-    <div class="col-md-6">
+    <div class="col-lg-6 col-md-12">
         <form class="form-hr" filter="true" id="formFilterDashboard">
             <div class="form-group">
                 <div class="row">

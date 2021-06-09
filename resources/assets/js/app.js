@@ -137,6 +137,15 @@ $(document).ready(function () {
     $('#btnDrawerClose').click(function() {
         document.getElementById("navbarSupportedContent").style.width = "0";
     });
+
+    $('#btn-mobile').click(function() {
+        console.log('click')
+        document.getElementById("sidebarUtama").style.width = "290px";
+    });
+    $('#btn-mobile-close').click(function() {
+        console.log('click')
+        document.getElementById("sidebarUtama").style.width = "0";
+    });
 })
 
 // $('.modal').on('hidden.bs.modal', function (e) {
