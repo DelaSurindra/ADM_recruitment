@@ -21,10 +21,10 @@
                     @foreach($job_apply as $apply)
                     <div class="card-list-my-app">
                         <div class="card-head-my-app {{$apply['status_css']}} d-flex justify-content-center">
-                            @if($apply['status'] >= 0 && $apply['status'] < 11)
-                                <p>Onprocess : <span>{{$apply['status_text']}}</span> </p>
-                            @else
+                            @if($apply['status'] == 11 || $apply['status'] == 12)
                                 <p>{{$apply['status_text']}}</p>
+                            @else
+                                <p>Onprocess : <span>{{$apply['status_text']}}</span> </p>
                             @endif
                         </div>
                         <div class="card-body-my-app p-4">
@@ -37,8 +37,12 @@
                                 <div class="col-lg-4 col-md-12 border-left1">
                                     <a href="{{route('get.profile.my-app-detail', base64_encode(urlencode($apply['id'])))}}" class="btn btn-white btn-block">View Detail</a>
                                     @if($apply['button'] == "Y")
-                                    <button class="btn btn-home-color btn-block">{{$apply['status_text']}}</button>
-                                    @else
+                                        @if($apply['status'] == '2')
+                                            <button class="btn btn-home-color btn-block btn-online-test" type="button" value="{{$apply['id']}}">Check Online Test</button>
+                                        @endif
+                                        @if($apply['status'] == '5' || $apply['status'] == '6' || $apply['status'] == '7' || $apply['status'] == '8' || $apply['status'] == '9' || $apply['status'] == '10')
+                                            <button class="btn btn-home-color btn-block btn-online-interview" type="button" value="{{$apply['id']}}">Check Online Interview</button>
+                                        @endif
                                     @endif
                                 </div>
                             </div>
@@ -57,9 +61,174 @@
                 </div>
                 @endif
             </div>
-            <div class="tab-pane fade" id="pills-onprocess-myapp" role="tabpanel" aria-labelledby="pills-onprocess-myapp-tab">...</div>
-            <div class="tab-pane fade" id="pills-hired-myapp" role="tabpanel" aria-labelledby="pills-hired-myapp-tab">...</div>
-            <div class="tab-pane fade" id="pills-failed-myapp" role="tabpanel" aria-labelledby="pills-failed-myapp-tab">...</div>
+            <div class="tab-pane fade" id="pills-onprocess-myapp" role="tabpanel" aria-labelledby="pills-onprocess-myapp-tab">
+                @if(count($job_apply) > 0)
+                    @if($apply['status'] != 11 && $apply['status'] != 12)
+                        @foreach($job_apply as $apply)
+                        <div class="card-list-my-app">
+                            <div class="card-head-my-app {{$apply['status_css']}} d-flex justify-content-center">
+                                @if($apply['status'] == 11 || $apply['status'] == 12)
+                                    <p>{{$apply['status_text']}}</p>
+                                @else
+                                    <p>Onprocess : <span>{{$apply['status_text']}}</span> </p>
+                                @endif
+                            </div>
+                            <div class="card-body-my-app p-4">
+                                <div class="row m-1">
+                                    <div class="col-lg-8 col-md-12">
+                                        <div class="fulltime-badge mb-3">{{$apply["type"] == "1" ? "Full-time":"Intership"}}</div>
+                                        <label class="label-no-margin mb-1">{{$apply['lokasi']}}, Indonesia</label>
+                                        <h4 class="candidate-page-subtitle mb-0">{{$apply['job_title']}}</h4>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12 border-left1">
+                                        <a href="{{route('get.profile.my-app-detail', base64_encode(urlencode($apply['id'])))}}" class="btn btn-white btn-block">View Detail</a>
+                                        @if($apply['button'] == "Y")
+                                            @if($apply['status'] == '2')
+                                                <button class="btn btn-home-color btn-block btn-online-test" type="button" value="{{$apply['id']}}">Check Online Test</button>
+                                            @endif
+                                            @if($apply['status'] == '5' || $apply['status'] == '6' || $apply['status'] == '7' || $apply['status'] == '8' || $apply['status'] == '9' || $apply['status'] == '10')
+                                                <button class="btn btn-home-color btn-block btn-online-interview" type="button" value="{{$apply['id']}}">Check Online Interview</button>
+                                            @endif
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    @else
+                    <div class="card">
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center p-5">
+                            <img src="{{ asset('image/icon/homepage/icon-koper.svg') }}" alt="icon">
+                            <h4 class="candidate-page-subtitle mb-2 mt-5">You haven't applied for a job </h4>
+                            <p class="text-empty-job mb-3">Join our team right now</p>
+                            <a href="{{ route('get.job.page') }}" class="btn btn-home-color px-5">See Job Vacancy</a>
+                        </div>
+                    </div>
+                    @endif
+                @else
+                <!-- Ketika data kosong -->
+                <div class="card">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-5">
+                        <img src="{{ asset('image/icon/homepage/icon-koper.svg') }}" alt="icon">
+                        <h4 class="candidate-page-subtitle mb-2 mt-5">You haven't applied for a job </h4>
+                        <p class="text-empty-job mb-3">Join our team right now</p>
+                        <a href="{{ route('get.job.page') }}" class="btn btn-home-color px-5">See Job Vacancy</a>
+                    </div>
+                </div>
+                @endif
+            </div>
+            <div class="tab-pane fade" id="pills-hired-myapp" role="tabpanel" aria-labelledby="pills-hired-myapp-tab">
+                @if(count($job_apply) > 0)
+                    @if($apply['status'] == 12)
+                        @foreach($job_apply as $apply)
+                        <div class="card-list-my-app">
+                            <div class="card-head-my-app {{$apply['status_css']}} d-flex justify-content-center">
+                                @if($apply['status'] == 11 || $apply['status'] == 12)
+                                    <p>{{$apply['status_text']}}</p>
+                                @else
+                                    <p>Onprocess : <span>{{$apply['status_text']}}</span> </p>
+                                @endif
+                            </div>
+                            <div class="card-body-my-app p-4">
+                                <div class="row m-1">
+                                    <div class="col-lg-8 col-md-12">
+                                        <div class="fulltime-badge mb-3">{{$apply["type"] == "1" ? "Full-time":"Intership"}}</div>
+                                        <label class="label-no-margin mb-1">{{$apply['lokasi']}}, Indonesia</label>
+                                        <h4 class="candidate-page-subtitle mb-0">{{$apply['job_title']}}</h4>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12 border-left1">
+                                        <a href="{{route('get.profile.my-app-detail', base64_encode(urlencode($apply['id'])))}}" class="btn btn-white btn-block">View Detail</a>
+                                        @if($apply['button'] == "Y")
+                                            @if($apply['status'] == '2')
+                                                <button class="btn btn-home-color btn-block btn-online-test" type="button" value="{{$apply['id']}}">Check Online Test</button>
+                                            @endif
+                                            @if($apply['status'] == '5' || $apply['status'] == '6' || $apply['status'] == '7' || $apply['status'] == '8' || $apply['status'] == '9' || $apply['status'] == '10')
+                                                <button class="btn btn-home-color btn-block btn-online-interview" type="button" value="{{$apply['id']}}">Check Online Interview</button>
+                                            @endif
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    @else
+                    <div class="card">
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center p-5">
+                            <img src="{{ asset('image/icon/homepage/icon-koper.svg') }}" alt="icon">
+                            <h4 class="candidate-page-subtitle mb-2 mt-5">You haven't applied for a job </h4>
+                            <p class="text-empty-job mb-3">Join our team right now</p>
+                            <a href="{{ route('get.job.page') }}" class="btn btn-home-color px-5">See Job Vacancy</a>
+                        </div>
+                    </div>
+                    @endif
+                @else
+                <!-- Ketika data kosong -->
+                <div class="card">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-5">
+                        <img src="{{ asset('image/icon/homepage/icon-koper.svg') }}" alt="icon">
+                        <h4 class="candidate-page-subtitle mb-2 mt-5">You haven't applied for a job </h4>
+                        <p class="text-empty-job mb-3">Join our team right now</p>
+                        <a href="{{ route('get.job.page') }}" class="btn btn-home-color px-5">See Job Vacancy</a>
+                    </div>
+                </div>
+                @endif
+            </div>
+            <div class="tab-pane fade" id="pills-failed-myapp" role="tabpanel" aria-labelledby="pills-failed-myapp-tab">
+                @if(count($job_apply) > 0)
+                    @if($apply['status'] == 11)
+                        @foreach($job_apply as $apply)
+                        <div class="card-list-my-app">
+                            <div class="card-head-my-app {{$apply['status_css']}} d-flex justify-content-center">
+                                @if($apply['status'] == 11 || $apply['status'] == 12)
+                                    <p>{{$apply['status_text']}}</p>
+                                @else
+                                    <p>Onprocess : <span>{{$apply['status_text']}}</span> </p>
+                                @endif
+                            </div>
+                            <div class="card-body-my-app p-4">
+                                <div class="row m-1">
+                                    <div class="col-lg-8 col-md-12">
+                                        <div class="fulltime-badge mb-3">{{$apply["type"] == "1" ? "Full-time":"Intership"}}</div>
+                                        <label class="label-no-margin mb-1">{{$apply['lokasi']}}, Indonesia</label>
+                                        <h4 class="candidate-page-subtitle mb-0">{{$apply['job_title']}}</h4>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12 border-left1">
+                                        <a href="{{route('get.profile.my-app-detail', base64_encode(urlencode($apply['id'])))}}" class="btn btn-white btn-block">View Detail</a>
+                                        @if($apply['button'] == "Y")
+                                            @if($apply['status'] == '2')
+                                                <button class="btn btn-home-color btn-block btn-online-test" type="button" value="{{$apply['id']}}">Check Online Test</button>
+                                            @endif
+                                            @if($apply['status'] == '5' || $apply['status'] == '6' || $apply['status'] == '7' || $apply['status'] == '8' || $apply['status'] == '9' || $apply['status'] == '10')
+                                                <button class="btn btn-home-color btn-block btn-online-interview" type="button" value="{{$apply['id']}}">Check Online Interview</button>
+                                            @endif
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    @else
+                    <div class="card">
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center p-5">
+                            <img src="{{ asset('image/icon/homepage/icon-koper.svg') }}" alt="icon">
+                            <h4 class="candidate-page-subtitle mb-2 mt-5">You haven't applied for a job </h4>
+                            <p class="text-empty-job mb-3">Join our team right now</p>
+                            <a href="{{ route('get.job.page') }}" class="btn btn-home-color px-5">See Job Vacancy</a>
+                        </div>
+                    </div>
+                    @endif
+                @else
+                <!-- Ketika data kosong -->
+                <div class="card">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-5">
+                        <img src="{{ asset('image/icon/homepage/icon-koper.svg') }}" alt="icon">
+                        <h4 class="candidate-page-subtitle mb-2 mt-5">You haven't applied for a job </h4>
+                        <p class="text-empty-job mb-3">Join our team right now</p>
+                        <a href="{{ route('get.job.page') }}" class="btn btn-home-color px-5">See Job Vacancy</a>
+                    </div>
+                </div>
+                @endif
+            </div>
         </div>
     </div>
 </div>

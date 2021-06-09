@@ -215,6 +215,107 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modalCheckTest" aria-labelledby="modalCheckTestLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm modal-online-test">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-up">
+                        <h4 class="candidate-page-subtitle mb-0">Online Test<br>Schedule</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis" alt="icon">
+                        </button>
+                    </div>
+
+                    <div class="modal-card mb-3">
+                        <h6 id="vacancyTitle"></h6>
+                        <p id="vacancyLocation"></p>
+                    </div>
+
+                    <div class="modal-fill">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <label for="">Date</label>
+                                <p class="mb-0" id="testDate"></p>
+                            </div>
+                            <div>
+                                <label for="">Time</label>
+                                <p class="mb-0" id="testTime"></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <label for="">City</label>
+                                <p class="mb-0" id="testCity"></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mb-4">
+                            <div>
+                                <label for="">Location</label>
+                                <p class="mb-0" id="testLocation"></p>
+                            </div>
+                        </div>
+                        <form action="{{route('post.confirm.test')}}" class="form stacked form-hr" ajax=true id="formCheckTest"></form>
+                        <div id="divRescheduleTest"></div>
+                                
+                    </div>
+                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalCheckInterview" aria-labelledby="modalCheckInterviewLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm modal-online-test">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-up">
+                        <h4 class="candidate-page-subtitle mb-0">Online Test<br>Schedule</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis" alt="icon">
+                        </button>
+                    </div>
+
+                    <div class="modal-card mb-3">
+                        <h6 id="interVacancyTitle"></h6>
+                        <p id="interVacancyLocation"></p>
+                    </div>
+
+                    <div class="modal-fill">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <label for="">Date</label>
+                                <p class="mb-0" id="interviewDate"></p>
+                            </div>
+                            <div>
+                                <label for="">Time</label>
+                                <p class="mb-0" id="interviewTime"></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <label for="">City</label>
+                                <p class="mb-0" id="interviewCity"></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mb-4">
+                            <div>
+                                <label for="">Location</label>
+                                <p class="mb-0" id="interviewLocation"></p>
+                            </div>
+                        </div>
+                        <form action="{{route('post.confirm.interview')}}" class="form stacked form-hr" ajax=true id="formCheckInterview"></form>
+                        <div id="divRescheduleInterview"></div>
+                    </div>
+                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
     @section('modal')
 
     @show

@@ -41,7 +41,7 @@
                                 <div class="col-xl-6 col-md-6 col-sm-12" id="locationVacancyDiv">
                                     <label>Location<span class="required-sign">*</span></label>
                                     <select class="select2 tex-center select2-width" id="locationVacancy" name="locationVacancy">
-                                        <option value="">-- Pilih Location --</option>
+                                        <option value="">-- Choose City --</option>
                                         @foreach($wilayah as $dataWilayah)
                                             <option value="{{$dataWilayah['kabupaten']}}">{{$dataWilayah['kabupaten']}}</option>
                                         @endforeach

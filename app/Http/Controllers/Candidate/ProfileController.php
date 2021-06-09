@@ -16,9 +16,10 @@ use App\Model\Status_History_Application;
 use App\Model\TestParticipant;
 use App\Model\AlternatifTest;
 use App\Model\InterviewEvent;
-use App\Model\interviewReschedule;
+use App\Model\InterviewReschedule;
 use App\Model\MasterUniversitas;
 use App\Model\MasterMajor;
+use App\Model\ConfigHomepage;
 use App\Jobs\JobSendEmail;
 use Request;
 use Session;
@@ -186,82 +187,84 @@ class ProfileController extends Controller
                                 ->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')
                                 ->where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
         for ($i=0; $i < count($job_apply); $i++) { 
-            if($job_apply[$i]['status'] >= 0 && $job_apply[$i]['status'] < 11 && $job_apply[$i]['status'] > 12){
-                if ($job_apply[$i]['status'] == 0) {
-                    $job_apply[$i]['status_text'] = "Application Resume";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 1) {
-                    $job_apply[$i]['status_text'] = "Process To Written Test";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 2) {
-                    $job_apply[$i]['status_text'] = "Check Online Test";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 3) {
-                    $job_apply[$i]['status_text'] = "Written Test Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 4) {
-                    $job_apply[$i]['status_text'] = "Written Test failed";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 5) {
-                    $job_apply[$i]['status_text'] = "Check Interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 6) {
-                    $job_apply[$i]['status_text'] = "Check Interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 7) {
-                    $job_apply[$i]['status_text'] = "Check Interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 8) {
-                    $job_apply[$i]['status_text'] = "Check Interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 9) {
-                    $job_apply[$i]['status_text'] = "Check MCU";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 10) {
-                    $job_apply[$i]['status_text'] = "Doc Sign";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 13) {
-                    $job_apply[$i]['status_text'] = "HR interview Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 14) {
-                    $job_apply[$i]['status_text'] = "HR interview Fail";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 15) {
-                    $job_apply[$i]['status_text'] = "User Interview 1 Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 16) {
-                    $job_apply[$i]['status_text'] = "User Interview 1 Fail";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 17) {
-                    $job_apply[$i]['status_text'] = "User Interview 2 Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 18) {
-                    $job_apply[$i]['status_text'] = "User Interview 2 Fail";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 19) {
-                    $job_apply[$i]['status_text'] = "User Interview 3 Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 20) {
-                    $job_apply[$i]['status_text'] = "User Interview 3 Fail";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 21) {
-                    $job_apply[$i]['status_text'] = "MCU Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 22) {
-                    $job_apply[$i]['status_text'] = "MCU Fail";
-                    $job_apply[$i]['button'] = "N";
-                }
-                $job_apply[$i]['status_css'] = 'other';
+            $job_apply[$i]['status_css'] = 'other';
+            if ($job_apply[$i]['status'] == 0) {
+                $job_apply[$i]['status_text'] = "Application Resume";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 1) {
+                $job_apply[$i]['status_text'] = "Process To Written Test";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 2) {
+                $job_apply[$i]['status_text'] = "Check Online Test";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 3) {
+                $job_apply[$i]['status_text'] = "Written Test Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 4) {
+                $job_apply[$i]['status_text'] = "Written Test failed";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 5) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 6) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 7) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 8) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 9) {
+                $job_apply[$i]['status_text'] = "Check MCU";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 10) {
+                $job_apply[$i]['status_text'] = "Doc Sign";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 13) {
+                $job_apply[$i]['status_text'] = "HR interview Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 14) {
+                $job_apply[$i]['status_text'] = "HR interview Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 15) {
+                $job_apply[$i]['status_text'] = "User Interview 1 Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 16) {
+                $job_apply[$i]['status_text'] = "User Interview 1 Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 17) {
+                $job_apply[$i]['status_text'] = "User Interview 2 Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 18) {
+                $job_apply[$i]['status_text'] = "User Interview 2 Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 19) {
+                $job_apply[$i]['status_text'] = "User Interview 3 Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 20) {
+                $job_apply[$i]['status_text'] = "User Interview 3 Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 21) {
+                $job_apply[$i]['status_text'] = "MCU Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 22) {
+                $job_apply[$i]['status_text'] = "MCU Fail";
+                $job_apply[$i]['button'] = "N";
             }elseif($job_apply[$i]['status'] == 11){
                 $job_apply[$i]['status_text'] = "Failed";
                 $job_apply[$i]['status_css'] = 'failed';
                 $job_apply[$i]['button'] = "N";
-            }else{
+            }elseif($job_apply[$i]['status'] == 12){
                 $job_apply[$i]['status_text'] = "Hired";
                 $job_apply[$i]['status_css'] = 'success';
                 $job_apply[$i]['button'] = "N";
+            }else{
+                $job_apply[$i]['status_text'] = "";
+                $job_apply[$i]['status_css'] = 'other';
+                $job_apply[$i]['button'] = "N";
             }
-        } 
+        }    
         return view('candidate.profile.profile-child')->with(['topbar'=>'profile', 'tab_profile'=>'profile-home', 'job_apply'=>$job_apply]);
     }
 
@@ -272,52 +275,84 @@ class ProfileController extends Controller
                                 ->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')
                                 ->where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
         for ($i=0; $i < count($job_apply); $i++) { 
-            if($job_apply[$i]['status'] >= 0 && $job_apply[$i]['status'] < 11){
-                if ($job_apply[$i]['status'] == 0) {
-                    $job_apply[$i]['status_text'] = "Application Resume";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 1) {
-                    $job_apply[$i]['status_text'] = "Process To Written Test";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 2) {
-                    $job_apply[$i]['status_text'] = "Scheduled to Written Test";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 3) {
-                    $job_apply[$i]['status_text'] = "Written Test Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 4) {
-                    $job_apply[$i]['status_text'] = "Written Test failed";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 5) {
-                    $job_apply[$i]['status_text'] = "Process to HR interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 6) {
-                    $job_apply[$i]['status_text'] = "Process to User Interview 1";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 7) {
-                    $job_apply[$i]['status_text'] = "Process to User Interview 2";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 8) {
-                    $job_apply[$i]['status_text'] = "Process to User Interview 3";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 9) {
-                    $job_apply[$i]['status_text'] = "Process to MCU";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 10) {
-                    $job_apply[$i]['status_text'] = "Process to Doc Sign";
-                    $job_apply[$i]['button'] = "Y";
-                }
-                $job_apply[$i]['status_css'] = 'other';
+            $job_apply[$i]['status_css'] = 'other';
+            if ($job_apply[$i]['status'] == 0) {
+                $job_apply[$i]['status_text'] = "Application Resume";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 1) {
+                $job_apply[$i]['status_text'] = "Process To Written Test";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 2) {
+                $job_apply[$i]['status_text'] = "Check Online Test";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 3) {
+                $job_apply[$i]['status_text'] = "Written Test Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 4) {
+                $job_apply[$i]['status_text'] = "Written Test failed";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 5) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 6) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 7) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 8) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 9) {
+                $job_apply[$i]['status_text'] = "Check MCU";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 10) {
+                $job_apply[$i]['status_text'] = "Doc Sign";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 13) {
+                $job_apply[$i]['status_text'] = "HR interview Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 14) {
+                $job_apply[$i]['status_text'] = "HR interview Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 15) {
+                $job_apply[$i]['status_text'] = "User Interview 1 Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 16) {
+                $job_apply[$i]['status_text'] = "User Interview 1 Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 17) {
+                $job_apply[$i]['status_text'] = "User Interview 2 Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 18) {
+                $job_apply[$i]['status_text'] = "User Interview 2 Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 19) {
+                $job_apply[$i]['status_text'] = "User Interview 3 Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 20) {
+                $job_apply[$i]['status_text'] = "User Interview 3 Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 21) {
+                $job_apply[$i]['status_text'] = "MCU Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 22) {
+                $job_apply[$i]['status_text'] = "MCU Fail";
+                $job_apply[$i]['button'] = "N";
             }elseif($job_apply[$i]['status'] == 11){
                 $job_apply[$i]['status_text'] = "Failed";
                 $job_apply[$i]['status_css'] = 'failed';
                 $job_apply[$i]['button'] = "N";
-            }else{
+            }elseif($job_apply[$i]['status'] == 12){
                 $job_apply[$i]['status_text'] = "Hired";
                 $job_apply[$i]['status_css'] = 'success';
                 $job_apply[$i]['button'] = "N";
+            }else{
+                $job_apply[$i]['status_text'] = "";
+                $job_apply[$i]['status_css'] = 'other';
+                $job_apply[$i]['button'] = "N";
             }
-        }
+        }    
 
         return view('candidate.profile.personal-information')->with(['topbar'=>'personal_information', 'tab_profile'=>'profile-home', 'wilayah'=>$wilayah, 'job_apply'=>$job_apply]);
     }
@@ -401,82 +436,84 @@ class ProfileController extends Controller
                                 ->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')
                                 ->where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
         for ($i=0; $i < count($job_apply); $i++) { 
-            if($job_apply[$i]['status'] >= 0 && $job_apply[$i]['status'] < 11 && $job_apply[$i]['status'] > 12){
-                if ($job_apply[$i]['status'] == 0) {
-                    $job_apply[$i]['status_text'] = "Application Resume";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 1) {
-                    $job_apply[$i]['status_text'] = "Process To Written Test";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 2) {
-                    $job_apply[$i]['status_text'] = "Check Online Test";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 3) {
-                    $job_apply[$i]['status_text'] = "Written Test Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 4) {
-                    $job_apply[$i]['status_text'] = "Written Test failed";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 5) {
-                    $job_apply[$i]['status_text'] = "Check Interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 6) {
-                    $job_apply[$i]['status_text'] = "Check Interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 7) {
-                    $job_apply[$i]['status_text'] = "Check Interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 8) {
-                    $job_apply[$i]['status_text'] = "Check Interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 9) {
-                    $job_apply[$i]['status_text'] = "Check MCU";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 10) {
-                    $job_apply[$i]['status_text'] = "Doc Sign";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 13) {
-                    $job_apply[$i]['status_text'] = "HR interview Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 14) {
-                    $job_apply[$i]['status_text'] = "HR interview Fail";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 15) {
-                    $job_apply[$i]['status_text'] = "User Interview 1 Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 16) {
-                    $job_apply[$i]['status_text'] = "User Interview 1 Fail";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 17) {
-                    $job_apply[$i]['status_text'] = "User Interview 2 Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 18) {
-                    $job_apply[$i]['status_text'] = "User Interview 2 Fail";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 19) {
-                    $job_apply[$i]['status_text'] = "User Interview 3 Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 20) {
-                    $job_apply[$i]['status_text'] = "User Interview 3 Fail";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 21) {
-                    $job_apply[$i]['status_text'] = "MCU Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 22) {
-                    $job_apply[$i]['status_text'] = "MCU Fail";
-                    $job_apply[$i]['button'] = "N";
-                }
-                $job_apply[$i]['status_css'] = 'other';
+            $job_apply[$i]['status_css'] = 'other';
+            if ($job_apply[$i]['status'] == 0) {
+                $job_apply[$i]['status_text'] = "Application Resume";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 1) {
+                $job_apply[$i]['status_text'] = "Process To Written Test";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 2) {
+                $job_apply[$i]['status_text'] = "Check Online Test";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 3) {
+                $job_apply[$i]['status_text'] = "Written Test Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 4) {
+                $job_apply[$i]['status_text'] = "Written Test failed";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 5) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 6) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 7) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 8) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 9) {
+                $job_apply[$i]['status_text'] = "Check MCU";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 10) {
+                $job_apply[$i]['status_text'] = "Doc Sign";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 13) {
+                $job_apply[$i]['status_text'] = "HR interview Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 14) {
+                $job_apply[$i]['status_text'] = "HR interview Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 15) {
+                $job_apply[$i]['status_text'] = "User Interview 1 Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 16) {
+                $job_apply[$i]['status_text'] = "User Interview 1 Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 17) {
+                $job_apply[$i]['status_text'] = "User Interview 2 Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 18) {
+                $job_apply[$i]['status_text'] = "User Interview 2 Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 19) {
+                $job_apply[$i]['status_text'] = "User Interview 3 Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 20) {
+                $job_apply[$i]['status_text'] = "User Interview 3 Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 21) {
+                $job_apply[$i]['status_text'] = "MCU Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 22) {
+                $job_apply[$i]['status_text'] = "MCU Fail";
+                $job_apply[$i]['button'] = "N";
             }elseif($job_apply[$i]['status'] == 11){
                 $job_apply[$i]['status_text'] = "Failed";
                 $job_apply[$i]['status_css'] = 'failed';
                 $job_apply[$i]['button'] = "N";
-            }else{
+            }elseif($job_apply[$i]['status'] == 12){
                 $job_apply[$i]['status_text'] = "Hired";
                 $job_apply[$i]['status_css'] = 'success';
                 $job_apply[$i]['button'] = "N";
+            }else{
+                $job_apply[$i]['status_text'] = "";
+                $job_apply[$i]['status_css'] = 'other';
+                $job_apply[$i]['button'] = "N";
             }
-        } 
+        }     
 
         return view('candidate.profile.other-information')->with(['topbar'=>'other_information', 'tab_profile'=>'profile-home', 'job_apply'=>$job_apply]);
     }
@@ -572,84 +609,85 @@ class ProfileController extends Controller
         $job_apply = Job_Application::select('job_application.*', 'vacancies.job_title', 'vacancies.type', 'vacancies.lokasi')
                                 ->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')
                                 ->where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
-        
         for ($i=0; $i < count($job_apply); $i++) { 
-            if($job_apply[$i]['status'] >= 0 && $job_apply[$i]['status'] < 11 && $job_apply[$i]['status'] > 12){
-                if ($job_apply[$i]['status'] == 0) {
-                    $job_apply[$i]['status_text'] = "Application Resume";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 1) {
-                    $job_apply[$i]['status_text'] = "Process To Written Test";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 2) {
-                    $job_apply[$i]['status_text'] = "Check Online Test";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 3) {
-                    $job_apply[$i]['status_text'] = "Written Test Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 4) {
-                    $job_apply[$i]['status_text'] = "Written Test failed";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 5) {
-                    $job_apply[$i]['status_text'] = "Check Interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 6) {
-                    $job_apply[$i]['status_text'] = "Check Interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 7) {
-                    $job_apply[$i]['status_text'] = "Check Interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 8) {
-                    $job_apply[$i]['status_text'] = "Check Interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 9) {
-                    $job_apply[$i]['status_text'] = "Check MCU";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 10) {
-                    $job_apply[$i]['status_text'] = "Doc Sign";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 13) {
-                    $job_apply[$i]['status_text'] = "HR interview Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 14) {
-                    $job_apply[$i]['status_text'] = "HR interview Fail";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 15) {
-                    $job_apply[$i]['status_text'] = "User Interview 1 Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 16) {
-                    $job_apply[$i]['status_text'] = "User Interview 1 Fail";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 17) {
-                    $job_apply[$i]['status_text'] = "User Interview 2 Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 18) {
-                    $job_apply[$i]['status_text'] = "User Interview 2 Fail";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 19) {
-                    $job_apply[$i]['status_text'] = "User Interview 3 Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 20) {
-                    $job_apply[$i]['status_text'] = "User Interview 3 Fail";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 21) {
-                    $job_apply[$i]['status_text'] = "MCU Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 22) {
-                    $job_apply[$i]['status_text'] = "MCU Fail";
-                    $job_apply[$i]['button'] = "N";
-                }
-                $job_apply[$i]['status_css'] = 'other';
+            $job_apply[$i]['status_css'] = 'other';
+            if ($job_apply[$i]['status'] == 0) {
+                $job_apply[$i]['status_text'] = "Application Resume";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 1) {
+                $job_apply[$i]['status_text'] = "Process To Written Test";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 2) {
+                $job_apply[$i]['status_text'] = "Check Online Test";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 3) {
+                $job_apply[$i]['status_text'] = "Written Test Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 4) {
+                $job_apply[$i]['status_text'] = "Written Test failed";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 5) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 6) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 7) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 8) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 9) {
+                $job_apply[$i]['status_text'] = "Check MCU";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 10) {
+                $job_apply[$i]['status_text'] = "Doc Sign";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 13) {
+                $job_apply[$i]['status_text'] = "HR interview Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 14) {
+                $job_apply[$i]['status_text'] = "HR interview Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 15) {
+                $job_apply[$i]['status_text'] = "User Interview 1 Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 16) {
+                $job_apply[$i]['status_text'] = "User Interview 1 Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 17) {
+                $job_apply[$i]['status_text'] = "User Interview 2 Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 18) {
+                $job_apply[$i]['status_text'] = "User Interview 2 Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 19) {
+                $job_apply[$i]['status_text'] = "User Interview 3 Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 20) {
+                $job_apply[$i]['status_text'] = "User Interview 3 Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 21) {
+                $job_apply[$i]['status_text'] = "MCU Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 22) {
+                $job_apply[$i]['status_text'] = "MCU Fail";
+                $job_apply[$i]['button'] = "N";
             }elseif($job_apply[$i]['status'] == 11){
                 $job_apply[$i]['status_text'] = "Failed";
                 $job_apply[$i]['status_css'] = 'failed';
                 $job_apply[$i]['button'] = "N";
-            }else{
+            }elseif($job_apply[$i]['status'] == 12){
                 $job_apply[$i]['status_text'] = "Hired";
                 $job_apply[$i]['status_css'] = 'success';
                 $job_apply[$i]['button'] = "N";
+            }else{
+                $job_apply[$i]['status_text'] = "";
+                $job_apply[$i]['status_css'] = 'other';
+                $job_apply[$i]['button'] = "N";
             }
-        } 
+        }    
 
         $universitas = MasterUniversitas::get()->toArray();
         $major = MasterMajor::get()->toArray();
@@ -776,84 +814,85 @@ class ProfileController extends Controller
         $job_apply = Job_Application::select('job_application.*', 'vacancies.job_title', 'vacancies.type', 'vacancies.lokasi')
                                 ->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')
                                 ->where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
-        
         for ($i=0; $i < count($job_apply); $i++) { 
-            if($job_apply[$i]['status'] >= 0 && $job_apply[$i]['status'] < 11 && $job_apply[$i]['status'] > 12){
-                if ($job_apply[$i]['status'] == 0) {
-                    $job_apply[$i]['status_text'] = "Application Resume";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 1) {
-                    $job_apply[$i]['status_text'] = "Process To Written Test";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 2) {
-                    $job_apply[$i]['status_text'] = "Check Online Test";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 3) {
-                    $job_apply[$i]['status_text'] = "Written Test Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 4) {
-                    $job_apply[$i]['status_text'] = "Written Test failed";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 5) {
-                    $job_apply[$i]['status_text'] = "Check Interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 6) {
-                    $job_apply[$i]['status_text'] = "Check Interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 7) {
-                    $job_apply[$i]['status_text'] = "Check Interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 8) {
-                    $job_apply[$i]['status_text'] = "Check Interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 9) {
-                    $job_apply[$i]['status_text'] = "Check MCU";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 10) {
-                    $job_apply[$i]['status_text'] = "Doc Sign";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 13) {
-                    $job_apply[$i]['status_text'] = "HR interview Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 14) {
-                    $job_apply[$i]['status_text'] = "HR interview Fail";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 15) {
-                    $job_apply[$i]['status_text'] = "User Interview 1 Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 16) {
-                    $job_apply[$i]['status_text'] = "User Interview 1 Fail";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 17) {
-                    $job_apply[$i]['status_text'] = "User Interview 2 Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 18) {
-                    $job_apply[$i]['status_text'] = "User Interview 2 Fail";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 19) {
-                    $job_apply[$i]['status_text'] = "User Interview 3 Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 20) {
-                    $job_apply[$i]['status_text'] = "User Interview 3 Fail";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 21) {
-                    $job_apply[$i]['status_text'] = "MCU Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 22) {
-                    $job_apply[$i]['status_text'] = "MCU Fail";
-                    $job_apply[$i]['button'] = "N";
-                }
-                $job_apply[$i]['status_css'] = 'other';
+            $job_apply[$i]['status_css'] = 'other';
+            if ($job_apply[$i]['status'] == 0) {
+                $job_apply[$i]['status_text'] = "Application Resume";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 1) {
+                $job_apply[$i]['status_text'] = "Process To Written Test";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 2) {
+                $job_apply[$i]['status_text'] = "Check Online Test";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 3) {
+                $job_apply[$i]['status_text'] = "Written Test Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 4) {
+                $job_apply[$i]['status_text'] = "Written Test failed";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 5) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 6) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 7) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 8) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 9) {
+                $job_apply[$i]['status_text'] = "Check MCU";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 10) {
+                $job_apply[$i]['status_text'] = "Doc Sign";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 13) {
+                $job_apply[$i]['status_text'] = "HR interview Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 14) {
+                $job_apply[$i]['status_text'] = "HR interview Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 15) {
+                $job_apply[$i]['status_text'] = "User Interview 1 Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 16) {
+                $job_apply[$i]['status_text'] = "User Interview 1 Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 17) {
+                $job_apply[$i]['status_text'] = "User Interview 2 Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 18) {
+                $job_apply[$i]['status_text'] = "User Interview 2 Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 19) {
+                $job_apply[$i]['status_text'] = "User Interview 3 Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 20) {
+                $job_apply[$i]['status_text'] = "User Interview 3 Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 21) {
+                $job_apply[$i]['status_text'] = "MCU Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 22) {
+                $job_apply[$i]['status_text'] = "MCU Fail";
+                $job_apply[$i]['button'] = "N";
             }elseif($job_apply[$i]['status'] == 11){
                 $job_apply[$i]['status_text'] = "Failed";
                 $job_apply[$i]['status_css'] = 'failed';
                 $job_apply[$i]['button'] = "N";
-            }else{
+            }elseif($job_apply[$i]['status'] == 12){
                 $job_apply[$i]['status_text'] = "Hired";
                 $job_apply[$i]['status_css'] = 'success';
                 $job_apply[$i]['button'] = "N";
+            }else{
+                $job_apply[$i]['status_text'] = "";
+                $job_apply[$i]['status_css'] = 'other';
+                $job_apply[$i]['button'] = "N";
             }
-        }
+        }    
 
         return view('candidate.profile.profile-child')->with(['topbar'=>'profile', 'tab_profile'=>'profile-password', 'job_apply'=>$job_apply]);
     }
@@ -895,79 +934,81 @@ class ProfileController extends Controller
                                 ->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')
                                 ->where('kandidat_id', Session::get('session_candidate')['id'])->get()->toArray();
         for ($i=0; $i < count($job_apply); $i++) { 
-            if($job_apply[$i]['status'] >= 0 || $job_apply[$i]['status'] < 11 || $job_apply[$i]['status'] > 12){
-                if ($job_apply[$i]['status'] == 0) {
-                    $job_apply[$i]['status_text'] = "Application Resume";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 1) {
-                    $job_apply[$i]['status_text'] = "Process To Written Test";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 2) {
-                    $job_apply[$i]['status_text'] = "Check Online Test";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 3) {
-                    $job_apply[$i]['status_text'] = "Written Test Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 4) {
-                    $job_apply[$i]['status_text'] = "Written Test failed";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 5) {
-                    $job_apply[$i]['status_text'] = "Check Interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 6) {
-                    $job_apply[$i]['status_text'] = "Check Interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 7) {
-                    $job_apply[$i]['status_text'] = "Check Interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 8) {
-                    $job_apply[$i]['status_text'] = "Check Interview";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 9) {
-                    $job_apply[$i]['status_text'] = "Check MCU";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 10) {
-                    $job_apply[$i]['status_text'] = "Doc Sign";
-                    $job_apply[$i]['button'] = "Y";
-                }elseif ($job_apply[$i]['status'] == 13) {
-                    $job_apply[$i]['status_text'] = "HR interview Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 14) {
-                    $job_apply[$i]['status_text'] = "HR interview Fail";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 15) {
-                    $job_apply[$i]['status_text'] = "User Interview 1 Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 16) {
-                    $job_apply[$i]['status_text'] = "User Interview 1 Fail";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 17) {
-                    $job_apply[$i]['status_text'] = "User Interview 2 Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 18) {
-                    $job_apply[$i]['status_text'] = "User Interview 2 Fail";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 19) {
-                    $job_apply[$i]['status_text'] = "User Interview 3 Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 20) {
-                    $job_apply[$i]['status_text'] = "User Interview 3 Fail";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 21) {
-                    $job_apply[$i]['status_text'] = "MCU Pass";
-                    $job_apply[$i]['button'] = "N";
-                }elseif ($job_apply[$i]['status'] == 22) {
-                    $job_apply[$i]['status_text'] = "MCU Fail";
-                    $job_apply[$i]['button'] = "N";
-                }
-                $job_apply[$i]['status_css'] = 'other';
+            $job_apply[$i]['status_css'] = 'other';
+            if ($job_apply[$i]['status'] == 0) {
+                $job_apply[$i]['status_text'] = "Application Resume";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 1) {
+                $job_apply[$i]['status_text'] = "Process To Written Test";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 2) {
+                $job_apply[$i]['status_text'] = "Check Online Test";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 3) {
+                $job_apply[$i]['status_text'] = "Written Test Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 4) {
+                $job_apply[$i]['status_text'] = "Written Test failed";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 5) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 6) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 7) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 8) {
+                $job_apply[$i]['status_text'] = "Check Interview";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 9) {
+                $job_apply[$i]['status_text'] = "Check MCU";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 10) {
+                $job_apply[$i]['status_text'] = "Doc Sign";
+                $job_apply[$i]['button'] = "Y";
+            }elseif ($job_apply[$i]['status'] == 13) {
+                $job_apply[$i]['status_text'] = "HR interview Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 14) {
+                $job_apply[$i]['status_text'] = "HR interview Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 15) {
+                $job_apply[$i]['status_text'] = "User Interview 1 Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 16) {
+                $job_apply[$i]['status_text'] = "User Interview 1 Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 17) {
+                $job_apply[$i]['status_text'] = "User Interview 2 Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 18) {
+                $job_apply[$i]['status_text'] = "User Interview 2 Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 19) {
+                $job_apply[$i]['status_text'] = "User Interview 3 Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 20) {
+                $job_apply[$i]['status_text'] = "User Interview 3 Fail";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 21) {
+                $job_apply[$i]['status_text'] = "MCU Pass";
+                $job_apply[$i]['button'] = "N";
+            }elseif ($job_apply[$i]['status'] == 22) {
+                $job_apply[$i]['status_text'] = "MCU Fail";
+                $job_apply[$i]['button'] = "N";
             }elseif($job_apply[$i]['status'] == 11){
                 $job_apply[$i]['status_text'] = "Failed";
                 $job_apply[$i]['status_css'] = 'failed';
                 $job_apply[$i]['button'] = "N";
-            }else{
+            }elseif($job_apply[$i]['status'] == 12){
                 $job_apply[$i]['status_text'] = "Hired";
                 $job_apply[$i]['status_css'] = 'success';
+                $job_apply[$i]['button'] = "N";
+            }else{
+                $job_apply[$i]['status_text'] = "";
+                $job_apply[$i]['status_css'] = 'other';
                 $job_apply[$i]['button'] = "N";
             }
         }   
@@ -980,7 +1021,7 @@ class ProfileController extends Controller
         $idJob = base64_decode(urldecode($id));
         $job_apply = Job_Application::where('id', $idJob)->get()->toArray();
         if ($job_apply) {
-            $interview = InterviewEvent::where('id_job_application', $job_apply[0]['id'])->orderBy('created_at', 'DESC')->limit(1)->get()->toArray();
+            
                 $vacancy = Vacancy::where('job_id', $job_apply[0]['vacancy_id'])->get()->toArray();
                 if ($vacancy) {
                     $history = Status_History_Application::where('job_application_id', $job_apply[0]['id'])->get()->toArray();
@@ -1070,6 +1111,8 @@ class ProfileController extends Controller
                                     ->where('kandidat_id', session('session_candidate.id'))
                                     ->join('test_event', 'test_event.id', 'test_participant.test_id')
                                     ->get()->toArray();
+
+                    $interview = InterviewEvent::where('id_job_application', $job_apply[0]['id'])->orderBy('created_at', 'DESC')->limit(1)->get()->toArray();
                     // dd($history);
                     return view('candidate.profile.my-app-detail')->with([
                         'topbar'=>'myapp_detail',
@@ -1110,7 +1153,7 @@ class ProfileController extends Controller
     public function postConfirmTest(){
         $encrypt = new EncryptController;
     	$data = $encrypt->fnDecrypt(Request::input('data'),true);
-        
+        // dd($data);
         $confirmTest = TestParticipant::where('id', $data['idParticipant'])->update(['status' => 1]);
         if ($confirmTest) {
             $dataEmail = [
@@ -1315,7 +1358,7 @@ class ProfileController extends Controller
         $encrypt = new EncryptController;
     	$data = $encrypt->fnDecrypt(Request::input('data'),true);
         if ($data['countInterview'] < 4) {
-            $insertReschedule = interviewReschedule::insert([
+            $insertReschedule = InterviewReschedule::insert([
                 "interview_event_id" => $data['idInterview'],
                 "date_start"         => date("Y-m-d", strtotime($data['dateStart'])),
                 "date_end"           => date("Y-m-d", strtotime($data['dateEnd'])),
@@ -1324,6 +1367,15 @@ class ProfileController extends Controller
             ]);
             
             if ($insertReschedule) {
+                $dataEmail = [
+                    'email'         => session('session_candidate.user_email'),
+                    'nama'          => session('session_candidate.first_name').' '.session('session_candidate.last_name'),
+                    'subject'       => 'Reschedule Confirmation',
+                    'view'          => 'email.email-reschedule-confirm'
+                ];
+        
+                $response = JobSendEmail::dispatch($dataEmail);
+                
                 $count = $data['countInterview']+1;
                 $updateInterview = InterviewEvent::where('id', $data['idInterview'])->update([
                     "status" => 4,
@@ -1357,4 +1409,77 @@ class ProfileController extends Controller
         }
     }
     
+
+    public function checkTest(){
+        $idJob = Request::input('value');
+        $job_apply = Job_Application::where('id', $idJob)->get()->toArray();
+        // dd($value);
+        if ($job_apply) {
+            $vacancy = Vacancy::where('job_id', $job_apply[0]['vacancy_id'])->get()->toArray();
+            $test = TestParticipant::select('test_event.*', 'test_participant.id as id_participant', 'test_participant.kandidat_id', 'test_participant.test_id', 'test_participant.status as status_participant')
+                                    ->where('kandidat_id', session('session_candidate.id'))
+                                    ->join('test_event', 'test_event.id', 'test_participant.test_id')
+                                    ->get()->toArray();
+            
+            $job_apply[0]['id_enc'] = base64_encode(urlencode($job_apply[0]['id']));
+            
+            if ($test) {
+                $test[0]['date_test_format'] = date('d M y', strtotime($test[0]['date_test']));
+                $test[0]['date_test'] = date('Y-m-d', strtotime($test[0]['date_test']));
+            }
+            $color = ConfigHomepage::select('value')->where('config', 1)->get()->toArray();
+            $now = date('Y-m-d');
+            $data = [
+                'job'   => $job_apply,
+                'vacancy'=>$vacancy,
+                'test'=>$test,
+                'color'=>$color,
+                'now'=>$now
+            ];
+
+            return response()->json($data);
+        }else{
+            $messages = [
+                'status' => 'error',
+                'message' => 'Data Not Found',
+            ];
+
+            return response()->json($messages);
+        }
+    }
+
+    public function checkInterview(){
+        $idJob = Request::input('value');
+        $job_apply = Job_Application::where('id', $idJob)->get()->toArray();
+        // dd($value);
+        if ($job_apply) {
+            $vacancy = Vacancy::where('job_id', $job_apply[0]['vacancy_id'])->get()->toArray();
+            $interview = InterviewEvent::where('id_job_application', $job_apply[0]['id'])->orderBy('created_at', 'DESC')->limit(1)->get()->toArray();
+            // dd($interview);
+            $job_apply[0]['id_enc'] = base64_encode(urlencode($job_apply[0]['id']));
+            
+            if ($interview) {
+                $interview[0]['date_interview_format'] = date('d M y', strtotime($interview[0]['interview_date']));
+                $interview[0]['date_interview'] = date('Y-m-d', strtotime($interview[0]['interview_date']));
+            }
+            $color = ConfigHomepage::select('value')->where('config', 1)->get()->toArray();
+            $now = date('Y-m-d');
+            $data = [
+                'job'   => $job_apply,
+                'vacancy'=>$vacancy,
+                'interview'=>$interview,
+                'color'=>$color,
+                'now'=>$now
+            ];
+
+            return response()->json($data);
+        }else{
+            $messages = [
+                'status' => 'error',
+                'message' => 'Data Not Found',
+            ];
+
+            return response()->json($messages);
+        }
+    }
 }

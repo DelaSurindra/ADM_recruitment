@@ -10,7 +10,7 @@
             <p class="title-page"><img src="{{asset('image/icon/main/icon_title_job.svg')}}" alt=""> Manage Job Application</p>
             </div>
             <div class="col-md-8">
-                <button type="button" class="btn btn-bulk-candidate right mr-3 hidden">Send Notification</button>
+                <!-- <button type="button" class="btn btn-bulk-candidate right mr-3 hidden">Send Notification</button> -->
                 <button type="button" class="btn btn-bulk-candidate right mr-3 hidden" id="btnBulkUpdate">Bulk Update</button>
             </div>
         </div>

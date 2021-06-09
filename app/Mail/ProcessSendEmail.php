@@ -30,7 +30,7 @@ class ProcessSendEmail extends Mailable
     {
         $data = $this->dataEmail;
         return $this
-            ->from(env('MAIL_USERNAME'), str_replace('_', ' ',env('MAIL_NAME')))
+            ->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))
             ->subject($data['subject'])
             ->view($data['view'])->with([
                 'data' => $data

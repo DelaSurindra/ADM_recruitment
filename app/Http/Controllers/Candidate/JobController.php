@@ -51,7 +51,8 @@ class JobController extends Controller
         $parameter = parse_str($data, $filter);
         // dd($filter);
         if (isset($filter['searchJob'])) {
-            $sql = new Vacancy;
+            $now=date("Y-m-d");
+            $sql = Vacancy::where('status', 1)->where('active_date', '>', $now);
             // Search
             if (isset($filter['searchJob']) && !empty($filter['searchJob'])) {
                 $sql = $sql->where('job_title', 'like','%'.$filter['searchJob'].'%');
@@ -95,7 +96,8 @@ class JobController extends Controller
 
             $job = $sql->orderBy('created_at', 'desc')->get()->toArray();
         } else {
-            $job = Vacancy::orderBy('created_at', 'desc')->take($data)->get()->toArray();
+            $now=date("Y-m-d");
+            $job = Vacancy::where('status', 1)->where('active_date', '>', $now)->orderBy('created_at', 'desc')->take($data)->get()->toArray();
         }
         
         for ($i=0; $i < count($job); $i++) { 

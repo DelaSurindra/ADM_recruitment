@@ -215,6 +215,7 @@ var table = {
 
 		if($('#tableAlternatifTest').length){
 			var column = [
+				{'data':null},
 				{'data':'created_at'},
 				{'data':'event_id'},
 				{'data':'date_test'},
@@ -480,7 +481,7 @@ var table = {
 						}else{
 							image = baseImage+'/'+full.foto_profil;
 						}
-						var data = '<a href="/HR/candidate/detail-candidate/'+id+'" class="name-candidate"><img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name+'</a';
+						var data = '<img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name;
 						return data;
 					}
 				},
@@ -568,7 +569,7 @@ var table = {
 						}else{
 							image = baseImage+'/'+full.foto_profil;
 						}
-						var data = '<a href="/HR/candidate/detail-candidate/'+id+'" class="name-candidate"><img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name+'</a';
+						var data = '<img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name;
 						return data;
 					}
 				},
@@ -625,7 +626,7 @@ var table = {
 					"render": function(data, type, full, meta){
 						var id = encodeURIComponent(window.btoa(full.test_participant_id));
 						// var konfirm = '';
-						var data = '<button type="button" class="btn btn-table btn-transparent edit-table"><img style="margin-right: 1px;" src="/image/icon/main/icon_send_otp.svg" title="Send OTP">&nbsp Send OTP</button>';
+						var data = '<button type="button" class="btn btn-table btn-transparent edit-table send-otp-one"><img style="margin-right: 1px;" src="/image/icon/main/icon_send_otp.svg" title="Send OTP">&nbsp Send OTP</button>';
 		            	return data;
 					}
 				}
@@ -662,7 +663,7 @@ var table = {
 						}else{
 							image = baseImage+'/'+full.foto_profil;
 						}
-						var data = '<a href="/HR/candidate/detail-candidate/'+id+'" class="name-candidate"><img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name+'</a';
+						var data = '<img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name;
 						return data;
 					}
 				},
@@ -990,9 +991,9 @@ var table = {
 					"render": function(data, type, full, meta){
 						var data = '';
 						if (full.gender == "1") {
-							data = "Laki-Laki";
+							data = "Male";
 						}else if (full.gender == "2") {
-							data = "Perempuan";
+							data = "Female";
 						}
 						return data;
 					}
@@ -1911,7 +1912,7 @@ var table = {
 			ordering = false;
 		}
 
-		if (id == "tableJob" || id == "tableChooseCandidate" || id == "tableParticipantTest" || id=="tableParticipantTestTheDay" || id == "tableChooseInterview") {
+		if (id == "tableJob" || id == "tableChooseCandidate" || id == "tableParticipantTest" || id=="tableParticipantTestTheDay" || id == "tableChooseInterview" || id == "tableAlternatifTest") {
 			urutan = [1, 'desc'];
 		}
 
@@ -2121,8 +2122,8 @@ $("#tableAlternatifTest tbody").on('click', 'input', function(e) {
 		$("#countTest").val(jumlah);
 		$("#divAlternatif").append(
 			'<div class="div-alternatif hidden" id="setAlternatif'+dataRow.id+'">'+
-				'<input type="hidden" name="alternatifTest" class="id-alternatif-test" value="'+dataRow.id+'" disabled>'+
-				'<input type="hidden" name="alternatifTestDate" class="id-alternatif-test" value="'+dataRow.date_test+'" disabled>'+
+				'<input type="hidden" name="alternatifTest" class="id-alternatif-test" value="'+dataRow.id+'">'+
+				'<input type="hidden" name="alternatifTestDate" class="id-alternatif-test" value="'+dataRow.date+'">'+
 				'<div class="dropdown-divider mb-4"></div>'+
 				'<div class="row">'+
 					'<div class="col-md-5">'+
@@ -2204,11 +2205,15 @@ $("#tableParticipantTestTheDay tbody").on('click', 'input', function(e) {
 		$("#countParticipant").val(jumlah);
 		$("#listPart").append('<input type="hidden" id="input_'+dataRow.test_participant_id+'" name="idPart[]" value="'+dataRow.test_participant_id+'">')
 		$("#listAbsen").append('<input type="hidden" id="absen_'+dataRow.test_participant_id+'" name="absenPart[]" value="'+dataRow.test_participant_id+'">')
+		$("#listSendOtp").append('<input type="hidden" id="send_'+dataRow.kandidat_id+'" name="idSend[]" value="'+dataRow.kandidat_id+'">')
+		$("#countSend").val(jumlah);
 	} else {
 		jumlah = parseInt(count)-1;
 		$("#countParticipant").val(jumlah);
 		$("#input_"+dataRow.test_participant_id).remove();
 		$("#absen_"+dataRow.test_participant_id).remove();
+		$("#send_"+dataRow.kandidat_id).remove();
+		$("#countSend").val(jumlah);
 	}
 	$(".textItem").html(jumlah+" item selected")
 	if (jumlah == 0) {
@@ -2220,6 +2225,21 @@ $("#tableParticipantTestTheDay tbody").on('click', 'input', function(e) {
 		$("#btnSendOtp").removeClass('hidden');
 		$("#btnSetAbsen").removeClass('hidden');
 	}
+})
+
+$("#tableParticipantTestTheDay tbody").on('click', 'button.send-otp-one', function(e) {
+	var table = $('#tableParticipantTestTheDay').DataTable();
+	var dataRow = table.row($(this).closest('tr')).data();
+	// alert(dataRow.test_participant_id)
+	var idData = $("#idData").val();
+	var value = dataRow.kandidat_id+'_'+idData;
+	ajax.getData('/HR/test/send-otp-one', 'post', {value:value}, function(data){
+		if (data.status == "success") {
+			ui.popup.show(data.status, data.message, data.url);
+		}else{
+			ui.popup.show(data.status, data.message);
+		}
+	})
 })
 
 $('#tableParticipantTest tbody').on( 'click', 'button.btn-acc-reschedule', function (e) {
@@ -2248,9 +2268,9 @@ $("#tableChooseInterview tbody").on('click', 'input', function(e) {
 		var dataNama = '<img class="img-candidate" src="'+image+'" />'+'&nbsp'+dataRow.first_name+' '+dataRow.last_name;
 		var gender = "";
 		if (dataRow.gender == "1") {
-			gender = "Laki-laki";
+			gender = "Male";
 		} else {
-			gender = "Perempuan"
+			gender = "Female"
 		}
 
 		var status = "";

@@ -53,7 +53,8 @@ const formrules = {
         ignore: null,
 		rules:{
 			'imageNewsEvent':{
-                required:true
+                required:true,
+				STD_VAL_WEB_18:true
             },
 			'titleNewsEvent':{
                 required:true
@@ -105,6 +106,9 @@ const formrules = {
 	'formEditEventNews':{
         ignore: null,
 		rules:{
+			'imageNewsEvent':{
+				STD_VAL_WEB_18:true
+            },
 			'titleNewsEvent':{
                 required:true
             },
@@ -293,7 +297,8 @@ const formrules = {
         ignore: null,
 		rules:{
 			'photoProfile':{
-                required:true
+                required:true,
+				STD_VAL_WEB_18:true
             },
             'firstName':{
                 required:true,
@@ -345,26 +350,19 @@ const formrules = {
 			},
 			'certificate[]':{
 				required:true,
+				STD_VAL_WEB_18:true
+			},
+			'portofolio':{
+				STD_VAL_WEB_18:true
+			},
+			'coverLetter':{
+				STD_VAL_WEB_18:true
+			},
+			'resume':{
+				STD_VAL_WEB_18:true
 			}
 		},
 		submitHandler:false,
-		messages: {
-			titleNewsEvent: {
-				required:'Mohon isi Title'
-            },
-            tipeNewsEvent: {
-				required:'Mohon pilih Tipe'
-            },
-            tglMulaiNewsEvent: {
-				required:'Mohon isi Start Date'
-            },
-			tglSelesaiNewsEvent: {
-				required:'Mohon isi Start Date'
-            },
-			descriptionNewsEvent: {
-				required:'Mohon isi Description'
-            }
-        },
         errorPlacement: function (error, element) {
 			if (element.is("#photoProfile")) {
 				error.appendTo(element.parent().parent().parent());
@@ -422,6 +420,22 @@ const formrules = {
 				error.insertAfter(element);
 			}
 		}
+	},
+
+	'formEditOtherInformation':{
+		ignore: null,
+		rules:{
+			'portofolio':{
+				STD_VAL_WEB_18:true
+			},
+			'coverLetter':{
+				STD_VAL_WEB_18:true
+			},
+			'resume':{
+				STD_VAL_WEB_18:true
+			}
+		},
+		submitHandler:false,
 	},
 
 	'formEditPassword':{
@@ -626,11 +640,14 @@ const formrules = {
         errorPlacement: function (error, element) {
 			if (element.is("input[name=setTest]")) {
 				error.appendTo(element.parents('#setTestDiv'));
-			}else { // This is the default behavior
+			}else if (element.hasClass("select2")) {
+				error.appendTo(element.parents('.form-group'));
+			} else { // This is the default behavior
 				error.insertAfter(element);
 			}
 		}
 	},
+	
 	'formForgetCandidate':{
 		ignore: null,
 		rules:{
@@ -668,15 +685,12 @@ const formrules = {
 				required: true
 			},
 		},
-		messages: {
-			setTest: {
-				required: 'Mohon pilih salah satu set test',
-			}
-        },
 		submitHandler:false,
         errorPlacement: function (error, element) {
 			if (element.is("#typeInterview")) {
 				error.appendTo(element.parents('#typeInterviewDiv'));
+			}else if (element.hasClass("select2")) {
+				error.appendTo(element.parents('.form-group'));
 			}else { // This is the default behavior
 				error.insertAfter(element);
 			}
@@ -702,15 +716,12 @@ const formrules = {
 				required: true
 			},
 		},
-		messages: {
-			setTest: {
-				required: 'Mohon pilih salah satu set test',
-			}
-        },
 		submitHandler:false,
         errorPlacement: function (error, element) {
 			if (element.is("#typeInterview")) {
 				error.appendTo(element.parents('#typeInterviewDiv'));
+			}else if (element.hasClass("select2")) {
+				error.appendTo(element.parents('.form-group'));
 			}else { // This is the default behavior
 				error.insertAfter(element);
 			}

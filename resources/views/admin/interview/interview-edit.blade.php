@@ -125,7 +125,12 @@
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group" >
                                         <label>City<span class="required-sign">*</span></label>
-                                        <input id="cityInterview" name="cityInterview" class="form-control" type="text" placeholder="Enter City" {{$interview['disabled']}} value="{{$interview['city']}}">
+                                        <select class="select2 tex-center select2-width" id="cityInterview" name="cityInterview" {{$interview['disabled']}}>
+                                            <option value="">-- Choose Location --</option>
+                                            @foreach($wilayah as $dataWilayah)
+                                                <option {{$interview['city'] == $dataWilayah['kabupaten']}} value="{{$dataWilayah['kabupaten']}}">{{$dataWilayah['kabupaten']}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -164,7 +169,7 @@
             <div class="row mb-3">
                 <div class="col-md-5">
                     <p class="title-alternatif title-id">Gender</p>
-                    <p class="content-alternatif">{{$kandidat['gender'] == "1" ? "Laki-laki" : "Perempuan"}}</p>
+                    <p class="content-alternatif">{{$kandidat['gender'] == "1" ? "Male" : "Female"}}</p>
                 </div>
                 <div class="col-md-4">
                     <p class="title-alternatif title-id">Phone</p>
