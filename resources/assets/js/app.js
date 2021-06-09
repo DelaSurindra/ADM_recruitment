@@ -130,6 +130,22 @@ $(document).ready(function () {
         $("#urlTest").attr('href', url);
         $('#modalSuccessAddTest').modal('show')
     }
+
+    $('#btnDrawer').click(function() {
+        document.getElementById("navbarSupportedContent").style.width = "335px";
+    });
+    $('#btnDrawerClose').click(function() {
+        document.getElementById("navbarSupportedContent").style.width = "0";
+    });
+
+    $('#btn-mobile').click(function() {
+        console.log('click')
+        document.getElementById("sidebarUtama").style.width = "290px";
+    });
+    $('#btn-mobile-close').click(function() {
+        console.log('click')
+        document.getElementById("sidebarUtama").style.width = "0";
+    });
 })
 
 // $('.modal').on('hidden.bs.modal', function (e) {
