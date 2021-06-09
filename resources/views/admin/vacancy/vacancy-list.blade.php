@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                                 </br>
-                                <div class="right">
+                                <div class="right mt-4">
                                     <button type="button" class="left btn btn-back" data-dismiss="modal">Tutup</button>
                                     <button type="submit" class="btn bnt-login btn-hapus-modal" id="btnKonfirmasiVacancy"></button>
                                 </div>
