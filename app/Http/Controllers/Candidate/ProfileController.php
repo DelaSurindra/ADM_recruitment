@@ -1153,7 +1153,7 @@ class ProfileController extends Controller
     public function postConfirmTest(){
         $encrypt = new EncryptController;
     	$data = $encrypt->fnDecrypt(Request::input('data'),true);
-        dd($data);
+        // dd($data);
         $confirmTest = TestParticipant::where('id', $data['idParticipant'])->update(['status' => 1]);
         if ($confirmTest) {
             $dataEmail = [
