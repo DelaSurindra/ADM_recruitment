@@ -1,59 +1,57 @@
 @extends('candidate.main-homepage.main')
 @section('content')
 
-<div class="row">
-    <div class="col-md-12">
-        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                @if(isset($banner[1]))
-                <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                @endif
-                @if(isset($banner[2]))
-                <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-                @endif
-            </ol>
-            <div class="carousel-inner">
-                @isset($banner[0])
-                <div class="carousel-item active">
-                    <div class="div-image-carousel">
-                        <img src="{{asset('storage/').'/'.$banner[0]['value'] }}" class="d-block w-100 img-carousel">
-                    </div>
+<div class="w-100">
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+            @if(isset($banner[1]))
+            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+            @endif
+            @if(isset($banner[2]))
+            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+            @endif
+        </ol>
+        <div class="carousel-inner">
+            @isset($banner[0])
+            <div class="carousel-item active">
+                <div class="div-image-carousel">
+                    <img src="{{asset('storage/').'/'.$banner[0]['value'] }}" class="d-block w-100 img-carousel">
                 </div>
-                @endif
-                @if(isset($banner[1]))
-                <div class="carousel-item">
-                    <div class="div-image-carousel">
-                        <img src="{{asset('storage/').'/'.$banner[1]['value'] }}" class="d-block w-100 img-carousel">
-                    </div>
-                </div>
-                @endif
-                @if(isset($banner[2]))
-                <div class="carousel-item">
-                    <div class="div-image-carousel">
-                        <img src="{{asset('storage/').'/'.$banner[2]['value'] }}" class="d-block w-100 img-carousel">
-                    </div>
-                </div>
-                @endif
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"><img src="{{asset('/image/icon/homepage/news-prev.svg')}}" class="img-prev-next"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"><img src="{{asset('/image/icon/homepage/news-next.svg')}}" class="img-prev-next"></span>
-                <span class="sr-only">Next</span>
-            </a>
+            @endif
+            @if(isset($banner[1]))
+            <div class="carousel-item">
+                <div class="div-image-carousel">
+                    <img src="{{asset('storage/').'/'.$banner[1]['value'] }}" class="d-block w-100 img-carousel">
+                </div>
+            </div>
+            @endif
+            @if(isset($banner[2]))
+            <div class="carousel-item">
+                <div class="div-image-carousel">
+                    <img src="{{asset('storage/').'/'.$banner[2]['value'] }}" class="d-block w-100 img-carousel">
+                </div>
+            </div>
+            @endif
         </div>
+        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"><img src="{{asset('/image/icon/homepage/news-prev.svg')}}" class="img-prev-next"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"><img src="{{asset('/image/icon/homepage/news-next.svg')}}" class="img-prev-next"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12 div-blue-job">
-        <center>
-            <p>There are <span>24 job vacancies <a href="{{route('get.job.page')}}">View All<img src="{{asset('image/icon/homepage/icon-view-all.svg')}}"></a></span></p>
-        </center>
-    </div>
+
+<div class="w-100 div-blue-job">
+    <center>
+        <p>There are <span>24 job vacancies <a href="{{route('get.job.page')}}">View All<img src="{{asset('image/icon/homepage/icon-view-all.svg')}}"></a></span></p>
+    </center>
 </div>
+
 <div class="container mt-5">
     <div class="row">
         <div class="col-xl-6 col-lg-6 col-md-6">

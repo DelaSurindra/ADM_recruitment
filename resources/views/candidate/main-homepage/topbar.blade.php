@@ -1,13 +1,31 @@
 <nav class="navbar navbar-expand-lg navbar-light navbar-adm">
     <div class="container">
-        <a class="navbar-brand" href="#">
-            <img src="{{asset('image/icon/navbar/logo_navbar.svg')}}" loading="lazy" alt="logo">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="wrapper-mobile-nav">
+            <a class="navbar-brand" href="#">
+                <img src="{{asset('image/icon/navbar/logo_navbar.svg')}}" loading="lazy" alt="logo">
+            </a>
+            <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button> -->
+            <button class="navbar-toggler" type="button" id="btnDrawer">
+                <!-- <span class="navbar-toggler-icon"></span> -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+            </button>
+        </div>
     
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="mobile-nav-head">
+                <!-- <a href="#">
+                    <img src="{{asset('image/icon/navbar/logo_navbar.svg')}}" loading="lazy" alt="logo">
+                </a> -->
+                <button class="navbar-btn-mobile" type="button" id="btnDrawerClose">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                        <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/>
+                    </svg>
+                </button>
+            </div>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item {{($topbar== 'home'?'active':'')}}">
                     <a class="nav-link" href="{{route('home')}}">Home</a>
@@ -31,7 +49,7 @@
 
             <div class="form-inline my-2 my-lg-0">
                 @if(Session::get('session_candidate'))
-                <div class="notif-dropdown dropdown">
+                <!-- <div class="notif-dropdown dropdown">
                     <div class="notif-count" id="notifCount">99</div>
                     <div class="notif-access" id="dropdownMenuNotif" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="{{ asset('image/icon/homepage/icon-bell.svg') }}" alt="icon">
@@ -61,6 +79,32 @@
                                 <p class="date-notif">12 Feb 2021 13:15</p>
                                 <a href="#" class="link-notif">See Details</a>
                             </div>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="profile-dropdown-mobile">
+                    <button class="btn-collapse btn-block" type="button" data-toggle="collapse" data-target="#collapseProfileMobile" aria-expanded="false" aria-controls="collapseExample">
+                        @if(session('session_candidate.foto_profil') == null)
+                        <img class="rounded-circle img-profile" src="{{ asset('image/icon/homepage/dummy-profile.svg') }}" alt="avatar">
+                        @else
+                        <img class="rounded-circle img-profile" src="{{asset('storage/').'/'.session('session_candidate.foto_profil') }}" alt="avatar">
+                        @endif
+                        <p class="name-profile">{{ Session::get('session_candidate')['first_name'] }} {{ Session::get('session_candidate')['last_name'] }}</p>
+                    </button>
+                    <div class="collapse" id="collapseProfileMobile">
+                        <div class="list-group">
+                            <a href="{{ route('get.profile.view') }}" class="list-group-item list-group-item-action">
+                                <img src="{{ asset('image/icon/homepage/edit-profile-icon.svg') }}" alt="icon"> Edit Profile
+                            </a>
+                            <a href="{{ route('get.profile.edit-password') }}" class="list-group-item list-group-item-action">
+                                <img src="{{ asset('image/icon/homepage/edit-password-icon.svg') }}" alt="icon"> Edit Password
+                            </a>
+                            <a href="{{route('get.profile.my-app')}}" class="list-group-item list-group-item-action">
+                                <img src="{{ asset('image/icon/homepage/myapp-icon.svg') }}" alt="icon"> My Application
+                            </a>
+                            <a href="{{ route('get.logout-candidate') }}" class="list-group-item list-group-item-action">
+                                <img src="{{ asset('image/icon/homepage/logout-icon.svg') }}" alt="icon"> Logout
+                            </a>
                         </div>
                     </div>
                 </div>

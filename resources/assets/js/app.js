@@ -130,6 +130,13 @@ $(document).ready(function () {
         $("#urlTest").attr('href', url);
         $('#modalSuccessAddTest').modal('show')
     }
+
+    $('#btnDrawer').click(function() {
+        document.getElementById("navbarSupportedContent").style.width = "335px";
+    });
+    $('#btnDrawerClose').click(function() {
+        document.getElementById("navbarSupportedContent").style.width = "0";
+    });
 })
 
 // $('.modal').on('hidden.bs.modal', function (e) {
