@@ -23,8 +23,8 @@
                         <div class="col-md-12">
                             @csrf
                             <div class="row">
-                                <div class="col-lg-11 col-md-12">
-                                    <div class="form-group">
+                                <div class="col-lg-11 col-md-12" >
+                                    <div class="form-group" id="imageNewsEventDiv">
                                         <div class="dropzone-wrapper">
                                             <div class="dropzone-desc">
                                                 <img src="{{ asset('image/icon/main/ilusi-upload-gambar.svg') }}" alt="icon">

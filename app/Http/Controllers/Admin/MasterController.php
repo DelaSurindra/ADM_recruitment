@@ -108,10 +108,42 @@ class MasterController extends Controller
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
         // dd($data);
         if ($data['typeMaster'] == "1") {
+            $univ = strtolower($data['nameUniv']);
+            $universitas = MasterUniversitas::get()->toArray();
+            $dataUniv = [];
+            if ($universitas) {
+                for ($i=0; $i < count($universitas); $i++) { 
+                    array_push($dataUniv, strtolower($universitas[$i]['universitas']));
+                }
+                if (in_array($univ, $dataUniv)) {
+                    $messages = [
+                        'status' => 'error',
+                        'message' => "Data '".$data['nameUniv']."' Exist",
+                    ];
+        
+                    return response()->json($messages);
+                }
+            }
             $addMaster = MasterUniversitas::insert([
                 "universitas" => $data['nameUniv']
             ]);
         }else{
+            $major = strtolower($data['nameMajor']);
+            $getMajor = MasterMajor::get()->toArray();
+            $dataMajor = [];
+            if ($getMajor) {
+                for ($i=0; $i < count($getMajor); $i++) { 
+                    array_push($dataMajor, strtolower($getMajor[$i]['major']));
+                }
+                if (in_array($major, $dataMajor)) {
+                    $messages = [
+                        'status' => 'error',
+                        'message' => "Data '".$data['nameMajor']."' Exist",
+                    ];
+        
+                    return response()->json($messages);
+                }
+            }
             $addMaster = MasterMajor::insert([
                 "major" => $data['nameMajor']
             ]);
@@ -141,10 +173,42 @@ class MasterController extends Controller
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
         // dd($data);
         if ($data['typeEdit'] == "1") {
+            $univ = strtolower($data['nameEdit']);
+            $universitas = MasterUniversitas::get()->toArray();
+            $dataUniv = [];
+            if ($universitas) {
+                for ($i=0; $i < count($universitas); $i++) { 
+                    array_push($dataUniv, strtolower($universitas[$i]['universitas']));
+                }
+                if (in_array($univ, $dataUniv)) {
+                    $messages = [
+                        'status' => 'error',
+                        'message' => "Data '".$data['nameEdit']."' Exist",
+                    ];
+        
+                    return response()->json($messages);
+                }
+            }
             $editMaster = MasterUniversitas::where('id', $data['idEdit'])->update([
                 "universitas" => $data['nameEdit']
             ]);
         }else{
+            $major = strtolower($data['nameEdit']);
+            $getMajor = MasterMajor::get()->toArray();
+            $dataMajor = [];
+            if ($getMajor) {
+                for ($i=0; $i < count($getMajor); $i++) { 
+                    array_push($dataMajor, strtolower($getMajor[$i]['major']));
+                }
+                if (in_array($major, $dataMajor)) {
+                    $messages = [
+                        'status' => 'error',
+                        'message' => "Data '".$data['nameEdit']."' Exist",
+                    ];
+        
+                    return response()->json($messages);
+                }
+            }
             $editMaster = MasterMajor::where('id', $data['idEdit'])->update([
                 "major" => $data['nameEdit']
             ]);

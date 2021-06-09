@@ -54,7 +54,7 @@ const formrules = {
 		rules:{
 			'imageNewsEvent':{
                 required:true,
-				STD_VAL_WEB_18:true
+				filesize:1000000
             },
 			'titleNewsEvent':{
                 required:true
@@ -96,6 +96,8 @@ const formrules = {
         errorPlacement: function (error, element) {
 			if (element.is("#tipeNewsEvent")) {
 				error.appendTo(element.parents('#tipeNewsEventDiv'));
+			}else if (element.is("#imageNewsEvent")) {
+				error.appendTo(element.parents('#imageNewsEventDiv'));
 			}
 			else { // This is the default behavior
 				error.insertAfter(element);
@@ -107,7 +109,7 @@ const formrules = {
         ignore: null,
 		rules:{
 			'imageNewsEvent':{
-				STD_VAL_WEB_18:true
+				filesize:1000000
             },
 			'titleNewsEvent':{
                 required:true
@@ -146,6 +148,8 @@ const formrules = {
         errorPlacement: function (error, element) {
 			if (element.is("#tipeNewsEvent")) {
 				error.appendTo(element.parents('#tipeNewsEventDiv'));
+			}else if (element.is("#imageNewsEvent")) {
+				error.appendTo(element.parents('#imageNewsEventDiv'));
 			}
 			else { // This is the default behavior
 				error.insertAfter(element);
@@ -298,7 +302,7 @@ const formrules = {
 		rules:{
 			'photoProfile':{
                 required:true,
-				STD_VAL_WEB_18:true
+				filesize:1000000
             },
             'firstName':{
                 required:true,
@@ -350,16 +354,16 @@ const formrules = {
 			},
 			'certificate[]':{
 				required:true,
-				STD_VAL_WEB_18:true
+				filesize:1000000
 			},
 			'portofolio':{
-				STD_VAL_WEB_18:true
+				filesize:1000000
 			},
 			'coverLetter':{
-				STD_VAL_WEB_18:true
+				filesize:1000000
 			},
 			'resume':{
-				STD_VAL_WEB_18:true
+				filesize:1000000
 			}
 		},
 		submitHandler:false,
@@ -426,13 +430,13 @@ const formrules = {
 		ignore: null,
 		rules:{
 			'portofolio':{
-				STD_VAL_WEB_18:true
+				filesize:1000000
 			},
 			'coverLetter':{
-				STD_VAL_WEB_18:true
+				filesize:1000000
 			},
 			'resume':{
-				STD_VAL_WEB_18:true
+				filesize:1000000
 			}
 		},
 		submitHandler:false,
@@ -910,6 +914,40 @@ const formrules = {
 				required:true,
 				STD_VAL_WEB_2:true
 			},
+            'firstNameUser':{
+                required:true,
+				STD_VAL_WEB_3: true,
+            },
+            'lastNameUser':{
+                required:true,
+                STD_VAL_WEB_3: true,
+            },
+			'genderUser':{
+				required:true,
+			},
+			'telpUser':{
+				required:true,
+				STD_VAL_WEB_8: true,
+			},
+			'roleUser':{
+				required:true,
+			}
+		},
+		submitHandler:false,
+        errorPlacement: function (error, element) {
+			if (element.is("#roleUser")) {
+				error.appendTo(element.parents('#roleUserDiv'));
+			} else if (element.is("input[type=radio]") || element.is("input[type=checkbox]")) {
+				error.appendTo(element.parents('.form-group'));
+			} else { // This is the default behavior
+				error.insertAfter(element);
+			}
+		}
+    },
+
+	'formEditUser':{
+        ignore: null,
+		rules:{
             'firstNameUser':{
                 required:true,
 				STD_VAL_WEB_3: true,

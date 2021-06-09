@@ -25,7 +25,7 @@
                             <input type="hidden" name="idNewsEvent" value="{{$data['id']}}">
                             <div class="row">
                                 <div class="col-lg-11 col-md-12">
-                                    <div class="form-group">
+                                    <div class="form-group" id="imageNewsEventDiv">
                                         <div class="dropzone-wrapper">
                                             @if($data['image'] == '' || $data['image'] == null)
                                                 <div class="dropzone-desc">

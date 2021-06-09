@@ -49,7 +49,13 @@ class VacancyController extends Controller
         $listVacancy = $vacancy->skip(intval( $dataSend["offset"]))->take(intval($dataSend["limit"]));
 
         if ($dataSend["order"]) {
-            $listVacancy = $listVacancy->orderBy($dataSend["order"], $dataSend["sort"])->get()->toArray();
+            // dd($dataSend['order']);
+            if ($dataSend['order'] == "major") {
+                $major = "CAST(major AS VARCHAR(100)) ".$dataSend['sort'];
+                $listVacancy = $listVacancy->orderByRaw($major)->get()->toArray();
+            }else{
+                $listVacancy = $listVacancy->orderBy($dataSend["order"], $dataSend["sort"])->get()->toArray();
+            }
         } else {
             $listVacancy = $listVacancy->orderBy('created_at', $dataSend["sort"])->get()->toArray();
         }

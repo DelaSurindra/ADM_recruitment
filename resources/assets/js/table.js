@@ -1906,11 +1906,6 @@ var table = {
 	serverSide:function(id,columns,url,custParam=null,columnDefs=null){
 		var urutan = [0, 'desc'];
 		var ordering = true;
-		
-		if (id == "tableVacancy") {
-			urutan = false;
-			ordering = false;
-		}
 
 		if (id == "tableJob" || id == "tableChooseCandidate" || id == "tableParticipantTest" || id=="tableParticipantTestTheDay" || id == "tableChooseInterview" || id == "tableAlternatifTest") {
 			urutan = [1, 'desc'];
