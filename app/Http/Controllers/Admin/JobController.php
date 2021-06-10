@@ -34,7 +34,9 @@ class JobController extends Controller
 {
     public function viewJob(){
         $vacancy = Vacancy::select('job_id', 'job_title')->get()->toArray();
-        return view('admin.job.job-list')->with(['pageTitle' => 'Manajemen Job', 'title' => 'Manajemen Job', 'sidebar' => 'manajemen_job', 'vacancy'=>$vacancy]);
+        $universitas = MasterUniversitas::get()->toArray();
+        $major = MasterMajor::get()->toArray();
+        return view('admin.job.job-list')->with(['pageTitle' => 'Manajemen Job', 'title' => 'Manajemen Job', 'sidebar' => 'manajemen_job', 'vacancy'=>$vacancy, 'universitas'=>$universitas, 'major'=>$major]);
     }
 
     public function listJob(){
@@ -52,12 +54,13 @@ class JobController extends Controller
             $job = "NULL";
         }
         if($filter['major'] != ""){
-            $major = '"'.$filter['major'].'"';
+            $major = '"'."'".$filter['major']."'".'"';
         }else{
             $major = "NULL";
         }
+        // dd($major);
         if($filter['university'] != ""){
-            $university = '"'.$filter['university'].'"';
+            $university = '"'."'".$filter['university']."'".'"';
         }else{
             $university = "NULL";
         }

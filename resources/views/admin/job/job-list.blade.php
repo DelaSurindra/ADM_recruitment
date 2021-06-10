@@ -62,17 +62,19 @@
                                         <h6>Major</h6>
                                         <select name="major" id="major" class="form-control select2">
                                             <option value="">Choose Major</option>
-                                            <option value="Sistem Informasi">Sistem Informasi</option>
-                                            <option value="Akuntansi">Akuntansi</option>
+                                            @foreach($major as $dataMajor)
+                                            <option value="{{$dataMajor['major']}}">{{$dataMajor['major']}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="dropdown-divider"></div>
                                     <div class="dropdown-item d-flex flex-column">
                                         <h6 class="mb-2">University</h6>
                                         <select name="university" id="university" class="form-control select2">
-                                                <option value="">Choose University</option>
-                                                <option value="Universitas Brawijaya">Universitas Brawijaya</option>
-                                                <option value="Universitas Indonesia">Universitas Indonesia</option>
+                                            <option value="">Choose University</option>
+                                            @foreach($universitas as $univ)
+                                                <option value="{{$univ['universitas']}}">{{$univ['universitas']}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="dropdown-divider"></div>
