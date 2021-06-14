@@ -43,7 +43,7 @@ class InterviewController extends Controller
         ->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id');
 
         if ($dataSend['search']){
-            $interview = $interview->where('title','like','%'.$dataSend['search'].'%');
+            $interview = $interview->where('kandidat.first_name','like','%'.$dataSend['search'].'%')->orWhere('kandidat.last_name','like','%'.$dataSend['search'].'%');
         }
         $countInterview = $interview->count();
 

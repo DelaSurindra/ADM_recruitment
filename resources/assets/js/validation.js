@@ -408,6 +408,9 @@ const formrules = {
 			'gpa':{
 				required:true,
 				maxDec:4
+			},
+			'certificate[]':{
+				filesize:1000000
 			}
 		},
 		submitHandler:false,
