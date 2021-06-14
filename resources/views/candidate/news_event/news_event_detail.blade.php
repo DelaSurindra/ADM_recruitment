@@ -21,7 +21,7 @@
                 @if($newsEvent['type'] != '1')
                 <div class="row">
                     <div class="col-md-4 ml-4 mt-3 div-valid">
-                        <p class="text-valid">Valid : <strong>{{date('d F Y', strtotime($newsEvent['start_date']))}} - {{date('d F Y', strtotime($newsEvent['start_date']))}}</strong></p>
+                        <p class="text-valid">Valid : <strong>{{date('d F Y', strtotime($newsEvent['start_date']))}} - {{date('d F Y', strtotime($newsEvent['end_date']))}}</strong></p>
                     </div>
                 </div>
                 @endif

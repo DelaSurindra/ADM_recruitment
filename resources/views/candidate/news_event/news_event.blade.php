@@ -4,30 +4,55 @@
     <div class="col-md-12">
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
-                @if(count($newsEvent) == "1")
+                @if(isset($newsEvent[0]))
                 <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
                 @endif
-                @if(count($newsEvent) == "2")
+                @if(isset($newsEvent[1]))
                 <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
                 @endif
-                @if(count($newsEvent) == "3")
+                @if(isset($newsEvent[2]))
                 <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
                 @endif
             </ol>
             <div class="carousel-inner">
-                @foreach($newsEvent as $dataNews)
+                @if(isset($newsEvent[0]))
                 <div class="carousel-item active">
                     <div class="div-image-carousel">
-                        <img src="{{asset('storage/').'/'.$dataNews['image'] }}" class="d-block w-100 img-carousel">
+                        <img src="{{asset('storage/').'/'.$newsEvent[0]['image'] }}" class="d-block w-100 img-carousel">
                     </div>
                     <div class="carousel-caption d-none d-md-block carousel-news">
-                        <div class="badge-carousel mb-2">{{$dataNews['type'] == "1" ? "News" : "Event"}}</div>
-                        <h5 class="text-carousel mb-5">{{$dataNews['title']}}</h5>
-                        <a href="{{route('get.news.event.page.detail', base64_encode(urlencode($dataNews['id'])))}}" class="a-read-more"><button type="button" class="btn btn-read-more">Read More</button></a>
+                        <div class="badge-carousel mb-2">{{$newsEvent[0]['type'] == "1" ? "News" : "Event"}}</div>
+                        <h5 class="text-carousel mb-5">{{$newsEvent[0]['title']}}</h5>
+                        <a href="{{route('get.news.event.page.detail', base64_encode(urlencode($newsEvent[0]['id'])))}}" class="a-read-more"><button type="button" class="btn btn-read-more">Read More</button></a>
                     </div>
                 </div>
-                @endforeach
+                @endif
+                @if(isset($newsEvent[1]))
+                <div class="carousel-item">
+                    <div class="div-image-carousel">
+                        <img src="{{asset('storage/').'/'.$newsEvent[1]['image'] }}" class="d-block w-100 img-carousel">
+                    </div>
+                    <div class="carousel-caption d-none d-md-block carousel-news">
+                        <div class="badge-carousel mb-2">{{$newsEvent[1]['type'] == "1" ? "News" : "Event"}}</div>
+                        <h5 class="text-carousel mb-5">{{$newsEvent[1]['title']}}</h5>
+                        <a href="{{route('get.news.event.page.detail', base64_encode(urlencode($newsEvent[1]['id'])))}}" class="a-read-more"><button type="button" class="btn btn-read-more">Read More</button></a>
+                    </div>
+                </div>
+                @endif
+                @if(isset($newsEvent[2]))
+                <div class="carousel-item">
+                    <div class="div-image-carousel">
+                        <img src="{{asset('storage/').'/'.$newsEvent[2]['image'] }}" class="d-block w-100 img-carousel">
+                    </div>
+                    <div class="carousel-caption d-none d-md-block carousel-news">
+                        <div class="badge-carousel mb-2">{{$newsEvent[2]['type'] == "1" ? "News" : "Event"}}</div>
+                        <h5 class="text-carousel mb-5">{{$newsEvent[2]['title']}}</h5>
+                        <a href="{{route('get.news.event.page.detail', base64_encode(urlencode($newsEvent[2]['id'])))}}" class="a-read-more"><button type="button" class="btn btn-read-more">Read More</button></a>
+                    </div>
+                </div>
+                @endif
             </div>
+            @if(isset($newsEvent[1]))
             <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"><img src="{{asset('/image/icon/homepage/news-prev.svg')}}" class="img-prev-next"></span>
                 <span class="sr-only">Previous</span>
@@ -36,6 +61,7 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"><img src="{{asset('/image/icon/homepage/news-next.svg')}}" class="img-prev-next"></span>
                 <span class="sr-only">Next</span>
             </a>
+            @endif
         </div>
     </div>
 </div>

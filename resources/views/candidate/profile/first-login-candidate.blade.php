@@ -283,7 +283,7 @@
                                 <label for="">Certificate of Study<span class="required-sign">*</span></label>
                                 <div class="row">
                                     <div class="col-lg-11 col-md-12">
-                                        <input type="text" class="form-control file-input-label" placeholder="Format jpg/png maximum 2MB file" disabled>
+                                        <input type="text" class="form-control file-input-label" placeholder="Format jpg/png maximum 1MB file" disabled>
                                         <span class="btn btn-file pl-1 mb-2">
                                             Upload File <input type="file" name="certificate[]" id="certificate" class="uploadCertificate" accept=".jpg, .png, .jpeg">
                                         </span>
