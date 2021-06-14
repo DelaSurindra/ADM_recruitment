@@ -99,6 +99,7 @@ Route::prefix('HR')->group(function(){
 			Route::get('/download-file-bulk','Admin\CandidateController@downloadFile')->name('get.download.bulk');
 			Route::post('/get-master','Admin\CandidateController@getMaster')->name('post.data.master');
 			Route::post('/post-add-bulk','Admin\CandidateController@addBulk')->name('post.bulk.add.candidate');
+			Route::get('/download-candidate', 'Admin\CandidateController@downloadCandidate')->middleware('role:1')->name('get.download.candidate');
 		});
 
 		Route::prefix('job')->group(function () {

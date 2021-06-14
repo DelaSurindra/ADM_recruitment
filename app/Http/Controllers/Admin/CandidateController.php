@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\addBulkCandidate;
 use App\Exports\DownloadDefault;
+use App\Exports\DownloadCandidate;
 use App\Jobs\JobSendEmail;
 use Hash;
 use Request;
@@ -434,5 +435,13 @@ class CandidateController extends Controller
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
+    }
+
+    public function downloadCandidate(){
+        $nameFile = 'Data Kandidate.xlsx';
+        $candidate = Candidate::select('kandidat.*', 'users.email')
+                                ->join('users', 'kandidat.user_id', 'users.id')
+                                ->get()->toArray();
+        return Excel::download(new DownloadCandidate($candidate), $nameFile);
     }
 }
