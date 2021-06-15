@@ -2337,3 +2337,39 @@ $(".btn-online-interview").click(function(){
 		$("#modalCheckInterview").modal('show')
 	})
 })
+
+if ($("#filterJob").length) {
+	$("#ipkMinimum").mask('0.00');
+}
+
+$("#checkAll").change(function(){
+	var table = $('#tableParticipantTestTheDay').DataTable();
+	var dataRow = table.data();
+	$(".check-all").prop('checked', false)
+	$("#listPart").empty()
+	$("#listAbsen").empty()
+	$("#listSendOtp").empty()
+	if ($("#checkAll").is(":checked")) {
+		$(".check-all").prop('checked', true)
+		$("#countParticipant").val(dataRow.length);
+		$("#countSend").val(dataRow.length);
+		$(".textItem").html(dataRow.length+" item selected")
+		$("#btnUpdateSet").removeClass('hidden');
+		$("#btnSendOtp").removeClass('hidden');
+		$("#btnSetAbsen").removeClass('hidden');
+		for (let i = 0; i < dataRow.length; i++) {
+			// $("#participant_"+dataRow[i].test_participant_id).is(":checked");
+			$("#listPart").append('<input type="hidden" id="input_'+dataRow[i].test_participant_id+'" name="idPart[]" value="'+dataRow[i].test_participant_id+'">')
+			$("#listAbsen").append('<input type="hidden" id="absen_'+dataRow[i].test_participant_id+'" name="absenPart[]" value="'+dataRow[i].test_participant_id+'">')
+			$("#listSendOtp").append('<input type="hidden" id="send_'+dataRow[i].kandidat_id+'" name="idSend[]" value="'+dataRow[i].kandidat_id+'">')
+		}
+	}else{
+		$(".textItem").html("0 item selected")
+		$("#countParticipant").val(0);
+		$("#countSend").val(0);
+		$("#btnUpdateSet").addClass('hidden');
+		$("#btnSendOtp").addClass('hidden');
+		$("#btnSetAbsen").addClass('hidden');
+	}
+	
+})

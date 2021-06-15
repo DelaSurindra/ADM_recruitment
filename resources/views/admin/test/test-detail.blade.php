@@ -131,16 +131,19 @@
                             <div class="col-md-9">
                                 @if($data['status_test'] == 3)
                                     <a class="btn btn-red right" href="{{route('download.result', base64_encode(urlencode($data['id'])))}}">Download Test Result</a>
-                                        @else
+                                    <button class="btn btn-white right mr-2" type="button" data-toggle="modal" data-target="#modalSendEmail">Send Email Result</button>
+                                    
+                                @else
                                     @if(date('Y-m-d', strtotime($data['date_test'])) == date('Y-m-d'))
                                         <!-- <button class="btn btn-red right" type="button">Send OTP to All</button> -->
+                                        <button class="btn btn-white right mr-2 hidden" id="btnSendOtp" type="button" data-toggle="modal" data-target="#modalSendOtpBulk">Send OTP to Selected Item</button>
+                                        <button class="btn btn-white right mr-2 hidden" id="btnSetAbsen" type="button" data-toggle="modal" data-target="#modalSetAbsen">Update Selected Item</button>
+                                        <button class="btn btn-white right mr-2 hidden" type="button" id="btnUpdateSet" data-toggle="modal" data-target="#modalSetTest">Update Set Test</button>
                                     @else
                                         <button class="btn btn-red right choose-candidate" type="button">Add Participant</button>
+                                        <button class="btn btn-white right mr-2 hidden" type="button" id="btnUpdateSet" data-toggle="modal" data-target="#modalSetTest">Update Set Test</button>
                                     @endif
                                 @endif
-                                <button class="btn btn-white right mr-2 hidden" id="btnSendOtp" type="button" data-toggle="modal" data-target="#modalSendOtpBulk">Send OTP to Selected Item</button>
-                                <button class="btn btn-white right mr-2 hidden" id="btnSetAbsen" type="button" data-toggle="modal" data-target="#modalSetAbsen">Update Selected Item</button>
-                                <button class="btn btn-white right mr-2 hidden" type="button" id="btnUpdateSet" data-toggle="modal" data-target="#modalSetTest">Update Set Test</button>
                             </div>
                         </div>
                         <div class="row">
@@ -174,7 +177,7 @@
                                     <table id="tableParticipantTestTheDay" class="table-hr table table-strip stripe hover">
                                         <thead>
                                             <tr>
-                                                <th class="width-checkbox"></th>
+                                                <th class="width-checkbox"><input type="checkbox" id="checkAll"></th>
                                                 <th>Name</th>
                                                 <th>University</th>
                                                 <th>Major</th>
@@ -465,6 +468,31 @@
                     <div class="row">
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-red w-100">Send OTP</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalSendEmail" aria-labelledby="modalSendEmailLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-hr">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-up">
+                    <h4 class="modal-hr-title mb-0">Send Email Result</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis" alt="icon">
+                    </button>
+                </div>
+                <p class="mb-4"><span class="span-reschedule" id="spanName">Are you sure for send email result ?</span></span></p>
+                <form action="{{route('post.send.email.result')}}" class="form stacked form-hr" ajax=true id="formSendEmailResult">
+                    <input type="hidden" id="idSendResult" name="idSendResult" value="{{$data['id']}}">
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-red w-100">Send Email</button>
                         </div>
                     </div>
                 </form>

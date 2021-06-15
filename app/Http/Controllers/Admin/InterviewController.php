@@ -126,26 +126,22 @@ class InterviewController extends Controller
 
                 if ($data['typeInterview'] == "1") {
                     $statusJob = 5;
-                    $text = 'Written Test';
                     $mcu = 'N';
                 }elseif ($data['typeInterview'] == "2") {
                     $statusJob = 6;
-                    $text = 'HR Interview';
                     $mcu = 'N';
                 }elseif ($data['typeInterview'] == "3") {
                     $statusJob = 7;
-                    $text = 'User 1 Interview';
                     $mcu = 'N';
                 }elseif ($data['typeInterview'] == "4") {
                     $statusJob = 8;
-                    $text = 'User 2 Interview';
                     $mcu = 'N';
                 }elseif ($data['typeInterview'] == "5") {
                     $statusJob = 9;
-                    $text = 'User 3 Interview';
                     $mcu = 'Y';
                 }else{
                     $statusJob = 10;
+                    $mcu = 'N';
                 }
 
                 for ($i=0; $i < $data['countChoose']; $i++) { 
@@ -177,10 +173,9 @@ class InterviewController extends Controller
                             'pic'           => $data['interviewer'],
                             'interview'     => $interview[0]['name'],
                             'tipe'          => 1,
-                            'text'          => $text,
                             'mcu'           => $mcu,
-                            'subject'       => $text.' Result Announcement',
-                            'view'          => 'email.email-written-test-result'
+                            'subject'       => $interview[0]['name'].' Invitation',
+                            'view'          => 'email.email-interview-invit'
                         ];
         
                         $response = JobSendEmail::dispatch($dataEmail);
@@ -438,7 +433,7 @@ class InterviewController extends Controller
                 }else if ($getJob[0]['status'] == 7) {
                     $getJob[0]['status_user'] = "Process to User Interview 2";
                 }else if ($getJob[0]['status'] == 8) {
-                    $getJob[0]['status_user'] = "Process to User Interview 3";
+                    $getJob[0]['status_user'] = "Process to Direktur Interview";
                 }else if ($getJob[0]['status'] == 9) {
                     $getJob[0]['status_user'] = "Process to MCU";
                 }else if ($getJob[0]['status'] == 10) {
@@ -458,9 +453,9 @@ class InterviewController extends Controller
                 }else if ($getJob[0]['status'] == 18) {
                     $getJob[0]['status_user'] = "User Interview 2 Fail";
                 }else if ($getJob[0]['status'] == 19) {
-                    $getJob[0]['status_user'] = "User Interview 3 Pass";
+                    $getJob[0]['status_user'] = "Direktur Interview Pass";
                 }else if ($getJob[0]['status'] == 20) {
-                    $getJob[0]['status_user'] = "User Interview 3 Fail";
+                    $getJob[0]['status_user'] = "Direktur Interview Fail";
                 }else if ($getJob[0]['status'] == 21) {
                     $getJob[0]['status_user'] = "MCU Pass";
                 }else if ($getJob[0]['status'] == 22) {

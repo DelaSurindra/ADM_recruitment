@@ -109,9 +109,9 @@ class ScoringController extends Controller
         self::sendEmail('finish_test',$participantName, $participantEmail);
 
         // Send failed email
-        if(!$isPassed["status"]){
-            self::sendEmail('failed_test',$participantName, $participantEmail);
-        }
+        // if(!$isPassed["status"]){
+        //     self::sendEmail('failed_test',$participantName, $participantEmail);
+        // }
         
         // Delete id participant from inventory results
         foreach ($inventoryScores as $key => $value) {

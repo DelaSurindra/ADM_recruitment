@@ -534,105 +534,107 @@ var table = {
         }
 
 		if ($('#tableParticipantTestTheDay').length) {
+			
 			var value = $("#idData").val();
-			var column = [
-				{'data':null},
-				{'data':'name'},
-				{'data':'universitas'},
-				{'data':'jurusan'},
-				{'data':'job_position'},
-				{'data':'type'},
-				{'data':'set_test'},
-				{'data':'area'},
-				{'data':'status_participant'},
-				{'data':'location_start_radius'},
-			];
+			ajax.getData('HR/test/list-candidate-theday', 'post', {value:value}, function(data){
+				var column = [
+					{'data':null},
+					{'data':'name'},
+					{'data':'universitas'},
+					{'data':'jurusan'},
+					{'data':'job_position'},
+					{'data':'type'},
+					{'data':'set_test'},
+					{'data':'area'},
+					{'data':'status_participant'},
+					{'data':'location_start_radius'},
+				];
 
-			columnDefs = [
-				{
-					"targets": 0,
-					"orderable": false,
-					"data": "test_participant_id",
-					"render": function(data, type, full, meta){
-						var data = '<input type="checkbox" id="participant_'+full.test_participant_id+'">';
-						return data;
-					}
-				},
-				{
-					"targets": 1,
-					"data": "name",
-					"render": function(data, type, full, meta){
-						var id = encodeURIComponent(window.btoa(full.kandidat_id));
-						var image = '';
-						if (full.foto_profil == null || full.foto_profil == "") {
-							image = baseUrl+'image/icon/homepage/dummy-profile.svg';
-						}else{
-							image = baseImage+'/'+full.foto_profil;
+				columnDefs = [
+					{
+						"targets": 0,
+						"orderable": false,
+						"data": "test_participant_id",
+						"render": function(data, type, full, meta){
+							var data = '<input type="checkbox" class="check-all" id="participant_'+full.test_participant_id+'">';
+							return data;
 						}
-						var data = '<img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name;
-						return data;
-					}
-				},
-				{
-					"targets": 5,
-					"data": "type",
-					"render": function(data, type, full, meta){
-						var data = ''
-		            	if (full.type == 1) {
-		            	    data = 'Full Time';
-		            	} else {
-		            	    data = 'Intership';
-		            	}
-		               	return data;
-					}
-				},
-				{
-					"targets": 6,
-					"data": "set_test",
-					"render": function(data, type, full, meta){
-						var data = "";
-						if (full.set_test == null) {
-							data = "<span class='test-status-notset'>Not Set</span>"
-						}else{
-							data = "<span class='test-status-attend'>"+full.set_test+"</span>"
+					},
+					{
+						"targets": 1,
+						"data": "name",
+						"render": function(data, type, full, meta){
+							var id = encodeURIComponent(window.btoa(full.kandidat_id));
+							var image = '';
+							if (full.foto_profil == null || full.foto_profil == "") {
+								image = baseUrl+'image/icon/homepage/dummy-profile.svg';
+							}else{
+								image = baseImage+'/'+full.foto_profil;
+							}
+							var data = '<img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.name;
+							return data;
 						}
-						return data;
-					}
-				},
-				{
-					"targets": 8,
-					"data": "status_participant",
-					"render": function(data, type, full, meta){
-						var data = "";
-						if(full.status_participant == "3"){
-							data = "<span class='test-status-attend'>Attend</span>"
-						}else if (full.status_participant == "4") {
-							data = "<span class='test-status-absen'>Absence</span>"
-						}else if (full.status_participant == "5") {
-							data = "<span class='test-status-attend'>End Test</span>"
-						}else if (full.status_participant == "6") {
-							data = "<span class='test-status-absen'>Block</span>"
-						}else if(full.status_participant == "1"){
-							data = "<span class='test-status-attend'>Confirmed</span>"
-						}else{
-							data = "<span class='test-status-notset'>Not Set</span>"
+					},
+					{
+						"targets": 5,
+						"data": "type",
+						"render": function(data, type, full, meta){
+							var data = ''
+							if (full.type == 1) {
+								data = 'Full Time';
+							} else {
+								data = 'Intership';
+							}
+							return data;
 						}
-						return data;
+					},
+					{
+						"targets": 6,
+						"data": "set_test",
+						"render": function(data, type, full, meta){
+							var data = "";
+							if (full.set_test == null) {
+								data = "<span class='test-status-notset'>Not Set</span>"
+							}else{
+								data = "<span class='test-status-attend'>"+full.set_test+"</span>"
+							}
+							return data;
+						}
+					},
+					{
+						"targets": 8,
+						"data": "status_participant",
+						"render": function(data, type, full, meta){
+							var data = "";
+							if(full.status_participant == "3"){
+								data = "<span class='test-status-attend'>Attend</span>"
+							}else if (full.status_participant == "4") {
+								data = "<span class='test-status-absen'>Absence</span>"
+							}else if (full.status_participant == "5") {
+								data = "<span class='test-status-attend'>End Test</span>"
+							}else if (full.status_participant == "6") {
+								data = "<span class='test-status-absen'>Block</span>"
+							}else if(full.status_participant == "1"){
+								data = "<span class='test-status-attend'>Confirmed</span>"
+							}else{
+								data = "<span class='test-status-notset'>Not Set</span>"
+							}
+							return data;
+						}
+					},
+					{
+						"targets": 10,
+						"data": "test_participant_id",
+						"render": function(data, type, full, meta){
+							var id = encodeURIComponent(window.btoa(full.test_participant_id));
+							// var konfirm = '';
+							var data = '<button type="button" class="btn btn-table btn-transparent edit-table send-otp-one"><img style="margin-right: 1px;" src="/image/icon/main/icon_send_otp.svg" title="Send OTP">&nbsp Send OTP</button>';
+							return data;
+						}
 					}
-				},
-				{
-					"targets": 10,
-					"data": "test_participant_id",
-					"render": function(data, type, full, meta){
-						var id = encodeURIComponent(window.btoa(full.test_participant_id));
-						// var konfirm = '';
-						var data = '<button type="button" class="btn btn-table btn-transparent edit-table send-otp-one"><img style="margin-right: 1px;" src="/image/icon/main/icon_send_otp.svg" title="Send OTP">&nbsp Send OTP</button>';
-		            	return data;
-					}
-				}
-			];
-
-		 	table.serverSide('tableParticipantTestTheDay',column,'HR/test/list-candidate',value,columnDefs)
+				];
+				table.setAndPopulate('tableParticipantTestTheDay', column, data, columnDefs, null, [1,'desc']);
+			})
         }
 
 		if ($('#tableParticipantFinish').length) {
@@ -1999,7 +2001,7 @@ var table = {
 
 		var t = $('#' + id).DataTable(option);
 		t.on( 'order.dt search.dt', function () {
-			if (id == 'tableFitur') {
+			if (id == 'tableParticipantTestTheDay') {
 
 			}else{
 		        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
@@ -2195,7 +2197,9 @@ $("#tableParticipantTestTheDay tbody").on('click', 'input', function(e) {
 	var dataRow = table.row($(this).closest('tr')).data();
 	var count = $("#countParticipant").val();
 	var jumlah = "";
+	
 	if ($("#participant_"+dataRow.test_participant_id).is(":checked")) {
+		$("#participant_"+dataRow.test_participant_id).prop('checked', true)
 		jumlah = parseInt(count)+1;
 		$("#countParticipant").val(jumlah);
 		$("#listPart").append('<input type="hidden" id="input_'+dataRow.test_participant_id+'" name="idPart[]" value="'+dataRow.test_participant_id+'">')
@@ -2203,6 +2207,7 @@ $("#tableParticipantTestTheDay tbody").on('click', 'input', function(e) {
 		$("#listSendOtp").append('<input type="hidden" id="send_'+dataRow.kandidat_id+'" name="idSend[]" value="'+dataRow.kandidat_id+'">')
 		$("#countSend").val(jumlah);
 	} else {
+		$("#participant_"+dataRow.test_participant_id).prop('checked', false)
 		jumlah = parseInt(count)-1;
 		$("#countParticipant").val(jumlah);
 		$("#input_"+dataRow.test_participant_id).remove();

@@ -381,6 +381,32 @@ class TestController extends Controller
         return $response;
     }
 
+    public function listCandidateTheDay(){
+        $id = Request::input('value');
+        // dd($id);
+        $listCandidate = DB::select("EXEC get_kandidat NULL, NULL, NULL, NULL, NULL, NULL, NULL,'".$id."',NULL, NULL, NULL, '0', '0'");
+        // dd($listCandidate);
+        // $countCandidate = DB::select('EXEC get_kandidat_count NULL, NULL, NULL, NULL, NULL, NULL, NULL,'.$id.', NULL, '.$search.' ');
+        // dd($listCandidate, $countCandidate);
+        
+        if ($listCandidate != null) {
+            for ($i=0; $i < count($listCandidate); $i++) { 
+                $date = date('m/d/Y', strtotime($listCandidate[$i]->tanggal_lahir));
+                $birthDate = explode("/", $date);
+                //get age from date or birthdate
+                $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[0], $birthDate[1], $birthDate[2]))) > date("md")
+                    ? ((date("Y") - $birthDate[2]) - 1)
+                    : (date("Y") - $birthDate[2]));
+    
+                $listCandidate[$i]->age = $age;
+    
+                $listCandidate[$i]->submit_date = date('m/d/Y', strtotime($listCandidate[$i]->submit_date));
+            }
+            
+        }
+        return response()->json($listCandidate);
+    }
+
     public function listCandidateFinish(){
     	if (Request::input('order')[0]['column'] == '0') {
             $column = 'name';
@@ -983,20 +1009,23 @@ class TestController extends Controller
     
             $response = JobSendEmail::dispatch($dataEmail);
             $id = base64_encode(urlencode($data[1]));
-            $res = [
+
+            $messages = [
                 'status' => 'success',
                 'message' => 'Send OTP Success',
-                'url' => '/HR/test/detail-test/'.$id
+                'url' => '/HR/test/detail-test/'.$id,
+                'callback' => 'redirect'
             ];
+
+            return response()->json($messages);
     
-            return response()->json($res);
         }else{
-            $res = [
+            $messages = [
                 'status' => 'error',
                 'message' => "Send OTP Failed",
             ];
 
-            return response()->json($res);
+            return response()->json($messages);
         }
     }
 
@@ -1049,5 +1078,58 @@ class TestController extends Controller
         ];
 
         return response()->json($messages);
+    }
+
+    public function sendEmailResult(){
+        $encrypt = new EncryptController;
+        $data = $encrypt->fnDecrypt(Request::input('data'),true);
+        $getTest = Test::select('users.email', 'kandidat.first_name', 'kandidat.last_name', 'cognitive_test_result.skor', 'cognitive_test_result.status as status_result')
+                        ->join('test_participant', 'test_event.id', 'test_participant.test_id')
+                        ->leftJoin('cognitive_test_result', 'test_participant.id', 'cognitive_test_result.id_participant')
+                        ->join('kandidat', 'test_participant.kandidat_id', 'kandidat.id')
+                        ->join('users', 'kandidat.user_id', 'users.id')
+                        ->where('test_event.id', $data['idSendResult'])->get()->toArray();
+        // dd($getTest);
+        if ($getTest) {
+            for ($i=0; $i < count($getTest); $i++) {
+                if ($getTest[$i]['status_result'] == "1") {
+                    $dataEmail = [
+                        'email'  => $getTest[$i]['email'],
+                        'nama'  => $getTest[$i]['first_name'].' '.$getTest[$i]['first_name'],
+                        'text'  => 'Written Test',
+                        'tipe' => 1,
+                        'subject' => 'Written Test Result Announcement',
+                        'view' => 'email.email-written-test-result'
+                    ];
+                    $response = JobSendEmail::dispatch($dataEmail);
+                }else {
+                    $dataEmail = [
+                        'email'  => $getTest[$i]['email'],
+                        'nama'  => $getTest[$i]['first_name'].' '.$getTest[$i]['first_name'],
+                        'text'  => 'Written Test',
+                        'tipe' => 2,
+                        'subject' => 'Written Test Result Announcement',
+                        'view' => 'email.email-written-test-result'
+                    ];
+                    $response = JobSendEmail::dispatch($dataEmail);
+                }
+            }
+            $id = base64_encode(urlencode($data['idSendResult']));
+            $messages = [
+                'status' => 'success',
+                'message' => 'Send Email Result Success',
+                'url' => '/HR/test/detail-test/'.$id,
+                'callback' => 'redirect'
+            ];
+
+            return response()->json($messages);
+        }else{
+            $messages = [
+                'status' => 'error',
+                'message' => "Data Not Found",
+            ];
+
+            return response()->json($messages);
+        }
     }
 }

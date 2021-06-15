@@ -58,7 +58,7 @@ $(document).ready(function () {
         const url = $('#notif').data('url')
         const id = $('#notif').data('id')
         const value = $('#notif').data('value')
-        console.log(value)
+        console.log(id)
         if (id == 'formAddQuestionBank') {
             $("#setTest").val(value.setTest).trigger('change')
             var testType = value.testType;
@@ -93,9 +93,29 @@ $(document).ready(function () {
                 $("#QA8").removeClass("hidden");
                 $(".class-QA8").attr('disabled', false);
             }
+            ui.popup.show(status, message, url)
+        }else if(id == "addBulkCandidate"){
+            console.log(value)
+            if (value.code == "00") {
+                $("#spanTotal").html(value.data.length);
+                for (let i = 0; i < value.data.length; i++) {
+                    $("#tbodyData").append(
+                        '<tr>'+
+                            '<th>'+value.data[i].email+'</th>'+
+                            '<th>'+value.data[i].status+'</th>'+
+                            '<th>'+value.data[i].note+'</th>'+
+                        '</tr>'
+                    );
+                    $("#modalResponBulk").modal('show');
+                }
+            } else {
+                ui.popup.show("error", "Data Empty", "close")
+            }
+
+        }else{
+            ui.popup.show(status, message, url)
         }
         
-        ui.popup.show(status, message, url)
     }
     if ($('#notifModal').length) {
         const status = $('#notifModal').data('status')

@@ -81,4 +81,44 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalResponBulk" aria-labelledby="modalResponBulkLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm modal-notif-bulk">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-icon-notif">
+                    <div class="ilustrasi">
+                        <img src="{{ asset('image/icon/homepage/ilustrasi-sukses.svg') }}" class="img-fluid" alt="ilustrasi">
+                    </div>
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <img src="{{ asset('image/icon/homepage/icon-silang.svg') }}" class="this-icon click deleteThis m-0" alt="icon">
+                    </button> -->
+                </div>
+
+                <div class="modal-content-notif">
+                    <h4 class="modal-page-subtitle">Add Bulk Candidate Success</h4>
+                    <p class="my-4">Total data bulk : <span class="span-reschedule" id="spanTotal">5</p>
+
+                    <div class="row">
+                        <table class="table table-bulk">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Note</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyData"></tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-red w-100" data-dismiss="modal" aria-label="Close">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

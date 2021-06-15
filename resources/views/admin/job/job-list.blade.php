@@ -153,14 +153,14 @@
                                     <option value="11">Failed</option>
                                     <option value="12">Hired</option>
                                     <option value="99">Talent Stock</option>
+                                    <option value="3">Written Test Pass</option>
                                     <option disabled value="0">Application Resume</option>
                                     <option disabled value="2">Scheduled to Written Test</option>
-                                    <option disabled value="3">Written Test Pass</option>
                                     <option disabled value="4">Written Test failed</option>
                                     <option disabled value="5">Process to HR interview</option>
                                     <option disabled value="6">Process to User Interview 1</option>
                                     <option disabled value="7">Process to User Interview 2</option>
-                                    <option disabled value="8">Process to User Interview 3</option>
+                                    <option disabled value="8">Process to Direktur Interview</option>
                                     <option disabled value="9">Process to MCU</option>
                                     <option disabled value="10">Process to Doc Sign</option>
                                 </select>

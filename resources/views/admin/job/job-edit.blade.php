@@ -37,14 +37,14 @@
                                                     <option {{$data['status_job'] == '11' ? 'selected':''}} value="11">Failed</option>
                                                     <option {{$data['status_job'] == '12' ? 'selected':''}} value="12">Hired</option>
                                                     <option {{$data['status'] == '3' ? 'selected':''}} value="99">Talent Stock</option>
+                                                    <option {{$data['status_job'] == '3' ? 'selected':''}} value="3">Written Test Pass</option>
                                                     <option {{$data['status_job'] == '0' ? 'selected':''}} disabled value="0">Application Resume</option>
                                                     <option {{$data['status_job'] == '2' ? 'selected':''}} disabled value="2">Scheduled to Written Test</option>
-                                                    <option {{$data['status_job'] == '3' ? 'selected':''}} disabled value="3">Written Test Pass</option>
                                                     <option {{$data['status_job'] == '4' ? 'selected':''}} disabled value="4">Written Test failed</option>
                                                     <option {{$data['status_job'] == '5' ? 'selected':''}} disabled value="5">Process to HR interview</option>
                                                     <option {{$data['status_job'] == '6' ? 'selected':''}} disabled value="6">Process to User Interview 1</option>
                                                     <option {{$data['status_job'] == '7' ? 'selected':''}} disabled value="7">Process to User Interview 2</option>
-                                                    <option {{$data['status_job'] == '8' ? 'selected':''}} disabled value="8">Process to User Interview 3</option>
+                                                    <option {{$data['status_job'] == '8' ? 'selected':''}} disabled value="8">Process to Direktur Interview</option>
                                                     <option {{$data['status_job'] == '9' ? 'selected':''}} disabled value="9">Process to MCU</option>
                                                     <option {{$data['status_job'] == '10' ? 'selected':''}} disabled value="10">Process to Doc Sign</option>
 
@@ -259,25 +259,25 @@
                                             <div class="gray-line"></div>
                                         @endif
 
-                                        @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['user_interview3'] != [] || $history['user_interview2'] != [] || $history['user_interview1'] != [] || $history['hr_interview'] != [])
+                                        @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['direktur_interview'] != [] || $history['user_interview2'] != [] || $history['user_interview1'] != [] || $history['hr_interview'] != [])
                                             <div class="green-line"></div>
                                         @else
                                             <div class="gray-line"></div>
                                         @endif
 
-                                        @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['user_interview3'] != [] || $history['user_interview2'] != [] || $history['user_interview1'] != [])
+                                        @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['direktur_interview'] != [] || $history['user_interview2'] != [] || $history['user_interview1'] != [])
                                             <div class="green-line"></div>
                                         @else
                                             <div class="gray-line"></div>
                                         @endif
 
-                                        @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['user_interview3'] != [] || $history['user_interview2'] != [])
+                                        @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['direktur_interview'] != [] || $history['user_interview2'] != [])
                                             <div class="green-line"></div>
                                         @else
                                             <div class="gray-line"></div>
                                         @endif
 
-                                        @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['user_interview3'] != [])
+                                        @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['direktur_interview'] != [])
                                             <div class="green-line"></div>
                                         @else
                                             <div class="gray-line"></div>
@@ -363,17 +363,17 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="track-item {{ $history['user_interview3'] != [] ? 'active' : '' }}">
-                                            <img src="{{$history['user_interview3'] != [] ? asset('image/icon/homepage/track/track-user-interview-red.svg') : asset('image/icon/homepage/track/track-user-interview.svg') }}" alt="icon">
+                                        <div class="track-item {{ $history['direktur_interview'] != [] ? 'active' : '' }}">
+                                            <img src="{{$history['direktur_interview'] != [] ? asset('image/icon/homepage/track/track-user-interview-red.svg') : asset('image/icon/homepage/track/track-user-interview.svg') }}" alt="icon">
                                             <div class="track-text">
-                                                <p class="title">User Interview 3</p>
-                                                @if($history['user_interview3'] != [])
-                                                <p class="subtitle">{{last($history['user_interview3'])}}</p>
+                                                <p class="title">Direktur Interview</p>
+                                                @if($history['direktur_interview'] != [])
+                                                <p class="subtitle">{{last($history['direktur_interview'])}}</p>
                                                 @else
                                                 <p class="subtitle"></p>
                                                 @endif
-                                                @if($status['status_user_interview3'] != '')
-                                                <div class="track-status {{$status['status_user_interview3']}}"><p class="{{$status['status_user_interview3']}}">{{ucfirst($status['status_user_interview3'])}}</p></div>
+                                                @if($status['status_direktur_interview'] != '')
+                                                <div class="track-status {{$status['status_direktur_interview']}}"><p class="{{$status['status_direktur_interview']}}">{{ucfirst($status['status_direktur_interview'])}}</p></div>
                                                 @endif
                                             </div>
                                         </div>

@@ -391,21 +391,35 @@ class CandidateController extends Controller
             $file = Request::file('fileBulk');
             $nama_file = rand().$file->getClientOriginalName();
             $file->move(public_path('storage').'/'.'candidate',$nama_file);
-            Excel::import(new addBulkCandidate, public_path('storage').'/'.'candidate/'.$nama_file);
+            $excel = new addBulkCandidate;
+            Excel::import($excel, public_path('storage').'/'.'candidate/'.$nama_file);
+            // dd($excel->getResponse());
+            $data = $excel->getResponse();
+            // dd($data);
+            if ($data != []) {
+                $response = [
+                    "code"  => "00",
+                    "data" => $data
+                ];
+            } else {
+                $response = [
+                    "code"  => "01"
+                ];
+            }
             
             $messages = [
                 'status' => 'success',
                 'message' => 'Create Bulk Candidate Success',
                 'url' => 'close',
-                'id' => '',
-                'value' => ''
+                'id' => 'addBulkCandidate',
+                'value' => json_encode($response)
             ];
 
             return redirect('/HR/candidate')->with('notif', $messages);
         }else{
             $messages = [
                 'status' => 'error',
-                'message' => 'Pleasce choose file',
+                'message' => 'Please choose file',
                 'url' => 'close',
                 'id' => '',
                 'value' => ''

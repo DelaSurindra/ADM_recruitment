@@ -121,6 +121,7 @@ Route::prefix('HR')->group(function(){
 			Route::get('/edit-test/{id}', 'Admin\TestController@viewTestEdit')->name('get.test.edit');
 			Route::post('/post-edit-test','Admin\TestController@editTest')->name('post.test.edit');
 			Route::post('/list-candidate','Admin\TestController@listCandidate')->name('post.candidate.list.choose');
+			Route::post('/list-candidate-theday','Admin\TestController@listCandidateTheDay')->name('post.candidate.list.day');
 			Route::post('/list-candidate-finish','Admin\TestController@listCandidateFinish')->name('post.candidate.list.finish');
 			Route::post('/list-candidate-pick','Admin\TestController@listCandidatePick')->name('post.candidate.list.pick');
 			Route::post('/add-candidate-test','Admin\TestController@addCandidateTest')->name('post.add.candidate.test');
@@ -134,6 +135,8 @@ Route::prefix('HR')->group(function(){
 			Route::get('/download-result/{id}','Admin\TestController@downloadResult')->name('download.result');
 			Route::post('/send-otp-one','Admin\TestController@sendOtpOne')->name('post.send.otp.one');
 			Route::post('/send-otp-bulk','Admin\TestController@sendOtpBulk')->name('post.send.otp.bulk');
+			Route::post('/send-email-result','Admin\TestController@sendEmailResult')->name('post.send.email.result');
+			
 		});
 		
 		Route::prefix('interview')->group(function () {
