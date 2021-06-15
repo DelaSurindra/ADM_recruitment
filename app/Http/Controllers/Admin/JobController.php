@@ -121,6 +121,7 @@ class JobController extends Controller
             $listCandidate[$i]->age = $age;
 
             $listCandidate[$i]->submit_date = date('m/d/Y', strtotime($listCandidate[$i]->submit_date));
+            $listCandidate[$i]->gpa = round($listCandidate[$i]->gpa, 2);
         }
         // dd($listCandidate, $countCandidate);
 
