@@ -23,16 +23,6 @@ use DB;
 class InterviewController extends Controller
 {
     public function viewInterview(){
-        $dataEmail = [
-            'email'         => "rrusniantoro@gmail.com",
-            'nama'          => "Randyka Rusniantoro",
-            'text'          => "HR Interview",
-            'tipe'          => "3",
-            'subject'       => 'HR Interview Result Announcement',
-            'view'          => 'email.email-interview-result'
-        ];
-
-        $response = JobSendEmail::dispatch($dataEmail);
         return view('admin.interview.interview-list')->with(['pageTitle' => 'Manajemen Interview', 'title' => 'Manajemen Interview', 'sidebar' => 'manajemen_interview']);
     }
 
