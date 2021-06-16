@@ -163,13 +163,25 @@
                     <img src="https://adm.vasdev.co.id/image/icon/email/icon_written_test_result.png" class="img-title">
                 </center>
                 <p class="title-email">{{$data['text']}} Result Announcement</p>
-                <p class="subtitle-email">Your written result is here!</p>
+                <p class="subtitle-email">Your interview result is here!</p>
                 <div class="card-content">
                     <p class="title-content-email">Hello, {{$data['nama']}}</p>
-                    <div class="card-result">
-                        <p class="text-result">Based on the interview we felt that you were <br> not quite fit with our role requirement.</p>
-                    </div>
-                    <p class="content-email">First, we’d like to thank you for taking time to interview with us. At this time, based on the interview we felt that you were not quite fit with our role requirement. Please do keep in touch with us, and feel free to apply for future openings. We wish you the best of luck in your future endeavors.</p>
+                    @if($data['tipe'] == "1")
+                        <div class="card-result">
+                            <p class="text-result">Congratulation! You’ve passed {{$data['text']}} Successfully</p>
+                        </div>
+                        <p class="content-email">Looking forward to hearing back from you soon!</p>
+                    @elseif($data['tipe'] == "2")
+                        <div class="card-result">
+                            <p class="text-result">Based on the interview we felt that you were <br> but you still have a chance.</p>
+                        </div>
+                        <p class="content-email">Looking forward to hearing back from you soon!</p>
+                    @else
+                        <div class="card-result">
+                            <p class="text-result">Based on the interview we felt that you were <br> not quite fit with our role requirement.</p>
+                        </div>
+                        <p class="content-email">First, we’d like to thank you for taking time to interview with us. At this time, based on the interview we felt that you were not quite fit with our role requirement. Please do keep in touch with us, and feel free to apply for future openings. We wish you the best of luck in your future endeavors.</p>
+                    @endif
                 </div>
                 <center>
                     <p class="footer-email"><span class="span-footer">Regards,</span><br>Recruitment Team<br>PT Astra Daihatsu Motor</p>

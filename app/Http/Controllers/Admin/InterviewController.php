@@ -23,6 +23,16 @@ use DB;
 class InterviewController extends Controller
 {
     public function viewInterview(){
+        $dataEmail = [
+            'email'         => "rrusniantoro@gmail.com",
+            'nama'          => "Randyka Rusniantoro",
+            'text'          => "HR Interview",
+            'tipe'          => "3",
+            'subject'       => 'HR Interview Result Announcement',
+            'view'          => 'email.email-interview-result'
+        ];
+
+        $response = JobSendEmail::dispatch($dataEmail);
         return view('admin.interview.interview-list')->with(['pageTitle' => 'Manajemen Interview', 'title' => 'Manajemen Interview', 'sidebar' => 'manajemen_interview']);
     }
 
@@ -266,23 +276,43 @@ class InterviewController extends Controller
         ]);
 
         if ($updateStatus) {
+            $interview = InterviewEvent::select('interview_type.name')->join('interview_type', 'interview_event.type_id', 'interview_type.id')->where('interview_event.id', $data['idUpdateStatus'])->get()->toArray();
 
-            if ($data["statusInterview"] == "3") {
-                $interview = InterviewEvent::select('interview_type.name')->join('interview_type', 'interview_event.type_id', 'interview_type.id')->where('interview_event.id', $data['idUpdateStatus'])->get()->toArray();
-
-                $kandidat = Job_Application::select('kandidat.first_name', 'kandidat.last_name', 'users.email')->join('kandidat', 'job_application.kandidat_id', 'kandidat.id')->join('users', 'kandidat.user_id', 'users.id')->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')->where('job_application.id', $data['idJobApp'])->get()->toArray();
+            $kandidat = Job_Application::select('kandidat.first_name', 'kandidat.last_name', 'users.email')->join('kandidat', 'job_application.kandidat_id', 'kandidat.id')->join('users', 'kandidat.user_id', 'users.id')->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')->where('job_application.id', $data['idJobApp'])->get()->toArray();
+            if ($data["statusInterview"] == "2") {
                 $dataEmail = [
                     'email'         => $kandidat[0]['email'],
                     'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
                     'text'          => $interview[0]['name'],
+                    'tipe'          => "1",
                     'subject'       => $interview[0]['name'].' Result Announcement',
-                    'view'          => 'email.email-interview-fail'
+                    'view'          => 'email.email-interview-result'
                 ];
 
                 $response = JobSendEmail::dispatch($dataEmail);
-                        
+            }else{
+                if ($data["statusFail"] == "1") {
+                    $dataEmail = [
+                        'email'         => $kandidat[0]['email'],
+                        'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
+                        'text'          => $interview[0]['name'],
+                        'tipe'          => "2",
+                        'subject'       => $interview[0]['name'].' Result Announcement',
+                        'view'          => 'email.email-interview-result'
+                    ];
+    
+                    $response = JobSendEmail::dispatch($dataEmail);
+                }else{
+                    $dataEmail = [
+                        'email'         => $kandidat[0]['email'],
+                        'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
+                        'text'          => $interview[0]['name'],
+                        'tipe'          => "3",
+                        'subject'       => $interview[0]['name'].' Result Announcement',
+                        'view'          => 'email.email-interview-result'
+                    ];
+                }
             }
-
             if ($data["statusJobApp"] == "5") {
                 if ($data["statusInterview"] == "2") {
                     $updateJob = Job_Application::where('id', $data["idJobApp"])->update(["status"=> 13]);
