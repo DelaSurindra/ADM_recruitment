@@ -739,7 +739,8 @@ const formrules = {
 		ignore: null,
 		rules:{
             'noteInterview':{
-                required:true
+                required:true,
+				maxlength:200
             }
 		},
 		submitHandler:false,

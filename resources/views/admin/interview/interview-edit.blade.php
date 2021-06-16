@@ -128,7 +128,7 @@
                                         <select class="select2 tex-center select2-width" id="cityInterview" name="cityInterview" {{$interview['disabled']}}>
                                             <option value="">-- Choose Location --</option>
                                             @foreach($wilayah as $dataWilayah)
-                                                <option {{$interview['city'] == $dataWilayah['kabupaten']}} value="{{$dataWilayah['kabupaten']}}">{{$dataWilayah['kabupaten']}}</option>
+                                                <option {{$interview['city'] == $dataWilayah['kabupaten'] ? 'selected':''}} value="{{$dataWilayah['kabupaten']}}">{{$dataWilayah['kabupaten']}}</option>
                                             @endforeach
                                         </select>
                                     </div>

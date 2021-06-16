@@ -118,7 +118,8 @@ class InterviewController extends Controller
                     "interviewer"           => $data["interviewer"],
                     "last_interview"        => isset($data["lastInterview"]) ? $data["lastInterview"] : 0,
                     "status"                => 1,
-                    "reshedule_count"       => 0
+                    "reshedule_count"       => 0,
+                    "note"                  => ''
                 ]);
             }
 
@@ -301,6 +302,7 @@ class InterviewController extends Controller
                         'subject'       => $interview[0]['name'].' Result Announcement',
                         'view'          => 'email.email-interview-result'
                     ];
+                    $response = JobSendEmail::dispatch($dataEmail);
                 }
             }
             if ($data["statusJobApp"] == "5") {

@@ -1087,8 +1087,9 @@ class TestController extends Controller
     public function sendEmailResult(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
-        $getTest = Test::select('users.email', 'kandidat.first_name', 'kandidat.last_name', 'cognitive_test_result.skor', 'cognitive_test_result.status as status_result')
+        $getTest = Test::select('users.email', 'kandidat.first_name', 'kandidat.last_name', 'cognitive_test_result.skor', 'cognitive_test_result.status as status_result', 'job_application.status as status_job')
                         ->join('test_participant', 'test_event.id', 'test_participant.test_id')
+                        ->join('job_application', 'test_participant.id_job_application', 'job_application.id')
                         ->leftJoin('cognitive_test_result', 'test_participant.id', 'cognitive_test_result.id_participant')
                         ->join('kandidat', 'test_participant.kandidat_id', 'kandidat.id')
                         ->join('users', 'kandidat.user_id', 'users.id')
@@ -1096,7 +1097,7 @@ class TestController extends Controller
         // dd($getTest);
         if ($getTest) {
             for ($i=0; $i < count($getTest); $i++) {
-                if ($getTest[$i]['status_result'] == "1") {
+                if ($getTest[$i]['status_job'] == "3") {
                     $dataEmail = [
                         'email'  => $getTest[$i]['email'],
                         'nama'  => $getTest[$i]['first_name'].' '.$getTest[$i]['first_name'],
@@ -1106,7 +1107,7 @@ class TestController extends Controller
                         'view' => 'email.email-written-test-result'
                     ];
                     $response = JobSendEmail::dispatch($dataEmail);
-                }else {
+                }else if($getTest[$i]['status_job'] == "4") {
                     $dataEmail = [
                         'email'  => $getTest[$i]['email'],
                         'nama'  => $getTest[$i]['first_name'].' '.$getTest[$i]['first_name'],

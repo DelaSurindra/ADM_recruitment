@@ -932,6 +932,21 @@ var table = {
 					}
 				},
 				{
+					"targets": 10,
+					"data": "note",
+					"render": function(data, type, full, meta){
+						var data = '';
+						if (full.note != null) {
+							if (full.note.length > 25) {
+								data = full.note.substring(0, 24) + "...";
+							}else{
+								data = full.note;
+							}
+						}
+						return data;
+					}
+				},
+				{
 					"targets": 11,
 					"data": "id",
 					"className": "action-poster-news",
