@@ -164,7 +164,7 @@
                                     </div>
                                     <div class="distance col-lg-5 col-md-6 col-sm-12">
                                         <label for="">GPA</label>
-                                        <p class="detail">{{$pendidikan['gpa']}}</p>
+                                        <p class="detail">{{round($pendidikan['gpa'], 2)}}</p>
                                     </div>
                                     <div class="distance col-lg-5 col-md-6 col-sm-12 d-flex justify-content-between align-items-center">
                                         <div>
