@@ -2266,7 +2266,7 @@ if ($("#formEditJob").length) {
 	} else {
 		$("#aplicationStatus").attr('disabled', false);
 		$("#btnEditJob").removeClass("hidden")
-		if (status == "1" || status == "99") {
+		if (status == "1" || status == "99" || status == "3") {
 			$("#btnEditJob").attr('disabled', false);
 		} else {
 			$("#btnEditJob").attr('disabled', true);
@@ -2276,7 +2276,7 @@ if ($("#formEditJob").length) {
 
 	$("#aplicationStatus").change(function(){
 		var status = $("#aplicationStatus").val();
-		if (status == "1" || status == "11" || status == "12" || status == "99") {
+		if (status == "1" || status == "11" || status == "12" || status == "99" || status == "3") {
 			$("#btnEditJob").attr('disabled', false);
 		} else {
 			$("#btnEditJob").attr('disabled', true);
