@@ -259,4 +259,17 @@ class JobController extends Controller
         }
     }
 
+    public function testEmail(){
+        $dataEmail = [
+            'email'         => "rrusniantoro@gmail.com",
+            'nama'          => "Randyka Rusniantoro",
+            'subject'       => 'Application Submission',
+            'view'          => 'email.email-application-submission'
+        ];
+
+        $response = JobSendEmail::dispatch($dataEmail);
+
+        return 'test email';
+    }
+
 }

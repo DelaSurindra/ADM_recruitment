@@ -252,3 +252,5 @@ Route::get('/contact-us', 'Candidate\ContactUsController@viewContactUs')->name('
 Route::get('/company-profile', 'Candidate\CompanyProfileController@viewCompanyProfile')->name('get.candidate.company-profile');
 
 Route::post('/get-color', 'Candidate\HomeController@getColor')->name('get.color');
+
+Route::get('/test-email', 'Candidate\JobController@testEmail');
