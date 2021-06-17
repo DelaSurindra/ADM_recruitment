@@ -23,6 +23,7 @@ class ScoringController extends Controller
     	$validator = Validator::make($request->all(), [
     		"test_answers" => "required|array",
     		"test_participant_id" => "required",
+            "end_time" => "required",
             "vacancy_id" => "required",
     	]);
 
@@ -97,8 +98,9 @@ class ScoringController extends Controller
     	InventoryTestResult::insert($inventoryScores);
 
 
-    	// Update status test participant
+    	// Update status & end_time test participant
     	$participant->status = 5;
+        $participant->end_time = $request->end_time;
     	$participant->save();
 
         $participantDetail = self::getParticipantDetail($participantId);

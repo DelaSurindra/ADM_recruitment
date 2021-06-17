@@ -23,4 +23,5 @@ Route::group(['middleware'=>'auth:api'], function(){
 	Route::post('/blokirPeserta', 'TestController@blockParticipant');
 	Route::post('/submitTest','ScoringController@submitTest');
 	Route::post('/getSubtestTime','TestController@getSubtesTime');
+	Route::post('/submitStartTime','TestController@submitStartTime');
 });

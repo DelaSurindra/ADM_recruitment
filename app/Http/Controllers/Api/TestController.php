@@ -64,6 +64,30 @@ class TestController extends Controller
         return response()->json(["code"=>"00","message"=>"sukses","data"=>$subtest]);
     }
 
+    public function submitStartTime(Request $request){
+        $validator = Validator::make($request->all(), [
+                        "test_participant_id" => "required",
+                        "start_time" => "required"
+                    ]);
+
+        if($validator->fails()) {
+            return response()->json(["code"=>"30","message"=>$validator->errors()]);
+        }
+
+        $participantId = decrypt($request->test_participant_id);
+
+        $participant = TestParticipant::find($participantId);
+
+        if(!$participant){
+            return response()->json(["code"=>"21","message"=>"Participant not found"]);
+        }
+
+        $participant->start_time = $request->start_time;
+        $participant->save();
+
+        return response()->json(["code"=>"00","message"=>"Sukses mencatat start time peserta"]);
+    }
+
     protected function getSetTest($testParticipantId){
     	$participant = TestParticipant::find($testParticipantId);
 
