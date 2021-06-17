@@ -165,6 +165,8 @@
                                                 <th>Start Latlong</th>
                                                 <th>End Latlong</th>
                                                 <th>Kognitif Result</th>
+                                                <th>Time Start</th>
+                                                <th>Time End</th>
                                                 <th></th>
                                             </tr>
                                         </thead>

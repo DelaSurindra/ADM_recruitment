@@ -456,8 +456,7 @@ var table = {
 				{'data':'job_position'},
 				{'data':'type'},
 				{'data':'set_test'},
-				{'data':'area'},
-				{'data':'status_participant'},
+				{'data':'area'}
 			];
 
 			columnDefs = [
@@ -647,10 +646,6 @@ var table = {
 				{'data':'type'},
 				{'data':'set_test'},
 				{'data':'area'},
-				{'data':'status_participant'},
-				{'data':'location_start_radius'},
-				{'data':'location_end_radius'},
-				{'data':'skor'},
 			];
 
 			columnDefs = [
@@ -715,7 +710,42 @@ var table = {
 					}
 				},
 				{
+					"targets": 8,
+					"data": "location_start_radius",
+					"render": function(data, type, full, meta){
+						return full.location_start_radius;
+					}
+				},
+				{
+					"targets": 9,
+					"data": "location_end_radius",
+					"render": function(data, type, full, meta){
+						return full.location_end_radius;
+					}
+				},
+				{
+					"targets": 10,
+					"data": "skor",
+					"render": function(data, type, full, meta){
+						return full.skor;
+					}
+				},
+				{
 					"targets": 11,
+					"data": "start_time_participant",
+					"render": function(data, type, full, meta){
+						return full.start_time_participant;
+					}
+				},
+				{
+					"targets": 12,
+					"data": "start_end_participant",
+					"render": function(data, type, full, meta){
+						return full.start_end_participant;
+					}
+				},
+				{
+					"targets": 13,
 					"data": "test_participant_id",
 					"render": function(data, type, full, meta){
 						var id = encodeURIComponent(window.btoa(full.test_participant_id));

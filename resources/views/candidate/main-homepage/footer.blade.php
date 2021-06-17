@@ -9,12 +9,11 @@
                 <div>
                     <p class="title-usefull-link">Usefull Link</p>
                     <ul class="usefull-link">
-                        <li><a href="#">Job Vacancy</a></li>
-                        <li><a href="#">News & Event</a></li>
-                        <li><a href="#">Company Profile</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Terms And Policies</a></li>
+                        <li><a href="{{route('get.job.page')}}">Job Vacancy</a></li>
+                        <li><a href="{{route('get.news.event.page')}}">News & Event</a></li>
+                        <li><a href="{{route('get.candidate.company-profile')}}">Company Profile</a></li>
+                        <li><a href="{{route('get.candidate.contact-us')}}">Contact Us</a></li>
+                        <li><a href="{{route('get.candidate.faq')}}">FAQ</a></li>
                     </ul>
                 </div>
                 <div>

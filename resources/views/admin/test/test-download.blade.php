@@ -18,6 +18,8 @@
                 <th>Set Test</th>
                 <th>Start LatLong</th>
                 <th>End Latlong</th>
+                <th>Time Start</th>
+                <th>Time End</th>
                 <th>Verbal Skor</th>
                 <th>Numerik Skor</th>
                 <th>Abstrak Skor</th>
@@ -38,6 +40,8 @@
                 <td>{{ $data->set_test }}</td>
                 <td>{{ $data->location_start_radius }}</td>
                 <td>{{ $data->location_end_radius }}</td>
+                <td>{{ $data->start_time_participant }}</td>
+                <td>{{ $data->end_time_participant }}</td>
                 <td>{{ $data->verbal_skor }}</td>
                 <td>{{ $data->numerical_skor }}</td>
                 <td>{{ $data->abstrak_skor }}</td>
