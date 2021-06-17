@@ -162,17 +162,30 @@
                 <center>
                     <img src="https://adm.vasdev.co.id/image/icon/email/icon_written_test_result.png" class="img-title">
                 </center>
-                <p class="title-email">{{$data['text']}} Result Announcement</p>
-                <p class="subtitle-email">Your interview result is here!</p>
+                <p class="title-email">Medical Check Up Invitation</p>
+                <p class="subtitle-email">You’re invited to PT Astra Daihatsu Motor Medical Check Up</p>
                 <div class="card-content">
                     <p class="title-content-email">Hello, {{$data['nama']}}</p>
-                    @if($data['tipe'] == "1")
-                        <p class="content-email">Congratulation! You’ve passed our interview process successfully and for next step we will invite you to join ''. Please kindly wait for our invitation within this week. Thank you and have a good day!</p>
-                    @elseif($data['tipe'] == "2")
-                        <p class="content-email">First, we’d like to thank you for taking time to interview with us. At this time, based on the interview we felt that you were not quite fit with our role requirement. However, If there's some open position which probably fit with your profile in the future, we'll make sure we will reach out to you. Please do keep in touch with us, and feel free to apply for future openings. We wish you the best of luck in your future endeavors.</p>
-                    @else
-                        <p class="content-email">First, we’d like to thank you for taking time to interview with us. At this time, based on the interview we felt that you were not quite fit with our role requirement. However, If there's some open position which probably fit with your profile in the future, we'll make sure we will reach out to you. Please do keep in touch with us, and feel free to apply for future openings. We wish you the best of luck in your future endeavors.</p>
-                    @endif
+                    <p class="content-email">Congratulation! You’ve passed all the interview process successfully and the next step is Medical Check Up. We would like to conduct your medical check up on :</p>
+                    <table style="width:100%;">
+                        <tr style="height:40px;">
+                            <td class="content-email">Day/Date</td>
+                            <td class="value-table">{{$data['tanggal']}}</td>
+                        </tr>
+                        <tr style="height:40px;">
+                            <td class="content-email">Time</td>
+                            <td class="value-table">{{$data['waktu']}}</td>
+                        </tr>
+                        <tr style="height:40px;">
+                            <td class="content-email">Location/Media</td>
+                            <td class="value-table">{{$data['lokasi']}}</td>
+                        </tr>
+                    </table>
+                    <p class="content-email"><span class="footer-email">Note :</span> Please do fasting for about 12 hours (can drink mineral water) before check up, print & bring hardcopy of the reference letter for MCU, Residential Identity Car (KTP) original & copy, and 2 pcs ID Photo (size 3x4)</p>
+                    <p class="content-email">Within this email, we attached your MCU Reference letter (password : adm).</p>
+                    <p class="content-email">Kindly confirm by today at the latest upon your attendance by replying to this e-mail.</p>
+                    <hr>
+                    <p class="content-email">Looking forward to hearing back from you soon!</p>
                 </div>
                 <center>
                     <p class="footer-email"><span class="span-footer">Regards,</span><br>Recruitment Team<br>PT Astra Daihatsu Motor</p>

@@ -184,13 +184,8 @@
                             <td class="content-email">Item Need to Prepare</td>
                             <td class="value-table">KTP And Test Device</td>
                         </tr>
-                        <tr style="height:40px;">
-                            <td class="content-email">PIC</td>
-                            <td class="value-table">{{$data['pic']}}</td>
-                        </tr>
                     </table>
-                    <p class="content-email">Please confirm your attendance at the latest <span class="footer-email">{{$data['tanggal']}}</span> If you need a reschedule, kindly check our available schedule on ‘reschedule’ menu.</p>
-                    <a href="https://adm.vasdev.co.id"><button class="btn-red">Go to Website</button></a>
+                    <p class="content-email">Kindly confirm by today at the latest upon your attendance by replying to this e-mail.</p>
                     <hr>
                     <p class="content-email">Looking forward to hearing back from you soon!</p>
                 </div>

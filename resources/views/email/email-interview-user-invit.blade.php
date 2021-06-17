@@ -162,17 +162,32 @@
                 <center>
                     <img src="https://adm.vasdev.co.id/image/icon/email/icon_written_test_result.png" class="img-title">
                 </center>
-                <p class="title-email">{{$data['text']}} Result Announcement</p>
-                <p class="subtitle-email">Your interview result is here!</p>
+                <p class="title-email">{{$data['interview']}} Invitation</p>
+                <p class="subtitle-email">You’re invited to PT Astra Daihatsu Motor {{$data['interview']}}</p>
                 <div class="card-content">
                     <p class="title-content-email">Hello, {{$data['nama']}}</p>
-                    @if($data['tipe'] == "1")
-                        <p class="content-email">Congratulation! You’ve passed our interview process successfully and for next step we will invite you to join ''. Please kindly wait for our invitation within this week. Thank you and have a good day!</p>
-                    @elseif($data['tipe'] == "2")
-                        <p class="content-email">First, we’d like to thank you for taking time to interview with us. At this time, based on the interview we felt that you were not quite fit with our role requirement. However, If there's some open position which probably fit with your profile in the future, we'll make sure we will reach out to you. Please do keep in touch with us, and feel free to apply for future openings. We wish you the best of luck in your future endeavors.</p>
-                    @else
-                        <p class="content-email">First, we’d like to thank you for taking time to interview with us. At this time, based on the interview we felt that you were not quite fit with our role requirement. However, If there's some open position which probably fit with your profile in the future, we'll make sure we will reach out to you. Please do keep in touch with us, and feel free to apply for future openings. We wish you the best of luck in your future endeavors.</p>
-                    @endif
+                    <p class="content-email">Good morning/afternoon! Thank you for taking time to join our recruitment process. We've found a position which quite match with your profile. Through this email, we invite you to join User Interview. You will meet {{$data['pic']}} and the interview will last about 20-60 minutes. We would like to conduct your interview on :</p>
+                    <table style="width:100%;">
+                        <tr style="height:40px;">
+                            <td class="content-email">Day/Date</td>
+                            <td class="value-table">{{$data['tanggal']}}</td>
+                        </tr>
+                        <tr style="height:40px;">
+                            <td class="content-email">Time</td>
+                            <td class="value-table">{{$data['waktu']}}</td>
+                        </tr>
+                        <tr style="height:40px;">
+                            <td class="content-email">Location/Media</td>
+                            <td class="value-table">{{$data['lokasi']}}</td>
+                        </tr>
+                        <tr style="height:40px;">
+                            <td class="content-email">What to prepare</td>
+                            <td class="value-table">KTP And Test Device</td>
+                        </tr>
+                    </table>
+                    <p class="content-email">Kindly confirm by today at the latest upon your attendance by replying to this e-mail.</p>
+                    <hr>
+                    <p class="content-email">Looking forward to hearing back from you soon!</p>
                 </div>
                 <center>
                     <p class="footer-email"><span class="span-footer">Regards,</span><br>Recruitment Team<br>PT Astra Daihatsu Motor</p>

@@ -127,30 +127,50 @@ class InterviewController extends Controller
 
                 if ($data['typeInterview'] == "1") {
                     $statusJob = 5;
-                    $mcu = 'N';
                 }elseif ($data['typeInterview'] == "2") {
                     $statusJob = 6;
-                    $mcu = 'N';
                 }elseif ($data['typeInterview'] == "3") {
                     $statusJob = 7;
-                    $mcu = 'N';
                 }elseif ($data['typeInterview'] == "4") {
                     $statusJob = 8;
-                    $mcu = 'N';
                 }elseif ($data['typeInterview'] == "5") {
                     $statusJob = 9;
-                    $mcu = 'Y';
                 }else{
                     $statusJob = 10;
-                    $mcu = 'N';
                 }
 
                 for ($i=0; $i < $data['countChoose']; $i++) { 
 
-                    $interview = InterviewType::where('id', $data['typeInterview'])->get()->toArray();
                     $kandidat = Job_Application::select('kandidat.first_name', 'kandidat.last_name', 'users.email', 'vacancies.job_title')->join('kandidat', 'job_application.kandidat_id', 'kandidat.id')->join('users', 'kandidat.user_id', 'users.id')->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')->where('job_application.id', is_array($data["idJOb"]) ? $data["idJOb"][$i] : $data["idJOb"])->get()->toArray();
                     $date = date('D, d M Y', strtotime($data['dateInterview']));
-                    if ($data['typeInterview'] == "6") {
+
+                    if ($data['typeInterview'] == "4") {
+                        $dataEmail = [
+                            'email'         => $kandidat[0]['email'],
+                            'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
+                            'tanggal'       => $date,
+                            'waktu'         => $data['timeInterview'],
+                            'lokasi'        => $data['locationInterview'],
+                            'pic'           => $data['interviewer'],
+                            'subject'       => 'Direktur Interview Invitation',
+                            'view'          => 'email.email-interview-direktur-invit'
+                        ];
+        
+                        $response = JobSendEmail::dispatch($dataEmail);
+                    }elseif ($data['typeInterview'] == "5") {
+                        $dataEmail = [
+                            'email'         => $kandidat[0]['email'],
+                            'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
+                            'tanggal'       => $date,
+                            'waktu'         => $data['timeInterview'],
+                            'lokasi'        => $data['locationInterview'],
+                            'pic'           => $data['interviewer'],
+                            'subject'       => 'Medical Check Up Invitation',
+                            'view'          => 'email.email-mcu-invit'
+                        ];
+        
+                        $response = JobSendEmail::dispatch($dataEmail);
+                    }elseif ($data['typeInterview'] == "6") {
                         $dataEmail = [
                             'email'         => $kandidat[0]['email'],
                             'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
@@ -165,6 +185,7 @@ class InterviewController extends Controller
         
                         $response = JobSendEmail::dispatch($dataEmail);
                     }else{
+                        $interview = InterviewType::where('id', $data['typeInterview'])->get()->toArray();
                         $dataEmail = [
                             'email'         => $kandidat[0]['email'],
                             'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
@@ -173,8 +194,6 @@ class InterviewController extends Controller
                             'lokasi'        => $data['locationInterview'],
                             'pic'           => $data['interviewer'],
                             'interview'     => $interview[0]['name'],
-                            'tipe'          => 1,
-                            'mcu'           => $mcu,
                             'subject'       => $interview[0]['name'].' Invitation',
                             'view'          => 'email.email-interview-invit'
                         ];
@@ -206,7 +225,8 @@ class InterviewController extends Controller
     }
 
     public function listCandidatePick(){
-
+        $value = Request::input('param');
+        
     	$dataSend = array(
             "search"     => Request::input('search')['value'],
             "offset"     => Request::input('start'),
@@ -215,7 +235,7 @@ class InterviewController extends Controller
             'sort'       => (!empty(Request::get('order')[0]['dir'])) ? Request::get('order')[0]['dir'] : '',
 
         );
-        $interview = Job_Application::select('job_application.id as job_application_id', 'job_application.kandidat_id', 'job_application.status', 'kandidat.foto_profil', 'kandidat.first_name', 'kandidat.last_name', 'kandidat.gender', 'kandidat.telp', 'kandidat.kota', 'vacancies.job_title')
+        $interview = Job_Application::select('job_application.id as job_application_id', 'job_application.kandidat_id', 'job_application.status', 'kandidat.foto_profil', 'kandidat.first_name', 'kandidat.last_name', 'kandidat.gender', 'kandidat.telp', 'kandidat.kota', 'vacancies.job_title', 'vacancies.degree')
                                     ->join('kandidat', 'job_application.kandidat_id', 'kandidat.id')
                                     ->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')
                                     ->where('job_application.status', "!=", "0")
@@ -225,6 +245,10 @@ class InterviewController extends Controller
                                     ->Where('job_application.status', "!=", "10")
                                     ->Where('job_application.status', "!=", "11")
                                     ->Where('job_application.status', "!=", "12");
+        
+        if($value == "4"){
+            $interview = $interview->where('vacancies.degree', '>', '1');
+        }
 
         if ($dataSend['search']){
             $interview = $interview->where('title','like','%'.$dataSend['search'].'%');
@@ -267,7 +291,7 @@ class InterviewController extends Controller
         ]);
 
         if ($updateStatus) {
-            $interview = InterviewEvent::select('interview_type.name')->join('interview_type', 'interview_event.type_id', 'interview_type.id')->where('interview_event.id', $data['idUpdateStatus'])->get()->toArray();
+            $interview = InterviewEvent::select('interview_type.name', 'interview_type.id')->join('interview_type', 'interview_event.type_id', 'interview_type.id')->where('interview_event.id', $data['idUpdateStatus'])->get()->toArray();
 
             $kandidat = Job_Application::select('kandidat.first_name', 'kandidat.last_name', 'users.email')->join('kandidat', 'job_application.kandidat_id', 'kandidat.id')->join('users', 'kandidat.user_id', 'users.id')->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')->where('job_application.id', $data['idJobApp'])->get()->toArray();
             if ($data["statusInterview"] == "2") {
@@ -282,28 +306,40 @@ class InterviewController extends Controller
 
                 $response = JobSendEmail::dispatch($dataEmail);
             }else{
-                if ($data["statusFail"] == "1") {
+                if ($interview[0]['id'] == "5") {
                     $dataEmail = [
                         'email'         => $kandidat[0]['email'],
                         'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
-                        'text'          => $interview[0]['name'],
-                        'tipe'          => "2",
-                        'subject'       => $interview[0]['name'].' Result Announcement',
-                        'view'          => 'email.email-interview-result'
+                        'subject'       => 'Medical Check Up Result Announcement',
+                        'view'          => 'email.email-mcu-failed'
                     ];
     
                     $response = JobSendEmail::dispatch($dataEmail);
-                }else{
-                    $dataEmail = [
-                        'email'         => $kandidat[0]['email'],
-                        'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
-                        'text'          => $interview[0]['name'],
-                        'tipe'          => "3",
-                        'subject'       => $interview[0]['name'].' Result Announcement',
-                        'view'          => 'email.email-interview-result'
-                    ];
-                    $response = JobSendEmail::dispatch($dataEmail);
+                } else {
+                    if ($data["statusFail"] == "1") {
+                        $dataEmail = [
+                            'email'         => $kandidat[0]['email'],
+                            'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
+                            'text'          => $interview[0]['name'],
+                            'tipe'          => "2",
+                            'subject'       => $interview[0]['name'].' Result Announcement',
+                            'view'          => 'email.email-interview-result'
+                        ];
+        
+                        $response = JobSendEmail::dispatch($dataEmail);
+                    }else{
+                        $dataEmail = [
+                            'email'         => $kandidat[0]['email'],
+                            'nama'          => $kandidat[0]['first_name'].' '.$kandidat[0]['last_name'],
+                            'text'          => $interview[0]['name'],
+                            'tipe'          => "3",
+                            'subject'       => $interview[0]['name'].' Result Announcement',
+                            'view'          => 'email.email-interview-result'
+                        ];
+                        $response = JobSendEmail::dispatch($dataEmail);
+                    }
                 }
+                
             }
             if ($data["statusJobApp"] == "5") {
                 if ($data["statusInterview"] == "2") {

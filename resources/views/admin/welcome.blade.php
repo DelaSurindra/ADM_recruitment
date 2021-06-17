@@ -142,11 +142,9 @@
                     <div class="col-md-10">
                         <p class="title-card-dashboard">Top 3 Test Score</p>
                     </div>
-                    @if(session('session_id.role') == "1")
                     <div class="col-md-2">
                         <a href="" id="downloadTopScore"><img src="{{asset('image/icon/main/icon_donwload_red.svg')}}" alt=""></a>
                     </div>
-                    @endif
                 </div>
                 <div id="dataTopScore"></div>
             </div>
@@ -159,11 +157,9 @@
                     <div class="col-md-10">
                         <p class="title-card-dashboard">Candidate Passed</p>
                     </div>
-                    @if(session('session_id.role') == "1")
                     <div class="col-md-2">
                         <a href="" id="downloadCandidatePass"><img src="{{asset('image/icon/main/icon_donwload_red.svg')}}" alt=""></a>
                     </div>
-                    @endif
                 </div>
                 <div class="row">
                     <div class="col-md-4" id="divProgressCandidate">
@@ -194,11 +190,9 @@
                     <div class="col-md-10">
                         <p class="title-card-dashboard">Average Score</p>
                     </div>
-                    @if(session('session_id.role') == "1")
                     <div class="col-md-2">
                         <a href="" id="downloadAverage"><img src="{{asset('image/icon/main/icon_donwload_red.svg')}}" alt=""></a>
                     </div>
-                    @endif
                 </div>
                 <div class="row">
                     <div class="col-md-8">
@@ -237,11 +231,9 @@
                     <div class="col-md-10">
                         <p class="title-card-dashboard">Applicant University</p>
                     </div>
-                    @if(session('session_id.role') == "1")
                     <div class="col-md-2">
                         <a href="" id="downloadUniversitas"><img src="{{asset('image/icon/main/icon_donwload_red.svg')}}" alt=""></a>
                     </div>
-                    @endif
                 </div>
                 <div class="row">
                     <div class="col-md-3"></div>
@@ -261,11 +253,9 @@
                     <div class="col-md-10">
                         <p class="title-card-dashboard">Application Major</p>
                     </div>
-                    @if(session('session_id.role') == "1")
                     <div class="col-md-2">
                         <a href="" id="downloadMajor"><img src="{{asset('image/icon/main/icon_donwload_red.svg')}}" alt=""></a>
                     </div>
-                    @endif
                 </div>
                 <div class="row">
                     <div class="col-md-3"></div>

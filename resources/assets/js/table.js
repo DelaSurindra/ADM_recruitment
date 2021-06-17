@@ -391,7 +391,7 @@ var table = {
 						}else if (full.status == 7) {
 							data = "Process to User Interview 2";
 						}else if (full.status == 8) {
-							data = "Process to User Interview 3";
+							data = "Process to Direktur Interview";
 						}else if (full.status == 9) {
 							data = "Process to MCU";
 						}else if (full.status == 10) {
@@ -411,9 +411,9 @@ var table = {
 						}else if (full.status == 18) {
 							data = "User Interview 2 Fail";
 						}else if (full.status == 19) {
-							data = "User Interview 3 Pass";
+							data = "Direktur Interview Pass";
 						}else if (full.status == 20) {
-							data = "User Interview 3 Fail";
+							data = "Direktur Interview Fail";
 						}else if (full.status == 21) {
 							data = "MCU Pass";
 						}else if (full.status == 22) {
@@ -967,6 +967,7 @@ var table = {
         }
 
 		if ($("#tableChooseInterview").length) {
+			var value = $("#typeInterview").val()
 			var column = [
 				{'data':null},
 				{'data':'first_name'},
@@ -1037,7 +1038,7 @@ var table = {
 						}else if (full.status == 7) {
 							data = "Process to User Interview 2";
 						}else if (full.status == 8) {
-							data = "Process to User Interview 3";
+							data = "Process to Direktur Interview";
 						}else if (full.status == 9) {
 							data = "Process to MCU";
 						}else if (full.status == 10) {
@@ -1057,9 +1058,9 @@ var table = {
 						}else if (full.status == 18) {
 							data = "User Interview 2 Fail";
 						}else if (full.status == 19) {
-							data = "User Interview 3 Pass";
+							data = "Direktur Interview Pass";
 						}else if (full.status == 20) {
-							data = "User Interview 3 Fail";
+							data = "Direktur Interview Fail";
 						}else if (full.status == 21) {
 							data = "MCU Pass";
 						}else if (full.status == 22) {
@@ -1072,7 +1073,7 @@ var table = {
 				},
 			];
 	
-			table.serverSide('tableChooseInterview',column,'HR/interview/list-candidate-pick',null,columnDefs)
+			table.serverSide('tableChooseInterview',column,'HR/interview/list-candidate-pick',value,columnDefs)
 		}
 
 		if ($('#tableUniv').length) {
@@ -1514,7 +1515,7 @@ var table = {
 						}else if (full.status == 7) {
 							data = "Process to User Interview 2";
 						}else if (full.status == 8) {
-							data = "Process to User Interview 3";
+							data = "Process to Direktur Interview";
 						}else if (full.status == 9) {
 							data = "Process to MCU";
 						}else if (full.status == 10) {
@@ -1534,9 +1535,9 @@ var table = {
 						}else if (full.status == 18) {
 							data = "User Interview 2 Fail";
 						}else if (full.status == 19) {
-							data = "User Interview 3 Pass";
+							data = "Direktur Interview Pass";
 						}else if (full.status == 20) {
-							data = "User Interview 3 Fail";
+							data = "Direktur Interview Fail";
 						}else if (full.status == 21) {
 							data = "MCU Pass";
 						}else if (full.status == 22) {
@@ -2307,7 +2308,7 @@ $("#tableChooseInterview tbody").on('click', 'input', function(e) {
 		}else if (dataRow.status == 7) {
 			status = "Process to User Interview 2";
 		}else if (dataRow.status == 8) {
-			status = "Process to User Interview 3";
+			status = "Process to Direktur Interview";
 		}else if (dataRow.status == 9) {
 			status = "Process to MCU";
 		}else if (dataRow.status == 10) {
@@ -2327,9 +2328,9 @@ $("#tableChooseInterview tbody").on('click', 'input', function(e) {
 		}else if (dataRow.status == 18) {
 			status = "User Interview 2 Fail";
 		}else if (dataRow.status == 19) {
-			status = "User Interview 3 Pass";
+			status = "Direktur Interview Pass";
 		}else if (dataRow.status == 20) {
-			status = "User Interview 3 Fail";
+			status = "Direktur Interview Fail";
 		}else if (dataRow.status == 21) {
 			status = "MCU Pass";
 		}else if (dataRow.status == 22) {

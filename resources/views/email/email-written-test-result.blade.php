@@ -172,9 +172,6 @@
                     </div>
                     <p class="content-email">Looking forward to hearing back from you soon!</p>
                     @else
-                    <div class="card-result">
-                        <p class="text-result">Sorry! Your written test result hasn’t passed <br> our standart requirement</p>
-                    </div>
                     <p class="content-email">Through this email we would like to inform that your written test result hasn’t passed our standart requirement. Therefor, you can’t continue to next selection step. We appreciate you taking the time to join our selection process and wish all the best for your future endeavors.</p>
                     @endif
                 </div>

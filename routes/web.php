@@ -41,7 +41,7 @@ Route::prefix('HR')->group(function(){
 		Route::post('/average-score', 'Admin\HomeController@averageScore')->name('post.average.score');
 		Route::post('/application-university', 'Admin\HomeController@applicationUniversity')->name('post.application.university');
 		Route::post('/application-major', 'Admin\HomeController@applicationMajor')->name('post.application.major');
-		Route::get('/download-dashboard/{date}', 'Admin\HomeController@downloadDashboard')->middleware('role:1')->name('post.download.dashboard');
+		Route::get('/download-dashboard/{date}', 'Admin\HomeController@downloadDashboard')->name('post.download.dashboard');
 
 		Route::prefix('change-password')->group(function () {
 			Route::get('/', 'Admin\HomeController@editPasswordView')->name('get.change-password');
@@ -99,7 +99,7 @@ Route::prefix('HR')->group(function(){
 			Route::get('/download-file-bulk','Admin\CandidateController@downloadFile')->name('get.download.bulk');
 			Route::post('/get-master','Admin\CandidateController@getMaster')->name('post.data.master');
 			Route::post('/post-add-bulk','Admin\CandidateController@addBulk')->name('post.bulk.add.candidate');
-			Route::get('/download-candidate', 'Admin\CandidateController@downloadCandidate')->middleware('role:1')->name('get.download.candidate');
+			Route::get('/download-candidate', 'Admin\CandidateController@downloadCandidate')->name('get.download.candidate');
 		});
 
 		Route::prefix('job')->group(function () {
@@ -161,20 +161,22 @@ Route::prefix('HR')->group(function(){
 			Route::post('/delete-master','Admin\MasterController@deleteMaster')->name('post.master.delete');
 		});
 
-		Route::prefix('user')->group(function () {
-			Route::get('/', 'Admin\UserController@viewUser')->name('get.user');
-			Route::post('/list-user','Admin\UserController@listUser')->name('post.user.list');
-			Route::get('/add-user', 'Admin\UserController@viewUserAdd')->name('get.user.add');
-			Route::post('/post-user','Admin\UserController@addUser')->name('post.user.add');
-			Route::get('/edit-user/{id}', 'Admin\UserController@viewUserEdit')->name('get.user.edit');
-			Route::post('/edit-user','Admin\UserController@editUser')->name('post.user.edit');
-			Route::post('/delete-user','Admin\UserController@deleteUser')->name('post.user.delete');
-		});
+		Route::middleware('role:1')->group(function(){
+			Route::prefix('user')->group(function () {
+				Route::get('/', 'Admin\UserController@viewUser')->name('get.user');
+				Route::post('/list-user','Admin\UserController@listUser')->name('post.user.list');
+				Route::get('/add-user', 'Admin\UserController@viewUserAdd')->name('get.user.add');
+				Route::post('/post-user','Admin\UserController@addUser')->name('post.user.add');
+				Route::get('/edit-user/{id}', 'Admin\UserController@viewUserEdit')->name('get.user.edit');
+				Route::post('/edit-user','Admin\UserController@editUser')->name('post.user.edit');
+				Route::post('/delete-user','Admin\UserController@deleteUser')->name('post.user.delete');
+			});
+			});
 
 		Route::prefix('report')->group(function (){
 			Route::get('/', 'Admin\ReportController@viewReport')->name('get.report');
 			Route::post('/get-report', 'Admin\ReportController@getReport')->name('post.report');
-			Route::get('/download-report/{date}', 'Admin\ReportController@downloadReport')->middleware('role:1')->name('get.download.report');
+			Route::get('/download-report/{date}', 'Admin\ReportController@downloadReport')->name('get.download.report');
 		});
 	});
 });

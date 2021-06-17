@@ -42,11 +42,9 @@
                     <div class="col-md-6">
                         <p class="title-page">Tren Kelulusan</p>
                     </div>
-                    @if(session('session_id.role') == "1")
                     <div class="col-md-6">
                         <a href="" class="btn-download-report"><button class="btn btn-white right">Download</button></a>
                     </div>
-                    @endif
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -86,11 +84,9 @@
                     <div class="col-md-6">
                         <p class="title-page">Average Score VS Jurusan</p>
                     </div>
-                    @if(session('session_id.role') == "1")
                     <div class="col-md-6">
                         <a href="" class="btn-download-report"><button class="btn btn-white right">Download</button></a>
                     </div>
-                    @endif
                 </div>
                 <div class="row" >
                     <div class="col-md-12">
@@ -126,11 +122,9 @@
                     <div class="col-md-6">
                         <p class="title-page">Tingkat Kelulusan Per Universitas</p>
                     </div>
-                    @if(session('session_id.role') == "1")
                     <div class="col-md-6">
                         <a href="" class="btn-download-report"><button class="btn btn-white right">Download</button></a>
                     </div>
-                    @endif
                 </div>
                 <div class="row" >
                     <div class="col-md-12">
@@ -164,11 +158,9 @@
                     <div class="col-md-6">
                         <p class="title-page">Tingkat Kelulusan Per Jurusan</p>
                     </div>
-                    @if(session('session_id.role') == "1")
                     <div class="col-md-6">
                         <a href="" class="btn-download-report"><button class="btn btn-white right">Download</button></a>
                     </div>
-                    @endif
                 </div>
                 <div class="row" >
                     <div class="col-md-12">
@@ -202,11 +194,9 @@
                     <div class="col-md-6">
                         <p class="title-page">Tren Average Score per Subtes</p>
                     </div>
-                    @if(session('session_id.role') == "1")
                     <div class="col-md-6">
                         <a href="" class="btn-download-report"><button class="btn btn-white right">Download</button></a>
                     </div>
-                    @endif
                 </div>
                 <div class="row" >
                     <div class="col-md-12">
@@ -242,11 +232,9 @@
                     <div class="col-md-6">
                         <p class="title-page">Average fulfillment lead time per job vacancy</p>
                     </div>
-                    @if(session('session_id.role') == "1")
                     <div class="col-md-6">
                         <a href="" class="btn-download-report"><button class="btn btn-white right">Download</button></a>
                     </div>
-                    @endif
                 </div>
                 <div class="row" >
                     <div class="col-md-12">
@@ -286,11 +274,9 @@
                     <div class="col-md-6">
                         <p class="title-page">Tren Applicant : Analisa jml peningkatan/penurunan jumlah pelamar</p>
                     </div>
-                    @if(session('session_id.role') == "1")
                     <div class="col-md-6">
                         <a href="" class="btn-download-report"><button class="btn btn-white right">Download</button></a>
                     </div>
-                    @endif
                 </div>
                 <div class="row" >
                     <div class="col-md-12">
@@ -326,11 +312,9 @@
                     <div class="col-md-6">
                         <p class="title-page">Apply : analisa profil kandidat2 yang apply melalui web</p>
                     </div>
-                    @if(session('session_id.role') == "1")
                     <div class="col-md-6">
                         <a href="" class="btn-download-report"><button class="btn btn-white right">Download</button></a>
                     </div>
-                    @endif
                 </div>
                 <div class="row" >
                     <div class="col-md-12">

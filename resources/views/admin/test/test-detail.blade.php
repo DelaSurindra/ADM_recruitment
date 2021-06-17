@@ -223,8 +223,10 @@
                                 <center>
                                     <img src="{{asset('image/icon/main/icon_empty_participant.svg')}}" class="img-empty-participant mb-3">
                                     <p class="title-empty-participant mb-2">There is no candidate here</p>
+                                    @if(date('Y-m-d', strtotime($data['date_test'])) > date('Y-m-d'))
                                     <p class="text-empty-participant mb-4">Please add some candidate to join your test</p>
                                     <button type="button" class="btn btn-red choose-candidate">Add Candidate</button>
+                                    @endif
                                 </center>
                             </div>
                         </div>

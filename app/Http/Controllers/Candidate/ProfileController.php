@@ -1040,6 +1040,7 @@ class ProfileController extends Controller
                     $status_user_interview2 = '';
                     $status_direktur_interview = '';
                     $status_mcu = '';
+                    $status_document_sign = '';
 
                     if ($history) {
                         $last = last($history);
@@ -1071,6 +1072,12 @@ class ProfileController extends Controller
                                 array_push($mcu, $history[$i]['tanggal']);
                             }else if ($history[$i]['status'] == "10") {
                                 array_push($document_sign, $history[$i]['tanggal']);
+                            }else if ($history[$i]['status'] == "11") {
+                                array_push($document_sign, $history[$i]['tanggal']);
+                                $status_document_sign = 'success';
+                            }else if ($history[$i]['status'] == "12") {
+                                array_push($document_sign, $history[$i]['tanggal']);
+                                $status_document_sign = 'failed';
                             }else if ($history[$i]['status'] == "13") {
                                 array_push($hr_interview, $history[$i]['tanggal']);
                                 $status_hr_interview = 'success';
@@ -1135,7 +1142,8 @@ class ProfileController extends Controller
                             'status_user_interview1' => $status_user_interview1,
                             'status_user_interview2' => $status_user_interview2,
                             'status_direktur_interview' => $status_direktur_interview,
-                            'status_mcu'             => $status_mcu
+                            'status_mcu'             => $status_mcu,
+                            'status_document_sign'   => $status_document_sign,
                         ],
                         'job' => $job_apply[0],
                         'test' => $test,

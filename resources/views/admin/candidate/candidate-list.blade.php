@@ -12,9 +12,7 @@
             <div class="col-md-8">
                 <a href="{{route('get.candidate.add')}}"><button type="button" class="btn btn-red right">Add Candidate</button></a>
                 <button type="button" class="btn btn-white right mr-3" data-toggle="modal" data-target="#modalAddBulk">Add Candidate Bulk</button>
-                @if(session('session_id.role') == "1")
                 <a href="{{route('get.download.candidate')}}" class="btn btn-white right mr-3">Download Data</a>
-                @endif
             </div>
         </div>
         <div class="row">

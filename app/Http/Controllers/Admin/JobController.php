@@ -146,7 +146,7 @@ class JobController extends Controller
     public function viewJobEdit($id){
 
         $idJob = base64_decode(urldecode($id));
-        $listCandidate = Job_Application::select('kandidat.*', 'job_application.id as job_id', 'job_application.vacancy_id', 'vacancies.job_title', 'job_application.status as status_job', 'users.email')
+        $listCandidate = Job_Application::select('kandidat.*', 'job_application.id as job_id', 'job_application.vacancy_id', 'vacancies.job_title', 'vacancies.degree', 'job_application.status as status_job', 'users.email')
                                     ->join('kandidat', 'job_application.kandidat_id', 'kandidat.id')
                                     ->join('vacancies', 'job_application.vacancy_id', 'vacancies.job_id')
                                     ->join('users', 'users.id', 'kandidat.user_id')
@@ -195,6 +195,7 @@ class JobController extends Controller
             $status_user_interview2 = '';
             $status_direktur_interview = '';
             $status_mcu = '';
+            $status_document_sign = '';
 
             if ($history) {
                 for ($i=0; $i < count($history) ; $i++) { 
@@ -223,6 +224,12 @@ class JobController extends Controller
                         array_push($mcu, $history[$i]['tanggal']);
                     }else if ($history[$i]['status'] == "10") {
                         array_push($document_sign, $history[$i]['tanggal']);
+                    }else if ($history[$i]['status'] == "11") {
+                        array_push($document_sign, $history[$i]['tanggal']);
+                        $status_document_sign = 'success';
+                    }else if ($history[$i]['status'] == "12") {
+                        array_push($document_sign, $history[$i]['tanggal']);
+                        $status_document_sign = 'failed';
                     }else if ($history[$i]['status'] == "13") {
                         array_push($hr_interview, $history[$i]['tanggal']);
                         $status_hr_interview = 'success';
@@ -346,7 +353,8 @@ class JobController extends Controller
                         'status_user_interview1' => $status_user_interview1,
                         'status_user_interview2' => $status_user_interview2,
                         'status_direktur_interview' => $status_direktur_interview,
-                        'status_mcu'             => $status_mcu
+                        'status_mcu'             => $status_mcu,
+                        'status_document_sign'   => $status_document_sign,
                     ],
                     "masterSubtest" => $masterSubtest,
                     "cognitiveResult" => $cognitiveResult,
@@ -367,7 +375,7 @@ class JobController extends Controller
                         'user_interview2'=> $user_interview2,
                         'direktur_interview'=> $direktur_interview,
                         'mcu'            => $mcu,
-                        'document_sign'  => $document_sign
+                        'document_sign'  => $document_sign,
                     ],
                     'status' => [
                         'status_online_test'     => $status_online_test,
@@ -375,7 +383,8 @@ class JobController extends Controller
                         'status_user_interview1' => $status_user_interview1,
                         'status_user_interview2' => $status_user_interview2,
                         'status_direktur_interview' => $status_direktur_interview,
-                        'status_mcu'             => $status_mcu
+                        'status_mcu'             => $status_mcu,
+                        'status_document_sign'   => $status_document_sign,
                     ]
                 ]);
             }

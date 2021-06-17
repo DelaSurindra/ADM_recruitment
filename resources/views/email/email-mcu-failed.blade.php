@@ -162,17 +162,11 @@
                 <center>
                     <img src="https://adm.vasdev.co.id/image/icon/email/icon_written_test_result.png" class="img-title">
                 </center>
-                <p class="title-email">{{$data['text']}} Result Announcement</p>
+                <p class="title-email">Medical Checkup Result Announcement</p>
                 <p class="subtitle-email">Your interview result is here!</p>
                 <div class="card-content">
                     <p class="title-content-email">Hello, {{$data['nama']}}</p>
-                    @if($data['tipe'] == "1")
-                        <p class="content-email">Congratulation! You’ve passed our interview process successfully and for next step we will invite you to join ''. Please kindly wait for our invitation within this week. Thank you and have a good day!</p>
-                    @elseif($data['tipe'] == "2")
-                        <p class="content-email">First, we’d like to thank you for taking time to interview with us. At this time, based on the interview we felt that you were not quite fit with our role requirement. However, If there's some open position which probably fit with your profile in the future, we'll make sure we will reach out to you. Please do keep in touch with us, and feel free to apply for future openings. We wish you the best of luck in your future endeavors.</p>
-                    @else
-                        <p class="content-email">First, we’d like to thank you for taking time to interview with us. At this time, based on the interview we felt that you were not quite fit with our role requirement. However, If there's some open position which probably fit with your profile in the future, we'll make sure we will reach out to you. Please do keep in touch with us, and feel free to apply for future openings. We wish you the best of luck in your future endeavors.</p>
-                    @endif
+                    <p class="content-email">We'd like to inform that your Medical Check Up result doesn't meet our requirement.<br>Thank you for your participation & good cooperation along the process. Please do keep in touch with us, and feel free to apply for future openings. We wish you the best of luck in your future endeavors.</p>
                 </div>
                 <center>
                     <p class="footer-email"><span class="span-footer">Regards,</span><br>Recruitment Team<br>PT Astra Daihatsu Motor</p>

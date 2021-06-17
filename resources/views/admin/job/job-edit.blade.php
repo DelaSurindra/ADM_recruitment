@@ -276,13 +276,13 @@
                                         @else
                                             <div class="gray-line"></div>
                                         @endif
-
-                                        @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['direktur_interview'] != [])
-                                            <div class="green-line"></div>
-                                        @else
-                                            <div class="gray-line"></div>
+                                        @if($data['degree'] > 1)
+                                            @if($history['document_sign'] != [] || $history['mcu'] != [] || $history['direktur_interview'] != [])
+                                                <div class="green-line"></div>
+                                            @else
+                                                <div class="gray-line"></div>
+                                            @endif
                                         @endif
-
                                         @if($history['document_sign'] != [] || $history['mcu'] != [])
                                             <div class="green-line"></div>
                                         @else
@@ -363,6 +363,7 @@
                                                 @endif
                                             </div>
                                         </div>
+                                        @if($data['degree'] > 1)
                                         <div class="track-item {{ $history['direktur_interview'] != [] ? 'active' : '' }}">
                                             <img src="{{$history['direktur_interview'] != [] ? asset('image/icon/homepage/track/track-user-interview-red.svg') : asset('image/icon/homepage/track/track-user-interview.svg') }}" alt="icon">
                                             <div class="track-text">
@@ -377,6 +378,7 @@
                                                 @endif
                                             </div>
                                         </div>
+                                        @endif
                                         <div class="track-item {{ $history['mcu'] != [] ? 'active' : '' }}">
                                             <img src="{{$history['mcu'] != [] ? asset('image/icon/homepage/track/track-medical-checkup-red.svg') : asset('image/icon/homepage/track/track-medical-checkup.svg') }}" alt="icon">
                                             <div class="track-text">
@@ -399,6 +401,9 @@
                                                 <p class="subtitle">{{last($history['document_sign'])}}</p>
                                                 @else
                                                 <p class="subtitle"></p>
+                                                @endif
+                                                @if($status['status_document_sign'] != '')
+                                                <div class="track-status {{$status['status_document_sign']}}"><p class="{{$status['status_document_sign']}}">{{ucfirst($status['status_document_sign'])}}</p></div>
                                                 @endif
                                             </div>
                                         </div>

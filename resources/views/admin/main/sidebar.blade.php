@@ -31,12 +31,14 @@
                     <span class="font-color-sidebar">Report</span>
                 </a>
             </li>
+            @if(session('session_id.role') == "1")
             <li class="tree-menu custom-height-menu-sidebar">
                 <a href="{{ route('get.user') }}" class="menu {{($sidebar== 'manajemen_user'?'active':'')}} ">
                     <img src="{{ $sidebar== 'manajemen_user' ? asset('image/icon/sidebar/icon_menu_user_active.svg') : asset('image/icon/sidebar/icon_menu_user.svg')}}" alt="" width="25px" class="right-icon-sidebar icon-sidebar-mobile">
                     <span class="font-color-sidebar">Manage User/Role</span>
                 </a>
             </li>
+            @endif
             <li class="tree-menu custom-height-menu-sidebar">
                 <a href="{{ route('get.master') }}" class="menu {{($sidebar== 'manajemen_master'?'active':'')}} ">
                     <img src="{{ $sidebar== 'manajemen_master' ? asset('image/icon/sidebar/icon_menu_master_active.svg') : asset('image/icon/sidebar/icon_menu_master.svg')}}" alt="" width="25px" class="right-icon-sidebar icon-sidebar-mobile">

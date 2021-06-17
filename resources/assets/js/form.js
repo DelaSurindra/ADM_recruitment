@@ -1781,6 +1781,112 @@ if ($("#formAddInterview").length) {
 			$("#lastInterviewDiv").removeClass("hidden");
 		}
 		$("#lastInterview").prop('checked', false);
+		var column = [
+			{'data':null},
+			{'data':'first_name'},
+			{'data':'gender'},
+			{'data':'telp'},
+			{'data':'kota'},
+			{'data':'job_title'},
+			{'data':'status'},
+		];
+
+		columnDefs = [
+			{
+				"targets": 0,
+				"orderable": false,
+				"data": "job_application_id",
+				"render": function(data, type, full, meta){
+					var data = '<input class="choose" type="checkbox" id="interview_'+full.job_application_id+'">';
+					return data;
+				}
+			},
+			{
+				"targets": 1,
+				"data": "name",
+				"render": function(data, type, full, meta){
+					var id = encodeURIComponent(window.btoa(full.kandidat_id));
+					var image = '';
+					if (full.foto_profil == null || full.foto_profil == "") {
+						image = baseUrl+'image/icon/homepage/dummy-profile.svg';
+					}else{
+						image = baseImage+'/'+full.foto_profil;
+					}
+					var data = '<img class="img-candidate" src="'+image+'" />'+'&nbsp'+full.first_name+' '+full.last_name;
+					return data;
+				}
+			},
+			{
+				"targets": 2,
+				"data": "gender",
+				"render": function(data, type, full, meta){
+					var data = '';
+					if (full.gender == "1") {
+						data = "Male";
+					}else if (full.gender == "2") {
+						data = "Female";
+					}
+					return data;
+				}
+			},
+			{
+				"targets": 6,
+				"data": "status",
+				"render": function(data, type, full, meta){
+					var data = '';
+					if (full.status == 0) {
+						data = "Application Resume";
+					}else if (full.status == 1) {
+						data = "Process To Written Test";
+					}else if (full.status == 2) {
+						data = "Scheduled to Written Test";
+					}else if (full.status == 3) {
+						data = "Written Test Pass";
+					}else if (full.status == 4) {
+						data = "Written Test failed";
+					}else if (full.status == 5) {
+						data = "Process to HR interview";
+					}else if (full.status == 6) {
+						data = "Process to User Interview 1";
+					}else if (full.status == 7) {
+						data = "Process to User Interview 2";
+					}else if (full.status == 8) {
+						data = "Process to User Interview 3";
+					}else if (full.status == 9) {
+						data = "Process to MCU";
+					}else if (full.status == 10) {
+						data = "Process to Doc Sign";
+					}else if (full.status == 11) {
+						data = "Failed";
+					}else if (full.status == 13) {
+						data = "HR interview Pass";
+					}else if (full.status == 14) {
+						data = "HR interview Fail";
+					}else if (full.status == 15) {
+						data = "User Interview 1 Pass";
+					}else if (full.status == 16) {
+						data = "User Interview 1 Fail";
+					}else if (full.status == 17) {
+						data = "User Interview 2 Pass";
+					}else if (full.status == 18) {
+						data = "User Interview 2 Fail";
+					}else if (full.status == 19) {
+						data = "User Interview 3 Pass";
+					}else if (full.status == 20) {
+						data = "User Interview 3 Fail";
+					}else if (full.status == 21) {
+						data = "MCU Pass";
+					}else if (full.status == 22) {
+						data = "MCU Fail";
+					}else{
+						data = "Hired";
+					}
+					return data;
+				}
+			},
+		];
+
+		table.serverSide('tableChooseInterview',column,'HR/interview/list-candidate-pick',value,columnDefs)
 	})
 	$('#dateInterview').datetimepicker({
 		format: 'DD-MM-YYYY',
