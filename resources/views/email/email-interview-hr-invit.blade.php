@@ -160,13 +160,13 @@
         <div class="container">
             <div class="card">
                 <center>
-                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_doc_sign.png" class="img-title">
+                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_written_test_result.png" class="img-title">
                 </center>
-                <p class="title-email">Document Sign Invitation</p>
-                <p class="subtitle-email">You’re invited to PT Astra Daihatsu Motor Document Sign</p>
+                <p class="title-email">HR Interview Invitation</p>
+                <p class="subtitle-email">You’re invited to PT Astra Daihatsu Motor HR Interview</p>
                 <div class="card-content">
                     <p class="title-content-email">Hello, {{$data['nama']}}</p>
-                    <p class="content-email">Regarding to your hiring process, we would like to invite you for Document Signing on :</p>
+                    <p class="content-email">Thank you for taking time to join our written test. Next, we invite you to join HR interview. The interview will last about 20-40 minutes. We would like to conduct your interview on :</p>
                     <table style="width:100%;">
                         <tr style="height:40px;">
                             <td class="content-email">Day/Date</td>
@@ -177,16 +177,17 @@
                             <td class="value-table">{{$data['waktu']}}</td>
                         </tr>
                         <tr style="height:40px;">
-                            <td class="content-email">Location</td>
+                            <td class="content-email">Location/Media</td>
                             <td class="value-table">{{$data['lokasi']}}</td>
                         </tr>
                         <tr style="height:40px;">
-                            <td class="content-email">Item Need to Prepare</td>
+                            <td class="content-email">What to prepare</td>
                             <td class="value-table">KTP And Test Device</td>
                         </tr>
                     </table>
-                    <p class="content-email">Kindly confirm by today at the latest upon your attendance by replying to this e-mail. <br>If there's any question, feel free to contact us on....... (email/contact) <br>Thank you !</p>
-                    
+                    <p class="content-email">Kindly confirm by today at the latest upon your attendance by replying to this e-mail.</p>
+                    <hr>
+                    <p class="content-email">Looking forward to hearing back from you soon!</p>
                 </div>
                 <center>
                     <p class="footer-email"><span class="span-footer">Regards,</span><br>Recruitment Team<br>PT Astra Daihatsu Motor</p>

@@ -167,10 +167,7 @@
                 <div class="card-content">
                     <p class="title-content-email">Hello, {{$data['nama']}}</p>
                     @if($data['tipe'] == 1)
-                    <div class="card-result">
-                        <p class="text-result">Congratulation! You’ve passed Written Test Successfully</p>
-                    </div>
-                    <p class="content-email">Looking forward to hearing back from you soon!</p>
+                    <p class="content-email">Congratulation! You’ve passed written test successfully and for next step we will invite you to join HR Interview. Please kindly waiting for the interview invitation within this week. <br>Thank you and have a good day!</p>
                     @else
                     <p class="content-email">Through this email we would like to inform that your written test result hasn’t passed our standart requirement. Therefor, you can’t continue to next selection step. We appreciate you taking the time to join our selection process and wish all the best for your future endeavors.</p>
                     @endif

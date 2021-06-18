@@ -275,91 +275,120 @@ class JobController extends Controller
                 $testPart = TestParticipant::where('test_participant.id_job_application', $idJob)
                                             ->get()->toArray();
                 // dd($testPart, $idJob);
-                $setTest = SetTest::where('set', $testPart[0]['set_test'])->get()->toArray();
-                $cognitiveResult = CognitiveTestResult::where('id_participant', $testPart[0]['id'])->get()->toArray();
-                if ($cognitiveResult) {
-                    $cognitiveResult[0]['skorAbstrak'] = $cognitiveResult[0]['abstrak1']+$cognitiveResult[0]['abstrak2']+$cognitiveResult[0]['abstrak3']+$cognitiveResult[0]['abstrak4'];
-                    
-                    if ($cognitiveResult[0]['skorAbstrak'] >= $setTest[0]['abstrak']) {
-                        $cognitiveResult[0]['resultAbstrak'] = "PASS";
-                    }else{
-                        $cognitiveResult[0]['resultAbstrak'] = "FAIL";
+                if ($testPart) {
+                    $setTest = SetTest::where('set', $testPart[0]['set_test'])->get()->toArray();
+                    $cognitiveResult = CognitiveTestResult::where('id_participant', $testPart[0]['id'])->get()->toArray();
+                    if ($cognitiveResult) {
+                        $cognitiveResult[0]['skorAbstrak'] = $cognitiveResult[0]['abstrak1']+$cognitiveResult[0]['abstrak2']+$cognitiveResult[0]['abstrak3']+$cognitiveResult[0]['abstrak4'];
+                        
+                        if ($cognitiveResult[0]['skorAbstrak'] >= $setTest[0]['abstrak']) {
+                            $cognitiveResult[0]['resultAbstrak'] = "PASS";
+                        }else{
+                            $cognitiveResult[0]['resultAbstrak'] = "FAIL";
+                        }
+        
+                        $cognitiveResult[0]['skorNumeric'] = $cognitiveResult[0]['numerical1']+$cognitiveResult[0]['numerical2']+$cognitiveResult[0]['numerical3']+$cognitiveResult[0]['numerical4'];
+        
+                        if ($cognitiveResult[0]['skorNumeric'] >= $setTest[0]['numerical']) {
+                            $cognitiveResult[0]['resultNumeric'] = "PASS";
+                        }else{
+                            $cognitiveResult[0]['resultNumeric'] = "FAIL";
+                        }
+        
+                        $cognitiveResult[0]['skorVerbal'] = $cognitiveResult[0]['verbal1']+$cognitiveResult[0]['verbal2']+$cognitiveResult[0]['verbal3']+$cognitiveResult[0]['verbal4'];
+        
+                        if ($cognitiveResult[0]['skorVerbal'] >= $setTest[0]['verbal']) {
+                            $cognitiveResult[0]['resultVerbal'] = "PASS";
+                        }else{
+                            $cognitiveResult[0]['resultVerbal'] = "FAIL";
+                        }
+        
+                        if ($cognitiveResult[0]['skor'] >= $setTest[0]['total']) {
+                            $cognitiveResult[0]['resultSkor'] = "PASS";
+                        }else{
+                            $cognitiveResult[0]['resultSkor'] = "FAIL";
+                        }
+        
+                    } else {
+                        $cognitiveResult[0]['skorAbstrak'] = "Not Set";
+                        $cognitiveResult[0]['abstrak1'] = "Not Set";
+                        $cognitiveResult[0]['abstrak2'] = "Not Set";
+                        $cognitiveResult[0]['abstrak3'] = "Not Set";
+                        $cognitiveResult[0]['abstrak4'] = "Not Set";
+                        $cognitiveResult[0]['skorNumeric'] = "Not Set";
+                        $cognitiveResult[0]['numerical1'] = "Not Set";
+                        $cognitiveResult[0]['numerical2'] = "Not Set";
+                        $cognitiveResult[0]['numerical3'] = "Not Set";
+                        $cognitiveResult[0]['numerical4'] = "Not Set";
+                        $cognitiveResult[0]['skorVerbal'] = "Not Set";
+                        $cognitiveResult[0]['verbal1'] = "Not Set";
+                        $cognitiveResult[0]['verbal2'] = "Not Set";
+                        $cognitiveResult[0]['verbal3'] = "Not Set";
+                        $cognitiveResult[0]['verbal4'] = "Not Set";
+                        $cognitiveResult[0]['skor'] = "Not Set";
+                        $cognitiveResult[0]['resultAbstrak'] = "";
+                        $cognitiveResult[0]['resultNumeric'] = "";
+                        $cognitiveResult[0]['resultVerbal'] = "";
+                        $cognitiveResult[0]['resultSkor'] = "";
                     }
-    
-                    $cognitiveResult[0]['skorNumeric'] = $cognitiveResult[0]['numerical1']+$cognitiveResult[0]['numerical2']+$cognitiveResult[0]['numerical3']+$cognitiveResult[0]['numerical4'];
-    
-                    if ($cognitiveResult[0]['skorNumeric'] >= $setTest[0]['numerical']) {
-                        $cognitiveResult[0]['resultNumeric'] = "PASS";
-                    }else{
-                        $cognitiveResult[0]['resultNumeric'] = "FAIL";
-                    }
-    
-                    $cognitiveResult[0]['skorVerbal'] = $cognitiveResult[0]['verbal1']+$cognitiveResult[0]['verbal2']+$cognitiveResult[0]['verbal3']+$cognitiveResult[0]['verbal4'];
-    
-                    if ($cognitiveResult[0]['skorVerbal'] >= $setTest[0]['verbal']) {
-                        $cognitiveResult[0]['resultVerbal'] = "PASS";
-                    }else{
-                        $cognitiveResult[0]['resultVerbal'] = "FAIL";
-                    }
-    
-                    if ($cognitiveResult[0]['skor'] >= $setTest[0]['total']) {
-                        $cognitiveResult[0]['resultSkor'] = "PASS";
-                    }else{
-                        $cognitiveResult[0]['resultSkor'] = "FAIL";
-                    }
-    
-                } else {
-                    $cognitiveResult[0]['skorAbstrak'] = "Not Set";
-                    $cognitiveResult[0]['abstrak1'] = "Not Set";
-                    $cognitiveResult[0]['abstrak2'] = "Not Set";
-                    $cognitiveResult[0]['abstrak3'] = "Not Set";
-                    $cognitiveResult[0]['abstrak4'] = "Not Set";
-                    $cognitiveResult[0]['skorNumeric'] = "Not Set";
-                    $cognitiveResult[0]['numerical1'] = "Not Set";
-                    $cognitiveResult[0]['numerical2'] = "Not Set";
-                    $cognitiveResult[0]['numerical3'] = "Not Set";
-                    $cognitiveResult[0]['numerical4'] = "Not Set";
-                    $cognitiveResult[0]['skorVerbal'] = "Not Set";
-                    $cognitiveResult[0]['verbal1'] = "Not Set";
-                    $cognitiveResult[0]['verbal2'] = "Not Set";
-                    $cognitiveResult[0]['verbal3'] = "Not Set";
-                    $cognitiveResult[0]['verbal4'] = "Not Set";
-                    $cognitiveResult[0]['skor'] = "Not Set";
-                    $cognitiveResult[0]['resultAbstrak'] = "";
-                    $cognitiveResult[0]['resultNumeric'] = "";
-                    $cognitiveResult[0]['resultVerbal'] = "";
-                    $cognitiveResult[0]['resultSkor'] = "";
+                    // dd($cognitiveResult);
+                    return view('admin.job.job-edit')->with([
+                        'pageTitle' => 'Manajemen Job Application', 
+                        'title' => 'Manajemen Job Application', 
+                        'sidebar' => 'manajemen_job', 
+                        'breadcrumb' => $breadcrumb, 
+                        'data'=>$listCandidate[0],
+                        'history'=>[
+                            'apply'          => $apply,
+                            'online_test'    => $online_test,
+                            'hr_interview'   => $hr_interview,
+                            'user_interview1'=> $user_interview1,
+                            'user_interview2'=> $user_interview2,
+                            'direktur_interview'=> $direktur_interview,
+                            'mcu'            => $mcu,
+                            'document_sign'  => $document_sign
+                        ],
+                        'status' => [
+                            'status_online_test'     => $status_online_test,
+                            'status_hr_interview'    => $status_hr_interview,
+                            'status_user_interview1' => $status_user_interview1,
+                            'status_user_interview2' => $status_user_interview2,
+                            'status_direktur_interview' => $status_direktur_interview,
+                            'status_mcu'             => $status_mcu,
+                            'status_document_sign'   => $status_document_sign,
+                        ],
+                        "masterSubtest" => $masterSubtest,
+                        "cognitiveResult" => $cognitiveResult,
+                        "test" => $testPart[0]
+                    ]);
+                }else{
+                    return view('admin.job.job-edit')->with([
+                        'pageTitle' => 'Manajemen Job Application', 
+                        'title' => 'Manajemen Job Application', 
+                        'sidebar' => 'manajemen_job', 
+                        'breadcrumb' => $breadcrumb, 
+                        'data'=>$listCandidate[0],
+                        'history'=>[
+                            'apply'          => $apply,
+                            'online_test'    => $online_test,
+                            'hr_interview'   => $hr_interview,
+                            'user_interview1'=> $user_interview1,
+                            'user_interview2'=> $user_interview2,
+                            'direktur_interview'=> $direktur_interview,
+                            'mcu'            => $mcu,
+                            'document_sign'  => $document_sign,
+                        ],
+                        'status' => [
+                            'status_online_test'     => $status_online_test,
+                            'status_hr_interview'    => $status_hr_interview,
+                            'status_user_interview1' => $status_user_interview1,
+                            'status_user_interview2' => $status_user_interview2,
+                            'status_direktur_interview' => $status_direktur_interview,
+                            'status_mcu'             => $status_mcu,
+                            'status_document_sign'   => $status_document_sign,
+                        ]
+                    ]);
                 }
-                // dd($cognitiveResult);
-                return view('admin.job.job-edit')->with([
-                    'pageTitle' => 'Manajemen Job Application', 
-                    'title' => 'Manajemen Job Application', 
-                    'sidebar' => 'manajemen_job', 
-                    'breadcrumb' => $breadcrumb, 
-                    'data'=>$listCandidate[0],
-                    'history'=>[
-                        'apply'          => $apply,
-                        'online_test'    => $online_test,
-                        'hr_interview'   => $hr_interview,
-                        'user_interview1'=> $user_interview1,
-                        'user_interview2'=> $user_interview2,
-                        'direktur_interview'=> $direktur_interview,
-                        'mcu'            => $mcu,
-                        'document_sign'  => $document_sign
-                    ],
-                    'status' => [
-                        'status_online_test'     => $status_online_test,
-                        'status_hr_interview'    => $status_hr_interview,
-                        'status_user_interview1' => $status_user_interview1,
-                        'status_user_interview2' => $status_user_interview2,
-                        'status_direktur_interview' => $status_direktur_interview,
-                        'status_mcu'             => $status_mcu,
-                        'status_document_sign'   => $status_document_sign,
-                    ],
-                    "masterSubtest" => $masterSubtest,
-                    "cognitiveResult" => $cognitiveResult,
-                    "test" => $testPart[0]
-                ]);
             }else{
                 return view('admin.job.job-edit')->with([
                     'pageTitle' => 'Manajemen Job Application', 

@@ -37,7 +37,7 @@
                                                     <option {{$data['status_job'] == '11' ? 'selected':''}} value="11">Failed</option>
                                                     <option {{$data['status_job'] == '12' ? 'selected':''}} value="12">Hired</option>
                                                     <option {{$data['status'] == '3' ? 'selected':''}} value="99">Talent Stock</option>
-                                                    <option {{$data['status_job'] == '3' ? 'selected':''}} value="3">Written Test Pass</option>
+                                                    <option {{$data['status_job'] == '3' ? 'selected':''}} {{$data['status_job'] == '4' ? '':'disabled'}} value="3">Written Test Pass</option>
                                                     <option {{$data['status_job'] == '0' ? 'selected':''}} disabled value="0">Application Resume</option>
                                                     <option {{$data['status_job'] == '2' ? 'selected':''}} disabled value="2">Scheduled to Written Test</option>
                                                     <option {{$data['status_job'] == '4' ? 'selected':''}} disabled value="4">Written Test failed</option>

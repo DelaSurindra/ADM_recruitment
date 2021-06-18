@@ -739,9 +739,9 @@ var table = {
 				},
 				{
 					"targets": 12,
-					"data": "start_end_participant",
+					"data": "end_time_participant",
 					"render": function(data, type, full, meta){
-						return full.start_end_participant;
+						return full.end_time_participant;
 					}
 				},
 				{

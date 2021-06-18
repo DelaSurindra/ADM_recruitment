@@ -160,33 +160,16 @@
         <div class="container">
             <div class="card">
                 <center>
-                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_doc_sign.png" class="img-title">
+                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_written_test_result.png" class="img-title">
                 </center>
-                <p class="title-email">Document Sign Invitation</p>
-                <p class="subtitle-email">You’re invited to PT Astra Daihatsu Motor Document Sign</p>
+                <p class="title-email">Written Test Result Announcement</p>
+                <p class="subtitle-email">Your written result is here!</p>
                 <div class="card-content">
                     <p class="title-content-email">Hello, {{$data['nama']}}</p>
-                    <p class="content-email">Regarding to your hiring process, we would like to invite you for Document Signing on :</p>
-                    <table style="width:100%;">
-                        <tr style="height:40px;">
-                            <td class="content-email">Day/Date</td>
-                            <td class="value-table">{{$data['tanggal']}}</td>
-                        </tr>
-                        <tr style="height:40px;">
-                            <td class="content-email">Time</td>
-                            <td class="value-table">{{$data['waktu']}}</td>
-                        </tr>
-                        <tr style="height:40px;">
-                            <td class="content-email">Location</td>
-                            <td class="value-table">{{$data['lokasi']}}</td>
-                        </tr>
-                        <tr style="height:40px;">
-                            <td class="content-email">Item Need to Prepare</td>
-                            <td class="value-table">KTP And Test Device</td>
-                        </tr>
-                    </table>
-                    <p class="content-email">Kindly confirm by today at the latest upon your attendance by replying to this e-mail. <br>If there's any question, feel free to contact us on....... (email/contact) <br>Thank you !</p>
-                    
+                    <p class="content-email">Congratulation! your Medical Check Up result has meet our requirement. For the next step, we would like to ask you to submit administration document. </p>
+                    <p class="content-email">For hiring process need, please kindly send us your document as follow :<br>1. KTP<br>2. Kartu Keluarga (KK)<br>3. NPWP<br>4. SIM (jika ada)<br>5. Ijazah<br>6. Transkrip Nilai<br>7. Sertifikat (jika ada)<br>8. Akta Kelahiran<br>9. SKCK yang masih berlaku<br>10. Surat Lamaran<br>11. CV </p>
+                    <p class="content-email">All the document need to be submitted at the latest {{$data['date']}} in pdf form.</p>
+                    <p class="content-email">If there's any unclear information, don't hesitate to contact us on....</p>
                 </div>
                 <center>
                     <p class="footer-email"><span class="span-footer">Regards,</span><br>Recruitment Team<br>PT Astra Daihatsu Motor</p>
