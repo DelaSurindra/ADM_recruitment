@@ -11,6 +11,7 @@ services:
       - ./nginx-conf/nginx.conf:/etc/nginx/nginx.conf
       - /var/www/html/vendor
       - /home/apps/config_env/web_admrecruitment/.env:/var/www/html/.env
+      - /home/apps/image/adm-recruit/image_adm:/var/www/html/storage/app/public
     container_name: dev-adm-recruitment
     ports:
       - 12600:80
