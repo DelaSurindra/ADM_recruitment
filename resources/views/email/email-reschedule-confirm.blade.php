@@ -96,12 +96,12 @@
     </head>
     <body style="font-family: 'inter_bold', sans-serif;line-height: 1.6; background:#E8F7EE;">
         <center>
-            <img src="https://adm.vasdev.co.id/image/icon/email/icon_logo.png" class="img-top">
+            <img src="http://dev-adm-app.southeastasia.cloudapp.azure.com/image/icon/email/icon_logo.png" class="img-top">
         </center>
         <div class="container">
             <div class="card">
                 <center>
-                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_reschedule.png" class="img-title">
+                    <img src="http://dev-adm-app.southeastasia.cloudapp.azure.com/image/icon/email/icon_reschedule.png" class="img-title">
                 </center>
                 <p class="title-email">Reschedule Confirmation</p>
                 <p class="subtitle-email">You’re requested reschedule for PT Astra Daihatsu Motor Test</p>

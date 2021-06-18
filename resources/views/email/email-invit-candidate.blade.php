@@ -155,12 +155,12 @@
     </head>
     <body style="font-family: 'inter_bold', sans-serif;line-height: 1.6; background:#E8F7EE;">
         <center>
-            <img src="https://adm.vasdev.co.id/image/icon/email/icon_logo.png" class="img-top">
+            <img src="http://dev-adm-app.southeastasia.cloudapp.azure.com/image/icon/email/icon_logo.png" class="img-top">
         </center>
         <div class="container">
             <div class="card">
                 <center>
-                    <img src="https://adm.vasdev.co.id/image/icon/email/icon_invit_candidate.png" class="img-title">
+                    <img src="http://dev-adm-app.southeastasia.cloudapp.azure.com/image/icon/email/icon_invit_candidate.png" class="img-title">
                 </center>
                 <p class="title-email">Register Invitation</p>
                 <p class="subtitle-email">You’re invited to PT Astra Daihatsu Motor Registration</p>
@@ -177,7 +177,7 @@
                             <td class="value-table">{{$data['password']}}</td>
                         </tr>
                     </table>
-                    <a href="https://adm.vasdev.co.id"><button class="btn-red">Login</button></a>
+                    <a href="http://dev-adm-app.southeastasia.cloudapp.azure.com"><button class="btn-red">Login</button></a>
                     <hr>
                     <p class="content-email">Thank you and see you soon !</p>
                 </div>
