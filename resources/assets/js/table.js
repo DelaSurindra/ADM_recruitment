@@ -203,8 +203,11 @@ var table = {
 					"data": "id",
 					"render": function(data, type, full, meta){
 						var id = encodeURIComponent(window.btoa(full.id));
-						var konfirm = '';
-						var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/test/edit-test/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Test">&nbsp Edit</a></button>';
+						if (full.status_test == 1) {
+							var data = '<button type="button" class="btn btn-table btn-transparent mr-2"><a class="edit-table" href="/HR/test/edit-test/'+id+'"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Test">&nbsp Edit</a></button>';
+						}else{
+							data = '';
+						}
 		            	return data;
 					}
 				}
