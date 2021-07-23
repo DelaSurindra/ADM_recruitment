@@ -54,8 +54,14 @@ const formrules = {
 		rules:{
 			'imageNewsEvent':{
                 required:true,
-				filesize:1000000
+				filesize:1000000,
             },
+			'widthImg':{
+				minWidth:true
+			},
+			'heigthImg':{
+				minHeigth:true
+			},
 			'titleNewsEvent':{
                 required:true
             },
@@ -97,6 +103,10 @@ const formrules = {
 			if (element.is("#tipeNewsEvent")) {
 				error.appendTo(element.parents('#tipeNewsEventDiv'));
 			}else if (element.is("#imageNewsEvent")) {
+				error.appendTo(element.parents('#imageNewsEventDiv'));
+			}else if (element.is("#widthImg")) {
+				error.appendTo(element.parents('#imageNewsEventDiv'));
+			}else if (element.is("#heigthImg")) {
 				error.appendTo(element.parents('#imageNewsEventDiv'));
 			}
 			else { // This is the default behavior
@@ -870,6 +880,28 @@ const formrules = {
 	'formEditCandidate':{
 		ignore: null,
 		rules:{
+			'firstName':{
+                required:true,
+				STD_VAL_WEB_3: true,
+            },
+            'lastName':{
+                required:true,
+                STD_VAL_WEB_3: true,
+            },
+			'birthDate':{
+				required:true,
+                STD_VAL_WEB_11: true,
+            },
+			'gender':{
+				required:true
+			},
+			'phoneNumber':{
+				required:true,
+				STD_VAL_WEB_8: true,
+			},
+			'myLocation':{
+				required:true,
+			},
 			'universitas':{
 				required:true,
 			},
@@ -1506,6 +1538,18 @@ var validation = {
 			//     return true;
 			// }
 		}, "Input harus string json");
+
+		jQuery.validator.addMethod('minWidth', function(value, element, param) {
+			// var width = $(element).data('width');
+			console.log(value, element, param)
+			return this.optional(element) || (value >= 1400 && value <= 2000)
+		}, "File minimal width 1400px dan maximal width 2000px");
+
+		jQuery.validator.addMethod('minHeigth', function(value, element, param) {
+			// var heigth = $(element).data('heigth');
+			console.log(value, element, param)
+			return this.optional(element) || (value >= 700 && value <= 1200)
+		}, "File minimal heigth 700px dan maximal heigth 1200px");
 	},
 	validateMe:function(id, valRules, valMessages) {
 

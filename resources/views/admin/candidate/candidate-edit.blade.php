@@ -21,13 +21,13 @@
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label>First Name</label>
-                                        <input id="first_name" name="first_name" class="form-control" type="text" value="{{$data['first_name']}}" disabled>
+                                        <input id="firstName" name="firstName" class="form-control" type="text" value="{{$data['first_name']}}">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label>Last Name</label>
-                                        <input id="last_name" name="last_name" class="form-control" type="text" value="{{$data['last_name']}}" disabled>
+                                        <input id="lastName" name="lastName" class="form-control" type="text" value="{{$data['last_name']}}">
                                     </div>
                                 </div>
                             </div>
@@ -41,21 +41,30 @@
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label>Date of Birth</label>
-                                        <input id="age" name="age" class="form-control" type="text" value="{{$data['tanggal_lahir']}}" disabled>
+                                        <input id="birthDate" name="birthDate" class="form-control" type="text" value="{{date('d-m-Y', strtotime($data['tanggal_lahir']))}}">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group">
-                                        <label>Gender</label>
-                                        <input id="gender" name="gender" class="form-control" type="text" value="{{$data['gender'] == '1' ? 'Male' : 'Female'}}" disabled>
+                                        <label for="">Gender<span class="required-sign">*</span></label>
+                                        <div class="d-flex">
+                                            <label class="custome-radio-wrapper mb-0 mr-4"> Male
+                                                <input type="radio" name="gender" id="gender1" value="1" {{$data['gender'] == '1' ? 'checked' : ''}}>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="custome-radio-wrapper mb-0"> Female
+                                                <input type="radio" name="gender" id="gender2" value="2" {{$data['gender'] == '2' ? 'checked' : ''}}>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label>Phone Number</label>
-                                        <input id="phone" name="phone" class="form-control" type="text" value="{{$data['telp']}}" disabled>
+                                        <input id="phoneNumber" name="phoneNumber" class="form-control" type="text" value="{{$data['telp']}}">
                                     </div>
                                 </div>
                             </div>
@@ -63,7 +72,7 @@
                                 <div class="col-xl-6 col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label>Location</label>
-                                        <input id="location" name="location" class="form-control" type="text" value="{{$data['kota']}}" disabled>
+                                        <input id="myLocation" name="myLocation" class="form-control" type="text" value="{{$data['kota']}}">
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +112,7 @@
                                         <div class="col-xl-6 col-md-6 col-sm-12">
                                             <div class="form-group" >
                                                 <label>Degree</label>
-                                                <select class="select2 tex-center select2-width" id="gelar" name="gelar" disabled>
+                                                <select class="select2 tex-center select2-width" id="gelar" name="gelar">
                                                     <option {{$pendidikan['gelar'] == '1' ? 'selected':''}} value="1">D3</option>
                                                     <option {{$pendidikan['gelar'] == '2' ? 'selected':''}} value="2">S1</option>
                                                     <option {{$pendidikan['gelar'] == '3' ? 'selected':''}} value="3">S2</option>
@@ -160,7 +169,7 @@
                                         <div class="col-xl-6 col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label>GPA</label>
-                                                <input id="gpa" name="gpa" class="form-control" type="text" value="{{$pendidikan['gpa']}}" disabled>
+                                                <input id="gpa" name="gpa" class="form-control gpa" type="text" value="{{$pendidikan['gpa']}}">
                                             </div>
                                         </div>
                                     </div>

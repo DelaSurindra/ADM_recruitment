@@ -28,9 +28,11 @@
                                         <div class="dropzone-wrapper">
                                             <div class="dropzone-desc">
                                                 <img src="{{ asset('image/icon/main/ilusi-upload-gambar.svg') }}" alt="icon">
-                                                <p>Upload Banner with Minimum resolution 1400x700</p>
+                                                <p>Upload Banner with Minimum width 1400px, Maximal width 2000px, Minimum heigth 700px, and Maximal heigth 1200px</p>
                                             </div>
                                             <input type="file" name="imageNewsEvent" class="dropzone" id="imageNewsEvent">
+                                            <input type="hidden" name="widthImg" id="widthImg">
+                                            <input type="hidden" name="heigthImg" id="heigthImg">
                                         </div>
                                     </div>
                                 </div>

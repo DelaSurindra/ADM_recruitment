@@ -26,6 +26,7 @@
                             <th>Location</th>
                             <th>Working TIme</th>
                             <th>Actived Date</th>
+                            <th>Total Applicant</th>
                             <th>Status</th>
                             <th></th>
                         </tr>

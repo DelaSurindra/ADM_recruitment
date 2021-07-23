@@ -10,7 +10,7 @@ use App\Model\Vacancy;
 use App\Model\Wilayah;
 use App\Model\MasterMajor;
 use App\AdminSession;
-
+use DB;
 use Hash;
 use Request;
 use Session;
@@ -32,6 +32,7 @@ class VacancyController extends Controller
     }
 
     public function listVacancy(){
+        
         $dataSend = array(
             "search"     => Request::input('search')['value'],
             "offset"     => Request::input('start'),
@@ -40,25 +41,59 @@ class VacancyController extends Controller
             'sort'       => (!empty(Request::get('order')[0]['dir'])) ? Request::get('order')[0]['dir'] : '',
 
         );
-        $vacancy = new Vacancy;
         if ($dataSend['search']){
-            $vacancy = $vacancy->where('job_title','like','%'.$dataSend['search'].'%');
+            $search = "where vacancies.job_title like '%".$dataSend['search']."%'";
+        }else{
+            $search = '';
         }
-        $countVacancy = $vacancy->count();
-
-        $listVacancy = $vacancy->skip(intval( $dataSend["offset"]))->take(intval($dataSend["limit"]));
 
         if ($dataSend["order"]) {
             // dd($dataSend['order']);
             if ($dataSend['order'] == "major") {
-                $major = "CAST(major AS VARCHAR(100)) ".$dataSend['sort'];
-                $listVacancy = $listVacancy->orderByRaw($major)->get()->toArray();
-            }else{
-                $listVacancy = $listVacancy->orderBy($dataSend["order"], $dataSend["sort"])->get()->toArray();
+                $order = "order by CAST(major AS VARCHAR(100)) ".$dataSend['sort'];
+            }elseif ($dataSend['order'] == "total_applicant") {
+                $order = "order by ".$dataSend["order"].' '.$dataSend["sort"];
+            }
+            else{
+                $order = "order by vacancies.".$dataSend["order"].' '.$dataSend["sort"];
             }
         } else {
-            $listVacancy = $listVacancy->orderBy('created_at', $dataSend["sort"])->get()->toArray();
+            $order = "order by vacancies.created_at ".$dataSend["sort"];
         }
+
+        $listVacancy = DB::select(
+                'select 
+                    vacancies.created_at,
+                    vacancies.job_id,
+                    vacancies.job_title,
+                    vacancies.type,
+                    vacancies.degree,
+                    vacancies.created_at,
+                    CAST(vacancies.major AS varchar(100)) as major,
+                    vacancies.lokasi,
+                    vacancies.work_time,
+                    vacancies.active_date,
+                    vacancies.status,
+                    count(job_application.id) as total_applicant
+                from vacancies left join job_application on vacancies.job_id = job_application.vacancy_id '
+                .$search.
+                ' group by vacancies.created_at,
+                    vacancies.job_id,
+                    vacancies.job_title,
+                    vacancies.type,
+                    vacancies.degree,
+                    vacancies.created_at,
+                    CAST(vacancies.major AS varchar(100)),
+                    vacancies.lokasi,
+                    vacancies.work_time,
+                    vacancies.active_date,
+                    vacancies.status '.
+                $order.' OFFSET '.$dataSend["offset"].' ROWS FETCH NEXT '.$dataSend["limit"].' ROWS ONLY'
+        );
+        
+        $countVacancy = Vacancy::count();
+
+        // $listVacancy = $vacancy->skip(intval( $dataSend["offset"]))->take(intval($dataSend["limit"]));
         
         if ($listVacancy != null) {
             $response = array(

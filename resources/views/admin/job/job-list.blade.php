@@ -11,6 +11,7 @@
             </div>
             <div class="col-md-8">
                 <!-- <button type="button" class="btn btn-bulk-candidate right mr-3 hidden">Send Notification</button> -->
+                <a href="" class="btn btn-white right" id="btnDownloadJob">Download Job</a>
                 <button type="button" class="btn btn-bulk-candidate right mr-3 hidden" id="btnBulkUpdate">Bulk Update</button>
             </div>
         </div>
@@ -35,7 +36,7 @@
                                 </div>
                             </div>
                         </div> -->
-        
+
                         <div class="job-search dropdown">
                             <div class="job-search-wrapper" id="dropdownFilterJob" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="{{ asset('image/icon/homepage/icon-filter-red.svg') }}" alt="icon">

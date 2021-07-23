@@ -115,7 +115,6 @@ class CandidateController extends Controller
                 : (date("Y") - $birthDate[2]));
 
             $listCandidate[0]['age'] = $age;
-            $listCandidate[0]['tanggal_lahir'] = date('d/m/Y', strtotime($listCandidate[0]['tanggal_lahir']));
 
             $kandidat_id = [];
             array_push($kandidat_id, $listCandidate[0]['id']);
@@ -165,7 +164,16 @@ class CandidateController extends Controller
     public function editCandidate(){
         $encrypt = new EncryptController;
         $data = $encrypt->fnDecrypt(Request::input('data'),true);
-        
+
+        $editCandidate = Candidate::where('id', $data['idKandidat'])->update([
+            'first_name' => $data['firstName'],
+            'last_name' => $data['lastName'],
+            'tanggal_lahir' => date('Y-m-d', strtotime($data['birthDate'])),
+            'gender' => isset($data['gender']) ? $data['gender'] : null,
+            'telp' => $data['phoneNumber'],
+            'kota' => $data['myLocation'],
+        ]);
+
         if (is_array($data['idPendidikan']) && count($data['idPendidikan']) > 1) {
             for ($i=0; $i < count($data['idPendidikan']); $i++) { 
                 $updatePendidikan = Education::where('id', $data['idPendidikan'][$i])->update([

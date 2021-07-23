@@ -24,6 +24,7 @@ use App\Model\TestParticipant;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\addBulkCandidate;
+use App\Exports\DownloadJob;
 use Hash;
 use Request;
 use Session;
@@ -202,62 +203,62 @@ class JobController extends Controller
                     $history[$i]['tanggal'] = date("d F Y H:i", strtotime($history[$i]['created_at']));
                     if ($history[$i]['status'] == "0") {
                         array_push($apply, $history[$i]['tanggal']);
-                    }else if ($history[$i]['status'] == "1") {
+                    }elseif ($history[$i]['status'] == "1") {
                         array_push($online_test, $history[$i]['tanggal']);
-                    }else if ($history[$i]['status'] == "2") {
+                    }elseif ($history[$i]['status'] == "2") {
                         array_push($online_test, $history[$i]['tanggal']);
-                    }else if ($history[$i]['status'] == "3") {
+                    }elseif ($history[$i]['status'] == "3") {
                         array_push($online_test, $history[$i]['tanggal']);
                         $status_online_test = 'success';
-                    }else if ($history[$i]['status'] == "4") {
+                    }elseif ($history[$i]['status'] == "4") {
                         array_push($online_test, $history[$i]['tanggal']);
                         $status_online_test = 'failed';
-                    }else if ($history[$i]['status'] == "5") {
+                    }elseif ($history[$i]['status'] == "5") {
                         array_push($hr_interview, $history[$i]['tanggal']);
-                    }else if ($history[$i]['status'] == "6") {
+                    }elseif ($history[$i]['status'] == "6") {
                         array_push($user_interview1, $history[$i]['tanggal']);
-                    }else if ($history[$i]['status'] == "7") {
+                    }elseif ($history[$i]['status'] == "7") {
                         array_push($user_interview2, $history[$i]['tanggal']);
-                    }else if ($history[$i]['status'] == "8") {
+                    }elseif ($history[$i]['status'] == "8") {
                         array_push($direktur_interview, $history[$i]['tanggal']);
-                    }else if ($history[$i]['status'] == "9") {
+                    }elseif ($history[$i]['status'] == "9") {
                         array_push($mcu, $history[$i]['tanggal']);
-                    }else if ($history[$i]['status'] == "10") {
+                    }elseif ($history[$i]['status'] == "10") {
                         array_push($document_sign, $history[$i]['tanggal']);
-                    }else if ($history[$i]['status'] == "11") {
+                    }elseif ($history[$i]['status'] == "11") {
                         array_push($document_sign, $history[$i]['tanggal']);
                         $status_document_sign = 'success';
-                    }else if ($history[$i]['status'] == "12") {
+                    }elseif ($history[$i]['status'] == "12") {
                         array_push($document_sign, $history[$i]['tanggal']);
                         $status_document_sign = 'failed';
-                    }else if ($history[$i]['status'] == "13") {
+                    }elseif ($history[$i]['status'] == "13") {
                         array_push($hr_interview, $history[$i]['tanggal']);
                         $status_hr_interview = 'success';
-                    }else if ($history[$i]['status'] == "14") {
+                    }elseif ($history[$i]['status'] == "14") {
                         array_push($hr_interview, $history[$i]['tanggal']);
                         $status_hr_interview = 'failed';
-                    }else if ($history[$i]['status'] == "15") {
+                    }elseif ($history[$i]['status'] == "15") {
                         array_push($user_interview1, $history[$i]['tanggal']);
                         $status_user_interview1 = 'success';
-                    }else if ($history[$i]['status'] == "16") {
+                    }elseif ($history[$i]['status'] == "16") {
                         array_push($user_interview1, $history[$i]['tanggal']);
                         $status_user_interview1 = 'failed';
-                    }else if ($history[$i]['status'] == "17") {
+                    }elseif ($history[$i]['status'] == "17") {
                         array_push($user_interview2, $history[$i]['tanggal']);
                         $status_user_interview2 = 'success';
-                    }else if ($history[$i]['status'] == "18") {
+                    }elseif ($history[$i]['status'] == "18") {
                         array_push($user_interview2, $history[$i]['tanggal']);
                         $status_user_interview2 = 'failed';
-                    }else if ($history[$i]['status'] == "19") {
+                    }elseif ($history[$i]['status'] == "19") {
                         array_push($direktur_interview, $history[$i]['tanggal']);
                         $status_direktur_interview = 'success';
-                    }else if ($history[$i]['status'] == "20") {
+                    }elseif ($history[$i]['status'] == "20") {
                         array_push($direktur_interview, $history[$i]['tanggal']);
                         $status_direktur_interview = 'failed';
-                    }else if ($history[$i]['status'] == "21") {
+                    }elseif ($history[$i]['status'] == "21") {
                         array_push($mcu, $history[$i]['tanggal']);
                         $status_mcu = 'success';
-                    }else if ($history[$i]['status'] == "22") {
+                    }elseif ($history[$i]['status'] == "22") {
                         array_push($mcu, $history[$i]['tanggal']);
                         $status_mcu = 'failed';
                     }
@@ -519,5 +520,118 @@ class JobController extends Controller
             ];
         }
         
+    }
+
+    public function downloadJob($value){
+        $nameFile = 'Data Job Application.xlsx';
+        $filter;
+        $parameter = parse_str($value,$filter);
+        // dd($filter);
+
+        if($filter['ipkMinimum'] != ""){
+            $ipkMinimum = '"'.$filter['ipkMinimum'].'"';
+        }else{
+            $ipkMinimum = "NULL";
+        }
+        if($filter['job'] != ""){
+            $job = '"'.$filter['job'].'"';
+        }else{
+            $job = "NULL";
+        }
+        if($filter['major'] != ""){
+            $major = '"'."'".$filter['major']."'".'"';
+        }else{
+            $major = "NULL";
+        }
+        // dd($major);
+        if($filter['university'] != ""){
+            $university = '"'."'".$filter['university']."'".'"';
+        }else{
+            $university = "NULL";
+        }
+        if($filter['usia'] != ""){
+            $usia = '"'.$filter['usia'].'"';
+        }else{
+            $usia = "NULL";
+        }
+        if($filter['tahunLulus'] != ""){
+            $tahunLulus = '"'.$filter['tahunLulus'].'"';
+        }else{
+            $tahunLulus = "NULL";
+        }
+
+        $listCandidate = DB::select("EXEC get_kandidat NULL, ".$ipkMinimum.", ".$job.", ".$major.", ".$university.", ".$usia.", ".$tahunLulus.", NULL, NULL, NULL, NULL, '0', '0'");
+        
+        for ($i=0; $i < count($listCandidate); $i++) { 
+            $listCandidate[$i]->tanggal_lahir = date('m/d/Y', strtotime($listCandidate[$i]->tanggal_lahir));
+            $birthDate = explode("/", $listCandidate[$i]->tanggal_lahir);
+            //get age from date or birthdate
+            $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[0], $birthDate[1], $birthDate[2]))) > date("md")
+                ? ((date("Y") - $birthDate[2]) - 1)
+                : (date("Y") - $birthDate[2]));
+
+            $listCandidate[$i]->age = $age;
+
+            $listCandidate[$i]->submit_date = date('m/d/Y', strtotime($listCandidate[$i]->submit_date));
+            $listCandidate[$i]->gpa = round($listCandidate[$i]->gpa, 2);
+
+            if ($listCandidate[$i]->gelar == "1") {
+                $listCandidate[$i]->gelar_text = "D3";
+            }elseif ($listCandidate[$i]->gelar == "2") {
+                $listCandidate[$i]->gelar_text = "S1";
+            }else{
+                $listCandidate[$i]->gelar_text = "S2";
+            }
+            
+            if ($listCandidate[$i]->status == 0) {
+                $listCandidate[$i]->status_text = "Application Resume";
+            }elseif ($listCandidate[$i]->status == 1) {
+                $listCandidate[$i]->status_text = "Process To Written Test";
+            }elseif ($listCandidate[$i]->status == 2) {
+                $listCandidate[$i]->status_text = "Scheduled to Written Test";
+            }elseif ($listCandidate[$i]->status == 3) {
+                $listCandidate[$i]->status_text = "Written Test Pass";
+            }elseif ($listCandidate[$i]->status == 4) {
+                $listCandidate[$i]->status_text = "Written Test failed";
+            }elseif ($listCandidate[$i]->status == 5) {
+                $listCandidate[$i]->status_text = "Process to HR interview";
+            }elseif ($listCandidate[$i]->status == 6) {
+                $listCandidate[$i]->status_text = "Process to User Interview 1";
+            }elseif ($listCandidate[$i]->status == 7) {
+                $listCandidate[$i]->status_text = "Process to User Interview 2";
+            }elseif ($listCandidate[$i]->status == 8) {
+                $listCandidate[$i]->status_text = "Process to Direktur Interview";
+            }elseif ($listCandidate[$i]->status == 9) {
+                $listCandidate[$i]->status_text = "Process to MCU";
+            }elseif ($listCandidate[$i]->status == 10) {
+                $listCandidate[$i]->status_text = "Process to Doc Sign";
+            }elseif ($listCandidate[$i]->status == 11) {
+                $listCandidate[$i]->status_text = "Failed";
+            }elseif ($listCandidate[$i]->status == 13) {
+                $listCandidate[$i]->status_text = "HR interview Pass";
+            }elseif ($listCandidate[$i]->status == 14) {
+                $listCandidate[$i]->status_text = "HR interview Fail";
+            }elseif ($listCandidate[$i]->status == 15) {
+                $listCandidate[$i]->status_text = "User Interview 1 Pass";
+            }elseif ($listCandidate[$i]->status == 16) {
+                $listCandidate[$i]->status_text = "User Interview 1 Fail";
+            }elseif ($listCandidate[$i]->status == 17) {
+                $listCandidate[$i]->status_text = "User Interview 2 Pass";
+            }elseif ($listCandidate[$i]->status == 18) {
+                $listCandidate[$i]->status_text = "User Interview 2 Fail";
+            }elseif ($listCandidate[$i]->status == 19) {
+                $listCandidate[$i]->status_text = "Direktur Interview Pass";
+            }elseif ($listCandidate[$i]->status == 20) {
+                $listCandidate[$i]->status_text = "Direktur Interview Fail";
+            }elseif ($listCandidate[$i]->status == 21) {
+                $listCandidate[$i]->status_text = "MCU Pass";
+            }elseif ($listCandidate[$i]->status == 22) {
+                $listCandidate[$i]->status_text = "MCU Fail";
+            }else{
+                $listCandidate[$i]->status_text = "Hired";
+            }
+        }
+        return Excel::download(new DownloadJob($listCandidate), $nameFile);
+        // dd($listCandidate);
     }
 }

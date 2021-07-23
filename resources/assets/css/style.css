@@ -1789,7 +1789,7 @@
 
 .dropzone-wrapper {
     position: relative;
-    height: 165px;
+    min-height: 165px;
     width: 100%;
     background: #E8F7EE;
     border-radius: 4px;

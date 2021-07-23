@@ -107,9 +107,9 @@ Route::prefix('HR')->group(function(){
 			Route::post('/list-job','Admin\JobController@listJob')->name('post.job.list');
 			Route::get('/edit-job/{id}', 'Admin\JobController@viewJobEdit')->name('get.job.edit');
 			Route::post('/post-edit-job','Admin\JobController@editJob')->name('post.job.edit');
-			Route::get('/download-file/{file}','Admin\CandidateController@downloadFile')->name('post.download.file');
 			Route::post('/post-bulk-update','Admin\JobController@bulkUpdate')->name('post.bulk.update.job');
 			Route::post('/inventory-result','Admin\TestController@inventoryResult')->name('inventory.result');
+			Route::get('/download-job/{data}','Admin\JobController@downloadJob')->name('get.download.job');
 		});
 
 		Route::prefix('test')->group(function () {

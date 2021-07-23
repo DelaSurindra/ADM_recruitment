@@ -25,6 +25,24 @@
                 <th>gpa</th>
             </tr>
         </thead>
+        <tbody>
+        <tr>
+                <th>example</th>
+                <th>example</th>
+                <th>example@gmail.com</th>
+                <th>12/01/1999</th>
+                <th>Female</th>
+                <th>850000</th>
+                <th>example</th>
+                <th>example</th>
+                <th>D3</th>
+                <th>example</th>
+                <th>example</th>
+                <th>2010</th>
+                <th>2015</th>
+                <th>3,5</th>
+            </tr>
+        </tbody>
     </table>
 </body>
 </html>

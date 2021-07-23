@@ -93,6 +93,7 @@ var table = {
 				{'data':'lokasi'},
 				{'data':'work_time'},
 				{'data':'active_date'},
+				{'data':'total_applicant'},
 				{'data':'status'},
 			];
 
@@ -126,7 +127,7 @@ var table = {
 					}
 				},
 				{
-					"targets": 8,
+					"targets": 9,
 					"data": "status",
 					"render": function(data, type, full, meta){
 						var data = ''
@@ -139,7 +140,7 @@ var table = {
 					}
 				},
 				{
-					"targets": 9,
+					"targets": 10,
 					"data": "id",
 					"className": "action-poster-news",
 					"render": function(data, type, full, meta){
@@ -1470,6 +1471,7 @@ var table = {
 		}
 
 		if (id == 'filterJob') {
+			$("#btnDownloadJob").attr('href', '/HR/job/download-job/'+value)
 			var column = [
 				{'data':null},
 				{'data':'submit_date'},

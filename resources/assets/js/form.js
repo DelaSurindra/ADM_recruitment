@@ -17,6 +17,27 @@ var form = {
 		$('textarea').focus(function(){
 			$(this).parents('.form-group').addClass('focused');
 		});
+
+		$('textarea').change(function(){
+			if (this.value != "") {
+				$("#"+this.id+"-error").remove();
+			}
+		});
+
+		$('input').change(function(){
+			if (this.value != "") {
+				$("#"+this.id+"-error").remove();
+				$("#widthImg-error").remove();
+				$("#heigthImg-error").remove();
+			}
+		})
+
+		$("select").change(function(){
+			if (this.value != "") {
+				$("#"+this.id+"-error").remove();
+			}
+		})
+
 		$('input').blur(function(){
 			var inputValue = $(this).val();
 			if ( inputValue == "" ) {
@@ -296,12 +317,24 @@ if ($("#formAddEventNews").length) {
 	})
 
 	function readFile(input) {
-		console.log(input.files, input.files[0])
+		// console.log(input.files, input.files[0])
 		if (input.files && input.files[0]) {
+			$('.dropzone-wrapper').css('min-height', '430px')
+			$('.dropzone').css('height', '430px')
 			var reader = new FileReader();
 	
 			reader.onload = function (e) {
-				var htmlPreview = '<img src="' + e.target.result + '" style="width:100%;height:auto" />';
+				var image = new Image();
+				image.src = e.target.result;
+
+				image.onload = function() {
+					// access image size here 
+					$("#widthImg").val(this.width)
+					$("#heigthImg").val(this.height)
+					console.log(this.width, this.height);
+				};
+				var htmlPreview = '<img src="' + e.target.result + '" style="width:100%;height:430px" />';
+				// console.log(htmlPreview.width())
 				var wrapperZone = $(input).parent();
 				var previewZone = $(input).parent().parent().find('.preview-zone');
 				var boxZone = $(input).parent().find('.dropzone-desc');
@@ -1397,6 +1430,13 @@ if($("#formEditCandidate").length){
 	$(".year_date").datetimepicker({
 		format: 'YYYY',
 	});
+
+	$(".gpa").mask('0.00')
+
+	$('#birthDate').datetimepicker({
+		format: 'DD-MM-YYYY',
+	});
+
 }
 
 if ($("#detailCandidate1").length) {
@@ -2479,3 +2519,8 @@ $("#checkAll").change(function(){
 	}
 	
 })
+
+if ($("#btnDownloadJob").length) {
+	var value = $('#filterJob').serialize();
+	$("#btnDownloadJob").attr('href', '/HR/job/download-job/'+value)
+}
