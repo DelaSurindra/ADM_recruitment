@@ -45,6 +45,12 @@
                     <span class="font-color-sidebar">Manage Data Master</span>
                 </a>
             </li>
+            <li class="tree-menu custom-height-menu-sidebar">
+                <a href="{{ route('get.time-subtest') }}" class="menu {{($sidebar== 'manajemen_time_subtest'?'active':'')}} ">
+                    <img src="{{ $sidebar== 'manajemen_time_subtest' ? asset('image/icon/sidebar/icon_menu_timesubtest_active.svg') : asset('image/icon/sidebar/icon_menu_timesubtest.svg')}}" alt="" width="25px" class="right-icon-sidebar icon-sidebar-mobile">
+                    <span class="font-color-sidebar">Manage Time Sub Test</span>
+                </a>
+            </li>
             <p class="text-title title-bottom">HOMEPAGE CONTENT</p>
             <li class="tree-menu custom-height-menu-sidebar">
                 <a href="{{ route('get.homepage') }}" class="menu {{($sidebar== 'manajemen_homepage'?'active':'')}} ">

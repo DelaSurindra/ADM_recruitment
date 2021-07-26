@@ -1090,6 +1090,20 @@ const formrules = {
 			}
 		},
 		submitHandler:false
+	},
+
+	'formEditTimeSubtest':{
+		ignore: null,
+		rules:{
+            'timeSubTest':{
+                required:true,
+				time: true,
+            },
+		},
+		submitHandler:false,
+        errorPlacement: function (error, element) {
+			error.insertAfter(element);
+		}
 	}
 }
 
@@ -1550,6 +1564,11 @@ var validation = {
 			console.log(value, element, param)
 			return this.optional(element) || (value >= 700 && value <= 1200)
 		}, "File minimal heigth 700px dan maximal heigth 1200px");
+
+		jQuery.validator.addMethod("time", function (value, element) {
+			return this.optional(element) || /^([0-9.]+)$/.test(value);
+		}, "Input hanya boleh digits dan titik (.)");
+
 	},
 	validateMe:function(id, valRules, valMessages) {
 
