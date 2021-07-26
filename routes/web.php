@@ -171,12 +171,18 @@ Route::prefix('HR')->group(function(){
 				Route::post('/edit-user','Admin\UserController@editUser')->name('post.user.edit');
 				Route::post('/delete-user','Admin\UserController@deleteUser')->name('post.user.delete');
 			});
-			});
+		});
 
 		Route::prefix('report')->group(function (){
 			Route::get('/', 'Admin\ReportController@viewReport')->name('get.report');
 			Route::post('/get-report', 'Admin\ReportController@getReport')->name('post.report');
 			Route::get('/download-report/{date}', 'Admin\ReportController@downloadReport')->name('get.download.report');
+		});
+
+		Route::prefix('time-sub-test')->group(function (){
+			Route::get('/', 'Admin\TimeSubTestController@viewTimeSubTest')->name('get.time-subtest');
+			Route::post('/list-time-subtest', 'Admin\TimeSubTestController@listTimeSubTest')->name('post.time-subtest');
+			Route::post('/edit-time-subtest', 'Admin\TimeSubTestController@editTimeSubTest')->name('post.edit.time-subtest');
 		});
 	});
 });

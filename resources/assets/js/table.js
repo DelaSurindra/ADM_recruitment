@@ -1415,6 +1415,30 @@ var table = {
 		 	table.serverSide('tableUser',column,'HR/user/list-user',null,columnDefs)
         }
 
+		if ($('#tableTimeSubTest').length) {
+			var column = [
+				{'data':'sub_type'},
+				{'data':'time'}
+			];
+
+			columnDefs = [
+				{
+					"targets": 2,
+					"data": "id",
+					"className": "action-poster-news",
+					"render": function(data, type, full, meta){
+						var id = encodeURIComponent(window.btoa(full.id));
+						var konfirm = '';
+						var data = '<button type="button" class="btn edit-table btn-table btn-transparent mr-2 editTimeSubTest"><img style="margin-right: 1px;" src="/image/icon/main/edit.svg" title="Edit Time Sub Test"> Edit&nbsp</button>';
+						
+		               	return data;
+					}
+				}
+			];
+
+		 	table.serverSide('tableTimeSubTest',column,'HR/time-sub-test/list-time-subtest',null,columnDefs)
+        }
+
 	},
 	filter:function(id,value){
 		if (id == 'filterSearchList' || id == 'filterJobList') {
@@ -1962,6 +1986,8 @@ var table = {
 
 		if (id == "tableJob" || id == "tableChooseCandidate" || id == "tableParticipantTest" || id=="tableParticipantTestTheDay" || id == "tableChooseInterview" || id == "tableAlternatifTest") {
 			urutan = [1, 'desc'];
+		}else if (id == "tableTimeSubTest") {
+			urutan = [0, 'asc'];
 		}
 
 		var search = true;
@@ -2465,4 +2491,14 @@ $('#tableUser tbody').on( 'click', 'button.delete-user', function (e) {
 	}
 	$("#idDeleteUser").val(dataRow.user_id);
 	$("#modalDeleteUser").modal('show');
+});
+
+$('#tableTimeSubTest tbody').on( 'click', 'button.editTimeSubTest', function (e) {
+	var table = $('#tableTimeSubTest').DataTable();
+	var dataRow = table.row($(this).closest('tr')).data();
+	$("#idTimeSubTest").val(dataRow.id);
+	$("#timeSubTest").val(dataRow.time);
+	$("#nameSubTest").html(dataRow.sub_type);
+
+	$("#modalEditTimeSubTest").modal('show');
 });
