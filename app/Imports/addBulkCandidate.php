@@ -46,7 +46,6 @@ class addBulkCandidate implements ToCollection
             $header = $rows[0];
             unset($rows[0]);
             $rows = array_values($rows);
-            // dd($rows);
             try {
                 Validator::make($rows, [
                     '*.0' => ["required", "regex:/^[a-zA-Z.' ]*$/"], // first name
@@ -109,7 +108,7 @@ class addBulkCandidate implements ToCollection
                                     $candidate = Candidate::insertGetId([
                                         'first_name' => $rows[$i][0],
                                         'last_name' => $rows[$i][1],
-                                        'tanggal_lahir' => date('Y-m-d', strtotime($rows[$i][3])),
+                                        'tanggal_lahir' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($rows[$i][3])->format('Y-m-d'),
                                         'gender' => $gender,
                                         'telp' => $rows[$i][5],
                                         'kota' => $rows[$i][6],
